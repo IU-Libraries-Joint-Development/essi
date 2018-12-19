@@ -18,14 +18,31 @@ class HoldingLocationAttributeRenderer < Hyrax::Renderers::AttributeRenderer
 
     def location_string(loc)
       return unless loc
-      contact_string = safe_join(['Contact at ',
-                                  content_tag(:a,
-                                              loc.fetch('contact_email'),
-                                              href: "mailto:#{loc.fetch('contact_email')}"),
-                                  ', ',
-                                  content_tag(:a,
-                                              loc.fetch('phone_number'),
-                                              href: "tel:#{loc.fetch('phone_number')}")])
-      safe_join([loc.fetch('term'), loc.fetch('address'), contact_string], tag(:br))
+      safe_join([label_string(loc), address_string(loc), contact_string(loc)].select(&:present?), tag(:br))
+    end
+
+    def label_string(loc)
+      loc.dig(:label)
+    end
+
+    def address_string(loc)
+      address_lines = [loc.dig(:address), loc.dig(:address2)]
+      address_lines << safe_join([safe_join([loc.dig(:city),
+                                            loc.dig(:state)].select(&:present?),
+                                           ', '),
+                                  loc.dig(:zip)].select(&:present?),
+                                  ' ')
+      safe_join(address_lines.select(&:present?), tag(:br))
+    end
+
+    def contact_string(loc)
+      safe_join(['Contact at ',
+                 content_tag(:a,
+                             loc.dig(:email),
+                             href: "mailto:#{loc.dig(:email)}"),
+                 ', ',
+                 content_tag(:a,
+                             loc.dig(:phone),
+                             href: "tel:#{loc.dig(:phone)}")])
     end
 end

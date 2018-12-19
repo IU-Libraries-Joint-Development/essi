@@ -1,0 +1,222 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://iucat-feature-tadas.uits.iu.edu/api/library/all
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.12.2
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 31 Dec 2018 23:22:08 GMT
+      Server:
+      - Apache/2.2.15 (Red Hat)
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Vary:
+      - Accept-Encoding
+      Etag:
+      - W/"81023d70065fb7cc5c9fb88c0ef39964"
+      X-Frame-Options:
+      - ALLOWALL
+      X-Runtime:
+      - '0.084241'
+      X-Request-Id:
+      - c3244fac-8fab-4ac3-8593-856f48425858
+      X-Powered-By:
+      - Phusion Passenger 5.1.3
+      Set-Cookie:
+      - _Blacklight5_session=9bf0de2d9de18207d7e2d5afd41ec325; path=/; HttpOnly
+      Status:
+      - 200 OK
+      Access-Control-Allow-Origin:
+      - "*"
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"data":{"libraries":[{"id":41,"code":"B-AAAMC","label":"Bloomington
+        - Archives of African American Music \u0026 Culture","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:53:00.000Z"},{"id":5,"code":"B-ALF","label":"Bloomington
+        - Auxiliary Library Facility","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:53:31.000Z"},{"id":3,"code":"B-ARCHIVES","label":"Bloomington
+        - University Archives","address":"Wells Library E460","address2":"1320 E 10th
+        St.","city":"Bloomington","state":"IN","zip":"47405","phone":"8128551127","email":"archives@indiana.edu","url":"https://libraries.indiana.edu/archives","urlHours":"https://libraries.indiana.edu/archives/hours","latitude":"39.17098","longitude":"-86.516189","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:59:08.000Z"},{"id":14,"code":"B-ATM","label":"Bloomington-
+        Archives of Traditional Music","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:53:16.000Z"},{"id":2,"code":"B-BCC","label":"Bloomington
+        - Neal-Marshall Black Culture Center Library","address":"Neal-Marshall Center
+        A113","address2":"275 N Jordan Ave","city":"Bloomington","state":"IN","zip":"47405","phone":"(812)
+        855-9271","email":"bcclib@indiana.edu","url":"https://libraries.indiana.edu/NMBCC-Library","urlHours":"https://libraries.indiana.edu/NMBCC-Library/hours","latitude":"39.1682904","longitude":"-86.5168656","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:58:36.000Z"},{"id":6,"code":"B-BUSSPEA","label":"Bloomington
+        - Business/SPEA Information Commons","address":"1315 E. 10th Street","address2":"","city":"Bloomington","state":"IN","zip":"47405","phone":"812-855-1957","email":"libbus@indiana.edu","url":"https://libraries.indiana.edu/bsic","urlHours":"https://libraries.indiana.edu/bsic/hours","latitude":"39.17259","longitude":"-86.51771","notes":"\u003cp\u003eTesting
+        the cool \u003cb\u003enotes\u003c/b\u003e \u003cspan style=\"background-color:
+        rgb(255, 255, 0);\"\u003ethingy\u003c/span\u003e..\u003c/p\u003e","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:56:25.000Z"},{"id":50,"code":"B-CEDIR","label":"Bloomington
+        - Indiana Institute on Disability","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:57:13.000Z"},{"id":7,"code":"B-CHEM","label":"Bloomington
+        - Sciences Library","address":"","address2":"800 E. Kirkwood Avenue","city":"Bloomington","state":"IN","zip":"47405-7005","phone":"812-855-9452","email":"libsci@indiana.edu","url":"https://libraries.indiana.edu/sciences-library","urlHours":"https://libraries.indiana.edu/sciences-library/hours","latitude":"39.165949","longitude":"-86.522658","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:58:56.000Z"},{"id":9,"code":"B-EDUC","label":"Bloomington
+        - Education Library","address":"201 N. Rose Street","address2":"","city":"Bloomington","state":"IN","zip":"47405","phone":"812-856-8590","email":"libeduc@indiana.edu","url":"https://libraries.indiana.edu/education-library","urlHours":"https://libraries.indiana.edu/libeduc/hours","latitude":"39.167360","longitude":"-86.512497","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:56:40.000Z"},{"id":16,"code":"B-KINSEY","label":"Bloomington
+        - Kinsey Institute Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"\u003cp\u003eBy
+        Appointment Only\u003c/p\u003e","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:57:38.000Z"},{"id":17,"code":"B-LAW","label":"Bloomington
+        - Law Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:57:54.000Z"},{"id":18,"code":"B-LIFESCI","label":"Bloomington
+        - Life Sciences Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:58:05.000Z"},{"id":19,"code":"B-LILLY","label":"Bloomington
+        - Lilly Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:58:15.000Z"},{"id":20,"code":"B-MUSIC","label":"Bloomington
+        - Music Library","address":"200 S Jordan Ave","address2":"","city":"Bloomington","state":"IN","zip":"47401","phone":"(812)
+        855-2970","email":"libmus@ indiana.edu","url":"https://libraries.indiana.edu/music","urlHours":"","latitude":"39.1488401","longitude":"-86.5308672","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:58:26.000Z"},{"id":21,"code":"B-OPTOMTRY","label":"Bloomington
+        - Optometry Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:58:46.000Z"},{"id":1,"code":"B-WELLS","label":"Bloomington
+        - Herman B Wells Library","address":"1320 E 10th St.","address2":"","city":"Bloomington","state":"IN","zip":"47405","phone":"(812)
+        855-0100","email":"libref@indiana.edu","url":"https://libraries.indiana.edu/wells","urlHours":"https://libraries.indiana.edu/wells/hours","latitude":"39.17098","longitude":"-86.51689","notes":"\u003ch2\u003eMy
+        \u003cspan style=\"background-color: rgb(255, 255, 0);\"\u003elibrary\u003c/span\u003e
+        \u003cb\u003enotes\u003c/b\u003e...\u0026nbsp; \u003c/h2\u003e\u003col\u003e\u003cli\u003e\u003ca
+        href=\"https://libraries.indiana.edu/\" target=\"_blank\"\u003eIU Libraries\u003c/a\u003e\u0026nbsp;website\u003c/li\u003e\u003cli\u003e\u003cbr\u003e\u003c/li\u003e\u003c/ol\u003e","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:56:58.000Z"},{"id":24,"code":"BH-APTLIB","label":"Bloomington
+        Res Halls - Campus View Apartments Lib \u0026 Res Ctr","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:01:08.000Z"},{"id":25,"code":"BH-BRISCOE","label":"Bloomington
+        Res Halls - Briscoe Movies Music \u0026 More","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:59:58.000Z"},{"id":26,"code":"BH-COLLINS","label":"Bloomington
+        Res Halls - Collins Comm Lib \u0026 Res Ctr","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:01:17.000Z"},{"id":28,"code":"BH-EIGENMN","label":"Bloomington
+        Res Halls - Eigenmann Comm Lib \u0026 Res Ctr","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:01:28.000Z"},{"id":29,"code":"BH-FOREST","label":"Bloomington
+        Res Halls - Forest Movies Music \u0026 More","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:01:40.000Z"},{"id":30,"code":"BH-FOSTER","label":"Bloomington
+        Res Halls - Foster Comm Lib \u0026 Res Ctr","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:01:53.000Z"},{"id":31,"code":"BH-MCNUTT","label":"Bloomington
+        Res Halls - McNutt Comm Lib \u0026 Res Ctr","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:02:03.000Z"},{"id":32,"code":"BH-READ","label":"Bloomington
+        Res Halls - Read Movies Music \u0026 More","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:02:12.000Z"},{"id":27,"code":"BH-ROSE","label":"Bloomington
+        Res Halls - Spruce Movies Music \u0026 More","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:02:22.000Z"},{"id":33,"code":"BH-TETER","label":"Bloomington
+        Res Halls - Teter Comm Lib \u0026 Res Ctr","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:02:32.000Z"},{"id":15,"code":"BH-UNIONST","label":"Bloomington
+        Res Halls - Union Street Movies Music \u0026 More","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:02:43.000Z"},{"id":34,"code":"BH-WILLKIE","label":"Bloomington
+        Res Halls - Willkie Comm Lib \u0026 Res Ctr","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:03:01.000Z"},{"id":22,"code":"BH-WQUAD","label":"Bloomington
+        Res Halls - Wells Quad Movies Music \u0026 More","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:02:52.000Z"},{"id":35,"code":"BH-WRIGHT","label":"Bloomington
+        Res Halls - Wright Movies Music \u0026 More","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:03:09.000Z"},{"id":36,"code":"COLUMBUS","label":"Columbus
+        - University Library of Columbus","address":"","address2":null,"city":null,"state":null,"zip":null,"phone":"","email":"","url":null,"urlHours":null,"latitude":"","longitude":null,"notes":null,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-11T21:47:17.000Z"},{"id":45,"code":"EAST","label":"East
+        Library - Richmond","address":"","address2":null,"city":null,"state":null,"zip":null,"phone":"","email":"","url":null,"urlHours":null,"latitude":"","longitude":null,"notes":null,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-11T21:47:17.000Z"},{"id":37,"code":"FORTWAYNE","label":"Fort
+        Wayne Helmke Library","address":"","address2":null,"city":null,"state":null,"zip":null,"phone":"","email":"","url":null,"urlHours":null,"latitude":"","longitude":null,"notes":null,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-11T21:47:17.000Z"},{"id":39,"code":"I-ART","label":"Indianapolis
+        - Herron Art Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:04:01.000Z"},{"id":38,"code":"I-DENTSTRY","label":"Indianapolis
+        - Dentistry Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:03:49.000Z"},{"id":40,"code":"I-LAW","label":"Indianapolis
+        - Ruth Lilly Law Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:04:21.000Z"},{"id":49,"code":"I-MEDICINE","label":"Indianapolis
+        - Ruth Lilly Medical Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:04:30.000Z"},{"id":42,"code":"I-UNIVLIB","label":"Indianapolis
+        - IUPUI University Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","notes":"","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:04:12.000Z"},{"id":43,"code":"KOKOMO","label":"Kokomo
+        Library","address":"2500 S. Washington Street","address2":"","city":"Kokomo","state":"IN","zip":"46902","phone":"(765)
+        455-9513","email":"iuklib@iuk.edu","url":"","urlHours":"","latitude":"39.1335604","longitude":"-86.5090041","notes":null,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-11T21:47:17.000Z"},{"id":44,"code":"NORTHWEST","label":"Northwest
+        Library (Gary)","address":"","address2":null,"city":null,"state":null,"zip":null,"phone":"","email":"","url":null,"urlHours":null,"latitude":"","longitude":null,"notes":null,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-11T21:47:17.000Z"},{"id":46,"code":"SBEND","label":"South
+        Bend - Schurz Library","address":"","address2":null,"city":null,"state":null,"zip":null,"phone":"","email":"","url":null,"urlHours":null,"latitude":"","longitude":null,"notes":null,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-11T21:47:17.000Z"},{"id":47,"code":"SBENDLRC","label":"South
+        Bend - Educational Resource Commons","address":"","address2":null,"city":null,"state":null,"zip":null,"phone":"","email":"","url":null,"urlHours":null,"latitude":"","longitude":null,"notes":null,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-11T21:47:17.000Z"},{"id":48,"code":"SOUTHEAST","label":"Southeast
+        Library - New Albany","address":"","address2":null,"city":null,"state":null,"zip":null,"phone":"","email":"","url":null,"urlHours":null,"latitude":"","longitude":null,"notes":null,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-11T21:47:17.000Z"}]}}'
+    http_version: 
+  recorded_at: Mon, 31 Dec 2018 23:22:08 GMT
+- request:
+    method: get
+    uri: http://iucat-feature-tadas.uits.iu.edu/api/library/B-WELLS
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.12.2
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 31 Dec 2018 23:22:09 GMT
+      Server:
+      - Apache/2.2.15 (Red Hat)
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Vary:
+      - Accept-Encoding
+      Etag:
+      - W/"229d8c3993bba26533aaeb5df99e947a"
+      X-Frame-Options:
+      - ALLOWALL
+      X-Runtime:
+      - '0.070816'
+      X-Request-Id:
+      - 6e315a96-2ba6-41bf-97ca-3af125ca682d
+      X-Powered-By:
+      - Phusion Passenger 5.1.3
+      Set-Cookie:
+      - _Blacklight5_session=8467068c484d04877f4e965b863352b8; path=/; HttpOnly
+      Status:
+      - 200 OK
+      Access-Control-Allow-Origin:
+      - "*"
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"data":{"library":{"id":1,"code":"B-WELLS","label":"Bloomington
+        - Herman B Wells Library","address":"1320 E 10th St.","address2":"","city":"Bloomington","state":"IN","zip":"47405","phone":"(812)
+        855-0100","email":"libref@indiana.edu","url":"https://libraries.indiana.edu/wells","urlHours":"https://libraries.indiana.edu/wells/hours","latitude":"39.17098","longitude":"-86.51689","notes":"\u003ch2\u003eMy
+        \u003cspan style=\"background-color: rgb(255, 255, 0);\"\u003elibrary\u003c/span\u003e
+        \u003cb\u003enotes\u003c/b\u003e...\u0026nbsp; \u003c/h2\u003e\u003col\u003e\u003cli\u003e\u003ca
+        href=\"https://libraries.indiana.edu/\" target=\"_blank\"\u003eIU Libraries\u003c/a\u003e\u0026nbsp;website\u003c/li\u003e\u003cli\u003e\u003cbr\u003e\u003c/li\u003e\u003c/ol\u003e","created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:56:58.000Z"},"hours":null,"today":{"dow":"monday","month":"12","day":"31","year":"2018"},"exceptions":[],"floors":[]}}'
+    http_version: 
+  recorded_at: Mon, 31 Dec 2018 23:22:09 GMT
+- request:
+    method: get
+    uri: http://iucat-feature-tadas.uits.iu.edu/api/library/foobar
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.12.2
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 31 Dec 2018 23:22:09 GMT
+      Server:
+      - Apache/2.2.15 (Red Hat)
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Vary:
+      - Accept-Encoding
+      Etag:
+      - W/"2e1c72a6f2dcecaaf4cfacd0a8d8a863"
+      X-Frame-Options:
+      - ALLOWALL
+      X-Runtime:
+      - '0.079935'
+      X-Request-Id:
+      - 9491b68b-e1d8-4a71-a625-12c0e512539a
+      X-Powered-By:
+      - Phusion Passenger 5.1.3
+      Set-Cookie:
+      - _Blacklight5_session=adb8f43c1fd2f3107c59750d00e606e4; path=/; HttpOnly
+      Status:
+      - 200 OK
+      Access-Control-Allow-Origin:
+      - "*"
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":false,"data":"invalid id"}'
+    http_version: 
+  recorded_at: Mon, 31 Dec 2018 23:22:09 GMT
+recorded_with: VCR 4.0.0

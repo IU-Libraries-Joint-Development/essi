@@ -18,6 +18,8 @@ default: &default
     secret_key_base: 628b30efcdf28acbbd30a80e53e2b743d44f74bf393462badc49e0f5909ed109812ff12905e3a98bf4f81d3618fac5c061ad4e1ca5c91f9c1dce8226ca3cff25
   derivatives:
     path: <%= Rails.root.join("tmp/derivatives") %>
+  iucat_libraries:
+    url: http://iucat-feature-tadas.uits.iu.edu/api/library
   ldap:
     enabled: false
     host: ads.iu.edu

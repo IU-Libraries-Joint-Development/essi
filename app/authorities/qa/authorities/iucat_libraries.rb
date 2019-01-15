@@ -15,15 +15,13 @@ module Qa::Authorities
     end
 
     private
-      def api_url
-        { development: 'http://iucat-feature-tadas.uits.iu.edu/api/library',
-          test: 'http://iucat-feature-tadas.uits.iu.edu/api/library',
-          production: 'http://iucat.iu.edu/api/library' }.with_indifferent_access[Rails.env]
+      def api_url(id)
+        [ESSI.config[:iucat_libraries][:url], id].join('/')
       end
 
       def data_for(id)
         begin 
-          result = json([api_url, id].join('/')).with_indifferent_access
+          result = json(api_url(id)).with_indifferent_access
           result[:success] ? result[:data] : {}
         rescue TypeError, JSON::ParserError, Faraday::ConnectionFailed
           {}

@@ -233,4 +233,7 @@
 /*ESSI specify*/
 html {font-size : 16px;}   /*override root element font-size, so rem can get the right size*/
 #footer {color: #777777;}
-#footer {margin-top: 3em; margin-bottom: 1em;}
+#footer {margin-top: 8em; margin-bottom: 1em;}
+
+.application-margin {margin-top: 4em}
+

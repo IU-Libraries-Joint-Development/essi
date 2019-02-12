@@ -17,7 +17,7 @@ module ESSI
 
     def remote_attributes
       @remote_attributes ||= begin
-         remote_attributes = remote_data.attributes
+         remote_attributes = remote_data.raw_attributes
          remote_attributes['source_metadata'] = remote_data.source.dup.try(:force_encoding, 'utf-8') if remote_data.source
          remote_attributes
       end

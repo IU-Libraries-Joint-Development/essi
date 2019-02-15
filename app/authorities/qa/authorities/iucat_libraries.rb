@@ -20,7 +20,8 @@ module Qa::Authorities
       end
 
       def data_for(id)
-        begin 
+        return {} unless ESSI.config[:iucat_libraries]
+        begin
           result = json(api_url(id)).with_indifferent_access
           result[:success] ? result[:data] : {}
         rescue TypeError, JSON::ParserError, Faraday::ConnectionFailed

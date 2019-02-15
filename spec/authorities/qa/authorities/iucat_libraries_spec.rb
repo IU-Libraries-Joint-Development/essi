@@ -5,6 +5,17 @@ RSpec.describe Qa::Authorities::IucatLibraries do
   let(:matching_id) { 'B-WELLS' }
   let(:nonmatching_id) { 'foobar' }
 
+  context 'when configuration does not exist' do
+    describe '#all' do
+      let(:result) { authority.all }
+      it 'returns an empty Array' do
+        allow(ESSI.config).to receive(:[]).with(:iucat_libraries).and_return(nil)
+        expect(result).to be_a Array
+        expect(result).to be_empty
+      end
+    end
+  end
+
   context 'with server response', vcr: { cassette_name: 'iucat_libraries_up', record: :new_episodes } do
     describe '#all' do
       let(:result) { authority.all }

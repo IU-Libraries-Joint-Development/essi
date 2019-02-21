@@ -22,7 +22,7 @@
                     ]
                 }, {
                     "name": "request_changes",
-                    "from_states": [{"names": ["deposited", "pending_review"], "roles": ["approving"]}],
+                    "from_states": [{"names": ["deposited", "pending_review", "flagged_for_review"], "roles": ["approving"]}],
                     "transition_to": "changes_required",
                     "notifications": [
                         {
@@ -65,8 +65,19 @@
                 }, {
                     "name": "comment_only",
                     "from_states": [
-                        { "names": ["pending_review", "deposited"], "roles": ["approving"] },
+                        { "names": ["pending_review", "deposited", "flagged_for_review"], "roles": ["approving"] },
                         { "names": ["changes_required"], "roles": ["depositing"] }
+                    ]
+                }, {
+                    "name": "flag_for_review",
+                    "from_states": [{"names": ["deposited"], "roles": ["readers"]}],
+                    "transition_to": "flagged_for_review",
+                    "notifications": [
+                        {
+                            "notification_type": "email",
+                            "name": "Hyrax::Workflow::ChangesRequiredNotification",
+                            "to": ["approving"]
+                        }
                     ]
                 }
             ]

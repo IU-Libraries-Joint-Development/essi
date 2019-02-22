@@ -75,7 +75,7 @@
                     "notifications": [
                         {
                             "notification_type": "email",
-                            "name": "Hyrax::Workflow::ChangesRequiredNotification",
+                            "name": "Hyrax::Workflow::FlaggedForReviewNotification",
                             "to": ["approving"]
                         }
                     ]

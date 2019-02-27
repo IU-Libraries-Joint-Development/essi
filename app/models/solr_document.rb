@@ -26,9 +26,16 @@ class SolrDocument
 
   use_extension( Hydra::ContentNegotiation )
 
-  def holding_location
-    self[Solrizer.solr_name('holding_location')]
-  end
+  attribute :num_pages, Solr::String, solr_name('num_pages')
+  attribute :holding_location, Solr::String, solr_name('holding_location')
+  attribute :viewing_hint, Solr::String, solr_name('viewing_direction')
+  attribute :viewing_direction, Solr::String, solr_name('viewing_direction')
+
+
+  # def holding_location
+  #   self[Solrizer.solr_name('holding_location')]
+  # end
+
 
   def series
     self[Solrizer.solr_name('series')]

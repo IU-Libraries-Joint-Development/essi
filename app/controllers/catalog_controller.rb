@@ -41,17 +41,25 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field solr_name("human_readable_type", :facetable), label: "Type", limit: 5
-    config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: 5
-    config.add_facet_field solr_name("creator", :facetable), limit: 5
-    config.add_facet_field solr_name("contributor", :facetable), label: "Contributor", limit: 5
-    config.add_facet_field solr_name("keyword", :facetable), limit: 5
-    config.add_facet_field solr_name("subject", :facetable), limit: 5
-    config.add_facet_field solr_name("language", :facetable), limit: 5
-    config.add_facet_field solr_name("based_near_label", :facetable), limit: 5
-    config.add_facet_field solr_name("publisher", :facetable), limit: 5
-    config.add_facet_field solr_name("file_format", :facetable), limit: 5
-    config.add_facet_field solr_name('member_of_collection_ids', :symbol), limit: 5, label: 'Collections', helper_method: :collection_title_by_id
+    config.add_facet_field solr_name("human_readable_type", :facetable), label: "Type", limit: true
+    config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: true
+    config.add_facet_field solr_name("creator", :facetable), limit: true
+    config.add_facet_field solr_name("contributor", :facetable), label: "Contributor", limit: true
+    config.add_facet_field solr_name("keyword", :facetable), limit: true
+    config.add_facet_field solr_name("subject", :facetable), limit: true
+    config.add_facet_field solr_name("language", :facetable), limit: true
+    config.add_facet_field solr_name("based_near_label", :facetable), limit: true
+    config.add_facet_field solr_name('publication_place', :facetable),
+                           label: 'Publication Place', limit: true
+    config.add_facet_field solr_name("publisher", :facetable), limit: true
+    config.add_facet_field solr_name("file_format", :facetable), limit: true
+    config.add_facet_field solr_name('date_created', :facetable),
+                           label: 'Date Created', limit: true
+    config.add_facet_field solr_name('num_pages', :facetable, type: :integer),
+                           sort: 'index', label: 'Pages', limit: true
+    config.add_facet_field solr_name('member_of_collection_ids', :symbol),
+                           limit: true, label: 'Collections', helper_method: :collection_title_by_id
+    config.add_facet_field 'workflow_state_name_ssim', label: 'State'
 
     # The generic_type isn't displayed on the facet list
     # It's used to give a label to the filter that comes from the user profile
@@ -73,6 +81,7 @@ class CatalogController < ApplicationController
     config.add_index_field solr_name("contributor", :stored_searchable), itemprop: 'contributor', link_to_search: solr_name("contributor", :facetable)
     config.add_index_field solr_name("proxy_depositor", :symbol), label: "Depositor", helper_method: :link_to_profile
     config.add_index_field solr_name("depositor"), label: "Owner", helper_method: :link_to_profile
+    config.add_index_field solr_name("publication_place", :stored_searchable), itemprop: 'publication_place', link_to_search: solr_name("publication_place", :stored_searchable)
     config.add_index_field solr_name("publisher", :stored_searchable), itemprop: 'publisher', link_to_search: solr_name("publisher", :facetable)
     config.add_index_field solr_name("based_near_label", :stored_searchable), itemprop: 'contentLocation', link_to_search: solr_name("based_near_label", :facetable)
     config.add_index_field solr_name("language", :stored_searchable), itemprop: 'inLanguage', link_to_search: solr_name("language", :facetable)
@@ -86,6 +95,8 @@ class CatalogController < ApplicationController
     config.add_index_field solr_name("identifier", :stored_searchable), helper_method: :index_field_link, field_name: 'identifier'
     config.add_index_field solr_name("embargo_release_date", :stored_sortable, type: :date), label: "Embargo release date", helper_method: :human_readable_date
     config.add_index_field solr_name("lease_expiration_date", :stored_sortable, type: :date), label: "Lease expiration date", helper_method: :human_readable_date
+    config.add_index_field solr_name('num_pages', :facetable, type: :integer), label: 'Pages'
+    config.add_index_field 'workflow_state_name_ssim', label: 'State'
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -95,6 +106,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("subject", :stored_searchable)
     config.add_show_field solr_name("creator", :stored_searchable)
     config.add_show_field solr_name("contributor", :stored_searchable)
+    config.add_show_field solr_name("publication_place", :stored_searchable)
     config.add_show_field solr_name("publisher", :stored_searchable)
     config.add_show_field solr_name("based_near_label", :stored_searchable)
     config.add_show_field solr_name("language", :stored_searchable)
@@ -106,6 +118,8 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("resource_type", :stored_searchable), label: "Resource Type"
     config.add_show_field solr_name("format", :stored_searchable)
     config.add_show_field solr_name("identifier", :stored_searchable)
+    config.add_show_field solr_name('num_pages', :facetable, type: :integer)
+    config.add_show_field 'workflow_state_name_ssim', label: 'State'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -279,11 +293,27 @@ class CatalogController < ApplicationController
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
     # label is key, solr field is value
-    config.add_sort_field "score desc, #{uploaded_field} desc", label: "relevance"
-    config.add_sort_field "#{uploaded_field} desc", label: "date uploaded \u25BC"
-    config.add_sort_field "#{uploaded_field} asc", label: "date uploaded \u25B2"
-    config.add_sort_field "#{modified_field} desc", label: "date modified \u25BC"
-    config.add_sort_field "#{modified_field} asc", label: "date modified \u25B2"
+    config.add_sort_field "score desc, #{uploaded_field} desc",
+                          label: "relevance \u25BC"
+    config.add_sort_field "#{modified_field} desc", label: "recently updated"
+    config.add_sort_field \
+      "#{solr_name('sort_title', :stored_sortable, type: :string)} asc",
+      label: "title \u25B2"
+    config.add_sort_field \
+      "#{solr_name('sort_title', :stored_sortable, type: :string)} desc",
+      label: "title \u25BC"
+    config.add_sort_field \
+      "#{solr_name('date_created', :stored_sortable, type: :integer)} asc",
+      label: "date created \u25B2"
+    config.add_sort_field \
+      "#{solr_name('date_created', :stored_sortable, type: :integer)} desc",
+      label: "date created \u25BC"
+    config.add_sort_field \
+      "#{solr_name('number_of_pages', :stored_sortable, type: :integer)} asc",
+      label: "pages \u25B2"
+    config.add_sort_field \
+      "#{solr_name('number_of_pages', :stored_sortable, type: :integer)} desc",
+      label: "pages \u25BC"
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.

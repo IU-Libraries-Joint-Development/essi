@@ -2,7 +2,8 @@
 #  `rails generate hyrax:work PagedResource`
 module Hyrax
   class PagedResourcePresenter < Hyrax::WorkShowPresenter
-    delegate :series, to: :solr_document
+    delegate :num_pages, :series, :viewing_direction, :viewing_hint,
+             to: :solr_document
 
     def holding_location
       HoldingLocationAttributeRenderer.new(solr_document.holding_location).render_dl_row

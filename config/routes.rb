@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  concern :iiif_search, BlacklightIiifSearch::Routes.new
         mount BrowseEverything::Engine => '/browse'
 
   mount Riiif::Engine => 'images', as: :riiif if Hyrax.config.iiif_image_server?
@@ -39,6 +41,7 @@ Rails.application.routes.draw do
 
   resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
     concerns :exportable
+    concerns :iiif_search
   end
 
   resources :bookmarks do

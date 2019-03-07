@@ -122,6 +122,10 @@ GEM
       bootstrap-sass (~> 3.0)
       openseadragon (>= 0.2.0)
       rails
+    blacklight_iiif_search (0.0.2.pre.alpha)
+      blacklight (~> 6.0)
+      iiif-presentation
+      rails (>= 4.2, < 6)
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
@@ -396,6 +400,10 @@ GEM
     ice_nine (0.11.2)
     iiif-image-api (0.1.0)
       activesupport (<= 6)
+    iiif-presentation (0.2.0)
+      activesupport (>= 3.2.18)
+      faraday (>= 0.9)
+      json
     iiif_manifest (0.5.0)
       activesupport (>= 4)
     io-like (0.3.0)
@@ -844,6 +852,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bixby
+  blacklight_iiif_search
   byebug
   capybara (~> 2.13)
   chromedriver-helper

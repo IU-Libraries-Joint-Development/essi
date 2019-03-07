@@ -399,6 +399,7 @@ GEM
     iiif_manifest (0.5.0)
       activesupport (>= 4)
     io-like (0.3.0)
+    iso-639 (0.2.8)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -860,6 +861,7 @@ DEPENDENCIES
   fcrepo_wrapper
   hydra-role-management
   hyrax
+  iso-639
   jbuilder (~> 2.5)
   jquery-rails
   ldap_groups_lookup (~> 0.6.0)

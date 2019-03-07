@@ -4,7 +4,6 @@ docker.secrets
 .dockerignore
 tmp/*
 log/*
-db/development.sqlite3
 db/test.sqlite3
 coverage
 spec/tmp

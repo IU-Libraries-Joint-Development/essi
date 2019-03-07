@@ -5,7 +5,9 @@ FROM ruby:2.5 AS essi-sys-deps
 RUN bundle config --global frozen 1
 
 RUN apt-get update -qq && \
-    apt-get install -y build-essential default-jre-headless libpq-dev nodejs libreoffice-writer libreoffice-impress imagemagick unzip ghostscript && \
+    apt-get install -y build-essential default-jre-headless libpq-dev nodejs \
+      libreoffice-writer libreoffice-impress imagemagick unzip ghostscript \
+      tesseract-ocr && \
     rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /opt/fits && \
     curl -fSL -o /opt/fits/fits-1.3.0.zip http://projects.iq.harvard.edu/files/fits/files/fits-1.3.0.zip && \

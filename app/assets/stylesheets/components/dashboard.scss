@@ -6,11 +6,18 @@
   .structure {
     float: inherit;
 
-    .panel-heading,
     .panel-footer,
     .panel-body,
     .list-group-item {
       float: inherit;
     }
   }
+  .panel-heading {
+     color: #333333;
+     background-color: #f5f5f5;
+     border-color: #ddd;
+
+     float:none !important;
+  }
+
 }

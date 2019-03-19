@@ -18,8 +18,12 @@ FactoryBot.define do
 
     factory :paged_resource_with_one_image do
       after(:build) do |work, evaluator|
-        work.ordered_members << create(:file_set, user: evaluator.user, content: File.open(RSpec.configuration.fixture_path + '/world.png'),
+        work.ordered_members << file_set = FactoryBot.create(:file_set, user: evaluator.user, content: File.open(RSpec.configuration.fixture_path + '/world.png'),
                                        title: ['A Contained FileSet'], label: 'world.png')
+        work.representative = file_set if work.representative_id.blank?
+        work.thumbnail = file_set if work.thumbnail_id.blank?
+        work.save
+
       end
     end
   end

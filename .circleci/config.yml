@@ -19,7 +19,7 @@ jobs:
   build:
     docker:
     # legacy needed for phantomjs
-    - image: circleci/ruby:2.5.1-node-browsers-legacy
+    - image: circleci/ruby:2.5-node-browsers-legacy
     - image: circleci/redis:4
     - image: ualbertalib/docker-fcrepo4:4.7
       environment:
@@ -56,6 +56,14 @@ jobs:
         name: Extra environment setup
         command: |
           echo 'unset BUNDLE_PATH' >> $BASH_ENV
+
+    - run:
+          name: Install Chrome
+          command: |
+            wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+            sudo apt-get update
+            sudo apt-get -y install google-chrome-stable
 
     # Download and cache dependencies
     - restore_cache:

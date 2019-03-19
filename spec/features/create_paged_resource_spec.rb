@@ -2,15 +2,13 @@
 #  `rails generate hyrax:work PagedResource`
 require 'rails_helper'
 include Warden::Test::Helpers
+include ActiveJob::TestHelper
 
 # NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.feature 'Create a PagedResource', js: false do
-  context 'a logged in user' do
-    let(:user_attributes) do
-      { email: 'test@example.com' }
-    end
+RSpec.feature 'Create a PagedResource', js: true do
+  context 'a logged in user', clean: true do
     let(:user) do
-      User.new(user_attributes) { |u| u.save(validate: false) }
+      FactoryBot.create :user
     end
     let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
     let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
@@ -30,27 +28,35 @@ RSpec.feature 'Create a PagedResource', js: false do
       login_as user
     end
 
-    xscenario do
+    scenario do
       visit '/dashboard'
       click_link "Works"
       click_link "Add new work"
 
       # If you generate more than one work uncomment these lines
-      # choose "payload_concern", option: "PagedResource"
-      # click_button "Create work"
+      choose "payload_concern", option: "PagedResource"
+      VCR.use_cassette('holding_locations') do
+        click_button "Create work"
+      end
 
-      expect(page).to have_content "Add New Paged resource"
+      expect(page).to have_content "Add New Paged Resource"
       click_link "Files" # switch tab
       expect(page).to have_content "Add files"
       expect(page).to have_content "Add folder"
       within('span#addfiles') do
-        attach_file("files[]", "#{Hyrax::Engine.root}/spec/fixtures/image.jp2", visible: false)
-        attach_file("files[]", "#{Hyrax::Engine.root}/spec/fixtures/jp2_fits.xml", visible: false)
+        attach_file(RSpec.configuration.fixture_path + "/world.png", make_visible: true)
+        attach_file(RSpec.configuration.fixture_path + "/rgb.png", make_visible: true)
       end
       click_link "Descriptions" # switch tab
       fill_in('Title', with: 'My Test Work')
       fill_in('Creator', with: 'Doe, Jane')
+      fill_in('Source metadata ID', with: ' ') # Workaround until the form is fixed for blank field
+      click_link 'Additional fields'
       fill_in('Keyword', with: 'testing')
+      fill_in('Publication place', with: 'Wells')
+      fill_in('Date Created', with: '2001')
+      fill_in('Publisher', with: 'Rspec')
+
       select('In Copyright', from: 'Rights statement')
 
       # With selenium and the chrome driver, focus remains on the
@@ -61,9 +67,28 @@ RSpec.feature 'Create a PagedResource', js: false do
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
       check('agreement')
 
-      click_on('Save')
+      perform_enqueued_jobs do
+        click_on('Save')
+      end
+
       expect(page).to have_content('My Test Work')
       expect(page).to have_content "Your files are being processed by Hyrax in the background."
+      expect(find('li.attribute-creator')).to have_content('Doe, Jane')
+      expect(find('table.related-files')).to have_content('rgb.png')
+
+      click_on('Go')
+      within '#facets' do
+        click_on('Pages')
+        expect(page).to have_content('Pages 2')
+        click_on('Publisher')
+        expect(page).to have_content('Rspec')
+        click_on('Publication Place')
+        expect(page).to have_content('Wells')
+        click_on('State')
+        expect(page).to have_content('deposited')
+        click_on('Date Created')
+        expect(page).to have_content('2001')
+      end
     end
   end
 end

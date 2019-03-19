@@ -1,0 +1,118 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://iucat-feature-tadas.uits.iu.edu/api/library/all
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.12.2
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 18 Mar 2019 20:33:29 GMT
+      Server:
+      - Apache/2.2.15 (Red Hat)
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Vary:
+      - Accept-Encoding
+      Etag:
+      - W/"bfc496f824650d177621ca491accfbf4"
+      X-Frame-Options:
+      - ALLOWALL
+      X-Runtime:
+      - '0.100066'
+      X-Request-Id:
+      - 18927fc5-e7f8-464f-ad28-99c242e35369
+      X-Powered-By:
+      - Phusion Passenger 5.1.3
+      Set-Cookie:
+      - _Blacklight5_session=63a1ca82bdb1d6471fc68eea93b1d609; path=/; HttpOnly
+      Status:
+      - 200 OK
+      Access-Control-Allow-Origin:
+      - "*"
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"data":{"libraries":[{"id":41,"code":"B-AAAMC","label":"Bloomington
+        - Archives of African American Music \u0026 Culture","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:53:00.000Z"},{"id":5,"code":"B-ALF","label":"Bloomington
+        - Auxiliary Library Facility","address":"851 N. Range Road","address2":"","city":"Bloomington","state":"IN","zip":"47408","phone":"812-856-0832","email":"libalf@iu.edu","url":"","urlHours":"","latitude":"39.1751","longitude":"-86.4975","parking":null,"notes":"","no_display":true,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2019-01-17T16:51:47.000Z"},{"id":3,"code":"B-ARCHIVES","label":"Bloomington
+        - University Archives","address":"Wells Library E460","address2":"1320 E 10th
+        St.","city":"Bloomington","state":"IN","zip":"47405","phone":"8128551127","email":"archives@indiana.edu","url":"https://libraries.indiana.edu/archives","urlHours":"https://libraries.indiana.edu/archives/hours","latitude":"39.17098","longitude":"-86.516189","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:59:08.000Z"},{"id":14,"code":"B-ATM","label":"Bloomington-
+        Archives of Traditional Music","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:53:16.000Z"},{"id":2,"code":"B-BCC","label":"Bloomington
+        - Neal-Marshall Black Culture Center Library","address":"Neal-Marshall Center
+        A113","address2":"275 N Jordan Ave","city":"Bloomington","state":"IN","zip":"47405","phone":"(812)
+        855-9271","email":"bcclib@indiana.edu","url":"https://libraries.indiana.edu/NMBCC-Library","urlHours":"https://libraries.indiana.edu/NMBCC-Library/hours","latitude":"39.1682904","longitude":"-86.5168656","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:58:36.000Z"},{"id":6,"code":"B-BUSSPEA","label":"Bloomington
+        - Business/SPEA Information Commons","address":"1315 E. 10th Street","address2":"","city":"Bloomington","state":"IN","zip":"47405","phone":"812-855-1957","email":"libbus@indiana.edu","url":"https://libraries.indiana.edu/bsic","urlHours":"https://libraries.indiana.edu/bsic/hours","latitude":"39.17259","longitude":"-86.51771","parking":null,"notes":"\u003cp\u003eTesting
+        the cool \u003cb\u003enotes\u003c/b\u003e \u003cspan style=\"background-color:
+        rgb(255, 255, 0);\"\u003ethingy\u003c/span\u003e..\u003c/p\u003e","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:56:25.000Z"},{"id":50,"code":"B-CEDIR","label":"Bloomington
+        - Indiana Institute on Disability","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:57:13.000Z"},{"id":7,"code":"B-CHEM","label":"Bloomington
+        - Sciences Library","address":"","address2":"800 E. Kirkwood Avenue","city":"Bloomington","state":"IN","zip":"47405-7005","phone":"812-855-9452","email":"libsci@indiana.edu","url":"https://libraries.indiana.edu/sciences-library","urlHours":"https://libraries.indiana.edu/sciences-library/hours","latitude":"39.165949","longitude":"-86.522658","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:58:56.000Z"},{"id":9,"code":"B-EDUC","label":"Bloomington
+        - Education Library","address":"201 N. Rose Street","address2":"","city":"Bloomington","state":"IN","zip":"47405","phone":"812-856-8590","email":"libeduc@indiana.edu","url":"https://libraries.indiana.edu/education-library","urlHours":"https://libraries.indiana.edu/libeduc/hours","latitude":"39.167360","longitude":"-86.512497","parking":"","notes":"","no_display":null,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2019-03-04T19:09:24.000Z"},{"id":16,"code":"B-KINSEY","label":"Bloomington
+        - Kinsey Institute Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"\u003cp\u003eBy
+        Appointment Only\u003c/p\u003e","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:57:38.000Z"},{"id":17,"code":"B-LAW","label":"Bloomington
+        - Law Library","address":"211 S Indiana Ave","address2":"","city":"Bloomington","state":"IN","zip":"47405","phone":"(812)
+        855-9666","email":"","url":"http://www.law.indiana.edu/","urlHours":"","latitude":"39.148693","longitude":"-86.5327101","parking":null,"notes":"","no_display":null,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2019-01-14T20:11:56.000Z"},{"id":18,"code":"B-LIFESCI","label":"Bloomington
+        - Life Sciences Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:58:05.000Z"},{"id":19,"code":"B-LILLY","label":"Bloomington
+        - Lilly Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:58:15.000Z"},{"id":20,"code":"B-MUSIC","label":"Bloomington
+        - Music Library","address":"200 S Jordan Ave","address2":"","city":"Bloomington","state":"IN","zip":"47401","phone":"(812)
+        855-2970","email":"libmus@ indiana.edu","url":"https://libraries.indiana.edu/music","urlHours":"","latitude":"39.1488401","longitude":"-86.5308672","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:58:26.000Z"},{"id":21,"code":"B-OPTOMTRY","label":"Bloomington
+        - Optometry Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:58:46.000Z"},{"id":1,"code":"B-WELLS","label":"Bloomington
+        - Herman B Wells Library","address":"1320 E 10th St.","address2":"","city":"Bloomington","state":"IN","zip":"47405","phone":"(812)
+        855-0100","email":"libref@indiana.edu","url":"https://libraries.indiana.edu/wells","urlHours":"https://libraries.indiana.edu/wells/hours","latitude":"39.17098","longitude":"-86.51689","parking":null,"notes":"\u003ch2\u003eMy
+        \u003cspan style=\"background-color: rgb(255, 255, 0);\"\u003elibrary\u003c/span\u003e
+        \u003cb\u003enotes\u003c/b\u003e...\u0026nbsp; \u003c/h2\u003e\u003col\u003e\u003cli\u003e\u003ca
+        href=\"https://libraries.indiana.edu/\" target=\"_blank\"\u003eIU Libraries\u003c/a\u003e\u0026nbsp;website\u003c/li\u003e\u003cli\u003e\u003cbr\u003e\u003c/li\u003e\u003c/ol\u003e","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:56:58.000Z"},{"id":24,"code":"BH-APTLIB","label":"Bloomington
+        Res Halls - Campus View Apartments Lib \u0026 Res Ctr","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:01:08.000Z"},{"id":25,"code":"BH-BRISCOE","label":"Bloomington
+        Res Halls - Briscoe Movies Music \u0026 More","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T15:59:58.000Z"},{"id":26,"code":"BH-COLLINS","label":"Bloomington
+        Res Halls - Collins Comm Lib \u0026 Res Ctr","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:01:17.000Z"},{"id":28,"code":"BH-EIGENMN","label":"Bloomington
+        Res Halls - Eigenmann Comm Lib \u0026 Res Ctr","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:01:28.000Z"},{"id":29,"code":"BH-FOREST","label":"Bloomington
+        Res Halls - Forest Movies Music \u0026 More","address":"1725 E 3rd St","address2":"","city":"Bloomington","state":"Indiana","zip":"47406","phone":"(812)
+        855-9863","email":"rpslib@indiana.edu","url":"https://www.rps.indiana.edu/experience/Libraries/index.html","urlHours":"","latitude":"39.165053","longitude":"-86.512465","parking":null,"notes":"\u003cp\u003eRPS
+        Libraries (except our\u0026nbsp;Campus View location) are closed during summer
+        sessions.\u0026nbsp;\u003c/p\u003e","no_display":null,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2019-01-23T14:07:40.000Z"},{"id":30,"code":"BH-FOSTER","label":"Bloomington
+        Res Halls - Foster Comm Lib \u0026 Res Ctr","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:01:53.000Z"},{"id":31,"code":"BH-MCNUTT","label":"Bloomington
+        Res Halls - McNutt Comm Lib \u0026 Res Ctr","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:02:03.000Z"},{"id":32,"code":"BH-READ","label":"Bloomington
+        Res Halls - Read Movies Music \u0026 More","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:02:12.000Z"},{"id":27,"code":"BH-ROSE","label":"Bloomington
+        Res Halls - Spruce Movies Music \u0026 More","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:02:22.000Z"},{"id":33,"code":"BH-TETER","label":"Bloomington
+        Res Halls - Teter Comm Lib \u0026 Res Ctr","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:02:32.000Z"},{"id":15,"code":"BH-UNIONST","label":"Bloomington
+        Res Halls - Union Street Movies Music \u0026 More","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:02:43.000Z"},{"id":34,"code":"BH-WILLKIE","label":"Bloomington
+        Res Halls - Willkie Comm Lib \u0026 Res Ctr","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:03:01.000Z"},{"id":22,"code":"BH-WQUAD","label":"Bloomington
+        Res Halls - Wells Quad Movies Music \u0026 More","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:02:52.000Z"},{"id":35,"code":"BH-WRIGHT","label":"Bloomington
+        Res Halls - Wright Movies Music \u0026 More","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:03:09.000Z"},{"id":36,"code":"COLUMBUS","label":"Columbus
+        - University Library of Columbus","address":"4555 Central Ave","address2":"","city":"Columbus","state":"IN","zip":"47203","phone":"","email":"","url":"","urlHours":"","latitude":"39.2923","longitude":"-85.9020","parking":"","notes":"","no_display":true,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2019-03-18T19:43:00.000Z"},{"id":45,"code":"EAST","label":"East
+        Library - Richmond","address":"","address2":null,"city":null,"state":null,"zip":null,"phone":"","email":"","url":null,"urlHours":null,"latitude":"","longitude":null,"parking":null,"notes":null,"no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-11T21:47:17.000Z"},{"id":39,"code":"I-ART","label":"Indianapolis
+        - Herron Art Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:04:01.000Z"},{"id":38,"code":"I-DENTSTRY","label":"Indianapolis
+        - Dentistry Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:03:49.000Z"},{"id":40,"code":"I-LAW","label":"Indianapolis
+        - Ruth Lilly Law Library","address":"530 West New York Street","address2":"","city":"Indianapolis","state":"IN","zip":"46202","phone":"(317)
+        274-4028","email":"lawlibry@iupui.edu","url":"http://mckinneylaw.iu.edu/library/","urlHours":"","latitude":"39.4522843","longitude":"-86.6466591","parking":null,"notes":"","no_display":null,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2019-02-13T17:20:19.000Z"},{"id":49,"code":"I-MEDICINE","label":"Indianapolis
+        - Ruth Lilly Medical Library","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":false,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2018-12-21T16:04:30.000Z"},{"id":42,"code":"I-UNIVLIB","label":"Indianapolis
+        - IUPUI University Library","address":"755 W Michigan St, Indianapolis, IN
+        ","address2":"","city":"Indianapolis","state":"IN","zip":"46202","phone":"317-274-8278","email":"http://www.ulib.iupui.edu/form/info_request","url":"http://www.ulib.iupui.edu/","urlHours":"http://www.ulib.iupui.edu/about/hours","latitude":"39.773223","longitude":"-86.172097","parking":"","notes":"","no_display":true,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2019-03-13T14:51:23.000Z"},{"id":43,"code":"KOKOMO","label":"Kokomo
+        Library","address":"2500 S. Washington Street","address2":"","city":"Kokomo","state":"IN","zip":"46902","phone":"(765)
+        455-9513","email":"iuklib@iuk.edu","url":"","urlHours":"","latitude":"39.1335604","longitude":"-86.5090041","parking":"","notes":"","no_display":true,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2019-03-18T19:39:31.000Z"},{"id":44,"code":"NORTHWEST","label":"Northwest
+        Library (Gary)","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"41.5553","longitude":"-87.3381","parking":"","notes":"","no_display":true,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2019-03-18T20:31:33.000Z"},{"id":46,"code":"SBEND","label":"South
+        Bend - Schurz Library","address":"1700 E Mishawaka Ave","address2":"","city":"South
+        Bend","state":"IN","zip":"46615","phone":" (574) 520-4440","email":"","url":"https://www.iusb.edu/library/","urlHours":"https://library.iusb.edu/about-us/hdp.html","latitude":"41.662806","longitude":"-86.222076","parking":null,"notes":"","no_display":true,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2019-01-10T17:48:57.000Z"},{"id":47,"code":"SBENDLRC","label":"South
+        Bend - Educational Resource Commons","address":"","address2":"","city":"","state":"","zip":"","phone":"","email":"","url":"","urlHours":"","latitude":"","longitude":"","parking":null,"notes":"","no_display":true,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2019-01-10T17:45:21.000Z"},{"id":48,"code":"SOUTHEAST","label":"Southeast
+        Library - New Albany","address":"4201 Grant Line Rd","address2":"","city":"New
+        Albany","state":"IN","zip":"47150","phone":"(812) 941-2485","email":"","url":"http://www.ius.edu/library","urlHours":"","latitude":"38.7077022","longitude":"-86.7140772","parking":null,"notes":"","no_display":null,"created_at":"2018-12-11T21:47:17.000Z","updated_at":"2019-02-13T17:22:26.000Z"}]}}'
+    http_version: 
+  recorded_at: Mon, 18 Mar 2019 20:33:30 GMT
+recorded_with: VCR 4.0.0

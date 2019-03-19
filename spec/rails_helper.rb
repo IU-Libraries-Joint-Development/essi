@@ -8,6 +8,8 @@ require 'spec_helper'
 
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'webmock/rspec'
+require 'vcr'
 require 'capybara/rails'
 require 'database_cleaner'
 require 'active_fedora/cleaner'
@@ -111,4 +113,9 @@ RSpec.configure do |config|
   config.after do
     DatabaseCleaner.clean
   end
+end
+
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
+  config.hook_into :webmock
 end

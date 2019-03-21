@@ -6,6 +6,7 @@ module Hyrax
     self.model_class = ::Scientific
     self.terms += [:resource_type]
     self.required_fields -= [:keyword]
+    self.primary_fields = [:title, :creator, :rights_statement]
     include ESSI::ScientificFormBehavior
   end
 end

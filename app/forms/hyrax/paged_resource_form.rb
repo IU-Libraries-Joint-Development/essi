@@ -5,6 +5,7 @@ module Hyrax
   class PagedResourceForm < Hyrax::Forms::WorkForm
     self.model_class = ::PagedResource
     self.terms += [:resource_type, :source_metadata_identifier, :series]
+    self.required_fields -= [:keyword]
     include ESSI::PagedResourceFormBehavior
   end
 end

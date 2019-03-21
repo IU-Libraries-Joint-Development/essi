@@ -1,7 +1,7 @@
 <% if f.object.multiple? key %>
-  <%= f.input key, as: :multi_value, input_html: { class: ['form-control', 'mutex_b'] }, required: f.object.required?(key) %>
+  <%= f.input key, as: :multi_value, input_html: { class: 'form-control' }, required: f.object.required?(key) %>
 <% else %>
-  <%= f.input key, required: f.object.required?(key), input_html: { class: 'mutex_b' } %>
+  <%= f.input key, required: f.object.required?(key) %>
 <% end %>
 <%= check_box_tag :refresh_remote_metadata, 1, false %>
 <label for="refresh_metadata">Refresh metadata from <%= t('services.metadata') %></label>

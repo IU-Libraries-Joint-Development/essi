@@ -21,8 +21,12 @@ module Hyrax
 
     def save_structure
       structure = { "label": params["label"], "nodes": params["nodes"] }
-      SaveStructureJob.perform_later(curation_concern, structure.to_json)
-      head 200
+      if curation_concern.lock?
+        head 423
+      else
+        SaveStructureJob.perform_later(curation_concern, structure.to_json)
+        head 200
+      end
     end
   end
 end

@@ -18,11 +18,7 @@ do |resource_symbol, presenter_factory|
         allow(r.list_source).to receive(:id).and_return("3")
         r
       end
-      let(:file_set) do
-        f = FactoryBot.build(:file_set)
-        allow(f).to receive(:id).and_return("2")
-        f
-      end
+      let(:file_set) { FactoryBot.build(:file_set, id: "2") }
 
       before do
         allow(resource.class).to receive(:find).and_return(resource)

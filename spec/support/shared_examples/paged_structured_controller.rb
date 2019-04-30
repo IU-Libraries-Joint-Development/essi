@@ -80,10 +80,9 @@ do |resource_symbol, presenter_factory|
       end
 
       it 'returns Locked status for a locked resource' do
-        lock_info = resource.lock
+        allow_any_instance_of(resource.class).to receive(:lock?).and_return(true)
         post :save_structure, params: {nodes: nodes, id: resource.id, label: 'TOP!'}
         expect(response.status).to eq 423
-        resource.unlock(lock_info)
       end
     end
 

@@ -1,0 +1,5 @@
+<%= f.input :viewing_direction, as: :select,
+    collection: ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top'],
+    include_blank: true,
+    input_html: { class: 'form-control' }
+%>

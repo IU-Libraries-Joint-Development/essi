@@ -5,35 +5,39 @@
       <%= f.input :representative_id, as: :hidden, input_html: { data: {member_link: 'representative_id'}} %>
   
       <%# essi customization for viewing direction, hint %>
-      <% directions = ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top'] %>
-      <% selected_direction = @form.model.viewing_direction || directions.first %>
-      <%= f.input :viewing_direction, as: :hidden, input_html: { data: {member_link: 'viewing_direction_option'}, value: selected_direction } %>
-      <div class="form-group <%= f.object.model_name.singular %>_viewing_direction">
-        <label>Viewing Direction:</label>
-        <% directions.each_with_index do |val, index| %>
-          <div class="radio">
-            <%= content_tag :label do %>
-              <%= tag :input, name: "viewing_direction_option", id: "#{f.object.model_name.singular}_viewing_direction_#{val}", type: :radio, value: val, checked: (val == selected_direction), class: 'resource-radio-button' %>
-              <%= val %>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-  
-      <% hints = ['individuals', 'paged', 'continuous'] %>
-      <% selected_hint = @form.model.viewing_hint || hints.first %>
-      <%= f.input :viewing_hint, as: :hidden, input_html: { data: {member_link: 'viewing_hint_option'}, value: selected_hint } %>
-      <div class="form-group <%= f.object.model_name.singular %>_viewing_hint">
-        <label>Viewing Hint:</label>
-        <% hints.each_with_index do |val, index| %>
-          <div class="radio">
-            <%= content_tag :label do %>
-              <%= tag :input, name: "viewing_hint_option", id: "#{f.object.model_name.singular}_viewing_hint_#{val}", type: :radio, value: val, checked: (val == selected_hint), class: 'resource-radio-button' %>
-              <%= val %>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
+      <% if @form.model.respond_to?(:viewing_direction) %>
+        <% directions = ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top'] %>
+        <% selected_direction = @form.model.viewing_direction || directions.first %>
+        <%= f.input :viewing_direction, as: :hidden, input_html: { data: {member_link: 'viewing_direction_option'}, value: selected_direction } %>
+        <div class="form-group <%= f.object.model_name.singular %>_viewing_direction">
+          <label>Viewing Direction:</label>
+          <% directions.each_with_index do |val, index| %>
+            <div class="radio">
+              <%= content_tag :label do %>
+                <%= tag :input, name: "viewing_direction_option", id: "#{f.object.model_name.singular}_viewing_direction_#{val}", type: :radio, value: val, checked: (val == selected_direction), class: 'resource-radio-button' %>
+                <%= val %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if @form.model.respond_to?(:viewing_hint) %>
+        <% hints = ['individuals', 'paged', 'continuous'] %>
+        <% selected_hint = @form.model.viewing_hint || hints.first %>
+        <%= f.input :viewing_hint, as: :hidden, input_html: { data: {member_link: 'viewing_hint_option'}, value: selected_hint } %>
+        <div class="form-group <%= f.object.model_name.singular %>_viewing_hint">
+          <label>Viewing Hint:</label>
+          <% hints.each_with_index do |val, index| %>
+            <div class="radio">
+              <%= content_tag :label do %>
+                <%= tag :input, name: "viewing_hint_option", id: "#{f.object.model_name.singular}_viewing_hint_#{val}", type: :radio, value: val, checked: (val == selected_hint), class: 'resource-radio-button' %>
+                <%= val %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

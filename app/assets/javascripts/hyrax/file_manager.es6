@@ -62,6 +62,19 @@ export default class FileManager {
       $("*[data-member-link=representative_id]").val(val)
       $("*[data-member-link=representative_id]").change()
     })
+    // essi additions for viewing direction, hint
+    new InputTracker($("*[data-member-link=viewing_direction_option]"), manager)
+    $("*[name=viewing_direction_option]").change(function() {
+      let val = $("*[name=viewing_direction_option]:checked").val()
+      $("*[data-member-link=viewing_direction_option]").val(val)
+      $("*[data-member-link=viewing_direction_option]").change()
+    })
+    new InputTracker($("*[data-member-link=viewing_hint_option]"), manager)
+    $("*[name=viewing_hint_option]").change(function() {
+      let val = $("*[name=viewing_hint_option]:checked").val()
+      $("*[data-member-link=viewing_hint_option]").val(val)
+      $("*[data-member-link=viewing_hint_option]").change()
+    })
   }
 
   // Keep the ui/sortable placeholder the right size.

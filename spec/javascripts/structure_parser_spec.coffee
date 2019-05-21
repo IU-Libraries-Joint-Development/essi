@@ -1,6 +1,6 @@
 StructureParser = require("structure_parser").StructureParser
 StructureNode = require("structure_parser").StructureNode
-describe "StructureParser", () ->
+xdescribe "StructureParser", () ->
   structure = null
   describe "serialize", () ->
     describe "a single node", () ->
@@ -128,7 +128,7 @@ describe "StructureParser", () ->
         }
         expect(structure.serialize).toEqual(expected_result)
 
-describe "StructureNode", () ->
+xdescribe "StructureNode", () ->
   node = null
   beforeEach () ->
     loadFixtures('structure_basic.html')

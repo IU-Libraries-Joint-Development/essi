@@ -2,6 +2,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
+  mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   concern :iiif_search, BlacklightIiifSearch::Routes.new
         mount BrowseEverything::Engine => '/browse'
 

@@ -12,5 +12,6 @@ require 'solr_wrapper/rake_task' unless Rails.env.production?
 task :ci do
   with_server 'test' do
     Rake::Task['spec'].invoke
+    Rake::Task['spec:javascript'].invoke
   end
 end

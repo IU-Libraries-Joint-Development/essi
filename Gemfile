@@ -53,6 +53,8 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'vcr'
   gem 'webmock'
+  gem 'jasmine-jquery-rails'
+  gem 'jasmine-rails'
 end
 
 group :development do

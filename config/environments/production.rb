@@ -58,7 +58,7 @@ Rails.application.configure do
   config.cache_store = ESSI.config[:rails][:cache][:store].to_sym, ESSI.config[:rails][:cache][:options]
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
-  config.active_job.queue_adapter     = :sidekiq
+  config.active_job.queue_adapter     = ESSI.config[:rails][:active_job][:queue_adapter].to_sym
   config.active_job.queue_name_prefix = "essi_#{Rails.env}"
   config.action_mailer.perform_caching = false
 

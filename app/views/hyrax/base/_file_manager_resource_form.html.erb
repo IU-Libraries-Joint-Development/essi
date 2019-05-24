@@ -3,7 +3,10 @@
     <%= simple_form_for [main_app, @form], remote: true, html: { id: 'resource-form', 'data-type': 'json' } do |f| %>
       <%= f.input :thumbnail_id, as: :hidden, input_html: { data: {member_link: 'thumbnail_id'}} %>
       <%= f.input :representative_id, as: :hidden, input_html: { data: {member_link: 'representative_id'}} %>
-  
+
+      <%# essi customization for bulk labeler interactions %>
+      <%= render 'bulk_labeling_form' %>
+
       <%# essi customization for viewing direction, hint %>
       <% if @form.model.respond_to?(:viewing_direction) %>
         <% directions = ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top'] %>

@@ -79,7 +79,7 @@ RSpec.feature 'Create a PagedResource', js: true do
       click_on('Go')
       within '#facets' do
         click_on('Pages')
-        expect(page).to have_content('Pages 2')
+        expect(page).to have_content('2')
         click_on('Publisher')
         expect(page).to have_content('Rspec')
         click_on('Publication Place')

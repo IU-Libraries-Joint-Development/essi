@@ -22,13 +22,18 @@ class Ability
     end
   end
 
-  # Copied method from blacklight-access_controls Blacklight::AccessControls::Ability
+  # Modified method from blacklight-access_controls Blacklight::AccessControls::Ability
+  # Grants registered status for authenticated visibility ("Institution") by ldap group membership, if so configured
   def user_groups
     return @user_groups if @user_groups
 
     @user_groups = default_user_groups
     @user_groups |= current_user.groups if current_user.respond_to? :groups
-    @user_groups |= ['registered'] unless current_user.new_record?
+    if ESSI.config[:authorized_ldap_groups].blank?
+      @user_groups |= ['registered'] unless current_user.new_record?
+    elsif current_user.music_patron?
+      @user_groups |= ['registered']
+    end
     @user_groups
   end
 end

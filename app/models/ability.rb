@@ -21,4 +21,14 @@ class Ability
         can [:create, :show, :add_user, :remove_user, :index, :edit, :update, :destroy], Role
     end
   end
+
+  # Copied method from blacklight-access_controls Blacklight::AccessControls::Ability
+  def user_groups
+    return @user_groups if @user_groups
+
+    @user_groups = default_user_groups
+    @user_groups |= current_user.groups if current_user.respond_to? :groups
+    @user_groups |= ['registered'] unless current_user.new_record?
+    @user_groups
+  end
 end

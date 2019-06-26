@@ -34,6 +34,8 @@ class User < ApplicationRecord
     email
   end
 
+  # Modified method from hydra-role-management Hydra::RoleManagement::UserRoles
+  # Grants registered status for authenticated visibility ("Institution") by ldap group membership, if so configured
   def groups
     g = roles.map(&:name)
     if ESSI.config[:authorized_ldap_groups].blank?

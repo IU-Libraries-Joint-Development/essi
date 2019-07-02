@@ -25,6 +25,8 @@ RSpec.feature 'Create a PagedResource', js: true do
         agent_id: user.user_key,
         access: 'deposit'
       )
+      # Ensure empty requirement for ldap group authorization
+      allow(ESSI.config[:authorized_ldap_groups]).to receive(:blank?).and_return(true)
       login_as user
     end
 

@@ -38,11 +38,7 @@ class User < ApplicationRecord
   # Grants registered status for authenticated visibility ("Institution") by ldap group membership, if so configured
   def groups
     g = roles.map(&:name)
-    if ESSI.config[:authorized_ldap_groups].blank?
-      g += ['registered'] unless new_record? || guest?
-    elsif music_patron?
-      g += ['registered']
-    end
+    g += ['registered'] if authorized_patron?
     g
   end
 

@@ -29,7 +29,7 @@ RSpec.describe Ability do
       end
       context 'when the user has authorized group membership' do
         before(:each) do
-          allow(user).to receive(:music_patron?).and_return(true)
+          allow(user).to receive(:authorized_patron?).and_return(true)
         end
         it 'considers the user registered' do
           expect(ability.user_groups).to include('registered')
@@ -37,7 +37,7 @@ RSpec.describe Ability do
       end
       context 'when the user lacks authorized group membership' do
         before(:each) do
-          allow(user).to receive(:music_patron?).and_return(false)
+          allow(user).to receive(:authorized_patron?).and_return(false)
         end
         it 'considers the user unregistered' do
           expect(ability.user_groups).not_to include('registered')

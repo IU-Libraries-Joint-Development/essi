@@ -9,8 +9,8 @@ FactoryBot.modify do
       roles { [Role.where(name: 'admin').first_or_create] }
     end
 
-    factory :campus_patron do
-      # All CAS users are campus patrons.
+    factory :authorized_patron do
+      # All CAS users are authorized patrons.
     end
 
     factory :image_editor do

@@ -17,12 +17,12 @@ module IuUserRoles
     roles.where(name: 'curator').exists?
   end
 
-  def campus_patron?
-    persisted? && provider == "cas"
+  def institution_patron?
+    persisted? && !guest? && provider == "cas"
   end
 
-  def music_patron?
-    campus_patron? && (ESSI.config[:authorized_ldap_groups].blank? ||
+  def authorized_patron?
+    institution_patron? && (ESSI.config[:authorized_ldap_groups].blank? ||
                        authorized_ldap_member?)
   end
 

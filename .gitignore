@@ -24,8 +24,8 @@ fits.log
 fits.log
 
 .byebug_history
-/.ruby-version
-.ruby-version
+/.ruby-*
+.ruby-*
 
 # Ignore IDE files
 .idea

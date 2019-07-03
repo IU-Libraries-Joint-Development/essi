@@ -83,6 +83,21 @@ default: &default
         - :digital_specifications
         - :author
         - :digital_publisher
+      iiif:
+        - :date_modified
+        - :contributor
+        - :subject
+        - :series
+        - :publisher
+        - :language
+        - :identifier
+        - :date_created
+        - :based_near_label
+        - :related_url
+        - :resource_type
+        - :source
+        - :rights_statement
+        - :holding_location
     jp2_recipes:
       default_color: >
         -rate 2.4,1.48331273,.91673033,.56657224,.35016049,.21641118,.13374944,.08266171

@@ -5,4 +5,5 @@ require_relative 'application'
 Rails.application.initialize!
 
 
-ESSI::Application.default_url_options = ESSI::Application.config.action_mailer.default_url_options
+
+ESSI::Application.default_url_options = ESSI::Application.config.action_mailer.default_url_options || {}

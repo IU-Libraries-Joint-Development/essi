@@ -33,6 +33,3 @@ fits.log
 # Ignore local secrets
 .secrets.sh
 /secrets
-
-# Ignore LDAP connection config
-/config/ldap_groups_lookup.yml

@@ -42,6 +42,14 @@ RSpec.describe Ability do
         it 'considers the user unregistered' do
           expect(ability.user_groups).not_to include('registered')
         end
+        context 'when the user is an admin' do
+          before(:each) do
+            allow(user).to receive(:admin?).and_return(true)
+          end
+          it 'considers the user registered' do
+            expect(ability.user_groups).to include('registered')
+          end
+        end
       end
     end
   end

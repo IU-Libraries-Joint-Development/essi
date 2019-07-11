@@ -29,7 +29,7 @@ class Ability
 
     @user_groups = default_user_groups
     @user_groups |= current_user.groups if current_user.respond_to? :groups
-    @user_groups |= ['registered'] if current_user.authorized_patron?
+    @user_groups |= ['registered'] if current_user.authorized_patron? || current_user.admin?
     @user_groups
   end
 end

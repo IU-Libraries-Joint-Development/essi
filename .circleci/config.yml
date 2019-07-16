@@ -19,7 +19,7 @@ jobs:
   build:
     docker:
     # legacy needed for phantomjs
-    - image: circleci/ruby:2.5-node-browsers-legacy
+    - image: circleci/ruby:2.5-stretch-node-browsers-legacy
     - image: circleci/redis:5
     - image: ualbertalib/docker-fcrepo4:4.7
       environment:
@@ -72,9 +72,9 @@ jobs:
     # Download and cache dependencies
     - restore_cache:
         keys:
-        - dependencies-v2-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-        - dependencies-v2-{{ .Branch }}
-        - dependencies-v2-
+        - dependencies-v3-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+        - dependencies-v3-{{ .Branch }}
+        - dependencies-v3-
 
     - run:
         name: Install dependencies
@@ -89,7 +89,7 @@ jobs:
     - save_cache:
         paths:
         - ./vendor/bundle
-        key: dependencies-v2-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+        key: dependencies-v3-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
 
 #    - run:
 #        name: Call Rubocop

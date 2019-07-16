@@ -1,5 +1,5 @@
 # system dependency image
-FROM ruby:2.5 AS essi-sys-deps
+FROM ruby:2.5-stretch AS essi-sys-deps
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1

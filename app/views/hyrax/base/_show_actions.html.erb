@@ -1,47 +1,49 @@
-<div class="show-actions">
-  <div class="col-sm-4 text-left">
-    <% if Hyrax.config.analytics? %>
-      <%= link_to "Analytics", presenter.stats_path, id: 'stats', class: 'btn btn-default', data: { turbolinks: false } %>
-    <% end %>
-    <%= button_tag t('hyrax.dashboard.my.action.add_to_collection'),
-        class: 'btn btn-default submits-batches submits-batches-add',
-        data: { toggle: "modal", target: "#collection-list-container" } %>
-    <% if presenter.work_featurable? %>
-        <%= link_to "Feature", hyrax.featured_work_path(presenter, format: :json),
-            data: { behavior: 'feature' },
-            class: presenter.display_unfeature_link? ? 'btn btn-default collapse' : 'btn btn-default' %>
+<div class="row">
+  <div class="show-actions">
+    <div class="col-sm-4 text-left">
+      <% if Hyrax.config.analytics? %>
+        <%= link_to "Analytics", presenter.stats_path, id: 'stats', class: 'btn btn-default', data: { turbolinks: false } %>
+      <% end %>
+      <%= button_tag t('hyrax.dashboard.my.action.add_to_collection'),
+          class: 'btn btn-default submits-batches submits-batches-add',
+          data: { toggle: "modal", target: "#collection-list-container" } %>
+      <% if presenter.work_featurable? %>
+          <%= link_to "Feature", hyrax.featured_work_path(presenter, format: :json),
+              data: { behavior: 'feature' },
+              class: presenter.display_unfeature_link? ? 'btn btn-default collapse' : 'btn btn-default' %>
+    
+          <%= link_to "Unfeature", hyrax.featured_work_path(presenter, format: :json),
+              data: { behavior: 'unfeature' },
+              class: presenter.display_feature_link? ? 'btn btn-default collapse' : 'btn btn-default' %>
+      <% end %>
+    </div>
+    <div class="col-sm-8 text-right">
+    <% if presenter.editor? %>
+        <%= link_to "Edit", edit_polymorphic_path([main_app, presenter]), class: 'btn btn-default' %>
+        <% if presenter.member_presenters.size > 1 %>
+            <%= link_to t("hyrax.file_manager.link_text"), polymorphic_path([main_app, :file_manager, presenter]), class: 'btn btn-default' %>
+            <%= link_to t("hyrax.structure_manager.link_text"), polymorphic_path([main_app, :structure, presenter]), class: 'btn btn-default' %>
+        <% end %>
+        <% if presenter.valid_child_concerns.length > 0 %>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Attach Child <span class="caret"></span>
+            </button>
   
-        <%= link_to "Unfeature", hyrax.featured_work_path(presenter, format: :json),
-            data: { behavior: 'unfeature' },
-            class: presenter.display_feature_link? ? 'btn btn-default collapse' : 'btn btn-default' %>
+            <input type="checkbox"  style="display:none" name="batch_document_ids[]" id="batch_document_<%= presenter.id %>" value="<%= presenter.id %>" class="batch_document_selector" checked="checked" />
+  
+            <ul class="dropdown-menu">
+              <% presenter.valid_child_concerns.each do |concern| %>
+                <li>
+                  <%= link_to "Attach #{concern.human_readable_type}", polymorphic_path([main_app, :new, :hyrax, :parent, concern.model_name.singular], parent_id: presenter.id) %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <%= link_to "Delete", [main_app, presenter], class: 'btn btn-danger', data: { confirm: "Delete this #{presenter.human_readable_type}?" }, method: :delete %>
     <% end %>
-  </div>
-  <div class="col-sm-8 text-right">
-  <% if presenter.editor? %>
-      <%= link_to "Edit", edit_polymorphic_path([main_app, presenter]), class: 'btn btn-default' %>
-      <% if presenter.member_presenters.size > 1 %>
-          <%= link_to t("hyrax.file_manager.link_text"), polymorphic_path([main_app, :file_manager, presenter]), class: 'btn btn-default' %>
-          <%= link_to t("hyrax.structure_manager.link_text"), polymorphic_path([main_app, :structure, presenter]), class: 'btn btn-default' %>
-      <% end %>
-      <% if presenter.valid_child_concerns.length > 0 %>
-        <div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Attach Child <span class="caret"></span>
-          </button>
-
-          <input type="checkbox"  style="display:none" name="batch_document_ids[]" id="batch_document_<%= presenter.id %>" value="<%= presenter.id %>" class="batch_document_selector" checked="checked" />
-
-          <ul class="dropdown-menu">
-            <% presenter.valid_child_concerns.each do |concern| %>
-              <li>
-                <%= link_to "Attach #{concern.human_readable_type}", polymorphic_path([main_app, :new, :hyrax, :parent, concern.model_name.singular], parent_id: presenter.id) %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-      <%= link_to "Delete", [main_app, presenter], class: 'btn btn-danger', data: { confirm: "Delete this #{presenter.human_readable_type}?" }, method: :delete %>
-  <% end %>
+    </div>
   </div>
 </div>
 

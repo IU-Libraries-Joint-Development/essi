@@ -3,14 +3,14 @@
 <%= render 'shared/citations' %>
 
 <div class="row work-type">
-  <div class="col-xs-12">
+  <div class="col-sm-12">
     <%= render 'work_type', presenter: @presenter %>
   </div>
-  <div class="col-xs-12">&nbsp;</div>
   <div itemscope itemtype="http://schema.org/CreativeWork" class="col-xs-12">
     <div class="panel panel-default">
       <div class="panel-heading">
         <%= render 'work_title', presenter: @presenter %>
+        <%= render 'show_actions', presenter: @presenter %>
       </div>
       <div class="panel-body">
         <div class="row">
@@ -28,16 +28,34 @@
             <%= render 'work_description', presenter: @presenter %>
             <%= render 'metadata', presenter: @presenter %>
           </div>
-          <div class="col-sm-12">
-            <%= render 'relationships', presenter: @presenter %>
-            <%= render 'items', presenter: @presenter %>
-            <%# TODO: we may consider adding these partials in the future %>
-            <%# = render 'sharing_with', presenter: @presenter %>
-            <%# = render 'user_activity', presenter: @presenter %>
-          </div>
-          <%= render 'workflow_actions_widget', presenter: @presenter %>
         </div>
       </div>
+    </div><!-- /panel -->
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= t('hyrax.base.show.relationships') %></h3>
+      </div>
+      <div class="panel-body">
+        <%= render 'relationships', presenter: @presenter %>
+      </div>
     </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= t('.items') %></h3>
+      </div>
+      <div class="panel-body">
+        <%= render 'items', presenter: @presenter %>
+      </div>
+    </div>
+
+    <%= render 'workflow_actions_widget', presenter: @presenter %>     
+
+    <%# TODO: we may consider adding these partials in the future %>
+    <%# = render 'sharing_with', presenter: @presenter %>
+    <%# = render 'user_activity', presenter: @presenter %>
+
   </div>
 </div>
+

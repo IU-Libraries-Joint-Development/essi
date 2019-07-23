@@ -76,6 +76,7 @@ RSpec.feature 'Create a PagedResource', js: true do
       expect(page).to have_content('My Test Work')
       expect(page).to have_content "Your files are being processed by Hyrax in the background."
       expect(find('li.attribute-creator')).to have_content('Doe, Jane')
+      click_on('Show Child Items')
       expect(find('table.related-files')).to have_content('rgb.png')
 
       click_on('Go')

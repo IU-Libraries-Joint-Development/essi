@@ -5,6 +5,7 @@ module Hyrax
   class BibRecordsController < ApplicationController
     # Adds Hyrax behaviors to the controller.
     include Hyrax::WorksControllerBehavior
+    include ESSI::WorksControllerBehavior
     include ESSI::BibRecordsControllerBehavior
     include ESSI::RemoteMetadataLookupBehavior
     include Hyrax::BreadcrumbsForWorks

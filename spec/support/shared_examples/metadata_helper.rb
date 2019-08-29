@@ -31,6 +31,7 @@ RSpec.shared_examples "PagedResource Properties" do
     # Test a small subset of the properties available.
     expect(subject).to respond_to(:viewing_hint)
     expect(subject).to respond_to(:viewing_direction)
+    expect(subject).to respond_to(:ocr_state)
   end
 end
 

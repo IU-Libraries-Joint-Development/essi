@@ -7,6 +7,9 @@ module ESSI
       property :viewing_hint, predicate: ::RDF::Vocab::IIIF.viewingHint, multiple: false
       property :viewing_direction, predicate: ::RDF::Vocab::IIIF.viewingDirection, multiple: false
       property :num_pages, predicate: ::RDF::Vocab::BIBO.numPages, multiple: false
+      property :ocr_state, predicate: ::RDF::URI.new('http://dlib.indiana.edu/vocabulary/OCRState'), multiple: false do |index|
+        index.as :stored_searchable
+      end
     end
   end
 end

@@ -114,6 +114,10 @@ jobs:
           mkdir /tmp/test-results
           bundle exec rspec $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
+    - run:
+        name: Run javascript tests
+        command: bundle exec rake spec:javascript
+
 
 
     # collect reports

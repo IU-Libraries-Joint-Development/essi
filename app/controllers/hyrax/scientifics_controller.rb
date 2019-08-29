@@ -5,6 +5,7 @@ module Hyrax
   class ScientificsController < ApplicationController
     # Adds Hyrax behaviors to the controller.
     include Hyrax::WorksControllerBehavior
+    include ESSI::WorksControllerBehavior
     include ESSI::ScientificsControllerBehavior
     include Hyrax::BreadcrumbsForWorks
     include ESSI::BreadcrumbsForWorks

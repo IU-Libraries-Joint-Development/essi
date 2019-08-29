@@ -5,6 +5,7 @@ module Hyrax
   class PagedResourcesController < ApplicationController
     # Adds Hyrax behaviors to the controller.
     include Hyrax::WorksControllerBehavior
+    include ESSI::WorksControllerBehavior
     include ESSI::PagedResourcesControllerBehavior
     include ESSI::RemoteMetadataLookupBehavior
     include Hyrax::BreadcrumbsForWorks

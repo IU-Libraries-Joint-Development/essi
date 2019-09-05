@@ -75,6 +75,12 @@ export default class FileManager {
       $("*[data-member-link=viewing_hint_option]").val(val)
       $("*[data-member-link=viewing_hint_option]").change()
     })
+    new InputTracker($("*[data-member-link=ocr_state_option]"), manager)
+    $("*[name=ocr_state_option]").change(function() {
+        let val = $("*[name=ocr_state_option]:checked").val()
+        $("*[data-member-link=ocr_state_option]").val(val)
+        $("*[data-member-link=ocr_state_option]").change()
+    })
   }
 
   // Keep the ui/sortable placeholder the right size.

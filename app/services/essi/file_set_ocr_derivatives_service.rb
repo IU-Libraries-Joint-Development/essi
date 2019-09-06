@@ -25,14 +25,25 @@ module ESSI
       ocr_file = File.join(ESSI.config.dig(:essi, :derivatives_folder), ocr_filename)
       return false unless File.exist?(ocr_file)
 
-      Rails.logger.info 'Using a Pre-derived OCR File.'
-      file_set.extracted_text = Hydra::PCDM::File.new
-      file_set.extracted_text.content = File.open(ocr_file)
-      file_set.extracted_text.mime_type = 'text/html;charset=UTF-8'
-      file_set.extracted_text.original_name = ocr_filename
-      file_set.extracted_text.save
-      file_set.save
-      true
+      Rails.logger.info 'Copying for a Pre-derived OCR File.'
+      CopyOCRRunner.create(ocr_file,
+                           {source: ocr_file,
+                           outputs: [{
+                               label: ocr_filename,
+                               mime_type: 'test/html;charset-UTF-8',
+                               format: 'hocr',
+                               container: 'extracted_text',
+                               url: uri
+                                     }]})
+
+      # Rails.logger.info 'Using a Pre-derived OCR File.'
+      # file_set.extracted_text = Hydra::PCDM::File.new
+      # file_set.extracted_text.content = File.open(ocr_file)
+      # file_set.extracted_text.mime_type = 'text/html;charset=UTF-8'
+      # file_set.extracted_text.original_name = ocr_filename
+      # file_set.extracted_text.save
+      # file_set.save
+      # true
     end
 
     def create_hocr_derivatives(filename)

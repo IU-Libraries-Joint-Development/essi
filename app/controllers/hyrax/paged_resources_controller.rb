@@ -15,6 +15,22 @@ module Hyrax
     # Use this line if you want to use a custom presenter
     self.show_presenter = Hyrax::PagedResourcePresenter
 
+    def show
+      super
+      set_catalog_search_term_for_uv_search
+    end
+
+    def set_catalog_search_term_for_uv_search
+      return unless request&.referer&.present? && request&.referer&.include?('catalog')
+      url_args = request&.referer&.split('&')
+      search_term = []
+      url_args&.each do |arg|
+        next unless arg.match?('query=')
+        search_term << CGI::parse(arg)['query']
+      end
+      params[:query] = search_term&.flatten&.first
+    end
+
     def structure
       parent_presenter
       @members = presenter.member_presenters

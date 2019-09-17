@@ -11,7 +11,7 @@
           <%= link_to "Feature", hyrax.featured_work_path(presenter, format: :json),
               data: { behavior: 'feature' },
               class: presenter.display_unfeature_link? ? 'btn btn-default collapse' : 'btn btn-default' %>
-    
+
           <%= link_to "Unfeature", hyrax.featured_work_path(presenter, format: :json),
               data: { behavior: 'unfeature' },
               class: presenter.display_feature_link? ? 'btn btn-default collapse' : 'btn btn-default' %>
@@ -22,16 +22,16 @@
         <%= link_to "Edit", edit_polymorphic_path([main_app, presenter]), class: 'btn btn-default' %>
         <% if presenter.member_presenters.size > 1 %>
             <%= link_to t("hyrax.file_manager.link_text"), polymorphic_path([main_app, :file_manager, presenter]), class: 'btn btn-default' %>
-            <%= link_to t("hyrax.structure_manager.link_text"), polymorphic_path([main_app, :structure, presenter]), class: 'btn btn-default' %>
+            <%#= link_to t("hyrax.structure_manager.link_text"), polymorphic_path([main_app, :structure, presenter]), class: 'btn btn-default' %>
         <% end %>
         <% if presenter.valid_child_concerns.length > 0 %>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Attach Child <span class="caret"></span>
             </button>
-  
+
             <input type="checkbox"  style="display:none" name="batch_document_ids[]" id="batch_document_<%= presenter.id %>" value="<%= presenter.id %>" class="batch_document_selector" checked="checked" />
-  
+
             <ul class="dropdown-menu">
               <% presenter.valid_child_concerns.each do |concern| %>
                 <li>
@@ -51,5 +51,3 @@
   <span class="Z3988" title="<%= export_as_openurl_ctx_kev(presenter) %>"></span>
 <!-- Render Modals -->
   <%= render 'hyrax/dashboard/collections/form_for_select_collection', user_collections: @user_collections %>
-
-

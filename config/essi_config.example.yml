@@ -31,6 +31,7 @@ default: &default
     path: <%= Rails.root.join("tmp/derivatives") %>
   iucat_libraries:
     url: http://iucat-feature-tadas.uits.iu.edu/api/library
+    api_enabled: false
   ldap:
     enabled: false
     host: ads.iu.edu

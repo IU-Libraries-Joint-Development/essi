@@ -68,6 +68,7 @@ en:
     works:
       form:
         show_child_items: Show Child Items
+        hide_child_items: Hide Child Items
       structure:
         breadcrumb: Edit Structure
       file_manager:

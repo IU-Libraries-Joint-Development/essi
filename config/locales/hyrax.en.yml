@@ -73,6 +73,8 @@ en:
         breadcrumb: Edit Structure
       file_manager:
         breadcrumb: File Manager
+      link:
+        large_viewer: Open large viewer
   simple_form:
     hints:
       defaults:

@@ -9,10 +9,9 @@ class M3Profile < ApplicationRecord
 
   serialize :profile
 
-  validates :name, :profile, presence: true
+  validates :classes, :contexts, :properties, presence: true
 
-  after_save :check_profile_version
-  after_create :create_m3_context
+  #after_save :check_profile_version
 
   def check_profile_version
     #if we already have this version, 
@@ -27,7 +26,4 @@ class M3Profile < ApplicationRecord
     #end
   end
 
-  def create_m3_context
-    #M3Context.create(m3_profile_id: self.id)
-  end
 end

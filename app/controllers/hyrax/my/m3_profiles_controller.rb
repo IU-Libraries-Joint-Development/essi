@@ -6,7 +6,7 @@ module Hyrax
       before_action do
         authorize! :manage, M3Profile
       end
-      before_action :set_m3_profile, only: [:show, :edit, :update, :destroy]
+      before_action :set_m3_profile, only: [:show, :destroy]
       with_themed_layout 'dashboard'
 
       #GET /m3_profiles
@@ -44,11 +44,14 @@ module Hyrax
         add_breadcrumb t(:'hyrax.dashboard.breadcrumbs.admin'), hyrax.dashboard_path
         add_breadcrumb 'M3Profiles', hyrax.my_m3_profiles_path
         add_breadcrumb 'Edit'
+
+        @m3_profile = M3Profile.last
       end
 
       # POST /m3_profiles
       def create
         @m3_profile = M3Profile.new(m3_profile_params)
+        @m3_profile.profile_version += 1
 
         if @m3_profile.save
           redirect_to my_m3_profiles_path, notice: 'M3Profile was successfully created.'
@@ -70,15 +73,6 @@ module Hyrax
         #end
       end
 
-      # PATCH/PUT /m3_profiles/1
-      def update
-        if @m3_profile.update(m3_profile_params)
-          redirect_to my_m3_profiles_path, notice: 'M3Profile was successfully updated.'
-        else
-          render :edit
-        end
-      end
-
       # DELETE /m3_profiles/1
       def destroy
         @m3_profile.destroy
@@ -93,11 +87,11 @@ module Hyrax
 
       # Only allow a trusted parameter "white list" through.
       def m3_profile_params
-        params.require(:m3_profile).permit(:name, :profile_type, :responsibility, :responsibility_statement, :created_at, :updated_at,
-                                          :classes_attributes => [:id, :display_label], 
-                                          :contexts_attributes => [:id, :display_label],
-                                          :properties_attributes => [:id, :name, :property_uri, :cardinality_minimum, :cardinality_maximum, :indexing,
-                                                                     :texts_attributes => [:id, :name, :value]])
+        params.require(:m3_profile).permit(:name, :profile_type, :profile_version, :responsibility, :responsibility_statement, :created_at, :updated_at,
+                                          :classes_attributes => [:display_label], 
+                                          :contexts_attributes => [:display_label],
+                                          :properties_attributes => [:name, :property_uri, :cardinality_minimum, :cardinality_maximum, :indexing,
+                                                                     :texts_attributes => [:name, :value]])
       end
     end
   end

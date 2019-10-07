@@ -10,6 +10,7 @@ class M3Profile < ApplicationRecord
   serialize :profile
 
   validates :classes, :contexts, :properties, presence: true
+  validates :profile_version, uniqueness: true
 
   #after_save :check_profile_version
 
@@ -26,4 +27,7 @@ class M3Profile < ApplicationRecord
     #end
   end
 
+  def latest_version?(profiles)
+    newest_record = profiles.order("created_at").last
+  end
 end

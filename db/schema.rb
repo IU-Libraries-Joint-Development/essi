@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190926002320) do
+ActiveRecord::Schema.define(version: 20191007164507) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -227,7 +227,7 @@ ActiveRecord::Schema.define(version: 20190926002320) do
 
   create_table "m3_profiles", force: :cascade do |t|
     t.string "name"
-    t.integer "profile_version"
+    t.integer "profile_version", default: 0
     t.string "m3_version"
     t.string "responsibility"
     t.string "responsibility_statement"

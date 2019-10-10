@@ -31,6 +31,8 @@ class SolrDocument
   attribute :viewing_hint, Solr::String, solr_name('viewing_hint')
   attribute :viewing_direction, Solr::String, solr_name('viewing_direction')
   attribute :ocr_searchable, Solr::String, solr_name('ocr_searchable', Solrizer::Descriptor.new(:boolean, :stored, :indexed))
+  # @todo remove after upgrade to Hyrax 3.x
+  attribute :original_file_id, Solr::String, "original_file_id_ssi"
 
   def series
     self[Solrizer.solr_name('series')]

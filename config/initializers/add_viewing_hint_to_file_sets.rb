@@ -1,5 +1,7 @@
 module FileSetPresenterAddViewingHints
   delegate :viewing_hint, to: :solr_document
+  #@todo remove after upgrade to Hyrax 3.x
+  delegate :original_file_id, to: :solr_document
 end
 
 Hyrax::FileSetPresenter.class_eval do

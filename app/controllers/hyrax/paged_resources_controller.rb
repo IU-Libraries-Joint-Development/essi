@@ -25,10 +25,10 @@ module Hyrax
       url_args = request&.referer&.split('&')
       search_term = []
       url_args&.each do |arg|
-        next unless arg.match?('query=')
-        search_term << CGI::parse(arg)['query']
+        next unless arg.match?('q=')
+        search_term << CGI::parse(arg)['q']
       end
-      params[:query] = search_term&.flatten&.first
+      params[:highlight] = search_term&.flatten&.first
     end
 
     def structure

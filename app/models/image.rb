@@ -42,19 +42,12 @@ class Image < ActiveFedora::Base
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
 
-<<<<<<< HEAD
- # Include extended metadata common to most Work Types
-  # include ESSI::ExtendedMetadata
-
-  # This model includes metadata properties specific to the Image Work Type
-=======
   # Include extended metadata common to most Work Types
   # Moved to the m3 profile
   # include ESSI::ExtendedMetadata
 
   # This model includes metadata properties specific to the Image Work Type
   # Moved to the m3 profile
->>>>>>> WIP Refactoring and additional code, plus Image configured to use flexible_metadata
   # include ESSI::ImageMetadata
 
   # This must be included at the end, because it finalizes the metadata

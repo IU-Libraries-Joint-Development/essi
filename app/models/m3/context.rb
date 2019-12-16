@@ -20,12 +20,7 @@ module M3
     end
 
     # @api public
-<<<<<<< HEAD
-    # @return [Array] all M3::Context
-    # @todo - we only want the latest versions
-=======
     # @return [Array] contexts for latest profile
->>>>>>> WIP Refactoring and additional code, plus Image configured to use flexible_metadata
     def self.available_contexts
       M3::Profile.current_version.m3_contexts
     end

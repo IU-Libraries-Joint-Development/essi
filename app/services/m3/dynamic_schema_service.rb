@@ -5,62 +5,6 @@ module M3
   class NoM3AdminSetError < StandardError; end
   
   class DynamicSchemaService
-<<<<<<< HEAD
-    attr_accessor :dynamic_schema, :properties, :model, :m3_context
-    
-    # Retrieve the properties for the model / work type
-    # This is a class method, meaning AdminSet is not available
-    #   so we cannot get the contextual dynamic_schema
-    #   instead we grab the default (contextless) dynamic_schema
-    #   which will add all properties available for that class
-    # @return [Hash] property => opts
-    def self.model_properties(curation_concern_class_name:)
-      sch = schema(curation_concern_class_name)['properties']
-      model_props = {}
-      model_props = sch.map do |prop_name, prop_value|
-        { prop_name.to_sym => {
-          predicate: predicate_for(prop_value['predicate']), 
-          multiple: prop_value['singular'] == false }
-        }
-      end.inject(:merge) unless sch.blank?
-
-      model_props[:dynamic_schema] = { 
-        predicate: predicate_for('http://example.com/dynamic_schema'), 
-        multiple: false
-      }
-      model_props
-    end
-
-    # Retrieve the latest default dynamic_schema
-    def self.schema(curation_concern_class_name)
-      @schema ||= M3::DynamicSchema.where(
-        m3_class: curation_concern_class_name
-        name: 'default'
-      ).order('created_at').last.schema
-    rescue
-      @schema ||= {}
-    end
-
-    def self.predicate_for(predicate)
-      ::RDF::URI.intern(predicate)
-    end
-
-    # @return [RDF::URI] the rdf_type URI
-    def self.rdf_type(curation_concern_class_name:)
-      rdf_type_for(
-        schema(curation_concern_class_name)['type'],
-        curation_concern_class_name
-      )
-    end
-
-    def self.rdf_type_for(type, model)
-      if type.blank?
-        ::RDF::URI.intern("http://example.com/#{model}")
-      else
-        ::RDF::URI.intern(type)
-      end
-    end
-=======
     attr_accessor :dynamic_schema, :m3_context, :m3_context_id, :model
 
     class << self
@@ -85,7 +29,6 @@ module M3
         end
         model_props
       end
->>>>>>> WIP Refactoring and additional code, plus Image configured to use flexible_metadata
 
       # Retrieve the properties for the model / work type
       # This is a class method called by the model at class load
@@ -148,11 +91,6 @@ module M3
       end
     end
 
-<<<<<<< HEAD
-    # @return [Array] property keys
-    def properties
-      @properties ||= dynamic_schema.schema.deep_symbolize_keys![:properties].keys
-=======
     def initialize(admin_set_id:, work_class_name:, dynamic_schema_id: nil)
       # @todo - remove - dev only
       AdminSet.class_eval do
@@ -190,7 +128,6 @@ module M3
     # @return [Array] property keys
     def property_keys
       @property_keys ||= properties.keys
->>>>>>> WIP Refactoring and additional code, plus Image configured to use flexible_metadata
     end
 
     # @return [Array] required properties
@@ -203,22 +140,7 @@ module M3
     def view_properties
       property_keys.map do |prop|
         { prop => { label: property_locale(prop, 'label') } }
-<<<<<<< HEAD
-      end
-    end
-
-    # @return [Hash] property => array of indexing
-    def indexing_properties
-      indexers = {}
-      properties.each do |prop|
-        indexers[prop] = indexing_for(prop).map do |indexing_key|
-          "#{prop}#{index_as(indexing_key)}"
-        end
-      end
-      indexers
-=======
       end.inject(:merge)
->>>>>>> WIP Refactoring and additional code, plus Image configured to use flexible_metadata
     end
 
     # @param property - property name
@@ -236,13 +158,6 @@ module M3
 
     private
 
-<<<<<<< HEAD
-    def dynamic_schema_for(m3_context_id:, curation_concern_class_name:)
-      require 'active_support/core_ext/hash/keys'
-      M3::DynamicSchema.where(m3_context: m3_context_id).select do |ds|
-        ds.m3_class == curation_concern_class_name
-      end.first
-=======
     def context_for(admin_set_id:)
       cxt = AdminSet.find(admin_set_id).metadata_context
       if cxt.blank?
@@ -267,21 +182,12 @@ module M3
 
     def properties
       @properties ||= dynamic_schema.schema.deep_symbolize_keys![:properties]
->>>>>>> WIP Refactoring and additional code, plus Image configured to use flexible_metadata
     end
 
     def required_for(property)
       property if property_hash_for(property)[:required]
     end
 
-<<<<<<< HEAD
-    # Use stored_searchable as the default if the value is empty
-    def indexing_for(property)
-      property_hash_for(property)[:indexing] || ['stored_searchable']
-    end
-
-=======
->>>>>>> WIP Refactoring and additional code, plus Image configured to use flexible_metadata
     def locale_label_for(property)
       I18n.t("m3.#{m3_context}.#{model}.labels.#{property}") ||
         label_for(property) ||

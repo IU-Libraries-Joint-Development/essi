@@ -41,18 +41,8 @@ module M3
         ).flatten.reject { | res | res.send(self.name).blank? }
       end.flatten
 
-<<<<<<< HEAD
-      puts 'HELLO'
-      puts works.size
-
       # if there are no works, carry on and destroy
       return if works.blank?
-      # why isn't my error adding?
-      puts 'I got to here'
-=======
-      # if there are no works, carry on and destroy
-      return if works.blank?
->>>>>>> WIP Refactoring and additional code, plus Image configured to use flexible_metadata
       self.errors.add(
         :base,
         "There are #{works.length} works using #{self.name}. This property cannot be deleted."

@@ -200,11 +200,7 @@ module M3
             m3_context: profile.m3_contexts.build(
               name: 'default', 
               m3_profile_context: cxt),
-<<<<<<< HEAD
             schema: build_schema(cl, cxt)
-=======
-            schema: build_schema(cl)
->>>>>>> WIP Refactoring and additional code, plus Image configured to use flexible_metadata
           )
       end
 

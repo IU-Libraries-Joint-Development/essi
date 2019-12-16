@@ -14,11 +14,11 @@ profile:
   responsibility_statement: Indiana University
   date_modified: "2019-07-28"
   type: concept
-  version: 0.3
+  version: 0.2
 
 classes:
   Image:
-    display_label: "Image Changed"
+    display_label: "Image"
     contexts:
       - "flexible_context"
 

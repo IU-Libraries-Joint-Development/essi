@@ -6,7 +6,9 @@ module M3
 
     included do
       # Set the terms at class level to the full default set - this will be used to determine permitted parameters
-      self.terms = M3::DynamicSchemaService.default_properties(work_class_name: model_class.to_s)
+      self.terms = M3::DynamicSchemaService.default_properties(
+        work_class_name: model_class.to_s
+      )
       self.required_fields = []
     end
 

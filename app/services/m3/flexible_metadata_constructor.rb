@@ -194,16 +194,16 @@ module M3
 
     def self.construct_default_dynamic_schemas(profile:, logger: default_logger)
       cxt = profile.contexts.build(name: 'default', display_label: 'Default Metadata Context')
+
       profile.classes.each do |cl|
         profile.dynamic_schemas.build(
             m3_class: cl.name,
             m3_context: profile.m3_contexts.build(
               name: 'default', 
               m3_profile_context: cxt),
-            schema: build_schema(cl, cxt)
+            schema: build_schema(cl)
           )
       end
-
       profile
     end
 

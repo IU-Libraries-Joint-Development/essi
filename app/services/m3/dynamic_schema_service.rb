@@ -122,6 +122,7 @@ module M3
           end 
         end 
       end
+      indexers[:dynamic_schema] = ['dynamic_schema_tesim']
       indexers
     end
 

@@ -65,7 +65,7 @@ RSpec.describe M3::DynamicSchemaService do
 
     context 'for indexers' do
       it 'returns the fields to index' do
-        expect(service.indexing_properties).to eq(title: %w[title_tesim title_ssm])
+        expect(service.indexing_properties).to eq({:dynamic_schema=>["dynamic_schema_tesim"], :title=>["title_tesim", "title_ssm"]})
       end
     end
 

@@ -7,36 +7,6 @@ class Image < ActiveFedora::Base
   # @todo - add to m3 generator
   include M3::DynamicMetadataBehavior
 
-  M3::DynamicSchemaService.model_properties(curation_concern_class_name: self.to_s).each_pair do | prop, value |
-    property prop, predicate: value[:predicate], multiple: value[:multiple]
-  end
-  type(M3::DynamicSchemaService.rdf_type(curation_concern_class_name: self.to_s))
-
-  after_create :add_dynamic_schema
-
-  def add_dynamic_schema
-    self.dynamic_schema = dynamic_schema_service.dynamic_schema.id
-  end
-
-  def dynamic_schema_service
-    @dynamic_schema_service ||= M3::DynamicSchemaService.new(
-      admin_set_id: find_or_create_admin_set,
-      curation_concern_class_name: self.class.to_s
-    )  
-  end
-
-  # tricky because this is an instance method
-  # one option is to use the generic properties for the class, because on the model this doesn't much matter
-  # context only matters for lables etc.
-  # matters for available on, but in base model terms, that's not so important
-  # could do something at the save level to remove anything that isn't supported?
-  # yes, that's it
-  # we can only know the context on an instance
-  # that's a fact
-  def find_or_create_admin_set
-    AdminSet.first.id
-  end
-
   self.indexer = ImageIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []

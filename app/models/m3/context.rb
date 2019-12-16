@@ -22,7 +22,8 @@ module M3
     # @api public
     # @return [Array] contexts for latest profile
     def self.available_contexts
-      M3::Profile.current_version.m3_contexts
+      current = M3::Profile.current_version
+      current.blank? ? [] : current.m3_contexts
     end
   end
 end

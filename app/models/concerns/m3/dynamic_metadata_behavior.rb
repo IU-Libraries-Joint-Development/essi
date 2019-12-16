@@ -13,14 +13,14 @@ module M3
     end
 
     # Retrieve the dynamic schema
-    def base_dynamic_schema(supplied_admin_set_id)
-      self.dynamic_schema || dynamic_schema_service(supplied_admin_set_id).dynamic_schema.id
+    def base_dynamic_schema(admin_set_id)
+      self.dynamic_schema || dynamic_schema_service(admin_set_id).dynamic_schema.id
     end
 
     # Setup dynamic schema service
-    def dynamic_schema_service(supplied_admin_set_id)
+    def dynamic_schema_service(admin_set_id)
       @dynamic_schema_service ||= M3::DynamicSchemaService.new(
-        admin_set_id: supplied_admin_set_id,
+        admin_set_id: admin_set_id,
         work_class_name: self.class.to_s
       )
     end

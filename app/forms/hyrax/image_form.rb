@@ -6,12 +6,12 @@ module Hyrax
     self.model_class = ::Image
     self.terms += [:resource_type]
     self.required_fields -= [:keyword]
-    # @todo - figure out why the form doens't always draw
     # undefined method `primary_fields=' for Hyrax::ImageForm:Class
     # self.primary_fields = [:title, :creator, :rights_statement]
+    include ESSI::ImageFormBehavior
     # @todo - add to m3 generator
     include M3::DynamicFormBehavior
-    include ESSI::ImageFormBehavior
-    
+    # @todo - sometimes all the fields go after the 'Additional Fields' button
+    # @todo - contextual form labels
   end
 end

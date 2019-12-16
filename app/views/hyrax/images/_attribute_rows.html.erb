@@ -5,7 +5,8 @@
 presenter.dynamic_schema )%>
 
 <% dynamic_schema_service.view_properties.each_pair do | prop_key, prop_value | %>
-  <%= presenter.attribute_to_html(prop_key, html_dl: true) %>  
+  <%# internationalisation %>
+  <%= presenter.attribute_to_html(prop_key, label: prop_value[:label] ,html_dl: true) %>  
 <% end %>
 
 <% if @presenter.respond_to? :holding_location %>

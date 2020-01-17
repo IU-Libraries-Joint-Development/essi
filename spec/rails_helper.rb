@@ -17,6 +17,7 @@ require 'selenium-webdriver'
 require 'chromedriver-helper'
 require 'i18n/debug' if ENV['I18N_DEBUG']
 require 'byebug' unless ENV['CI']
+require 'noid/rails/rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -120,10 +121,23 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  config.before(:each) do |example|
-    # Pass `:clean' to destroy objects in fedora/solr and start from scratch
-    ActiveFedora::Cleaner.clean! if example.metadata[:clean]
+  # The following methods ensure proper handling of minted IDs via Noid to eliminate LDP conflict errors
+  include Noid::Rails::RSpec
+  config.before(:suite) { disable_production_minter! }
+  config.after(:suite)  { enable_production_minter! }
 
+  config.before do |example|
+    #  Sometimes tests need a clean Fedora and Solr environment to work properly. To invoke the ActiveFedora
+    #  cleaner use the :clean metadata directive like:
+    #   describe "#structure", :clean do
+    #      some example
+    #    end
+    if example.metadata[:clean]
+      ActiveFedora::Cleaner.clean!
+      ActiveFedora.fedora.connection.send(:init_base_path) if example.metadata[:js]
+    end
+
+    # Let the DatabaseCleaner take care of database rows written in an example
     if example.metadata[:type] == :feature && Capybara.current_driver != :rack_test
       DatabaseCleaner.strategy = :truncation
     else
@@ -138,8 +152,10 @@ RSpec.configure do |config|
     page.driver.reset!
   end
 
-  config.after do
+  config.after(:suite) do
+    # Clean everything
     DatabaseCleaner.clean
+    ActiveFedora::Cleaner.clean!
   end
 end
 

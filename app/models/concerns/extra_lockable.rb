@@ -6,7 +6,13 @@ module ExtraLockable
     class_attribute :lock_id_attribute
     self.lock_id_attribute = :id
 
-    # TODO: Handle when id is nil or not defined.
+    delegate :lock_manager, to: :LockManagerService
+    delegate :lock_checker, to: :LockManagerService
+
+    def check_lock_for(lock_key, &block)
+      lock_checker.lock(lock_key, &block)
+    end
+
     def lock_id
       ident = try(lock_id_attribute)
       raise ArgumentError, "lock id attribute cannot be blank" if ident.blank?
@@ -24,7 +30,7 @@ module ExtraLockable
     end
 
     def lock?(key = lock_id)
-      acquire_lock_for(key) { nil }
+      check_lock_for(key) { nil }
       Rails.logger.info "ExtraLockable: No lock found for key: #{key}"
       return false
     rescue Hyrax::LockManager::UnableToAcquireLockError

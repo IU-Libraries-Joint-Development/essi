@@ -1,5 +1,5 @@
 class MembershipBuilder
-  include ::Hyrax::Lockable
+  include ExtraLockable
   attr_reader :work, :members
 
   def initialize(work, members)

@@ -1,4 +1,5 @@
 <div class="col-xs-12 main-header">
+  <%= lock_warning(curation_concern) %>
   <h1><span class="fa fa-folder-open" aria-hidden="true"></span><%= t("hyrax.file_manager.link_text") %></h1>
 </div>
 
@@ -8,7 +9,7 @@
     <div class="col-xs-12 col-md-9" id="order-grid">
       <%= render "file_manager_members" %>
     </div>
-    <div class="col-md-3 fixedsticky" id="file-manager-tools">
+    <div class="col-md-3 fixedsticky sticky-top" id="file-manager-tools">
       <aside class="form-progress panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title"><%= t('.toolbar') %></h3>

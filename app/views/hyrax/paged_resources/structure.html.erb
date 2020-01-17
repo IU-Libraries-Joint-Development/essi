@@ -1,5 +1,6 @@
 <% provide :page_title, curation_concern_page_title(curation_concern) %>
 <% provide :page_header do %>
+  <%= lock_warning(curation_concern) %>
   <h1><span class="fa fa-sitemap" aria-hidden="true"></span>Edit Structure</h1>
 <% end %>
 
@@ -63,7 +64,7 @@
         <%= button_tag type: 'button', class: 'btn btn-primary',
                        data: { action: 'submit-list',
                                prefix: Rails.application.config.relative_url_root || '' } do %>
-          Save changes
+          <%= I18n.t('essi.structure.save') %>
         <% end %>
       </div>
     </aside>

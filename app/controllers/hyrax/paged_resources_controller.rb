@@ -5,6 +5,7 @@ module Hyrax
   class PagedResourcesController < ApplicationController
     # Adds Hyrax behaviors to the controller.
     include Hyrax::WorksControllerBehavior
+    include ESSI::WorksControllerBehavior
     include ESSI::PagedResourcesControllerBehavior
     include ESSI::RemoteMetadataLookupBehavior
     include Hyrax::BreadcrumbsForWorks
@@ -14,10 +15,33 @@ module Hyrax
     # Use this line if you want to use a custom presenter
     self.show_presenter = Hyrax::PagedResourcePresenter
 
+    def show
+      super
+      set_catalog_search_term_for_uv_search
+    end
+
+    def set_catalog_search_term_for_uv_search
+      return unless request&.referer&.present? && request&.referer&.include?('catalog')
+      url_args = request&.referer&.split('&')
+      search_term = []
+      url_args&.each do |arg|
+        next unless arg.match?('q=')
+        search_term << CGI::parse(arg)['q']
+      end
+      params[:highlight] = search_term&.flatten&.first
+    end
+
     def structure
       parent_presenter
       @members = presenter.member_presenters
       @logical_order = presenter.logical_order_object
+    end
+
+    def additional_response_formats(wants)
+      wants.uv do
+        presenter && parent_presenter
+        render 'viewer_only.html.erb', layout: 'boilerplate', content_type: 'text/html'
+      end
     end
 
     def save_structure

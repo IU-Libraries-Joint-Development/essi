@@ -73,7 +73,7 @@ export default class StructureManager {
       let root_prefix = $(event.currentTarget).attr("data-prefix")
       let url = `${root_prefix}/concern/${element.attr("data-class-name")}/${element.attr("data-id")}/structure`
       let button = $(this)
-      button.text("Saving..")
+      button.text(I18n.t('essi.structure.saving'))
       button.addClass("disabled")
       $.ajax({
         type: "POST",
@@ -86,7 +86,7 @@ export default class StructureManager {
       }).fail(function(jqXHR, textStatus, errorThrown) {
         window.essi.flash.set("danger", "Request failed: " + errorThrown)
       }).always(() => {
-        button.text("Save")
+        button.text(I18n.t('essi.structure.save'))
         button.removeClass("disabled")
       })
     })

@@ -40,12 +40,3 @@
     }
   }
 }
-
-// enforces hyrax fixedsticky class with greater CSS specificity
-div.fixedsticky {
-  position: -webkit-sticky;
-  position: -moz-sticky;
-  position: -ms-sticky;
-  position: -o-sticky;
-  position: sticky;
-}

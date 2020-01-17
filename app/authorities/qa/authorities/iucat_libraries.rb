@@ -16,17 +16,23 @@ module Qa::Authorities
 
     private
       def api_url(id)
+        return nil unless ESSI.config[:iucat_libraries]
         [ESSI.config[:iucat_libraries][:url], id].join('/')
       end
 
       def data_for(id)
-        return {} unless ESSI.config[:iucat_libraries]
+        return {} unless api_enabled? && api_url(id)
         begin
           result = json(api_url(id)).with_indifferent_access
           result[:success] ? result[:data] : {}
         rescue TypeError, JSON::ParserError, Faraday::ConnectionFailed
           {}
         end
+      end
+
+      def api_enabled?
+        return nil unless ESSI.config[:iucat_libraries]
+        ESSI.config[:iucat_libraries][:api_enabled]
       end
   end
 end

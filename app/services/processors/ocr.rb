@@ -3,10 +3,7 @@ module Processors
     include Hydra::Derivatives::Processors::ShellBasedProcessor
 
     def self.encode(path, options, output_file)
-      existing_file = pre_hocr_file(path)
-
-      execute "tesseract #{path} #{output_file.gsub('.hocr', '')}" \
-      " #{options[:options]} hocr" unless existing_file
+      execute "tesseract #{path} #{output_file.gsub('.xml', '')} #{options[:options]} alto"
 
       Rails.logger.info "Copying File #{existing_file} to #{output_file}"
       execute "cp #{existing_file} #{output_file}"

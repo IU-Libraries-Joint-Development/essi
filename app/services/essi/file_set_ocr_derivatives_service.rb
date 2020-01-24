@@ -51,9 +51,9 @@ module ESSI
       return unless ESSI.config.dig(:essi, :create_hocr_files)
       OCRRunner.create(filename,
                        { source: :original_file,
-                         outputs: [{ label: "#{file_set.id}-hocr.hocr",
+                         outputs: [{ label: "#{file_set.id}-alto.xml",
                                      mime_type: 'text/html; charset=utf-8',
-                                     format: 'hocr',
+                                     format: 'xml',
                                      container: 'extracted_text',
                                      language: file_set.ocr_language,
                                      url: uri }]})

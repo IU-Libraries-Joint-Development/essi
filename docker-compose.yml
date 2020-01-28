@@ -58,7 +58,7 @@ services:
   solr:
     image: solr:7.7
     ports:
-      - "8983:8983"
+      - "8983"
     volumes:
       - './solr/config:/opt/config:delegated'
       - solr:/opt/solr/server/solr/mycores

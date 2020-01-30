@@ -577,7 +577,7 @@ GEM
     powerpack (0.1.2)
     public_suffix (3.1.1)
     pul_uv_rails (2.0.1)
-    puma (3.12.0)
+    puma (3.12.2)
     qa (2.2.0)
       activerecord-import
       deprecation
@@ -585,7 +585,7 @@ GEM
       nokogiri (~> 1.6)
       rails (~> 5.0)
       rdf
-    rack (2.0.7)
+    rack (2.0.8)
     rack-protection (2.0.5)
       rack
     rack-test (1.1.0)
@@ -899,7 +899,7 @@ DEPENDENCIES
   mysql2
   omniauth
   omniauth-iu-cas
-  puma (~> 3.7)
+  puma (~> 3.12)
   rails (~> 5.1.6)
   rails-controller-testing
   riiif (~> 2.0)

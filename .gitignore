@@ -34,3 +34,7 @@ fits.log
 .secrets.sh
 /secrets
 .env.*
+
+# Ignore yarn generated files
+yarn.lock
+public/uv

@@ -153,12 +153,12 @@ default: &default
         ORGtparts=R
         Stiles=\{1024,1024\}
     campus_logos:
-      iupui_admin_set:
-        title: IUPUI University Library Collections AS
-        url: https://ulib.iupui.edu/collections
-      iupui_collection_type:
-         title: IUPUI University Library Collections CT
-         url: https://ulib.iupui.edu/collections
+      example_collection_type:
+        title: Example title
+        url: https://example.com
+      example_admin_set:
+        title: Example title
+        url: https://example.com
 
 development:
   <<: *default

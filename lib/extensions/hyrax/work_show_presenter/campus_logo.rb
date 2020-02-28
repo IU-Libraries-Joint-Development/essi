@@ -6,7 +6,7 @@ module Extensions
         def campus_logo
           # Check if campus information is set for admin set
           set = admin_set.first.parameterize(separator: '_')
-          return false unless ESSI.config[:essi][:campus_logos][set]
+          return false unless ESSI.config[:essi][:campus_logos].present? && ESSI.config[:essi][:campus_logos][set]
 
           title = ESSI.config[:essi][:campus_logos][set][:title]
           link = ESSI.config[:essi][:campus_logos][set][:url]

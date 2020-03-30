@@ -19,6 +19,8 @@ default: &default
     queue_names:
       - default
       - ingest
+      - import
+      - export
     max_retries: 3
   rails:
     mailer:
@@ -58,10 +60,12 @@ default: &default
     secret_access_key: Essi12345
     region: iu-local
   browse_everything:
-    s3:
-      :bucket: essi-dropbox
-      :region: iu-local
-      :response_type: :signed_url
+    file_system:
+      :home: <%= Rails.root.join("staged_files") %>
+    # s3:
+    #   :bucket: essi-dropbox
+    #   :region: iu-local
+    #   :response_type: :signed_url
   essi:
     iiif_host: essi.docker  # riiif only
     notifier_email: example@test.test

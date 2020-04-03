@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: 8482c95f7f290c6861d7f227b7018c77ac1897a6
+  revision: fa36b6726f735717d013c9153b3a35fe997ef37f
   branch: bulkrax-improvements
   specs:
     bulkrax (0.1.0)
@@ -596,7 +596,7 @@ GEM
       mini_portile2 (~> 2.4.0)
     nokogumbo (2.0.2)
       nokogiri (~> 1.8, >= 1.8.4)
-    oai (1.0.1)
+    oai (1.1.0)
       builder (>= 3.1.0)
       faraday
       faraday_middleware

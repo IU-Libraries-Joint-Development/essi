@@ -92,6 +92,7 @@ gem 'iso-639'
 gem 'blacklight_iiif_search'
 gem 'iiif_manifest'
 gem 'i18n-js'
-gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git', branch: 'bulkrax-improvements'
+gem 'bulkrax', git: 'https://github.com/samvera-labs/bulkrax.git'
 
 gem 'willow_sword', github: 'notch8/willow_sword'
+gem 'pry'

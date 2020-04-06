@@ -9,8 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/samvera-labs/bulkrax.git
-  revision: fa36b6726f735717d013c9153b3a35fe997ef37f
-  branch: bulkrax-improvements
+  revision: b8d5d456a5036387ef1a944705b196dc367aedc6
   specs:
     bulkrax (0.1.0)
       bagit (~> 0.4)
@@ -625,6 +624,9 @@ GEM
     posix-spawn (0.3.13)
     power_converter (0.1.2)
     powerpack (0.1.2)
+    pry (0.13.0)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
     public_suffix (4.0.3)
     pul_uv_rails (2.0.1)
     puma (4.3.3)
@@ -954,6 +956,7 @@ DEPENDENCIES
   mysql2
   omniauth
   omniauth-iu-cas
+  pry
   puma
   rails (~> 5.1.6)
   rails-controller-testing

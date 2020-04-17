@@ -28,6 +28,12 @@ module ESSI
     end
   
     private
+      def after_create_response
+        # Calling `#t` in a controller context does not mark _html keys as html_safe
+        flash[:notice] = view_context.t('hyrax.works.create.after_create_html', application_name: view_context.application_name)
+        redirect_to hyrax.my_works_path
+      end
+
       def sanitize_manifest(hash)
         hash['label'] = sanitize_value(hash['label']) if hash.key?('label')
         hash['description'] = hash['description']&.collect { |elem| sanitize_value(elem) } if hash.key?('description')

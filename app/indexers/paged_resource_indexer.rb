@@ -4,6 +4,7 @@ class PagedResourceIndexer < Hyrax::WorkIndexer
   include ESSI::IndexesPagedResourceMetadata # Replaces IndexesBasicMetadata
   include ESSI::PagedResourceIndexerBehavior
   include ESSI::IIIFThumbnailBehavior
+  include ESSI::IndexesNumPages
 
   # Uncomment this block if you want to add custom indexing behavior:
   # def generate_solr_document

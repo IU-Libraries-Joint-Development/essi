@@ -14,7 +14,7 @@ require 'capybara/rails'
 require 'database_cleaner'
 require 'active_fedora/cleaner'
 require 'selenium-webdriver'
-require 'chromedriver-helper'
+require 'webdrivers'
 require 'i18n/debug' if ENV['I18N_DEBUG']
 require 'byebug' unless ENV['CI']
 require 'noid/rails/rspec'
@@ -162,4 +162,8 @@ end
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
   config.hook_into :webmock
+
+  # Ignore webdriver updates
+  driver_hosts = Webdrivers::Common.subclasses.map { |driver| URI(driver.base_url).host }
+  config.ignore_hosts(*driver_hosts)
 end

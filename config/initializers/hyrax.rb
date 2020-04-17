@@ -321,4 +321,5 @@ if defined?(FactoryBot)
   FactoryBot.definition_file_paths.unshift hyrax_factories
 end
 
+Hyrax::CurationConcern.actor_factory.insert Hyrax::Actors::TransactionalRequest, ESSI::Actors::PerformLaterActor
 Hyrax::CurationConcern.actor_factory.swap Hyrax::Actors::CreateWithRemoteFilesActor, ESSI::Actors::CreateWithRemoteFilesActor

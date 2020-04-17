@@ -14,6 +14,7 @@ default_environment: &default_environment
   ENGINE_CART_RAILS_OPTIONS: --skip-git --skip-bundle --skip-listen --skip-spring --skip-yarn --skip-keeps --skip-action-cable --skip-coffee --skip-puma --skip-test
   SPEC_OPTS: --profile 10 --format RspecJunitFormatter --out /tmp/test-results/rspec.xml --format progress
   COVERALLS_PARALLEL: true
+  WD_INSTALL_DIR: ./webdriver
 
 jobs:
   build:
@@ -87,12 +88,14 @@ jobs:
           gem update bundler
           bundle config path $CIRCLE_WORKING_DIRECTORY/vendor/bundle
           bundle install
-          bundle pristine chromedriver-helper
+          bundle pristine webdrivers
           bundle clean
+          bundle exec rails webdrivers:chromedriver:update
 
     - save_cache:
         paths:
         - ./vendor/bundle
+        - ./webdriver
         key: dependencies-v3-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
 
 #    - run:

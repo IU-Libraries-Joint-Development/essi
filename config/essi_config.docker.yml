@@ -19,6 +19,8 @@ default: &default
     queue_names:
       - default
       - ingest
+      - import # Bulkrax
+      - export # Bulkrax
     max_retries: 3
   rails:
     mailer:

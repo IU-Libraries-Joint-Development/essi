@@ -6,7 +6,9 @@ module ImageQC
       # Validations schema hash format:
       # Keys are property names, with corresponding methods in @metadata_reader
       # Values used for validation may be:
-      # - a single literal, for a required value; a convenient equivalent to a single-valued Array
+      # - a string or numeric literal, for a required value;
+      #   (functionally equivalent equivalent to a single-valued Array)
+      # - a single literal Range, for a range of allowed values
       # - an Array of literals, for a set of allowed values 
       #     Note that an empty Array is equivalent to not providing the rule at all,
       #     but may be useful for explicit clarity or overriding an inherited rule
@@ -69,18 +71,18 @@ module ImageQC
         end
  
         # Converts input into format usable as a validator:
-        # - an Array of valid values
+        # - an Array or Range of valid values
         # - a Symbol of a validator method name
         #
         # @param values [Hash, String, Integer, Float, Array, Symbol] raw input
-        # @return [Array, Symbol] converted output
+        # @return [Array, Range, Symbol] converted output
         def to_validator(values)
           case values
           when Hash
             values.keys
           when String, Integer, Float
             Array.wrap(values)
-          when Array, Symbol
+          when Array, Range, Symbol
             values
           else
             raise "Invalid values type #{values.class}: #{values}"
@@ -91,7 +93,7 @@ module ImageQC
         #
         # @param property [Symbol] the metadata reader property name
         # @param actual [anything] the metadata reader value
-        # @param validator [Symbol, Array<String, Integer, Float>] a method name for validation, or Array of valid values
+        # @param validator [Symbol, Array<String, Integer, Float>, Range] a method name for validation, or Array of valid values
         # @return [Nil, String] the invalidation message, if present
         def validate_property(property, actual, validator)
           return self.send(validator, property, actual) if validator.is_a? Symbol

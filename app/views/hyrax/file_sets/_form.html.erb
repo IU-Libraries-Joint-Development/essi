@@ -4,6 +4,10 @@
       <%= label_tag 'file_set[title][]', t('.title'),  class: "string optional" %>
     </span>
     <%= text_field_tag 'file_set[title][]', curation_concern.title.first, class: 'form-control', required: true %>
+    <span class="control-label">
+      <%= label_tag 'file_set[source_metadata_identifier]', t('.source_metadata_identifier'),  class: "string optional" %>
+    </span>
+    <%= text_field_tag 'file_set[source_metadata_identifier]', curation_concern.source_metadata_identifier, class: 'form-control', required: false %>
   </fieldset>
 
   <div class="row">

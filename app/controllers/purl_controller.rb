@@ -4,7 +4,10 @@ class PurlController < ApplicationController
     respond_to do |f|
       f.html { redirect_to @url }
       f.json { render json: { url: @url }.to_json }
-      f.iiif { redirect_to @url + '/manifest' }
+      f.iiif do
+        @url = manifest_url(@url)
+        @url.present? ? (redirect_to @url) : render_404
+      end
     end
   end
 
@@ -13,7 +16,10 @@ class PurlController < ApplicationController
     respond_to do |f|
       f.html { redirect_to @url }
       f.json { render json: { url: @url }.to_json }
-      f.jp2 { redirect_to jp2_url(@solr_hit) }
+      f.jp2 do
+        @url = jp2_url(@solr_hit)
+        @url.present? ? (redirect_to @url) : render_404
+      end
     end
   end
 
@@ -61,15 +67,27 @@ class PurlController < ApplicationController
     end
 
     def rescue_url
-      ESSI.config.dig(:essi, :purl_redirect_url) % params[:id]
+      @rescue_url ||= ESSI.config.dig(:essi, :purl_redirect_url) % params[:id]
     end
 
     def jp2_url(solr_hit)
       begin
         Hyrax.config.iiif_image_url_builder.call(solr_hit['original_file_id_ssi'], nil, '!600,600')
       rescue StandardError
-        rescue_url
+        nil
       end
+    end
+
+    def manifest_url(url)
+      if url == rescue_url
+        nil
+      else
+        url = url + '/manifest'
+      end
+    end
+
+    def render_404
+      render plain: 'File not found', status: :not_found
     end
 
     def normalize_number(n)

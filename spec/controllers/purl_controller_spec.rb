@@ -85,8 +85,8 @@ describe PurlController do
       context 'when in iiif' do
         let(:format) { 'iiif' }
 
-        it 'redirects to a missing manifest response' do
-          expect(response).to redirect_to (target_path + '/manifest')
+        it 'returns a 404 response' do
+          expect(response.status).to eq 404
         end
       end
     end
@@ -156,8 +156,8 @@ describe PurlController do
       end
       context 'when in jp2' do
         let(:format) { 'jp2' }
-        it 'redirects to the rescue url' do
-          expect(response).to redirect_to rescue_url
+        it 'returns a 404 response' do
+          expect(response.status).to eq 404
         end
       end
     end

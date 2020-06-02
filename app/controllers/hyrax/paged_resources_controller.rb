@@ -16,5 +16,11 @@ module Hyrax
 
     # Use this line if you want to use a custom presenter
     self.show_presenter = Hyrax::PagedResourcePresenter
+
+    def pdf
+      PagedResourcePDF.new(presenter,
+                             quality: params[:pdf_quality]).render(pdf_path)
+      redirect_to main_app.download_path(presenter, file: pdf_type)
+    end
   end
 end

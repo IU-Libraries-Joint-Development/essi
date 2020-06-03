@@ -18,8 +18,7 @@ module Hyrax
     self.show_presenter = Hyrax::PagedResourcePresenter
 
     def pdf
-      PagedResourcePDF.new(presenter,
-                             quality: params[:pdf_quality]).render(pdf_path)
+      PagedResourcePDF.new(presenter, quality: params[:pdf_quality]).render(pdf_hyrax_paged_resource_path)
       redirect_to main_app.download_path(presenter, file: pdf_type)
     end
   end

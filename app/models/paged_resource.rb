@@ -15,6 +15,11 @@ class PagedResource < ActiveFedora::Base
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
 
+  property :pdf_type, predicate: ::RDF::URI.intern('https://lib.my.edu/terms/pdfType'), multiple: false do |index|
+    index.as :stored_searchable
+  end
+
+
  # Include extended metadata common to most Work Types
   include ESSI::ExtendedMetadata
 

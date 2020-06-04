@@ -1,0 +1,5 @@
+terms:
+  - id: color
+    term: "Color PDF"
+  - id: gray
+    term: "Grayscale PDF"

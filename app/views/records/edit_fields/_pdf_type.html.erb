@@ -1,0 +1,3 @@
+
+<%= f.input :pdf_type, as: :select, collection: Hyrax::PdfTypeService.select_all_options,
+    input_html: { class: 'form-control', multiple: false } %>

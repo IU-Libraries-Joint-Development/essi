@@ -94,6 +94,7 @@ gem 'iiif_manifest'
 gem 'i18n-js'
 gem 'bagit'
 gem 'validatable'
+gem 'prawn'
 
 # Bulk Import / Export
 #TODO: N8 specific - use local for dev; use github for test/staging

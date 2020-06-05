@@ -611,10 +611,14 @@ GEM
     parallel (1.12.1)
     parser (2.5.1.2)
       ast (~> 2.4.0)
+    pdf-core (0.7.0)
     phantomjs (2.1.1.0)
     posix-spawn (0.3.13)
     power_converter (0.1.2)
     powerpack (0.1.2)
+    prawn (2.2.2)
+      pdf-core (~> 0.7.0)
+      ttfunk (~> 1.5)
     public_suffix (4.0.4)
     pul_uv_rails (2.0.1)
     puma (3.12.6)
@@ -871,6 +875,7 @@ GEM
     tilt (2.0.8)
     tinymce-rails (4.9.6)
       railties (>= 3.1.1)
+    ttfunk (1.6.2.1)
     turbolinks (5.2.0)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -948,6 +953,7 @@ DEPENDENCIES
   mysql2
   omniauth
   omniauth-iu-cas
+  prawn
   puma
   rails (~> 5.1.6)
   rails-controller-testing

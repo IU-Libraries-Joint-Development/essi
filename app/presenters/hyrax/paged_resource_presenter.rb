@@ -26,5 +26,9 @@ module Hyrax
       end
       renderings.flatten
     end
+
+    def manifest_helper
+      @manifest_helper ||= ESSI::ManifestHelper.new(request.base_url)
+    end
   end
 end

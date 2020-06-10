@@ -18,25 +18,29 @@ module Hyrax
     self.show_presenter = Hyrax::PagedResourcePresenter
 
     def pdf
-      # PagedResourcePDF.new(presenter, quality: params[:pdf_quality]).render(pdf_hyrax_paged_resource_path)
+      # PagedResourcePDF.new(presenter).render(pdf_hyrax_paged_resource_path)
       # redirect_to main_app.download_path(presenter)
 
       resource = PagedResource.find(params[:id])
-      # TODO: if tmp/pdfs/ doesn't exist, mkdir it
-      Prawn::Document.generate(Rails.root.join("tmp", "pdfs", "#{resource.id}.pdf")) do |pdf|
-        resource.file_sets.each do |fs|
-          Tempfile.create(fs.original_file.file_name.first, binmode: true) do |file|
-            file.write(fs.original_file.content)
-            pdf.image file.path
-          end
-        end
-      end
+      generate_pdf(resource)
     end
 
-    # private
+     private
 
-    # def pdf_type
-      # "#{params[:pdf_quality]}-pdf"
-    # end
+     def generate_pdf(resource)
+       # TODO: if tmp/pdfs/ doesn't exist, mkdir it
+       path = Rails.root.join('tmp', 'pdfs')
+       FileUtils.mkdir_p path unless File.exist?(path)
+       pdf_file = Prawn::Document.generate(Rails.root.join("tmp", "pdfs", "#{resource.id}.pdf")) do |pdf|
+         resource.file_sets.each do |fs|
+           Tempfile.create(fs.original_file.file_name.first, binmode: true) do |file|
+             file.write(fs.original_file.content)
+             pdf.image file.path
+           end
+         end
+       end
+       pdf_file
+       raise 'hell'
+     end
   end
 end

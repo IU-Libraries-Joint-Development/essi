@@ -19,28 +19,33 @@ module Hyrax
 
     def pdf
       # PagedResourcePDF.new(presenter).render(pdf_hyrax_paged_resource_path)
-      # redirect_to main_app.download_path(presenter)
-
       resource = PagedResource.find(params[:id])
       generate_pdf(resource)
+
+      #raise 'hell'
+      redirect_to hyrax.download_path(presenter)
     end
 
      private
 
      def generate_pdf(resource)
-       # TODO: if tmp/pdfs/ doesn't exist, mkdir it
        path = Rails.root.join('tmp', 'pdfs')
        FileUtils.mkdir_p path unless File.exist?(path)
-       pdf_file = Prawn::Document.generate(Rails.root.join("tmp", "pdfs", "#{resource.id}.pdf")) do |pdf|
+       file_name = "#{resource.id}.pdf"
+       pdf_file = nil
+       Prawn::Document.generate(Rails.root.join("tmp", "pdfs", file_name)) do |pdf|
          resource.file_sets.each do |fs|
-           Tempfile.create(fs.original_file.file_name.first, binmode: true) do |file|
+           # TODO: check if tmpfile exists
+           pdf_file = Tempfile.create(fs.original_file.file_name.first, path) do |file|
+             file.binmode
              file.write(fs.original_file.content)
-             pdf.image file.path
+             pdf.image(file)
            end
          end
        end
+
+      raise 'hell'
        pdf_file
-       raise 'hell'
      end
   end
 end

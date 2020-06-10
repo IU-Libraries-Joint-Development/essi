@@ -10,9 +10,9 @@ module ESSI
     # @return [Hash] rendering
     def build_pdf_rendering(file_set_id)
       file_set_document = query_for_rendering(file_set_id)
-      label = file_set_document.label.present? ? ": #{file_set_document.label}" : ''
+      paged_resource_id = file_set_document.dig(:is_page_of_ssi)
       {
-        "@id"=> Hyrax::Engine.routes.url_helpers.download_url(file_set_document.id, host: @hostname),
+        "@id"=> pdf_hyrax_paged_resource_path(paged_resource_id),
         "label"=> "Download as PDF",
         "format"=> "application/pdf"
       }

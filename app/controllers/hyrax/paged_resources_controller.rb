@@ -31,10 +31,11 @@ module Hyrax
 
      def generate_pdf(resource)
        path = Rails.root.join('tmp', 'pdfs')
-       FileUtils.mkdir_p path unless File.exist?(path)
        file_name = "#{resource.id}.pdf"
        pdf_file = nil
-       file_path = Rails.root.join('tmp', 'pdfs', file_name)
+       file_path = Rails.root.join(path, file_name)
+
+       FileUtils.mkdir_p path unless File.exist?(path)
        File.delete(file_path) if File.exists?(file_path)
        Prawn::Document.generate(Rails.root.join('tmp', 'pdfs', file_name)) do |pdf|
          resource.file_sets.each do |fs|

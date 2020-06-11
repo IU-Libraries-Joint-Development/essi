@@ -46,7 +46,7 @@ module Hyrax
           Tempfile.create(fs.original_file.file_name.first, dir_path) do |file|
             file.binmode
             file.write(fs.original_file.content)
-            pdf.image(file, fit: [612, pdf.y])
+            pdf.image(file, fit: [612, pdf.y], position: :center, vposition: :center)
           end
           pdf.start_new_page unless num_of_images == i
         end

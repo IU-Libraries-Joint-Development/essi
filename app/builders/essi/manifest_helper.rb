@@ -11,6 +11,7 @@ module ESSI
     def build_pdf_rendering(file_set_id)
       file_set_document = query_for_rendering(file_set_id)
       paged_resource_id = file_set_document.dig(:is_page_of_ssi)
+       #TODO: check if paged resource exists
       {
         "@id"=> pdf_hyrax_paged_resource_path(paged_resource_id),
         "label"=> "Download as PDF",

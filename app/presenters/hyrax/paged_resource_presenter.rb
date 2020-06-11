@@ -17,10 +17,11 @@ module Hyrax
     #
     # @return [Array] array of rendering hashes
     def sequence_rendering
+
       renderings = []
       if solr_document.rendering_ids.present?
         solr_document.rendering_ids.each do |file_set_id|
-          renderings << manifest_helper.build_rendering(file_set_id)
+          #renderings << manifest_helper.build_rendering(file_set_id)
           renderings << manifest_helper.build_pdf_rendering(file_set_id)
         end
       end

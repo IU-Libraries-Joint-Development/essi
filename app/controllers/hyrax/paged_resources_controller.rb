@@ -18,6 +18,7 @@ module Hyrax
     self.show_presenter = Hyrax::PagedResourcePresenter
 
     def pdf
+      #TODO: handle when not paged resource
       resource = PagedResource.find(params[:id])
       pdf_hash = generate_pdf(resource)
 
@@ -27,7 +28,7 @@ module Hyrax
         disposition: 'inline'
     end
 
-     private
+      private
 
      def generate_pdf(resource)
        path = Rails.root.join('tmp', 'pdfs')

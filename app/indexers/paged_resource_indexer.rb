@@ -7,9 +7,10 @@ class PagedResourceIndexer < Hyrax::WorkIndexer
   include ESSI::IndexesNumPages
 
   # Uncomment this block if you want to add custom indexing behavior:
-  # def generate_solr_document
-  #  super.tap do |solr_doc|
-  #    solr_doc['my_custom_field_ssim'] = object.my_custom_property
-  #  end
-  # end
+   def generate_solr_document
+    byebug 
+    super.tap do |solr_doc|
+      solr_doc['rendering_ids'] = object.my_custom_property
+    end
+   end
 end

@@ -8,7 +8,6 @@ class PagedResourceIndexer < Hyrax::WorkIndexer
 
   # Uncomment this block if you want to add custom indexing behavior:
    def generate_solr_document
-    byebug 
     super.tap do |solr_doc|
       solr_doc['rendering_ids'] = object.my_custom_property
     end

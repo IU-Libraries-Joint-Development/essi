@@ -27,26 +27,28 @@ module Hyrax
         disposition: 'inline'
     end
 
-     private
+    private
 
-     def generate_pdf(resource)
-       path = Rails.root.join('tmp', 'pdfs')
-       FileUtils.mkdir_p path unless File.exist?(path)
-       file_name = "#{resource.id}.pdf"
-       pdf_file = nil
-       file_path = Rails.root.join('tmp', 'pdfs', file_name)
-       File.delete(file_path) if File.exists?(file_path)
-       Prawn::Document.generate(Rails.root.join('tmp', 'pdfs', file_name)) do |pdf|
-         resource.file_sets.each do |fs|
-           pdf_file = Tempfile.create(fs.original_file.file_name.first, path) do |file|
-             file.binmode
-             file.write(fs.original_file.content)
-             pdf.image(file)
-           end
-         end
-       end
+    def generate_pdf(resource)
+      path = Rails.root.join('tmp', 'pdfs')
+      FileUtils.mkdir_p path unless File.exist?(path)
+      file_name = "#{resource.id}.pdf"
+      pdf_file = nil
+      file_path = Rails.root.join('tmp', 'pdfs', file_name)
+      File.delete(file_path) if File.exists?(file_path)
+      Prawn::Document.generate(Rails.root.join('tmp', 'pdfs', file_name), margin: [0,0,0,0]) do |pdf|
+        num_of_images = resource.file_sets.count
+        resource.file_sets.each.with_index(1) do |fs, i|
+          pdf_file = Tempfile.create(fs.original_file.file_name.first, path) do |file|
+            file.binmode
+            file.write(fs.original_file.content)
+            pdf.image(file, fit: [612, pdf.y])
+          end
+          pdf.start_new_page unless num_of_images == i
+        end
+      end
 
-       { path: file_path, file_name: file_name }
-     end
+      { path: file_path, file_name: file_name }
+    end
   end
 end

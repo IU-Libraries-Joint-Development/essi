@@ -14,7 +14,6 @@ class PagedResource < ActiveFedora::Base
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
-  after_save :set_rendering_ids
 
  # Include extended metadata common to most Work Types
   include ESSI::ExtendedMetadata
@@ -28,13 +27,4 @@ class PagedResource < ActiveFedora::Base
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
-
-  private
-
-  # rendering_ids need to be set for #sequence_rendering method to populate pdf rendering
-  def set_rendering_ids
-    self.file_sets.each do |f|
-      self.update_attributes!(rendering_ids:[f.id])
-    end
-  end
 end

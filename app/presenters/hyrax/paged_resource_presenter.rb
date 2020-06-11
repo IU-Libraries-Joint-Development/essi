@@ -18,10 +18,7 @@ module Hyrax
     # @return [Array] array of rendering hashes
     def sequence_rendering
 
-      rendering_ids = []
-      PagedResource.find(solr_document.id).file_sets.each do |fs|
-        rendering_ids << fs.id
-      end
+      rendering_ids = solr_document[:file_set_ids_ssim]
 
       renderings = []
       if rendering_ids.present?
@@ -29,7 +26,7 @@ module Hyrax
           renderings << manifest_helper.build_pdf_rendering(file_set_id)
         end
       end
-      renderings.flatten
+      renderings.flatten.uniq
     end
 
     def manifest_helper

@@ -23,32 +23,36 @@ module Hyrax
       pdf_hash = generate_pdf(resource)
 
       send_file pdf_hash[:path],
-        filename: pdf_hash[:file_name],
-        type: 'application/pdf',
-        disposition: 'inline'
+                filename: pdf_hash[:file_name],
+                type: 'application/pdf',
+                disposition: 'inline'
     end
 
-      private
+    private
 
-     def generate_pdf(resource)
-       path = Rails.root.join('tmp', 'pdfs')
-       file_name = "#{resource.id}.pdf"
-       pdf_file = nil
-       file_path = Rails.root.join(path, file_name)
+    # TODO: extract into service
+    def generate_pdf(resource)
+      file_name = "#{resource.id}.pdf"
+      dir_path  = Rails.root.join('tmp', 'pdfs')
+      file_path = dir_path.join(file_name)
 
-       FileUtils.mkdir_p path unless File.exist?(path)
-       File.delete(file_path) if File.exists?(file_path)
-       Prawn::Document.generate(Rails.root.join('tmp', 'pdfs', file_name)) do |pdf|
-         resource.file_sets.each do |fs|
-           pdf_file = Tempfile.create(fs.original_file.file_name.first, path) do |file|
-             file.binmode
-             file.write(fs.original_file.content)
-             pdf.image(file)
-           end
-         end
-       end
+      FileUtils.mkdir_p dir_path unless Dir.exist?(dir_path)
+      # TODO: only delete if file_sets on resource have changed
+      File.delete(file_path) if File.exist?(file_path)
 
-       { path: file_path, file_name: file_name }
-     end
+      Prawn::Document.generate(file_path, margin: [0, 0, 0, 0]) do |pdf|
+        num_of_images = resource.file_sets.count
+        resource.file_sets.each.with_index(1) do |fs, i|
+          Tempfile.create(fs.original_file.file_name.first, dir_path) do |file|
+            file.binmode
+            file.write(fs.original_file.content)
+            pdf.image(file, fit: [612, pdf.y])
+          end
+          pdf.start_new_page unless num_of_images == i
+        end
+      end
+
+      { path: file_path, file_name: file_name }
+    end
   end
 end

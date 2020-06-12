@@ -55,7 +55,6 @@ group :development, :test do
   gem 'webmock'
   gem 'jasmine-jquery-rails'
   gem 'jasmine-rails'
-  gem 'pdf-inspector', require: "pdf/inspector"
 end
 
 group :development do

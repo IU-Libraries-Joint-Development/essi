@@ -22,7 +22,7 @@ module Hyrax
       resource = PagedResource.find(params[:id])
       pdf = ESSI::GeneratePdfService.new(resource).generate
 
-      send_file pdf[:path],
+      send_file pdf[:file_path],
                 filename: pdf[:file_name],
                 type: 'application/pdf',
                 disposition: 'inline'

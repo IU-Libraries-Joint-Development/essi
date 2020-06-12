@@ -46,3 +46,4 @@ staged_files
 
 public/assets
 vendor/engines/bulkrax/
+spec/fixtures/pdfs

@@ -4,22 +4,25 @@ module ESSI
     def initialize(resource)
       @resource = resource
       @file_name = "#{@resource.id}.pdf"
-      @dir_path  = Rails.root.join('tmp', 'pdfs')
     end
 
     def generate
       file_path = create_pdf_file_path
       generate_pdf_document(file_path)
 
-      { path: file_path, file_name: @file_name }
+      { file_path: file_path, file_name: @file_name }
     end
 
     private
 
-    def create_pdf_file_path
-      file_path = @dir_path.join(@file_name)
+    def dir_path
+      Rails.root.join('tmp', 'pdfs')
+    end
 
-      FileUtils.mkdir_p(@dir_path) unless Dir.exist?(@dir_path)
+    def create_pdf_file_path
+      file_path = dir_path.join(@file_name)
+
+      FileUtils.mkdir_p(dir_path) unless Dir.exist?(dir_path)
       # TODO: only delete if file_sets on @resource have changed
       File.delete(file_path) if File.exist?(file_path)
       file_path
@@ -33,7 +36,7 @@ module ESSI
 
     def create_tmp_files(pdf)
       @resource.file_sets.each.with_index(1) do |fs, i|
-        Tempfile.create(fs.original_file.file_name.first, @dir_path) do |file|
+        Tempfile.create(fs.original_file.file_name.first, dir_path) do |file|
           file.binmode
           file.write(fs.original_file.content)
           # TODO: Fit image onto entire page. Use contstants instead of hard code

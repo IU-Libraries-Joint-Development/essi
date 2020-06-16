@@ -18,9 +18,8 @@ module Hyrax
     self.show_presenter = Hyrax::PagedResourcePresenter
 
     def pdf
-      #TODO: handle when not paged resource
       resource = PagedResource.find(params[:id])
-      pdf = ESSI::GeneratePdfService.new(resource).generate
+      pdf = ESSI::GeneratePdfService.new(resource).generate if resource
 
       send_file pdf[:file_path],
                 filename: pdf[:file_name],

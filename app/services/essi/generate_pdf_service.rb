@@ -39,7 +39,7 @@ module ESSI
         Tempfile.create(fs.original_file.file_name.first, dir_path) do |file|
           file.binmode
           file.write(fs.original_file.content)
-          # TODO: Fit image onto entire page. Use contstants instead of hard code
+          # TODO: Fit image onto entire page. Use contstants instead of hard code. (ESSI-935)
           pdf.image(file, fit: [612, pdf.y], position: :center, vposition: :center)
         end
         paginate_images(pdf, i)

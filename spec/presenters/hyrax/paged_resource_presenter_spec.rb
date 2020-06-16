@@ -20,12 +20,6 @@ RSpec.describe Hyrax::PagedResourcePresenter do
 
   subject { described_class.new(double, double) }
 
-  context "When the resource has extracted text indexed for searching" do
-    it "responds to search_service" do
-      expect(subject).to respond_to(:search_service)
-    end
-  end
-
   describe "#manifest" do
     let(:work) { create(:paged_resource_with_one_image) }
     let(:solr_document) { SolrDocument.new(work.to_solr) }
@@ -41,7 +35,10 @@ RSpec.describe Hyrax::PagedResourcePresenter do
       end
 
       it "returns a hash containing the pdf rendering information" do
+        pdf_rendering_hash = {"@id"=>"/concern/paged_resources/#{work.id}/pdf", "label"=>"Download as PDF", "format"=>"application/pdf"}
+
         expect(subject).to be_an Array
+        expect(subject).to include(pdf_rendering_hash)
       end
     end
   end

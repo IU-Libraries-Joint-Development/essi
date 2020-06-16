@@ -6,11 +6,6 @@ RSpec.describe ESSI::GeneratePdfService do
   let(:service) { described_class.new(resource) }
   let(:pdf) { service.generate }
 
-  # TODO: should this service be tested, or the controller
-  # what uses it? Should this be mocked so test pdfs aren't
-  # created and hanging around. Should a cleaner be impleneted to
-  # delete the created test tmp files?
-
   before do
     pdf_fixtures = Rails.root.join('spec', 'fixtures', 'pdfs')
     allow_any_instance_of(described_class).to receive(:dir_path)

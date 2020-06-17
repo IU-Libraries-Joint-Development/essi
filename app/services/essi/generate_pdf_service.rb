@@ -30,6 +30,7 @@ module ESSI
 
     def generate_pdf_document(file_path)
       Prawn::Document.generate(file_path, margin: [0, 0, 0, 0]) do |pdf|
+        CoverPageGenerator.new(@resource).apply(pdf)
         create_tmp_files(pdf)
       end
     end

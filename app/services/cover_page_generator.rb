@@ -26,7 +26,6 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def apply(prawn_document)
-    # TODO copy font files
     noto_cjk_b = Rails.root.join('app', 'assets', 'fonts', 'NotoSansCJKtc',
       'NotoSansCJKtc-Bold.ttf')
     noto_cjk_r = Rails.root.join('app', 'assets', 'fonts', 'NotoSansCJK',
@@ -62,16 +61,15 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
     )
     prawn_document.fallback_fonts(["noto_cjk", "noto_ara", "amiri"])
 
-    prawn_document.bounding_box([15, Canvas::LETTER_HEIGHT - 15],
-      width: Canvas::LETTER_WIDTH - 30,
-      height: Canvas::LETTER_HEIGHT - 30) do
-      # TODO copy logo
+    prawn_document.bounding_box([15, 15],
+      width: 30,
+      height: 30) do
       image_path =
         Rails.root.join('app', 'assets', 'images', 'iu-sig-formal.2x.png')
       prawn_document.image(
         image_path.to_s,
         position: :center,
-        width: Canvas::LETTER_WIDTH - 30
+        width: 30
       )
       prawn_document.stroke_color "000000"
       prawn_document.move_down(20)
@@ -146,18 +144,14 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
   end
   # rubocop:enable Metrics/AbcSize
 
-  def lang_is_arabic?
-    solr_document.language&.first == 'ara'
-  end
+  # def lang_is_arabic?
+  #   solr_document.language&.first == 'ara'
+  # end
 
   def dir_split(s)
     chunks = []
     s.split(/\s/).each do |word|
-      chunks << if chunks.last&.dir == word.dir
-                  "#{chunks.pop} #{word}"
-                else
-                  word
-                end
+      chunks << word
     end
     chunks
   end

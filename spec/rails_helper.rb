@@ -11,6 +11,7 @@ require 'rspec/rails'
 require 'webmock/rspec'
 require 'vcr'
 require 'capybara/rails'
+require 'capybara-screenshot/rspec'
 require 'database_cleaner'
 require 'active_fedora/cleaner'
 require 'selenium-webdriver'
@@ -81,6 +82,32 @@ end
 
 Capybara.default_driver = :rack_test # This is a faster driver
 Capybara.javascript_driver = :selenium_chrome_headless_sandboxless # This is slower
+Capybara::Screenshot.register_driver(:selenium_chrome_headless_sandboxless) do |driver, path|
+  driver.browser.save_screenshot(path)
+end
+
+Capybara::Screenshot.autosave_on_failure = false
+
+# Save CircleCI artifacts
+
+def save_timestamped_page_and_screenshot(page, meta)
+  filename = File.basename(meta[:file_path])
+  line_number = meta[:line_number]
+
+  time_now = Time.now
+  timestamp = "#{time_now.strftime('%Y-%m-%d-%H-%M-%S.')}#{'%03d' % (time_now.usec/1000).to_i}"
+
+  screenshot_name = "screenshot-#{filename}-#{line_number}-#{timestamp}.png"
+  screenshot_path = "#{Rails.root.join('tmp/capybara')}/#{screenshot_name}"
+  page.save_screenshot(screenshot_path)
+
+  page_name = "html-#{filename}-#{line_number}-#{timestamp}.html"
+  page_path = "#{Rails.root.join('tmp/capybara')}/#{page_name}"
+  page.save_page(page_path)
+
+  puts "\n  Screenshot: tmp/capybara/#{screenshot_name}"
+  puts "  HTML: tmp/capybara/#{page_name}"
+end
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -143,6 +170,12 @@ RSpec.configure do |config|
     else
       DatabaseCleaner.strategy = :transaction
       DatabaseCleaner.start
+    end
+  end
+
+  config.after(:each) do |example|
+    if example.metadata[:js]
+      save_timestamped_page_and_screenshot(Capybara.page, example.metadata) if example.exception
     end
   end
 

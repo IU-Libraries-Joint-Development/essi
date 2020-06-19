@@ -36,7 +36,8 @@ services:
     volumes:
       - ./essi-nginx.nginx:/etc/nginx/conf.d/essi-nginx.conf
     ports:
-      - "80:8980"
+      #- "80:8980"
+      - "81:8980" # change port exposure to get dory working
     depends_on:
       - app
       - worker
@@ -48,8 +49,12 @@ services:
       VIRTUAL_HOST: essi.docker
       VIRTUAL_PORT: 3000
       IN_DOCKER: 'true'
+      HUB_URL: http://chrome:4444/wd/hub # <-- Add the HUB_URL environment variable
     ports:
-      - "3000:3000"
+      #- "3000:3000"
+      - "4000:3000" # outside inside. expose 3000 on port 4000
+    depends_on:
+      - chrome
 
   worker:
     << : *default-app
@@ -144,10 +149,51 @@ services:
     ports:
       - "8080"
 
-  chrome:
-    image: selenium/standalone-chrome:3.141
-    shm_size: 2G
 
+  chrome:
+    image: selenium/standalone-chrome:3.141.59-zirconium  # this version should match that of the selenium-webdriver gem (see Gemfile)
+    volumes:
+      - /dev/shm:/dev/shm
+    shm_size: 2 
+
+        #working kinda
+        #chrome:
+        #  image: selenium/standalone-chrome:latest
+        #  volumes:
+        #  - /dev/shm:/dev/shm
+        #  links:
+        #  - hub
+        #  environment:
+        #    HUB_HOST: hub
+        #  ports:
+        #    - "32773:5900"
+
+        #hub:
+        #  image: selenium/hub:latest
+        #  environment:
+        #    VIRTUAL_HOST: selenium.hub.docker
+        #  ports:
+        #    - "4444:4444"
+        #selenium-hub:
+        #  image: selenium/hub
+        #  ports:
+        #    - "4444"
+        #chrome:
+        #  #image: selenium/standalone-chrome:3.141
+        #  # Fix Chrome version to 74, as 75 errors with [SEVERE]: bind() failed: Cannot assign requested address (99)
+        #  image: selenium/node-chrome:latest
+        #  environment:
+        #    VIRTUAL_HOST: chrome.docker
+        #  links:
+        #    - selenium-hub
+        #  shm_size: 2 
+        #  depends_on:
+        #    - selenium-hub
+        #  environment:
+        #    - HUB_HOST=selenium-hub
+        #    - HUB_PORT=4444
+        #  ports:
+        #    - "5555"
 volumes:
   fcrepo:
   mysql:

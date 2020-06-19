@@ -40,8 +40,25 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 ActiveJob::Base.queue_adapter = :test
 
+# working: Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
+# working:   if ENV['IN_DOCKER'].present?
+# working:     chrome_capabilities = ::Selenium::WebDriver::Remote::Capabilities.chrome('goog:chromeOptions' => { 'args': %w[no-sandbox headless disable-gpu window-size=1400,1400] })
+# working: 
+# working:     if ENV['HUB_URL']
+# working:       Capybara::Selenium::Driver.new(app,
+# working:                                      browser: :remote,
+# working:                                      url: ENV['HUB_URL'],
+# working:                                      desired_capabilities: chrome_capabilities)
+# working:     else
+# working:       Capybara::Selenium::Driver.new(app,
+# working:                                      browser: :chrome,
+# working:                                      desired_capabilities: chrome_capabilities)
+# working:     end
+# working:   end
+# working: end
 if ENV['IN_DOCKER'].present?
   TEST_HOST='essi.docker'
+  #TEST_HOST='localhost:3000'
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: {
       args: %w[headless disable-gpu no-sandbox whitelisted-ips window-size=1400,1400]
@@ -52,7 +69,7 @@ if ENV['IN_DOCKER'].present?
     d = Capybara::Selenium::Driver.new(app,
                                        browser: :remote,
                                        desired_capabilities: capabilities,
-                                       url: "http://chrome:4444/wd/hub")
+                                       url: ENV['HUB_URL'])
     # Fix for capybara vs remote files. Selenium handles this for us
     d.browser.file_detector = lambda do |args|
       str = args.first.to_s
@@ -60,9 +77,10 @@ if ENV['IN_DOCKER'].present?
     end
     d
   end
-  Capybara.server_host = '0.0.0.0'
-  Capybara.server_port = 3001
-  Capybara.app_host = "http://web:#{Capybara.server_port}"
+  #Capybara.server_host = '0.0.0.0'
+  #Capybara.server_port = 3001
+  #Capybara.app_host = "http://app:#{Capybara.server_port}"
+
 else
   TEST_HOST='localhost:3000'
   # @note In January 2018, TravisCI disabled Chrome sandboxing in its Linux
@@ -82,6 +100,7 @@ end
 
 Capybara.default_driver = :rack_test # This is a faster driver
 Capybara.javascript_driver = :selenium_chrome_headless_sandboxless # This is slower
+
 Capybara::Screenshot.register_driver(:selenium_chrome_headless_sandboxless) do |driver, path|
   driver.browser.save_screenshot(path)
 end
@@ -110,6 +129,22 @@ def save_timestamped_page_and_screenshot(page, meta)
 end
 
 RSpec.configure do |config|
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, type: :system, js: true) do
+    driven_by :selenium_chrome_headless_sandboxless #
+
+    if ENV['IN_DOCKER'].present?
+      Capybara.app_host = "http://#{IPSocket.getaddress(Socket.gethostname)}:3001"
+      Capybara.server_host = IPSocket.getaddress(Socket.gethostname)    
+      Capybara.server_port = 3001    
+    end
+    # working: Capybara.app_host = "http://#{IPSocket.getaddress(Socket.gethostname)}:3001"
+    # working: Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
+    # working: Capybara.server_port = 3001
+  end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -195,8 +230,10 @@ end
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
   config.hook_into :webmock
+  config.allow_http_connections_when_no_cassette = true
 
   # Ignore webdriver updates
   driver_hosts = Webdrivers::Common.subclasses.map { |driver| URI(driver.base_url).host }
   config.ignore_hosts(*driver_hosts)
 end
+

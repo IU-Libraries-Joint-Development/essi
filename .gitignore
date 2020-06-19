@@ -47,3 +47,6 @@ staged_files
 public/assets
 vendor/engines/bulkrax/
 spec/fixtures/pdfs
+
+# Ignore solr generated files
+solr/config/*

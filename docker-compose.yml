@@ -19,7 +19,7 @@ x-app:
     - .env.development
     - .env
   volumes:
-    - .:/app
+    - .:/essi
     - ./config/essi_config.docker.yml:/run/secrets/essi_config.yml
   depends_on:
     - redis
@@ -36,13 +36,12 @@ services:
     volumes:
       - ./essi-nginx.nginx:/etc/nginx/conf.d/essi-nginx.conf
     ports:
-      #- "80:8980"
-      - "81:8980" # change port exposure to get dory working
+      - "80:8980"
     depends_on:
-      - app
+      - essi
       - worker
 
-  app:
+  essi:
     << : *default-app
     command: bash -l -c "rake db:migrate db:seed && yarn install && bundle exec puma -b tcp://0.0.0.0:3000"
     environment:
@@ -51,8 +50,7 @@ services:
       IN_DOCKER: 'true'
       HUB_URL: http://chrome:4444/wd/hub # <-- Add the HUB_URL environment variable
     ports:
-      #- "3000:3000"
-      - "4000:3000" # outside inside. expose 3000 on port 4000
+      - "3000:3000"
     depends_on:
       - chrome
 
@@ -149,51 +147,15 @@ services:
     ports:
       - "8080"
 
-
   chrome:
-    image: selenium/standalone-chrome:3.141.59-zirconium  # this version should match that of the selenium-webdriver gem (see Gemfile)
+    image: selenium/standalone-chrome-debug:3.141.59-20200525
     volumes:
       - /dev/shm:/dev/shm
     shm_size: 2 
+    ports:
+      - "4444:4444"
+      - "5959:5900"
 
-        #working kinda
-        #chrome:
-        #  image: selenium/standalone-chrome:latest
-        #  volumes:
-        #  - /dev/shm:/dev/shm
-        #  links:
-        #  - hub
-        #  environment:
-        #    HUB_HOST: hub
-        #  ports:
-        #    - "32773:5900"
-
-        #hub:
-        #  image: selenium/hub:latest
-        #  environment:
-        #    VIRTUAL_HOST: selenium.hub.docker
-        #  ports:
-        #    - "4444:4444"
-        #selenium-hub:
-        #  image: selenium/hub
-        #  ports:
-        #    - "4444"
-        #chrome:
-        #  #image: selenium/standalone-chrome:3.141
-        #  # Fix Chrome version to 74, as 75 errors with [SEVERE]: bind() failed: Cannot assign requested address (99)
-        #  image: selenium/node-chrome:latest
-        #  environment:
-        #    VIRTUAL_HOST: chrome.docker
-        #  links:
-        #    - selenium-hub
-        #  shm_size: 2 
-        #  depends_on:
-        #    - selenium-hub
-        #  environment:
-        #    - HUB_HOST=selenium-hub
-        #    - HUB_PORT=4444
-        #  ports:
-        #    - "5555"
 volumes:
   fcrepo:
   mysql:

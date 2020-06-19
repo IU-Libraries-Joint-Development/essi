@@ -40,28 +40,12 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 ActiveJob::Base.queue_adapter = :test
 
-# working: Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
-# working:   if ENV['IN_DOCKER'].present?
-# working:     chrome_capabilities = ::Selenium::WebDriver::Remote::Capabilities.chrome('goog:chromeOptions' => { 'args': %w[no-sandbox headless disable-gpu window-size=1400,1400] })
-# working: 
-# working:     if ENV['HUB_URL']
-# working:       Capybara::Selenium::Driver.new(app,
-# working:                                      browser: :remote,
-# working:                                      url: ENV['HUB_URL'],
-# working:                                      desired_capabilities: chrome_capabilities)
-# working:     else
-# working:       Capybara::Selenium::Driver.new(app,
-# working:                                      browser: :chrome,
-# working:                                      desired_capabilities: chrome_capabilities)
-# working:     end
-# working:   end
-# working: end
 if ENV['IN_DOCKER'].present?
   TEST_HOST='essi.docker'
-  #TEST_HOST='localhost:3000'
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: {
-      args: %w[headless disable-gpu no-sandbox whitelisted-ips window-size=1400,1400]
+      args: %w[disable-gpu no-sandbox whitelisted-ips window-size=1400,1400]
+      #args: %w[headless disable-gpu no-sandbox whitelisted-ips window-size=1400,1400] # run headless
     }
   )
 
@@ -77,10 +61,6 @@ if ENV['IN_DOCKER'].present?
     end
     d
   end
-  #Capybara.server_host = '0.0.0.0'
-  #Capybara.server_port = 3001
-  #Capybara.app_host = "http://app:#{Capybara.server_port}"
-
 else
   TEST_HOST='localhost:3000'
   # @note In January 2018, TravisCI disabled Chrome sandboxing in its Linux
@@ -137,13 +117,11 @@ RSpec.configure do |config|
     driven_by :selenium_chrome_headless_sandboxless #
 
     if ENV['IN_DOCKER'].present?
-      Capybara.app_host = "http://#{IPSocket.getaddress(Socket.gethostname)}:3001"
-      Capybara.server_host = IPSocket.getaddress(Socket.gethostname)    
-      Capybara.server_port = 3001    
+      Capybara.server_host = '0.0.0.0'
+      Capybara.server_port = 3010
+      # renaming container because the app domain is taken by google(gTLD)
+      Capybara.app_host = "http://essi:3010"
     end
-    # working: Capybara.app_host = "http://#{IPSocket.getaddress(Socket.gethostname)}:3001"
-    # working: Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
-    # working: Capybara.server_port = 3001
   end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -218,6 +196,8 @@ RSpec.configure do |config|
     Warden.test_reset!
     Capybara.reset_sessions!
     page.driver.reset!
+    # Keep up to the number of screenshots specified in the hash
+    Capybara::Screenshot.prune_strategy = { keep: 20 }
   end
 
   config.after(:suite) do

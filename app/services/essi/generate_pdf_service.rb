@@ -38,10 +38,11 @@ module ESSI
     def create_tmp_files(pdf)
       @resource.file_sets.each.with_index(1) do |fs, i|
         Tempfile.create(fs.original_file.file_name.first, dir_path) do |file|
+          page_size = [CoverPageGenerator::LETTER_WIDTH, CoverPageGenerator::LETTER_HEIGHT]
           file.binmode
           file.write(fs.original_file.content)
           # TODO: Fit image onto entire page. Use contstants instead of hard code. (ESSI-935)
-          pdf.image(file, fit: [612, pdf.y], position: :center, vposition: :center)
+          pdf.image(file, fit: page_size, position: :center, vposition: :center)
         end
         paginate_images(pdf, i)
       end

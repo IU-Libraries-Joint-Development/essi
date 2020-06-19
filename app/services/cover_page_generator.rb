@@ -1,6 +1,6 @@
 class CoverPageGenerator # rubocop:disable Metrics/ClassLength
   attr_reader :paged_resource
-  # delegate :solr_document, to: :paged_resource
+  # delegate :paged_resource, to: :paged_resource
 
   # Letter width/height in points for a PDF.
   LETTER_WIDTH = PDF::Core::PageGeometry::SIZES["LETTER"].first
@@ -13,22 +13,22 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
   def header(prawn_document, header, size: 16)
     Array(header).each do |text|
       prawn_document.move_down 10
-      # display_text(prawn_document, text,
-      #   size: size,
-      #   styles: [:bold],
-      #   inline_format: true)
+      prawn_document.text text,
+        { size: size,
+        styles: [:bold],
+        inline_format: true }
     end
     prawn_document.stroke { prawn_document.horizontal_rule }
     prawn_document.move_down 10
   end
 
-  # def text(prawn_document, text)
-  #   Array(text).each do |value|
-  #     display_text(prawn_document, value)
-  #     text(prawn_document, solr_document.creator)
-  #   end
-  #   prawn_document.move_down 5
-  # end
+  def text(prawn_document, text)
+    Array(text).each do |value|
+      prawn_document.text value
+      # text(prawn_document, paged_resource.creator)
+    end
+    prawn_document.move_down 5
+  end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def apply(prawn_document)
@@ -80,12 +80,12 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
       prawn_document.stroke_color "000000"
       prawn_document.move_down(20)
       header(prawn_document, paged_resource.title, size: 24)
-      # solr_document.rights_statement.each do |statement|
-        # TODO bring this back
-        # text(prawn_document, rights_statement_label(statement))
-        # rights_statement_text(statement).split(/\n/).each do |line|
-        #  text(prawn_document, line)
-        #end
+      # paged_resource.rights_statement.each do |statement|
+      #   # TODO bring this back
+      #   text(prawn_document, rights_statement_label(statement))
+      #   rights_statement_text(statement).split(/\n/).each do |line|
+      #    text(prawn_document, line)
+      #   end
       # end
       prawn_document.move_down 20
 
@@ -95,16 +95,13 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
       prawn_document.move_down 20
 
       header(prawn_document, "Citation Information")
-      # text(prawn_document, solr_document.creator)
-      # text(prawn_document, solr_document.title)
-      # text(prawn_document, solr_document.edition)
-      # text(prawn_document, solr_document.extent)
-      # text(prawn_document, solr_document.description)
-      # text(prawn_document, solr_document.call_number)
+      text(prawn_document, paged_resource.title)
+      text(prawn_document, paged_resource.description)
+      # text(prawn_document, paged_resource.call_number)
       # collection name (from EAD) ? not in jsonld
 
       header(prawn_document, "Contact Information")
-      # text = HoldingLocationRenderer.new(solr_document.holding_location) \
+      # text = HoldingLocationRenderer.new(paged_resource.holding_location) \
       #   .value_html.gsub("<a", "<u><a") \
       #   .gsub("</a>", "</a></u>") \
       #   .gsub(/\s+/, " ")
@@ -138,27 +135,8 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
   # end
 
   # rubocop:disable Metrics/AbcSize
-  # def display_text(prawn_document, text, options = {})
-  #   bidi_text = dir_split(text).map do |s|
-  #     s = s.connect_arabic_letters.gsub("\uFEDF\uFE8E", "\uFEFB") if
-  #       s.dir == 'rtl' && lang_is_arabic?
-  #     s.dir == 'rtl' ? s.reverse : s
-  #   end.join(" ")
-  #   options = options.merge(align: :right, kerning: true) if
-  #     bidi_text.dir == 'rtl'
-  #   prawn_document.text bidi_text, options
-  # end
-  # rubocop:enable Metrics/AbcSize
+  def display_text(prawn_document, text)
+    prawn_document.text text
+  end
 
-  # def lang_is_arabic?
-  #   solr_document.language&.first == 'ara'
-  # end
-
-  # def dir_split(s)
-  #   chunks = []
-  #   s.split(/\s/).each do |word|
-  #     chunks << word
-  #   end
-  #   chunks
-  # end
 end

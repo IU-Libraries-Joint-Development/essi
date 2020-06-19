@@ -44,7 +44,7 @@ if ENV['IN_DOCKER'].present?
   TEST_HOST='essi.docker'
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: {
-      args: %w[disable-gpu no-sandbox whitelisted-ips window-size=1400,1400]
+      args: %w[disable-gpu no-sandbox whitelisted-ips window-size=1400,1400] #run without headless
       #args: %w[headless disable-gpu no-sandbox whitelisted-ips window-size=1400,1400] # run headless
     }
   )

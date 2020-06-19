@@ -19,7 +19,7 @@ x-app:
     - .env.development
     - .env
   volumes:
-    - .:/essi
+    - .:/app
     - ./config/essi_config.docker.yml:/run/secrets/essi_config.yml
   depends_on:
     - redis
@@ -38,10 +38,10 @@ services:
     ports:
       - "80:8980"
     depends_on:
-      - essi
+      - essi_app
       - worker
 
-  essi:
+  essi_app:
     << : *default-app
     command: bash -l -c "rake db:migrate db:seed && yarn install && bundle exec puma -b tcp://0.0.0.0:3000"
     environment:

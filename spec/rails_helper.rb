@@ -120,7 +120,7 @@ RSpec.configure do |config|
       Capybara.server_host = '0.0.0.0'
       Capybara.server_port = 3010
       # renaming container because the app domain is taken by google(gTLD)
-      Capybara.app_host = "http://essi:3010"
+      Capybara.app_host = "http://essi_app:3010"
     end
   end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

@@ -107,15 +107,8 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
       #   .gsub(/\s+/, " ")
       # prawn_document.text text, inline_format: true
       prawn_document.move_down 20
-
-      header(prawn_document, "Download Information")
-      prawn_document.text "Date Rendered:" \
-        " #{Time.current.strftime('%Y-%m-%d %I:%M:%S %p %Z')}"
-      # TODO figure out url helpers
-      #prawn_document.text("Available Online at: <u>" \
-      #  "<a href='#{helper.polymorphic_url(paged_resource)}'>" \
-      #  "#{helper.polymorphic_url(paged_resource)}</a></u>",
-      #inline_format: true)
+      header(prawn_document, "Identifier")
+      text(prawn_document, paged_resource.identifier)
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

@@ -7,9 +7,9 @@ RSpec.describe ESSI::GeneratePdfService do
   let(:pdf) { service.generate }
 
   before do
-    pdf_fixtures = Rails.root.join('spec', 'fixtures', 'pdfs')
+    pdf_tmps = Rails.root.join('spec', 'tmp', 'pdfs')
     allow_any_instance_of(described_class).to receive(:dir_path)
-      .and_return(pdf_fixtures)
+      .and_return(pdf_tmps)
   end
 
   describe '#generate' do

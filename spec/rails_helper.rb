@@ -19,18 +19,7 @@ require 'webdrivers'
 require 'i18n/debug' if ENV['I18N_DEBUG']
 require 'byebug' unless ENV['CI']
 require 'noid/rails/rspec'
-# without lines 23-32, screenshots and html captured from failing specs are blank
-# source: https://github.com/mattheworiordan/capybara-screenshot/issues/225
-require "action_dispatch/system_testing/test_helpers/setup_and_teardown" 
-::ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown.module_eval do
-  def before_setup
-    super
-  end
 
-  def after_teardown
-    super
-  end
-end
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -72,6 +61,10 @@ if ENV['IN_DOCKER'].present?
     end
     d
   end
+  Capybara.server_host = '0.0.0.0'
+  Capybara.server_port = 3010
+  # renamed container from app to essi  because the app domain is taken by google(gTLD)
+  Capybara.app_host = 'http://essi:3010'
 else
   TEST_HOST='localhost:3000'
   # @note In January 2018, TravisCI disabled Chrome sandboxing in its Linux
@@ -92,47 +85,10 @@ end
 Capybara.default_driver = :rack_test # This is a faster driver
 Capybara.javascript_driver = :selenium_chrome_headless_sandboxless # This is slower
 
-Capybara::Screenshot.register_driver(:selenium_chrome_headless_sandboxless) do |driver, path|
-  driver.browser.save_screenshot(path)
-end
-
-Capybara::Screenshot.autosave_on_failure = false
-
-# Save CircleCI artifacts
-
-def save_timestamped_page_and_screenshot(page, meta)
-  filename = File.basename(meta[:file_path])
-  line_number = meta[:line_number]
-
-  time_now = Time.now
-  timestamp = "#{time_now.strftime('%Y-%m-%d-%H-%M-%S.')}#{'%03d' % (time_now.usec/1000).to_i}"
-
-  screenshot_name = "screenshot-#{filename}-#{line_number}-#{timestamp}.png"
-  screenshot_path = "#{Rails.root.join('tmp/capybara')}/#{screenshot_name}"
-  page.save_screenshot(screenshot_path)
-
-  page_name = "html-#{filename}-#{line_number}-#{timestamp}.html"
-  page_path = "#{Rails.root.join('tmp/capybara')}/#{page_name}"
-  page.save_page(page_path)
-
-  puts "\n  Screenshot: tmp/capybara/#{screenshot_name}"
-  puts "  HTML: tmp/capybara/#{page_name}"
-end
 
 RSpec.configure do |config|
-  config.before(:each, type: :system) do
-    driven_by :rack_test
-  end
-
   config.before(:each, type: :system, js: true) do
     driven_by :selenium_chrome_headless_sandboxless #
-
-    if ENV['IN_DOCKER'].present?
-      Capybara.server_host = '0.0.0.0'
-      Capybara.server_port = 3010
-      # renaming container because the app domain is taken by google(gTLD)
-      Capybara.app_host = 'http://essi:3010'
-    end
   end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"

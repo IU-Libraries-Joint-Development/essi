@@ -55,7 +55,7 @@ if ENV['IN_DOCKER'].present?
   TEST_HOST='essi.docker'
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: {
-      args: %w[disable-gpu no-sandbox whitelisted-ips window-size=1400,1400] #run without headless
+      args: %w[disable-gpu no-sandbox whitelisted-ips window-size=1400,1400] #run without headless so we can see the screenshots
       #args: %w[headless disable-gpu no-sandbox whitelisted-ips window-size=1400,1400] # run headless
     }
   )
@@ -131,7 +131,7 @@ RSpec.configure do |config|
       Capybara.server_host = '0.0.0.0'
       Capybara.server_port = 3010
       # renaming container because the app domain is taken by google(gTLD)
-      Capybara.app_host = 'http://essi_app:3010'
+      Capybara.app_host = 'http://essi:3010'
     end
   end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -208,7 +208,7 @@ RSpec.configure do |config|
     Capybara.reset_sessions!
     page.driver.reset!
     # Keep up to the number of screenshots specified in the hash
-    Capybara::Screenshot.prune_strategy = { keep: 20 }
+    Capybara::Screenshot.prune_strategy = { keep: 10 }
   end
 
   config.after(:suite) do

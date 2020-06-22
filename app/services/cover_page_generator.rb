@@ -108,7 +108,9 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
       # prawn_document.text text, inline_format: true
       prawn_document.move_down 20
       header(prawn_document, "Identifier")
-      text(prawn_document, paged_resource.identifier)
+      paged_resource.identifier.each do |identifier|
+        text(prawn_document, identifier)
+      end
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

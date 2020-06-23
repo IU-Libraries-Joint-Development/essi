@@ -80,13 +80,9 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
       prawn_document.stroke_color "000000"
       prawn_document.move_down(20)
       header(prawn_document, paged_resource.title, size: 24)
-      # paged_resource.rights_statement.each do |statement|
-      #   # TODO bring this back
-      #   text(prawn_document, rights_statement_label(statement))
-      #   rights_statement_text(statement).split(/\n/).each do |line|
-      #    text(prawn_document, line)
-      #   end
-      # end
+      paged_resource.rights_statement.each do |statement|
+        text(prawn_document, rights_statement_label(statement))
+      end
       prawn_document.move_down 20
 
       header(prawn_document, "Indiana University Disclaimer")
@@ -100,7 +96,12 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
       # text(prawn_document, paged_resource.call_number)
       # collection name (from EAD) ? not in jsonld
 
-      header(prawn_document, "Contact Information")
+      header(prawn_document, "Holding Location")
+      text(prawn_document, paged_resource.holding_location)
+      text = HoldingLocationAttributeRenderer.new(paged_resource.holding_location) \
+                                      .value_html.gsub("<a", "<u><a") \
+                                      .gsub("</a>", "</a></u>") \
+                                      .gsub(/\s+/, " ")
       # text = HoldingLocationRenderer.new(paged_resource.holding_location) \
       #   .value_html.gsub("<a", "<u><a") \
       #   .gsub("</a>", "</a></u>") \
@@ -121,12 +122,12 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
   #   @helper ||= ManifestBuilder::ManifestHelper.new
   # end
 
-  # def rights_statement_label(statement)
-  #   RightsService.label(statement)
-  # end
+  def rights_statement_label(statement)
+    Hyrax::RightsStatementService.new.label(statement)
+  end
 
   # def rights_statement_text(statement)
-  #   RightsStatementService.definition(statement).gsub(/<br\/>/, "\n")
+  #   Hyrax::RightsStatementService.definition(statement).gsub(/<br\/>/, "\n")
   # end
 
   # rubocop:disable Metrics/AbcSize

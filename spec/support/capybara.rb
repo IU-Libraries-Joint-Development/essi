@@ -11,6 +11,51 @@ require "action_dispatch/system_testing/test_helpers/setup_and_teardown"
   end
 end
 
+if ENV['IN_DOCKER'].present?
+  TEST_HOST='essi.docker'
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: {
+      args: %w[disable-gpu no-sandbox whitelisted-ips window-size=1400,1400] #run without headless so we can see the screenshots
+      #args: %w[headless disable-gpu no-sandbox whitelisted-ips window-size=1400,1400] # run headless
+    }
+  )
+
+  Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
+    d = Capybara::Selenium::Driver.new(app,
+                                       browser: :remote,
+                                       desired_capabilities: capabilities,
+                                       url: ENV['HUB_URL'])
+    # Fix for capybara vs remote files. Selenium handles this for us
+    d.browser.file_detector = lambda do |args|
+      str = args.first.to_s
+      str if File.exist?(str)
+    end
+    d
+  end
+  Capybara.server_host = '0.0.0.0'
+  Capybara.server_port = 3010
+  # renamed container from app to essi  because the app domain is taken by google(gTLD)
+  Capybara.app_host = 'http://essi:3010'
+else
+  TEST_HOST='localhost:3000'
+  # @note In January 2018, TravisCI disabled Chrome sandboxing in its Linux
+  #       container build environments to mitigate Meltdown/Spectre
+  #       vulnerabilities, at which point Hyrax could no longer use the
+  #       Capybara-provided :selenium_chrome_headless driver (which does not
+  #       include the `--no-sandbox` argument).
+
+  Capybara.register_driver :selenium_chrome_headless_sandboxless do |app|
+    browser_options = ::Selenium::WebDriver::Chrome::Options.new
+    browser_options.args << '--headless'
+    browser_options.args << '--disable-gpu'
+    browser_options.args << '--no-sandbox'
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+  end
+end
+
+Capybara.default_driver = :rack_test # This is a faster driver
+Capybara.javascript_driver = :selenium_chrome_headless_sandboxless # This is slower
+
 Capybara::Screenshot.register_driver(:selenium_chrome_headless_sandboxless) do |driver, path|
   driver.browser.save_screenshot(path)
 end

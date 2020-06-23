@@ -90,12 +90,6 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
         inline_format: true)
       prawn_document.move_down 20
 
-      header(prawn_document, "Citation Information")
-      text(prawn_document, paged_resource.title)
-      text(prawn_document, paged_resource.description)
-      # text(prawn_document, paged_resource.call_number)
-      # collection name (from EAD) ? not in jsonld
-
       header(prawn_document, "Holding Location")
       text(prawn_document, paged_resource.holding_location)
       text = HoldingLocationAttributeRenderer.new(paged_resource.holding_location) \

@@ -36,7 +36,9 @@ module ESSI
     end
 
     def create_tmp_files(pdf)
-      @resource.file_sets.each.with_index(1) do |fs, i|
+      # raise 'test'
+      sorted_files = @resource.file_sets.sort_by{|file| file.date_uploaded}
+      sorted_files.each.with_index(1) do |fs, i|
         Tempfile.create(fs.original_file.file_name.first, dir_path) do |file|
           page_size = [CoverPageGenerator::LETTER_WIDTH, CoverPageGenerator::LETTER_HEIGHT]
           file.binmode

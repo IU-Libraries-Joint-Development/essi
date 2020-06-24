@@ -23,7 +23,7 @@ module Hyrax
       renderings = []
       if rendering_ids.present?
         rendering_ids.each do |file_set_id|
-          renderings << manifest_helper.build_pdf_rendering(file_set_id)
+          renderings << manifest_helper.build_pdf_rendering(file_set_id) if ESSI.config.dig(:essi, :allow_pdf_download) && current_ability.current_user.admin?
         end
       end
       renderings.flatten.uniq

@@ -6,6 +6,7 @@ RSpec.describe Hyrax::PagedResourcePresenter do
   let(:solr_document) { SolrDocument.new(attributes) }
   let(:request) { double(host: 'example.org', base_url: 'http://example.org') }
   let(:user_key) { 'a_user_key' }
+  let(:current_user) { create :admin }
 
   let(:attributes) do
     { "id" => '888888',
@@ -15,7 +16,7 @@ RSpec.describe Hyrax::PagedResourcePresenter do
       "date_created_tesim" => ['an unformatted date'],
       "depositor_tesim" => user_key }
   end
-  let(:ability) { double Ability }
+  let(:ability) { Ability.new(current_user) }
   let(:presenter) { described_class.new(solr_document, ability, request) }
 
   subject { described_class.new(double, double) }
@@ -34,11 +35,60 @@ RSpec.describe Hyrax::PagedResourcePresenter do
                                             File.open(fixture_path + '/world.png'), :original_file)
       end
 
-      it "returns a hash containing the pdf rendering information" do
-        pdf_rendering_hash = {"@id"=>"/concern/paged_resources/#{work.id}/pdf", "label"=>"Download as PDF", "format"=>"application/pdf"}
+      context 'when allow_pdf_download config is true' do
+        before do
+          ESSI.config[:essi][:allow_pdf_download] = true
+        end
+        context 'when user is an admin' do
+          before do
+            allow(current_user).to receive(:admin?).and_return(true)
+          end
 
-        expect(subject).to be_an Array
-        expect(subject).to include(pdf_rendering_hash)
+          it 'returns a hash containing the pdf rendering information' do
+            pdf_rendering_hash = {"@id"=>"/concern/paged_resources/#{work.id}/pdf", "label"=>"Download as PDF", "format"=>"application/pdf"}
+            expect(subject).to be_an Array
+            expect(subject).to include(pdf_rendering_hash)
+          end
+        end
+
+        context 'when user is not an admin' do
+          before do
+            allow(current_user).to receive(:admin?).and_return(false)
+          end
+
+          it 'returns a hash without the pdf rendering information' do
+            pdf_rendering_hash = {"@id"=>"/concern/paged_resources/#{work.id}/pdf", "label"=>"Download as PDF", "format"=>"application/pdf"}
+            expect(subject).to be_an Array
+            expect(subject).not_to include(pdf_rendering_hash)
+          end
+        end
+      end
+
+      context 'when allow_pdf_download config is false' do
+        before do
+          ESSI.config[:essi][:allow_pdf_download] = false
+        end
+        context 'when user is an admin' do
+          before do
+            allow(current_user).to receive(:admin?).and_return(true)
+          end
+          it 'returns a hash without the pdf rendering information' do
+            pdf_rendering_hash = {"@id"=>"/concern/paged_resources/#{work.id}/pdf", "label"=>"Download as PDF", "format"=>"application/pdf"}
+            expect(subject).to be_an Array
+            expect(subject).not_to include(pdf_rendering_hash)
+          end
+        end
+        context 'when user is not an admin' do
+          before do
+            allow(current_user).to receive(:admin?).and_return(false)
+          end
+
+          it 'returns a hash without the pdf rendering information' do
+            pdf_rendering_hash = {"@id"=>"/concern/paged_resources/#{work.id}/pdf", "label"=>"Download as PDF", "format"=>"application/pdf"}
+            expect(subject).to be_an Array
+            expect(subject).not_to include(pdf_rendering_hash)
+          end
+        end
       end
     end
   end

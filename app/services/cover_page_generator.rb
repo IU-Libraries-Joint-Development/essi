@@ -1,6 +1,5 @@
 class CoverPageGenerator # rubocop:disable Metrics/ClassLength
   attr_reader :paged_resource
-  # delegate :paged_resource, to: :paged_resource
 
   # Letter width/height in points for a PDF.
   LETTER_WIDTH = PDF::Core::PageGeometry::SIZES["LETTER"].first
@@ -25,7 +24,6 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
   def text(prawn_document, text)
     Array(text).each do |value|
       prawn_document.text value
-      # text(prawn_document, paged_resource.creator)
     end
     prawn_document.move_down 5
   end
@@ -92,16 +90,8 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
 
       header(prawn_document, "Holding Location")
       text(prawn_document, paged_resource.holding_location)
-      text = HoldingLocationAttributeRenderer.new(paged_resource.holding_location) \
-                                      .value_html.gsub("<a", "<u><a") \
-                                      .gsub("</a>", "</a></u>") \
-                                      .gsub(/\s+/, " ")
-      # text = HoldingLocationRenderer.new(paged_resource.holding_location) \
-      #   .value_html.gsub("<a", "<u><a") \
-      #   .gsub("</a>", "</a></u>") \
-      #   .gsub(/\s+/, " ")
-      # prawn_document.text text, inline_format: true
       prawn_document.move_down 20
+
       header(prawn_document, "Identifier")
       paged_resource.identifier.each do |identifier|
         text(prawn_document, identifier)
@@ -112,17 +102,9 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
 
   private
 
-  # def helper
-  #   @helper ||= ManifestBuilder::ManifestHelper.new
-  # end
-
   def rights_statement_label(statement)
     Hyrax::RightsStatementService.new.label(statement)
   end
-
-  # def rights_statement_text(statement)
-  #   Hyrax::RightsStatementService.definition(statement).gsub(/<br\/>/, "\n")
-  # end
 
   # rubocop:disable Metrics/AbcSize
   def display_text(prawn_document, text)

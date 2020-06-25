@@ -23,7 +23,6 @@ module ESSI
       file_path = dir_path.join(@file_name)
 
       FileUtils.mkdir_p(dir_path) unless Dir.exist?(dir_path)
-      # TODO: only delete if file_sets on @resource have changed
       File.delete(file_path) if File.exist?(file_path)
       file_path
     end
@@ -36,14 +35,12 @@ module ESSI
     end
 
     def create_tmp_files(pdf)
-      # raise 'test'
       sorted_files = @resource.file_sets.sort_by{|file| file.date_uploaded}
       sorted_files.each.with_index(1) do |fs, i|
         Tempfile.create(fs.original_file.file_name.first, dir_path) do |file|
           page_size = [CoverPageGenerator::LETTER_WIDTH, CoverPageGenerator::LETTER_HEIGHT]
           file.binmode
           file.write(fs.original_file.content)
-          # TODO: Fit image onto entire page. Use contstants instead of hard code. (ESSI-935)
           pdf.image(file, fit: page_size, position: :center, vposition: :center)
         end
         paginate_images(pdf, i)

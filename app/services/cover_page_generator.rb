@@ -106,9 +106,4 @@ class CoverPageGenerator # rubocop:disable Metrics/ClassLength
     Hyrax::RightsStatementService.new.label(statement)
   end
 
-  # rubocop:disable Metrics/AbcSize
-  def display_text(prawn_document, text)
-    prawn_document.text text
-  end
-
 end

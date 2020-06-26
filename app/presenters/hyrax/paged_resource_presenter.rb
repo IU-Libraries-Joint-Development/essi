@@ -4,7 +4,7 @@ module Hyrax
   class PagedResourcePresenter < Hyrax::WorkShowPresenter
     include ESSI::PresentsOCR
     include ESSI::PresentsStructure
-    delegate :series, :viewing_direction, :viewing_hint,
+    delegate :series, :viewing_direction, :viewing_hint, :allow_pdf_download,
              to: :solr_document
 
     def holding_location
@@ -23,7 +23,7 @@ module Hyrax
       renderings = []
       if rendering_ids.present?
         rendering_ids.each do |file_set_id|
-          renderings << manifest_helper.build_pdf_rendering(file_set_id) if ESSI.config.dig(:essi, :allow_pdf_download) && current_ability.current_user.admin?
+          renderings << manifest_helper.build_pdf_rendering(file_set_id) if solr_document[:allow_pdf_download_bsi] && current_ability.current_user.admin?
         end
       end
       renderings.flatten.uniq

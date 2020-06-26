@@ -22,7 +22,7 @@ RSpec.describe Hyrax::PagedResourcePresenter do
   subject { described_class.new(double, double) }
 
   describe "#manifest" do
-    let(:work) { create(:paged_resource_with_one_image) }
+    let(:work) { create(:paged_resource_with_one_image, allow_pdf_download: true) }
     let(:solr_document) { SolrDocument.new(work.to_solr) }
 
     describe "#sequence_rendering" do
@@ -35,10 +35,7 @@ RSpec.describe Hyrax::PagedResourcePresenter do
                                             File.open(fixture_path + '/world.png'), :original_file)
       end
 
-      context 'when allow_pdf_download config is true' do
-        before do
-          ESSI.config[:essi][:allow_pdf_download] = true
-        end
+      context 'when allow_pdf_download is true' do
         context 'when user is an admin' do
           before do
             allow(current_user).to receive(:admin?).and_return(true)
@@ -66,7 +63,7 @@ RSpec.describe Hyrax::PagedResourcePresenter do
 
       context 'when allow_pdf_download config is false' do
         before do
-          ESSI.config[:essi][:allow_pdf_download] = false
+          work.allow_pdf_download = false
         end
         context 'when user is an admin' do
           before do

@@ -18,8 +18,8 @@ module Hyrax
     self.show_presenter = Hyrax::PagedResourcePresenter
 
     def pdf
-      return unless ESSI.config.dig(:essi, :allow_pdf_download) && current_ability.current_user.admin?
       resource = PagedResource.find(params[:id])
+      return unless resource.allow_pdf_download && current_ability.current_user.admin?
       pdf = ESSI::GeneratePdfService.new(resource).generate if resource
 
       send_file pdf[:file_path],

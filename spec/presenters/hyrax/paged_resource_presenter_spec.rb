@@ -22,7 +22,7 @@ RSpec.describe Hyrax::PagedResourcePresenter do
   subject { described_class.new(double, double) }
 
   describe "#manifest" do
-    let(:work) { create(:paged_resource_with_one_image, allow_pdf_download: true) }
+    let(:work) { create(:paged_resource_with_one_image, allow_pdf_download: 'true') }
     let(:solr_document) { SolrDocument.new(work.to_solr) }
 
     describe "#sequence_rendering" do

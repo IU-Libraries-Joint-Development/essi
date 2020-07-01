@@ -22,8 +22,15 @@ RSpec.describe Hyrax::PagedResourcePresenter do
   subject { described_class.new(double, double) }
 
   describe "#manifest" do
-    let(:work) { create(:paged_resource_with_one_image, allow_pdf_download: 'true') }
+    let(:work) { create(:paged_resource_with_one_image) }
     let(:solr_document) { SolrDocument.new(work.to_solr) }
+    let(:pdf_rendering_hash) { 
+      {
+        "@id"=>"/concern/paged_resources/#{work.id}/pdf",
+        "label"=>"Download as PDF",
+        "format"=>"application/pdf"
+      }
+    }
 
     describe "#sequence_rendering" do
       subject do
@@ -39,10 +46,10 @@ RSpec.describe Hyrax::PagedResourcePresenter do
         context 'when user is an admin' do
           before do
             allow(current_user).to receive(:admin?).and_return(true)
+            work.allow_pdf_download = 'true'
           end
 
           it 'returns a hash containing the pdf rendering information' do
-            pdf_rendering_hash = {"@id"=>"/concern/paged_resources/#{work.id}/pdf", "label"=>"Download as PDF", "format"=>"application/pdf"}
             expect(subject).to be_an Array
             expect(subject).to include(pdf_rendering_hash)
           end
@@ -54,7 +61,6 @@ RSpec.describe Hyrax::PagedResourcePresenter do
           end
 
           it 'returns a hash without the pdf rendering information' do
-            pdf_rendering_hash = {"@id"=>"/concern/paged_resources/#{work.id}/pdf", "label"=>"Download as PDF", "format"=>"application/pdf"}
             expect(subject).to be_an Array
             expect(subject).not_to include(pdf_rendering_hash)
           end
@@ -63,16 +69,15 @@ RSpec.describe Hyrax::PagedResourcePresenter do
 
       context 'when allow_pdf_download config is false' do
         before do
-          work.allow_pdf_download = false
+          work.allow_pdf_download = 'false'
         end
         context 'when user is an admin' do
           before do
             allow(current_user).to receive(:admin?).and_return(true)
           end
           it 'returns a hash without the pdf rendering information' do
-            pdf_rendering_hash = {"@id"=>"/concern/paged_resources/#{work.id}/pdf", "label"=>"Download as PDF", "format"=>"application/pdf"}
             expect(subject).to be_an Array
-            expect(subject).not_to include(pdf_rendering_hash)
+            expect(subject).to include(pdf_rendering_hash)
           end
         end
         context 'when user is not an admin' do
@@ -81,7 +86,6 @@ RSpec.describe Hyrax::PagedResourcePresenter do
           end
 
           it 'returns a hash without the pdf rendering information' do
-            pdf_rendering_hash = {"@id"=>"/concern/paged_resources/#{work.id}/pdf", "label"=>"Download as PDF", "format"=>"application/pdf"}
             expect(subject).to be_an Array
             expect(subject).not_to include(pdf_rendering_hash)
           end

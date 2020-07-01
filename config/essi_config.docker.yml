@@ -66,7 +66,7 @@ default: &default
     s3:
       :bucket: essi-dropbox
       :region: iu-local
-      :response_type: :signed_url
+      :response_type: :public_url
   essi:
     iiif_host: essi.docker  # riiif only
     notifier_email: example@test.test
@@ -78,7 +78,7 @@ default: &default
     create_ocr_files: true
     index_ocr_files: true
     create_word_boundaries: true
-    allow_pdf_download: <%= ENV["ALLOW_PDF_DOWNLOAD"] || false %>
+    allow_pdf_download: false
     manifest_builder:
       see_also_hash:
         id: http://dlib.indiana.edu:9000/iucatextract?maximumRecords=1&operation=searchRetrieve&query=cql.serverChoice=%s&recordSchema=marcxml&version=1.1

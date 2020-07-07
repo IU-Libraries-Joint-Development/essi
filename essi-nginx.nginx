@@ -25,7 +25,7 @@ server {
     proxy_set_header        Connection $connection_upgrade;
 
     # Fix the "It appears that your reverse proxy set up is broken" error.
-    proxy_pass          http://essi;
+    proxy_pass          http://essi_app;
     proxy_read_timeout  90;
 
     proxy_redirect      http://essi_app /;

@@ -51,8 +51,6 @@ services:
       HUB_URL: http://chrome:4444/wd/hub 
     ports:
       - "3000:3000"
-    depends_on:
-      - chrome
 
   worker:
     << : *default-app

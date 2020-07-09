@@ -18,7 +18,7 @@ module Hyrax
     self.show_presenter = Hyrax::PagedResourcePresenter
 
     def pdf
-      resource = PagedResource.find(params[:id])
+      resource = PagedResource.find(params[:id]) if params[:id]
 
       if (resource && resource.allow_pdf_download == "true") || (resource && current_ability.current_user.admin?)
         pdf = ESSI::GeneratePdfService.new(resource).generate
@@ -27,6 +27,9 @@ module Hyrax
           filename: pdf[:file_name],
           type: 'application/pdf',
           disposition: 'inline'
+      else
+        redirect_to "/concern/paged_resources/#{resource.id}?locale=en",
+          alert: 'You do not have access to download this PDF.'
       end
     end
   end

@@ -20,7 +20,7 @@ module Hyrax
     def pdf
       resource = PagedResource.find(params[:id])
 
-      if (resource && resource.allow_pdf_download == "true") || (resource && current_user.admin?)
+      if (resource && resource.allow_pdf_download == "true") || (resource && current_ability.current_user.admin?)
         pdf = ESSI::GeneratePdfService.new(resource).generate
 
         send_file pdf[:file_path],

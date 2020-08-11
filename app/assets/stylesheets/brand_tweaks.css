@@ -28,14 +28,14 @@ html {
 
 /*Campus Logo*/
 #campus-logo {
-  border-left: solid 2px #dcdcdc;
-  margin-left: 10px;
-  padding-left: 10px;
-  color: #dcdcdc;
+  margin: 0px;
+  padding-left: 5px;
+  padding-top: 20px;
+  color: #fff;
 }
 #campus-logo a{
   text-decoration: none;
-  color: #dcdcdc;
+  color: #fff
 }
 #campus-logo a:hover{
   color: #fff;

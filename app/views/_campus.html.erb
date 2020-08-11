@@ -1,5 +1,9 @@
 <% if @presenter.respond_to?(:campus_logo) && @presenter.campus_logo %>
-  <span id='campus-logo' class='navbar-brand'>
-    <%= @presenter.campus_logo %>
-  </span>
+<div class="bg-darkMidnight" style="margin: 0px; padding: 0px 10px;">
+  <div clas="container-fluid">
+    <h1 id="campus-logo" class="pb-2 text-shadow lg-text">
+      <%= @presenter.campus_logo %>
+    </h1>
+  </div>
+</div>
 <% end %>

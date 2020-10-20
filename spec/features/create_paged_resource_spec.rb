@@ -5,7 +5,7 @@ include Warden::Test::Helpers
 include ActiveJob::TestHelper
 
 # NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.feature 'Create a PagedResource', type: :system, js: true do
+RSpec.feature 'Create a PagedResource', type: :system, js: true, perform_enqueued: true do
   context 'a logged in user', clean: true do
     let(:user) do
       FactoryBot.create :user
@@ -70,9 +70,7 @@ RSpec.feature 'Create a PagedResource', type: :system, js: true do
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
       check('agreement')
 
-      perform_enqueued_jobs do
-        click_on('Save')
-      end
+      click_on('Save')
 
       # On works dashboard (would probably need a page refresh in actual use)
       expect(page).to have_content('My Test Work', count: 1)

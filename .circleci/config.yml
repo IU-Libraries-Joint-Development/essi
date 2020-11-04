@@ -78,11 +78,14 @@ jobs:
           echo 'export PATH=/opt/fits:$PATH' >> $BASH_ENV
 
     # Download and cache dependencies
+    - run: bundle clean --force
+
     - restore_cache:
         keys:
-        - dependencies-v4-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-        - dependencies-v4-{{ .Branch }}
-        - dependencies-v4-
+        - dependencies-v5-{{ .Branch }}-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
+        - dependencies-v5-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+        - dependencies-v5-{{ .Branch }}
+        - dependencies-v5-
 
     - run:
         name: Install dependencies
@@ -94,15 +97,15 @@ jobs:
           bundle pristine webdrivers
           bundle clean
           bundle exec rails webdrivers:chromedriver:update
-          yarn
+          yarn --frozen-lockfile --cache-folder ~/.cache/yarn
 
     - save_cache:
         paths:
         - ./public/uv
-        - ./node_modules
+        - ~/.cache/yarn
         - ./vendor/bundle
         - ./webdriver
-        key: dependencies-v4-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+        key: dependencies-v5-{{ .Branch }}-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
 
 #    - run:
 #        name: Call Rubocop

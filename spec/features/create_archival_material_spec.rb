@@ -1,12 +1,11 @@
 # Generated via
-#  `rails generate hyrax:work PagedResource`
+#  `rails generate hyrax:work ArchivalMaterial`
 require 'rails_helper'
 include Warden::Test::Helpers
-include ActiveJob::TestHelper
 
 # NOTE: If you generated more than one work, you have to set "js: true"
-RSpec.feature 'Create a PagedResource', type: :system, js: true do
-  context 'a logged in user' do
+RSpec.feature 'Create an ArchivalMaterial', type: :system, js: true do
+  context 'a logged in user', clean: true do
     let(:user) do
       FactoryBot.create :user
     end
@@ -37,12 +36,12 @@ RSpec.feature 'Create a PagedResource', type: :system, js: true do
       expect(page).to have_content "Select type of work"
 
       # If you generate more than one work uncomment these lines
-      choose "payload_concern", option: "PagedResource"
+      choose "payload_concern", option: "ArchivalMaterial"
       VCR.use_cassette('iucat_libraries_up') do
         click_button "Create work"
       end
 
-      expect(page).to have_content "Add New Paged Resource"
+      expect(page).to have_content "Add New Archival Material"
       click_link "Files" # switch tab
       expect(page).to have_content "Add files"
       expect(page).to have_content "Add folder"
@@ -66,7 +65,7 @@ RSpec.feature 'Create a PagedResource', type: :system, js: true do
       # select box. Click outside the box so the next line can't find
       # its element
       find('body').click
-      choose('paged_resource_visibility_open')
+      choose('archival_material_visibility_open')
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
       check('agreement')
 
@@ -81,7 +80,7 @@ RSpec.feature 'Create a PagedResource', type: :system, js: true do
       click_on('My Test Work')
 
       # On work show page
-      expect(find('.work-type')).to have_content('My Test Work')
+      expect(page).to have_content('My Test Work')
       expect(page).to_not have_content "Your files are being processed by Digital Collections in the background."
       expect(find('li.attribute-creator')).to have_content('Doe, Jane')
       click_on('Show Child Items')

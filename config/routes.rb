@@ -64,6 +64,13 @@ Rails.application.routes.draw do
         get '/pdf', action: :pdf, as: :pdf
       end
     end
+    resources :archival_materials, only: [] do
+      member do
+        get :structure
+        post :structure, action: :save_structure
+        get '/pdf', action: :pdf, as: :pdf
+      end
+    end
   end
 
   concern :exportable, Blacklight::Routes::Exportable.new

@@ -91,7 +91,7 @@ RSpec.configure do |config|
 
   config.after(:suite)  { enable_production_minter! }
 
-  config.before do |example|
+  config.around do |example|
     #  Sometimes tests need a clean Fedora and Solr environment to work properly. To invoke the ActiveFedora
     #  cleaner use the :clean metadata directive like:
     #   describe "#structure", :clean do
@@ -105,12 +105,19 @@ RSpec.configure do |config|
       # (Instead of AdminSet.find_or_create_default_admin_set_id)
       AdminSet.create id: AdminSet::DEFAULT_ID, title: Array.wrap(AdminSet::DEFAULT_TITLE)
 
-    # Let the DatabaseCleaner take care of database rows written in an example
-    if example.metadata[:type] == :feature && Capybara.current_driver != :rack_test
-      DatabaseCleaner.strategy = :truncation
+      # Let the DatabaseCleaner take care of database rows written in an example
+      if example.metadata[:type] == :feature && Capybara.current_driver != :rack_test
+        DatabaseCleaner.strategy = :truncation
+      else
+        DatabaseCleaner.strategy = :transaction
+        DatabaseCleaner.start
+      end
+
+      DatabaseCleaner.cleaning do
+        example.run
+      end
     else
-      DatabaseCleaner.strategy = :transaction
-      DatabaseCleaner.start
+      example.run
     end
   end
 

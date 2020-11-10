@@ -100,7 +100,10 @@ RSpec.configure do |config|
     if example.metadata[:clean]
       ActiveFedora::Cleaner.clean!
       ActiveFedora.fedora.connection.send(:init_base_path) if example.metadata[:js]
-    end
+
+      # Recreate only the AdminSet, not the associated permission template that is still in the database.
+      # (Instead of AdminSet.find_or_create_default_admin_set_id)
+      AdminSet.create id: AdminSet::DEFAULT_ID, title: Array.wrap(AdminSet::DEFAULT_TITLE)
 
     # Let the DatabaseCleaner take care of database rows written in an example
     if example.metadata[:type] == :feature && Capybara.current_driver != :rack_test

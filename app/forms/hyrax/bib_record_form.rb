@@ -10,7 +10,6 @@ module Hyrax
     include ESSI::BibRecordFormBehavior
     include ESSI::HoldingLocationTerms
     include ESSI::OCRTerms
-    include ESSI::PurlTerms
     include ESSI::RemoteMetadataFormElements
     include AllinsonFlex::DynamicFormBehavior
     include ESSI::CampusTerms

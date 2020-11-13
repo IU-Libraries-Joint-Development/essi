@@ -27,6 +27,8 @@ classes:
     display_label: "Scientific"
   BibRecord:
     display_label: "Bib Record"
+  ArchivalMaterial:
+    display_label: "Archival Material"
 
 contexts:
   flexible_context:
@@ -44,6 +46,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
       context:
         - flexible_context
@@ -60,6 +63,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/ontologies/bibframe/heldBy
     cardinality:
@@ -75,6 +79,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
       context:
         - flexible_context
@@ -90,6 +95,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://www.loc.gov/mods/rdf/v1#physicalExtent
     cardinality:

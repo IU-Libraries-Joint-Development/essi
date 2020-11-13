@@ -27,6 +27,8 @@ classes:
     display_label: "Scientific"
   BibRecord:
     display_label: "Bib Record"
+  ArchivalMaterial:
+    display_label: "Archival Material"
 
 contexts:
   flexible_context:
@@ -44,6 +46,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
       context:
         - flexible_context
@@ -60,6 +63,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/ontologies/bibframe/heldBy
     cardinality:
@@ -75,6 +79,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
       context:
         - flexible_context
@@ -90,6 +95,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://www.loc.gov/mods/rdf/v1#physicalExtent
     cardinality:
@@ -102,6 +108,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/abr
   actor:
@@ -112,6 +119,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/act
   adapter:
@@ -122,6 +130,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/adp
   addressee:
@@ -132,6 +141,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rcp
   analyst:
@@ -142,6 +152,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/anl
   animator:
@@ -152,6 +163,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/anm
   annotator:
@@ -162,6 +174,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ann
   appellant:
@@ -172,6 +185,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/apl
   appellee:
@@ -182,6 +196,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ape
   applicant:
@@ -192,6 +207,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/app
   architect:
@@ -202,6 +218,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/arc
   arranger:
@@ -212,6 +229,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/arr
   art_copyist:
@@ -222,6 +240,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/acp
   art_director:
@@ -232,6 +251,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/adi
   artist:
@@ -242,6 +262,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/art
   artistic_director:
@@ -252,6 +273,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ard
   assignee:
@@ -262,6 +284,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/asg
   associated_name:
@@ -272,6 +295,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/asn
   attributed_name:
@@ -282,6 +306,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/att
   auctioneer:
@@ -292,6 +317,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/auc
   author:
@@ -302,6 +328,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/aut
   author_in_quotations_or_text_abstracts:
@@ -312,6 +339,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/aqt
   author_of_afterword_colophon_etc:
@@ -322,6 +350,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/aft
   author_of_dialog:
@@ -332,6 +361,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/aud
   author_of_introduction_etc:
@@ -342,6 +372,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/aui
   autographer:
@@ -352,6 +383,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ato
   bibliographic_antecedent:
@@ -362,6 +394,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ant
   binder:
@@ -372,6 +405,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/bnd
   binding_designer:
@@ -382,6 +416,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/bdd
   blurb_writer:
@@ -392,6 +427,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/blw
   book_designer:
@@ -402,6 +438,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/bkd
   book_producer:
@@ -412,6 +449,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/bkp
   bookjacket_designer:
@@ -422,6 +460,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/bjd
   bookplate_designer:
@@ -432,6 +471,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/bpd
   bookseller:
@@ -442,6 +482,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/bsl
   braille_embosser:
@@ -452,6 +493,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/brl
   broadcaster:
@@ -462,6 +504,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/brd
   calligrapher:
@@ -472,6 +515,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cll
   cartographer:
@@ -482,6 +526,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ctg
   caster:
@@ -492,6 +537,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cas
   censor:
@@ -502,6 +548,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cns
   choreographer:
@@ -512,6 +559,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/chr
   cinematographer:
@@ -522,6 +570,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cng
   client:
@@ -532,6 +581,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cli
   collection_registrar:
@@ -542,6 +592,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cor
   collector:
@@ -552,6 +603,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/col
   collotyper:
@@ -562,6 +614,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/clt
   colorist:
@@ -572,6 +625,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/clr
   commentator:
@@ -582,6 +636,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cmm
   commentator_for_written_text:
@@ -592,6 +647,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cwt
   compiler:
@@ -602,6 +658,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/com
   complainant:
@@ -612,6 +669,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cpl
   complainant_appellant:
@@ -622,6 +680,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cpt
   complainant_appellee:
@@ -632,6 +691,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cpe
   composer:
@@ -642,6 +702,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cmp
   compositor:
@@ -652,6 +713,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cmt
   conceptor:
@@ -662,6 +724,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ccp
   conductor:
@@ -672,6 +735,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cnd
   conservator:
@@ -682,6 +746,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/con
   consultant:
@@ -692,6 +757,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/csl
   consultant_to_a_project:
@@ -702,6 +768,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/csp
   contestant:
@@ -712,6 +779,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cos
   contestant_appellant:
@@ -722,6 +790,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cot
   contestant_appellee:
@@ -732,6 +801,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/coe
   contestee:
@@ -742,6 +812,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cts
   contestee_appellant:
@@ -752,6 +823,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ctt
   contestee_appellee:
@@ -762,6 +834,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cte
   contractor:
@@ -772,6 +845,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ctr
   copyright_claimant:
@@ -782,6 +856,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cpc
   copyright_holder:
@@ -792,6 +867,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cph
   corrector:
@@ -802,6 +878,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/crr
   correspondent:
@@ -812,6 +889,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/crp
   costume_designer:
@@ -822,6 +900,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cst
   court_governed:
@@ -832,6 +911,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cou
   court_reporter:
@@ -842,6 +922,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/crt
   cover_designer:
@@ -852,6 +933,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cov
   curator:
@@ -862,6 +944,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/cur
   dancer:
@@ -872,6 +955,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dnc
   data_contributor:
@@ -882,6 +966,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dtc
   data_manager:
@@ -892,6 +977,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dtm
   dedicatee:
@@ -902,6 +988,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dte
   dedicator:
@@ -912,6 +999,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dto
   defendant:
@@ -922,6 +1010,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dfd
   defendant_appellant:
@@ -932,6 +1021,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dft
   defendant_appellee:
@@ -942,6 +1032,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dfe
   degree_granting_institution:
@@ -952,6 +1043,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dgg
   degree_supervisor:
@@ -962,6 +1054,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dgs
   delineator:
@@ -972,6 +1065,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dln
   depicted:
@@ -982,6 +1076,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dpc
   designer:
@@ -992,6 +1087,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dsr
   director:
@@ -1002,6 +1098,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/drt
   dissertant:
@@ -1012,6 +1109,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dis
   distribution_place:
@@ -1022,6 +1120,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dbp
   distributor:
@@ -1032,6 +1131,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dst
   owning_institution:
@@ -1042,6 +1142,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dnr
   draftsman:
@@ -1052,6 +1153,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/drm
   dubious_author:
@@ -1062,6 +1164,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/dub
   editor:
@@ -1072,6 +1175,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/edt
   editor_of_compilation:
@@ -1082,6 +1186,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/edc
   editor_of_moving_image_work:
@@ -1092,6 +1197,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/edm
   electrician:
@@ -1102,6 +1208,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/elg
   electrotyper:
@@ -1112,6 +1219,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/elt
   enacting_jurisdiction:
@@ -1122,6 +1230,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/enj
   engineer:
@@ -1132,6 +1241,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/eng
   engraver:
@@ -1142,6 +1252,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/egr
   etcher:
@@ -1152,6 +1263,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/etr
   event_place:
@@ -1162,6 +1274,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/evp
   expert:
@@ -1172,6 +1285,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/exp
   facsimilist:
@@ -1182,6 +1296,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/fac
   field_director:
@@ -1192,6 +1307,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/fld
   film_distributor:
@@ -1202,6 +1318,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/fds
   film_director:
@@ -1212,6 +1329,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/fmd
   film_editor:
@@ -1222,6 +1340,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/flm
   film_producer:
@@ -1232,6 +1351,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/fmp
   filmmaker:
@@ -1242,6 +1362,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/fmk
   first_party:
@@ -1252,6 +1373,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/fpy
   forger:
@@ -1262,6 +1384,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/frg
   former_owner:
@@ -1272,6 +1395,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/fmo
   funding:
@@ -1282,6 +1406,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/fnd
   geographic_information_specialist:
@@ -1292,6 +1417,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/gis
   honoree:
@@ -1302,6 +1428,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/hnr
   host:
@@ -1312,6 +1439,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/hst
   host_institution:
@@ -1322,6 +1450,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/his
   illuminator:
@@ -1332,6 +1461,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ilu
   illustrator:
@@ -1342,6 +1472,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ill
   inscriber:
@@ -1352,6 +1483,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ins
   instrumentalist:
@@ -1362,6 +1494,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/itr
   interviewee:
@@ -1372,6 +1505,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ive
   interviewer:
@@ -1382,6 +1516,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ivr
   author:
@@ -1392,6 +1527,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/inv
   issuing_body:
@@ -1402,6 +1538,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/isb
   judge:
@@ -1412,6 +1549,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/jud
   jurisdiction_governed:
@@ -1422,6 +1560,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/jug
   laboratory:
@@ -1432,6 +1571,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/lbr
   laboratory_director:
@@ -1442,6 +1582,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ldr
   landscape_architect:
@@ -1452,6 +1593,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/lsa
   lead:
@@ -1462,6 +1604,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/led
   lender:
@@ -1472,6 +1615,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/len
   libelant:
@@ -1482,6 +1626,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/lil
   libelant_appellant:
@@ -1492,6 +1637,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/lit
   libelant_appellee:
@@ -1502,6 +1648,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/lie
   libelee:
@@ -1512,6 +1659,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/lel
   libelee_appellant:
@@ -1522,6 +1670,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/let
   libelee_appellee:
@@ -1532,6 +1681,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/lee
   librettist:
@@ -1542,6 +1692,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/lbt
   licensee:
@@ -1552,6 +1703,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/lse
   licensor:
@@ -1562,6 +1714,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/lso
   lighting_designer:
@@ -1572,6 +1725,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/lgd
   lithographer:
@@ -1582,6 +1736,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ltg
   lyricist:
@@ -1592,6 +1747,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/lyr
   manufacture_place:
@@ -1602,6 +1758,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/mfp
   manufacturer:
@@ -1612,6 +1769,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/mfr
   marbler:
@@ -1622,6 +1780,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/mrb
   markup_editor:
@@ -1632,6 +1791,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/mrk
   medium:
@@ -1642,6 +1802,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/med
   metadata_contact:
@@ -1652,6 +1813,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/mdc
   metal_engraver:
@@ -1662,6 +1824,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/mte
   minute_taker:
@@ -1672,6 +1835,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/mtk
   moderator:
@@ -1682,6 +1846,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/mod
   monitor:
@@ -1692,6 +1857,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/mon
   music_copyist:
@@ -1702,6 +1868,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/mcp
   musical_director:
@@ -1712,6 +1879,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/msd
   musician:
@@ -1722,6 +1890,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/mus
   narrator:
@@ -1732,6 +1901,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/nrt
   onscreen_presenter:
@@ -1742,6 +1912,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/osp
   opponent:
@@ -1752,6 +1923,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/opn
   organizer:
@@ -1762,6 +1934,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/orm
   originator:
@@ -1772,6 +1945,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/org
   other:
@@ -1782,6 +1956,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/oth
   owner:
@@ -1792,6 +1967,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/own
   panelist:
@@ -1802,6 +1978,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pan
   papermaker:
@@ -1812,6 +1989,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ppm
   patent_applicant:
@@ -1822,6 +2000,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pta
   patent_holder:
@@ -1832,6 +2011,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pth
   patron:
@@ -1842,6 +2022,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pat
   performer:
@@ -1852,6 +2033,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/prf
   permitting_agency:
@@ -1862,6 +2044,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pma
   photographer:
@@ -1872,6 +2055,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pht
   plaintiff:
@@ -1882,6 +2066,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ptf
   plaintiff_appellant:
@@ -1892,6 +2077,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ptt
   plaintiff_appellee:
@@ -1902,6 +2088,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pte
   platemaker:
@@ -1912,6 +2099,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/plt
   praeses:
@@ -1922,6 +2110,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pra
   presenter:
@@ -1932,6 +2121,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pre
   printer:
@@ -1942,6 +2132,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/prt
   printer_of_plates:
@@ -1952,6 +2143,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pop
   printmaker:
@@ -1962,6 +2154,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/prm
   process_contact:
@@ -1972,6 +2165,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/prc
   producer:
@@ -1982,6 +2176,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pro
   production_company:
@@ -1992,6 +2187,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/prn
   production_designer:
@@ -2002,6 +2198,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/prs
   production_manager:
@@ -2012,6 +2209,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pmn
   production_personnel:
@@ -2022,6 +2220,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/prd
   production_place:
@@ -2032,6 +2231,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/prp
   programmer:
@@ -2042,6 +2242,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/prg
   project_director:
@@ -2052,6 +2253,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pdr
   proofreader:
@@ -2062,6 +2264,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pfr
   provider:
@@ -2072,6 +2275,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/prv
   publication_place:
@@ -2082,6 +2286,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pup
   publishing_director:
@@ -2092,6 +2297,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pbd
   puppeteer:
@@ -2102,6 +2308,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ppt
   radio_director:
@@ -2112,6 +2319,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rdd
   radio_producer:
@@ -2122,6 +2330,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rpc
   recording_engineer:
@@ -2132,6 +2341,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rce
   recordist:
@@ -2142,6 +2352,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rcd
   redaktor:
@@ -2152,6 +2363,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/red
   renderer:
@@ -2162,6 +2374,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ren
   reporter:
@@ -2172,6 +2385,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rpt
   marc_repository:
@@ -2182,6 +2396,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rps
   research_team_head:
@@ -2192,6 +2407,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rth
   research_team_member:
@@ -2202,6 +2418,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rtm
   researcher:
@@ -2212,6 +2429,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/res
   respondent:
@@ -2222,6 +2440,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rsp
   respondent_appellant:
@@ -2232,6 +2451,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rst
   respondent_appellee:
@@ -2242,6 +2462,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rse
   responsible_party:
@@ -2252,6 +2473,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rpy
   restager:
@@ -2262,6 +2484,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rsg
   restorationist:
@@ -2272,6 +2495,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rsr
   reviewer:
@@ -2282,6 +2506,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rev
   rubricator:
@@ -2292,6 +2517,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/rbr
   scenarist:
@@ -2302,6 +2528,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/sce
   scientific_advisor:
@@ -2312,6 +2539,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/sad
   screenwriter:
@@ -2322,6 +2550,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/aus
   scribe:
@@ -2332,6 +2561,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/scr
   sculptor:
@@ -2342,6 +2572,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/scl
   second_party:
@@ -2352,6 +2583,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/spy
   secretary:
@@ -2362,6 +2594,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/sec
   seller:
@@ -2372,6 +2605,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/sll
   set_designer:
@@ -2382,6 +2616,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/std
   setting:
@@ -2392,6 +2627,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/stg
   signer:
@@ -2402,6 +2638,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/sgn
   singer:
@@ -2412,6 +2649,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/sng
   sound_designer:
@@ -2422,6 +2660,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/sds
   speaker:
@@ -2432,6 +2671,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/spk
   sponsor:
@@ -2442,6 +2682,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/spn
   stage_director:
@@ -2452,6 +2693,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/sgd
   stage_manager:
@@ -2462,6 +2704,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/stm
   standards_body:
@@ -2472,6 +2715,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/stn
   stereotyper:
@@ -2482,6 +2726,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/str
   storyteller:
@@ -2492,6 +2737,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/stl
   supporting_host:
@@ -2502,6 +2748,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/sht
   surveyor:
@@ -2512,6 +2759,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/srv
   teacher:
@@ -2522,6 +2770,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/tch
   technical_director:
@@ -2532,6 +2781,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/tcd
   television_director:
@@ -2542,6 +2792,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/tld
   television_producer:
@@ -2552,6 +2803,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/tlp
   thesis_advisor:
@@ -2562,6 +2814,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/ths
   transcriber:
@@ -2572,6 +2825,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/trc
   translator:
@@ -2582,6 +2836,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/trl
   type_designer:
@@ -2592,6 +2847,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/tyd
   typographer:
@@ -2602,6 +2858,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/tyg
   university_place:
@@ -2612,6 +2869,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/uvp
   videographer:
@@ -2622,6 +2880,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/vdg
   voice_actor:
@@ -2632,6 +2891,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/vac
   witness:
@@ -2642,6 +2902,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/wit
   wood_engraver:
@@ -2652,6 +2913,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/wde
   woodcutter:
@@ -2662,6 +2924,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/wdc
   writer_of_accompanying_material:
@@ -2672,6 +2935,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/wam
   writer_of_added_commentary:
@@ -2682,6 +2946,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/wac
   writer_of_added_text:
@@ -2692,6 +2957,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/wat
   writer_of_added_lyrics:
@@ -2702,6 +2968,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/wal
   writer_of_supplementary_textual_content:
@@ -2712,6 +2979,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/wst
   writer_of_introduction:
@@ -2722,6 +2990,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/win
   writer_of_preface:
@@ -2732,6 +3001,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/wpr
   digital_specifications:
@@ -2749,6 +3019,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://purl.org/ontology/bibo/numPages
     cardinality:
@@ -2764,6 +3035,7 @@ properties:
         - Image
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
         - Scientific
     property_uri: http://dlib.indiana.edu/vocabulary/OCRState
     cardinality:
@@ -2788,6 +3060,7 @@ properties:
     available_on:
       class:
         - PagedResource
+        - ArchivalMaterial
     property_uri: http://iiif.io/api/presentation/2#viewingHint
     cardinality:
       maximum: 1
@@ -2798,6 +3071,7 @@ properties:
       class:
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
     property_uri: http://iiif.io/api/presentation/2#viewingDirection
     cardinality:
       maximum: 1
@@ -2808,6 +3082,7 @@ properties:
       class:
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
     property_uri: http://library.princeton.edu/terms/metadata_id
     cardinality:
       maximum: 1
@@ -2818,6 +3093,7 @@ properties:
       class:
         - BibRecord
         - PagedResource
+        - ArchivalMaterial
     property_uri: http://library.princeton.edu/terms/source_metadata
     cardinality:
       maximum: 1

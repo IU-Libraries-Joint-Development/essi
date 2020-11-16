@@ -2,6 +2,7 @@
 #  `rails generate hyrax:work ArchivalMaterial`
 require 'rails_helper'
 include Warden::Test::Helpers
+include ActiveJob::TestHelper
 
 # NOTE: If you generated more than one work, you have to set "js: true"
 RSpec.feature 'Create an ArchivalMaterial', type: :system, js: true do
@@ -51,15 +52,11 @@ RSpec.feature 'Create an ArchivalMaterial', type: :system, js: true do
       end
       click_link "Descriptions" # switch tab
       fill_in('Title', with: 'My Test Work')
-      fill_in('Creator', with: 'Doe, Jane')
       fill_in('Source metadata ID', with: ' ') # Workaround until the form is fixed for blank field
       click_link 'Additional fields'
-      fill_in('Keyword', with: 'testing')
-      fill_in('Publication place', with: 'Wells')
-      fill_in('Date Created', with: '2001')
-      fill_in('Publisher', with: 'Rspec')
+      fill_in('Publication Place', with: 'Wells')
 
-      select('In Copyright', from: 'Rights statement')
+      #select('In Copyright', from: 'Rights statement')
 
       # With selenium and the chrome driver, focus remains on the
       # select box. Click outside the box so the next line can't find
@@ -82,7 +79,7 @@ RSpec.feature 'Create an ArchivalMaterial', type: :system, js: true do
       # On work show page
       expect(page).to have_content('My Test Work')
       expect(page).to_not have_content "Your files are being processed by Digital Collections in the background."
-      expect(find('li.attribute-creator')).to have_content('Doe, Jane')
+      expect(find('li.attribute-title')).to have_content('My Test Work')
       click_on('Show Child Items')
       expect(find('table.related-files')).to have_content('rgb.png')
 
@@ -90,14 +87,10 @@ RSpec.feature 'Create an ArchivalMaterial', type: :system, js: true do
       within '#facets' do
         click_on('Pages')
         expect(page).to have_content('2')
-        click_on('Publisher')
-        expect(page).to have_content('Rspec')
         click_on('Publication Place')
         expect(page).to have_content('Wells')
         click_on('State')
         expect(page).to have_content('deposited')
-        click_on('Date Created')
-        expect(page).to have_content('2001')
       end
     end
   end

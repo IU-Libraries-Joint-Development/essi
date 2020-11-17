@@ -8,7 +8,7 @@ class ArchivalMaterial < PagedResource
   # include ESSI::NumPagesMetadata
   include ESSI::NumPagesBehavior
   include ESSI::OCRBehavior
-  # include ESSI::OCRMetadata
+  include ESSI::OCRMetadata
   include ESSI::PDFMetadata
 
   self.indexer = ArchivalMaterialIndexer

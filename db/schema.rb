@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200713055031) do
+ActiveRecord::Schema.define(version: 20201106014204) do
 
   create_table "allinson_flex_contexts", force: :cascade do |t|
     t.string "name"
@@ -163,6 +163,9 @@ ActiveRecord::Schema.define(version: 20200713055031) do
     t.text "last_error"
     t.datetime "last_error_at"
     t.datetime "last_succeeded_at"
+    t.date "start_date"
+    t.date "finish_date"
+    t.string "work_visibility"
     t.index ["user_id"], name: "index_bulkrax_exporters_on_user_id"
   end
 
@@ -200,6 +203,19 @@ ActiveRecord::Schema.define(version: 20200713055031) do
     t.datetime "last_error_at"
     t.datetime "last_succeeded_at"
     t.index ["user_id"], name: "index_bulkrax_importers_on_user_id"
+  end
+
+  create_table "bulkrax_statuses", force: :cascade do |t|
+    t.string "status_message"
+    t.string "error_class"
+    t.string "error_message"
+    t.text "error_backtrace"
+    t.integer "statusable_id"
+    t.string "statusable_type"
+    t.integer "runnable_id"
+    t.string "runnable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "checksum_audit_logs", force: :cascade do |t|

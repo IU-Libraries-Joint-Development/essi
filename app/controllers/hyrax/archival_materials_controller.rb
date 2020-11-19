@@ -6,7 +6,7 @@ module Hyrax
     # Adds Hyrax behaviors to the controller.
     include Hyrax::WorksControllerBehavior
     include ESSI::WorksControllerBehavior
-    include ESSI::PagedResourcesControllerBehavior
+    include ESSI::ArchivalMaterialsControllerBehavior
     include ESSI::RemoteMetadataLookupBehavior
     include Hyrax::BreadcrumbsForWorks
     include ESSI::BreadcrumbsForWorks

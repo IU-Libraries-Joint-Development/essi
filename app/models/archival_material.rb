@@ -1,7 +1,7 @@
 # Generated via
 #  `rails generate hyrax:work ArchivalMaterial`
-class ArchivalMaterial < PagedResource
-  include ESSI::PagedResourceBehavior
+class ArchivalMaterial < ActiveFedora::Base
+  include ESSI::ArchivalMaterialBehavior
   include ::Hyrax::WorkBehavior
   include StructuralMetadata
   include ExtraLockable
@@ -19,8 +19,8 @@ class ArchivalMaterial < PagedResource
  # Include extended metadata common to most Work Types
   # include ESSI::ExtendedMetadata
 
-  # This model includes metadata properties specific to the PagedResource Work Type
-  # include ESSI::PagedResourceMetadata
+  # This model includes metadata properties specific to the ArchivalMaterial Work Type
+  # include ESSI::ArchivalMaterialMetadata
 
   # Include properties for remote metadata lookup
   include ESSI::RemoteLookupMetadata

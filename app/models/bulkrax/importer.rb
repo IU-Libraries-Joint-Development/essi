@@ -79,7 +79,7 @@ module Bulkrax
     end
 
     def last_run
-      @last_run ||= self.importer_runs.last
+      @last_run ||= (self.importer_runs.last || current_run)
     end
 
     def seen

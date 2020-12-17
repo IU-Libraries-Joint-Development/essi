@@ -94,7 +94,7 @@ module Bulkrax
     end
 
     def last_run
-      @last_run ||= self.exporter_runs.last
+      @last_run ||= (self.exporter_runs.last || current_run)
     end
 
     def setup_export_path

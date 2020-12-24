@@ -64,6 +64,7 @@ RSpec.feature 'Create an ArchivalMaterial', type: :system, js: true do
       find('body').click
       choose('archival_material_visibility_open')
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
+      page.driver.browser.manage.window.resize_to(1400,1400)
       check('agreement')
 
       perform_enqueued_jobs do
@@ -77,7 +78,7 @@ RSpec.feature 'Create an ArchivalMaterial', type: :system, js: true do
       click_on('My Test Work')
 
       # On work show page
-      expect(page).to have_content('My Test Work')
+      expect(find('.work-type')).to have_content('My Test Work')
       expect(page).to_not have_content "Your files are being processed by Digital Collections in the background."
       expect(find('li.attribute-title')).to have_content('My Test Work')
       click_on('Show Child Items')

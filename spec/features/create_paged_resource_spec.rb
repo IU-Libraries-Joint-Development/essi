@@ -64,6 +64,7 @@ RSpec.feature 'Create a PagedResource', type: :system, js: true do
       find('body').click
       choose('paged_resource_visibility_open')
       expect(page).to have_content('Please note, making something visible to the world (i.e. marking this as Public) may be viewed as publishing which could impact your ability to')
+      page.driver.browser.manage.window.resize_to(1400,1400)
       check('agreement')
 
       perform_enqueued_jobs do

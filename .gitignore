@@ -57,3 +57,6 @@ spec/tmp/pdfs
 
 # Ignore solr generated files
 solr/config/*
+
+# Ignore swp files
+.*.sw?

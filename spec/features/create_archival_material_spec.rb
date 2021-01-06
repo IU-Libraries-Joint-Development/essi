@@ -87,7 +87,7 @@ RSpec.feature 'Create an ArchivalMaterial', type: :system, js: true do
       click_on('Go')
       within '#facets' do
         click_on('Pages')
-        expect(page).to have_content('2')
+        expect(page).to have_content('0-99')
         click_on('Publication Place')
         expect(page).to have_content('Wells')
         click_on('State')

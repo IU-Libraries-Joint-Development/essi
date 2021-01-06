@@ -6,8 +6,8 @@ class Image < ActiveFedora::Base
   include StructuralMetadata
   include ExtraLockable
   # include ESSI::NumPagesMetadata
-  # include ESSI::NumPagesBehavior
-  # include ESSI::OCRBehavior
+  include ESSI::NumPagesBehavior
+  include ESSI::OCRBehavior
   # include ESSI::OCRMetadata
 
   self.indexer = ImageIndexer

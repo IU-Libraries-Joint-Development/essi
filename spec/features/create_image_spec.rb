@@ -85,10 +85,10 @@ RSpec.feature 'Create an Image', type: :system, js: true do
 
       click_on('Go')
       within '#facets' do
-        #click_on('Pages')
-        #expect(page).to have_content('2')
-        #click_on('Publication Place')
-        #expect(page).to have_content('Wells')
+        click_on('Pages')
+        expect(page).to have_content('2')
+        click_on('Publication Place')
+        expect(page).to have_content('Wells')
         click_on('State')
         expect(page).to have_content('deposited')
       end

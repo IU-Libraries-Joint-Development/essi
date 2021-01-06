@@ -2289,6 +2289,9 @@ properties:
         - ArchivalMaterial
         - Scientific
     property_uri: http://id.loc.gov/vocabulary/relators/pup
+    indexing:
+      - "stored_searchable"
+      - "facetable"
   publishing_director:
     display_label:
       default: "Publishing Director"

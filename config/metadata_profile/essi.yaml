@@ -3685,6 +3685,13 @@ properties:
       class:
         - Scientific
     property_uri: http://rs.tdwg.org/dwc/terms/lifeStage
+  lithostratigraphic_member:
+    display_label:
+        default: "Member"
+    available_on:
+      class:
+        - Scientific
+    property_uri: http://rs.tdwg.org/dwc/terms/member
   lithostratigraphic_terms:
     display_label:
         default: "Lithostratigraphic Terms"
@@ -3818,13 +3825,6 @@ properties:
       class:
         - Scientific
     property_uri: http://rs.tdwg.org/dwc/terms/measurementValue
-  member:
-    display_label:
-        default: "Member"
-    available_on:
-      class:
-        - Scientific
-    property_uri: http://rs.tdwg.org/dwc/terms/member
   minimum_depth_in_meters:
     display_label:
         default: "Minimum Depth in Meters"

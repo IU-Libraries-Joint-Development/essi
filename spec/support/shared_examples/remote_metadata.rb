@@ -1,33 +1,31 @@
 RSpec.shared_examples 'update metadata remotely' do |resource_symbol|
 
   describe 'when logged in', :clean do
-
-    let(:admin_set_id) { AdminSet.find_or_create_default_admin_set_id }
-    let(:permission_template) { Hyrax::PermissionTemplate.find_or_create_by!(source_id: admin_set_id) }
-    let(:workflow) { Sipity::Workflow.create!(active: true, name: 'test-workflow', permission_template: permission_template) }
     let(:user) { FactoryBot.create(:user) }
+    let(:resource) { FactoryBot.create(resource_symbol,
+                                       user: user,
+                                       title: ['Dummy Title'],
+                                       source_metadata_identifier: nil) }
+    let(:reloaded) { resource.reload }
 
     before { sign_in user }
 
     describe '#update' do
-
-      let(:resource) { FactoryBot.create(resource_symbol, user: user, title: ['Dummy Title']) }
-      let(:reloaded) { resource.reload }
       let(:static_attributes) {
         {
-          description: ['a description'],
+          title: ['Updated Title'],
           source_metadata_identifier: 'BHR9405'
         }
       }
       let(:invalid_identifier_attributes) {
         {
-          description: ['a description'],
+          title: ['Updated Title'],
           source_metadata_identifier: 'BHR9405%INVALID$CHARACTERS'
         }
       }
       let(:no_results_identifier_attributes) {
         {
-            description: ['a description'],
+            title: ['Updated Title'],
             source_metadata_identifier: 'VAC1741-00231'
         }
       }
@@ -39,8 +37,7 @@ RSpec.shared_examples 'update metadata remotely' do |resource_symbol|
                  params: { id: resource.id,
                            resource_symbol => static_attributes }
           end
-          expect(reloaded.title).to eq ['Dummy Title']
-          expect(reloaded.description).to eq ['a description']
+          expect(reloaded.title).to eq ['Updated Title']
         end
       end
   
@@ -53,7 +50,7 @@ RSpec.shared_examples 'update metadata remotely' do |resource_symbol|
                              resource_symbol => invalid_identifier_attributes,
                              refresh_remote_metadata: true }
             end
-            expect(reloaded.description).to eq ['a description']
+            expect(reloaded.title).to eq ['Updated Title']
           end
           it 'flashes an alert about not refreshing the external metadata' do
             perform_enqueued_jobs do
@@ -74,7 +71,7 @@ RSpec.shared_examples 'update metadata remotely' do |resource_symbol|
                             resource_symbol => no_results_identifier_attributes,
                             refresh_remote_metadata: true }
             end
-            expect(reloaded.description).to eq ['a description']
+            expect(reloaded.title).to eq ['Updated Title']
           end
           it 'flashes an alert about no results found' do
             perform_enqueued_jobs do
@@ -95,7 +92,7 @@ RSpec.shared_examples 'update metadata remotely' do |resource_symbol|
                            refresh_remote_metadata: true }
             end
             expect(reloaded.title).to eq ['Fontane di Roma ; poema sinfonico per orchestra']
-            expect(reloaded.description).to eq ['a description']
+            expect(reloaded.source_metadata_identifier).to eq 'BHR9405'
           end
         end
       end

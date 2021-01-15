@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201106014204) do
+ActiveRecord::Schema.define(version: 20210113205232) do
 
   create_table "allinson_flex_contexts", force: :cascade do |t|
     t.string "name"

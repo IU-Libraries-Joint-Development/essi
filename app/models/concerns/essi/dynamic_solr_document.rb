@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module AllinsonFlex
+module ESSI
   module DynamicSolrDocument
     extend ActiveSupport::Concern
 
@@ -30,7 +30,7 @@ module AllinsonFlex
     end
 
     def initialize(source_doc = {}, response = nil)
-      self.class.load_allinson_flex
+      self.class.load_allinson_flex unless source_doc["has_model_ssim"]&.first == "FileSet"
       super(source_doc, response)
     end
   end

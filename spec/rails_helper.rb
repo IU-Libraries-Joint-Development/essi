@@ -85,7 +85,8 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
     disable_production_minter!
     AdminSet.find_or_create_default_admin_set_id
-    @allinson_flex_profile = AllinsonFlex::Importer.load_profile_from_path(path: Rails.root.join('config', 'metadata_profile', 'essi.yml'))
+    profile_path = Rails.root.join('config', 'metadata_profile', 'essi_short.yaml')
+    @allinson_flex_profile = AllinsonFlex::Importer.load_profile_from_path(path: profile_path.to_s)
     @allinson_flex_profile.save
   end
 

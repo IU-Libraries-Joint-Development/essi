@@ -100,3 +100,163 @@ properties:
     property_uri: http://www.loc.gov/mods/rdf/v1#physicalExtent
     cardinality:
       maximum: 1
+  num_pages:
+    display_label:
+      default: "Number of Pages"
+    available_on:
+      class:
+        - Image
+        - BibRecord
+        - PagedResource
+        - ArchivalMaterial
+        - Scientific
+    property_uri: http://purl.org/ontology/bibo/numPages
+    cardinality:
+      maximum: 1
+    indexing:
+      - "stored_searchable"
+      - "facetable"
+  ocr_state:
+    display_label:
+      default: "OCR State"
+    available_on:
+      class:
+        - Image
+        - BibRecord
+        - PagedResource
+        - ArchivalMaterial
+        - Scientific
+    property_uri: http://dlib.indiana.edu/vocabulary/OCRState
+    cardinality:
+      maximum: 1
+  publication_place:
+    display_label:
+      default: "Publication Place"
+    available_on:
+      class:
+        - Image
+        - BibRecord
+        - PagedResource
+        - ArchivalMaterial
+        - Scientific
+    property_uri: http://id.loc.gov/vocabulary/relators/pup
+    indexing:
+      - "stored_searchable"
+      - "facetable"
+  viewing_hint:
+    display_label:
+      default: "Viewing Hint"
+    available_on:
+      class:
+        - PagedResource
+        - ArchivalMaterial
+    property_uri: http://iiif.io/api/presentation/2#viewingHint
+    cardinality:
+      maximum: 1
+  viewing_direction:
+    display_label:
+      default: "Viewing Direction"
+    available_on:
+      class:
+        - BibRecord
+        - PagedResource
+        - ArchivalMaterial
+    property_uri: http://iiif.io/api/presentation/2#viewingDirection
+    cardinality:
+      maximum: 1
+  source_metadata_identifier:
+    display_label:
+      default: "Source Metadata Identifier"
+    available_on:
+      class:
+        - BibRecord
+        - PagedResource
+        - ArchivalMaterial
+    property_uri: http://library.princeton.edu/terms/metadata_id
+    cardinality:
+      maximum: 1
+  source_metadata:
+    display_label:
+      default: "Source Metadata"
+    available_on:
+      class:
+        - BibRecord
+        - PagedResource
+        - ArchivalMaterial
+    property_uri: http://library.princeton.edu/terms/source_metadata
+    cardinality:
+      maximum: 1
+  accepted_name_usage:
+    display_label:
+      default: "Accepted Name Usage"
+    available_on:
+      class:
+        - Scientific
+    property_uri: http://rs.tdwg.org/dwc/terms/acceptedNameUsage
+  author:
+    display_label:
+      default: "Author"
+    available_on:
+      class:
+        - Image
+        - BibRecord
+        - PagedResource
+        - ArchivalMaterial
+        - Scientific
+    property_uri: http://id.loc.gov/vocabulary/relators/aut
+  arranger:
+    display_label:
+      default: "Arranger"
+    available_on:
+      class:
+        - Image
+        - BibRecord
+        - PagedResource
+        - ArchivalMaterial
+        - Scientific
+    property_uri: http://id.loc.gov/vocabulary/relators/arr
+  dubious_author:
+    display_label:
+      default: "Dubious Author"
+    available_on:
+      class:
+        - Image
+        - BibRecord
+        - PagedResource
+        - ArchivalMaterial
+        - Scientific
+    property_uri: http://id.loc.gov/vocabulary/relators/dub
+  bib_editor:
+    display_label:
+      default: "Bib Editor"
+    available_on:
+      class:
+        - BibRecord
+    property_uri: http://purl.org/ontology/bibo/editor
+  bib_article:
+    display_label:
+      default: "Bib Article"
+    available_on:
+      class:
+        - BibRecord
+    property_uri: http://purl.org/ontology/bibo/Article
+  digital_specifications:
+    display_label:
+      default: "Digital Specifications"
+    available_on:
+      class:
+        - Image
+    property_uri: http://purl.org/dc/elements/1.1/format
+  kingdom:
+    display_label:
+      default: "Kingdom"
+    available_on:
+      class:
+        - Scientific
+  phylum:
+    display_label:
+      default: "Phylum"
+    available_on:
+      class:
+        - Scientific
+    property_uri: http://rs.tdwg.org/dwc/terms/phylum

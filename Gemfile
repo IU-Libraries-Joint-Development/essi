@@ -75,7 +75,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'hyrax', '~> 2.8.0'
+gem 'hyrax', '~> 2.9.4'
 gem 'browse-everything', '~> 1.0.2' 
 gem 'rsolr'
 gem 'jquery-rails'

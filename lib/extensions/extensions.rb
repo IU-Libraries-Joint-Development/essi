@@ -68,3 +68,6 @@ InheritPermissionsJob.prepend Extensions::Hyrax::Jobs::ShortCircuitOnNil
 
 # Hyrax user lookup
 Hyrax::UsersController.prepend Extensions::Hyrax::UsersController::FindUser
+
+# Fix raw SQL queries
+Hyrax::Collections::PermissionsService.include Extensions::Hyrax::Collections::PermissionsService::SourceIds

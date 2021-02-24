@@ -55,6 +55,7 @@ Hyrax::Dashboard::CollectionsController.prepend Extensions::Hyrax::Dashboard::Co
 Hyrax::FileSetPresenter.include Extensions::Hyrax::FileSetPresenter::SourceMetadataIdentifier
 
 # bulkrax overrides
+
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::Structure
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::CreateWithDynamicSchema
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::CreateAttributes
@@ -121,3 +122,6 @@ Hyrax::Collections::CollectionMemberService.prepend Extensions::Hyrax::Collectio
 # ESSI-1337: apply custom renderers to catalog index, as well as on Show page
 Blacklight::IndexPresenter.include ESSI::PresentsCampus
 Blacklight::IndexPresenter.include ESSI::PresentsHoldingLocation
+
+# Fix raw SQL queries
+Hyrax::Collections::PermissionsService.include Extensions::Hyrax::Collections::PermissionsService::SourceIds

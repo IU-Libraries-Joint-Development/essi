@@ -45,7 +45,7 @@ RSpec.feature 'Create and run a CSV Importer', type: :system, js: true do
 
       expect(page).to have_content 'Add CSV File to Import'
       within '.csv_fields' do
-        select 'Private', from: 'Visibility'
+        select 'Public', from: 'Visibility'
         select 'In Copyright', from: 'Rights statement'
         choose 'Upload a File'
 
@@ -107,10 +107,11 @@ RSpec.feature 'Create and run a CSV Importer', type: :system, js: true do
       click_on('Show Child Items')
       expect(find('table.related-files')).to have_content('rgb.png')
       expect(find('table.related-files')).to have_content('world.png')
-      expect(find('table.related-files')).to have_content('Private')
+      expect(find('table.related-files')).to have_content('Public')
 
       click_link 'Testing Collection', match: :first
       expect(page).to have_content 'A Test Image'
     end
   end
 end
+

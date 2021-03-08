@@ -89,18 +89,28 @@ RSpec.feature 'Create and run a CSV Importer', type: :system, js: true do
       click_link 'TEST-1234'
       expect(page).to have_content 'Identifier: TEST-1234'
 
-      click_link 'Image'
+
+      # WORKAROUND: for bulkrax issue (267) with broken work link
+      # click_link 'Image'
+
+      # TODO: rewrite workaround to get to the work
+      click_on('Home')
+      click_on('Go')
+      page.driver.browser.manage.window.resize_to(1400,1400)
+      click_link 'A Test Image', match: :first
+
       # On work show page
       expect(page).to have_content 'A Test Image'
       expect(page).to have_content '0-99 pages'
+      # TODO: test different admin set
 
       click_on('Show Child Items')
       expect(find('table.related-files')).to have_content('rgb.png')
       expect(find('table.related-files')).to have_content('world.png')
+      expect(find('table.related-files')).to have_content('Private')
 
       click_link 'Testing Collection', match: :first
       expect(page).to have_content 'A Test Image'
-
     end
   end
 end

@@ -74,3 +74,6 @@ InheritPermissionsJob.prepend Extensions::Hyrax::Jobs::ShortCircuitOnNil
 
 # Hyrax user lookup
 Hyrax::UsersController.prepend Extensions::Hyrax::UsersController::FindUser
+
+# AllinsonFlex changes
+AllinsonFlex::DynamicSchema.prepend Extensions::AllinsonFlex::DynamicSchema::LoadEmptyProperties

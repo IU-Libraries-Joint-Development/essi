@@ -26,7 +26,7 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.raise_delivery_errors = ESSI.config.dig(:rails, :mailer, :raise_delivery_errors) || ENV['SMTP_ERRORS']
   config.action_mailer.perform_caching = false
   config.action_mailer.default_url_options = { host: "localhost:3000" }
   config.action_mailer.delivery_method = :smtp
@@ -36,7 +36,8 @@ Rails.application.configure do
     :user_name => ESSI.config.dig(:rails, :mailer, :user_name) || ENV["SMTP_USERNAME"],
     :password => ESSI.config.dig(:rails, :mailer, :password) || ENV["SMTP_PASSWORD"],
     :authentication => ESSI.config.dig(:rails, :mailer, :authentication) || ENV["SMTP_AUTHENTICATION"],
-    :enable_starttls_auto => true
+    :enable_starttls_auto => ESSI.config.dig(:rails, :mailer, :enable_starttls_auto) || ENV['SMTP_STARTTLS'],
+    :openssl_verify_mode => ESSI.config.dig(:rails, :mailer, :openssl_verify_mode) || ENV["SMTP_SSL_VERIFY"]
   }
 
   # Print deprecation notices to the Rails logger.
@@ -70,4 +71,7 @@ Rails.application.configure do
 
   # universal whitelist for docker/virtualbox
   config.web_console.whitelisted_ips = ['172.16.0.0/12', '192.168.0.0/16', '127.0.0.1']
+
+  # Local development should assume to be running secure to match server deployments
+  config.force_ssl = true
 end

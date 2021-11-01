@@ -16,7 +16,7 @@ module SequentialJob
         if job.job_id == Thread.current[:seq_job_parent_id]
           # actually enqueue jobs
           while nested_job = Thread.current[:seq_job_queue].shift do
-            Rails.logger.debug { "SequentialJob: Enqueuing #{nested_job.name}. #{Thread.current[:seq_job_queue].size} jobs left to queue." }
+            Rails.logger.debug { "SequentialJob: Enqueuing #{nested_job.class.name}. #{Thread.current[:seq_job_queue].size} jobs left to queue." }
             nested_job.enqueue
           end
           Thread.current[:seq_job_parent_id] = nil  # Clear stored parent id

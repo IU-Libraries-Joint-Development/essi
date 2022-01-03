@@ -44,6 +44,8 @@ Bulkrax.setup do |config|
 
   # Field mappings
   # Create a completely new set of mappings by replacing the whole set as follows
+
+  # essi note: source_identifier destination field must be consistent across parsers 
   config.field_mappings = {
     #"Bulkrax::OaiDcParser" => { **individual field mappings go here*** }
     "Bulkrax::CsvParser" => {
@@ -54,13 +56,13 @@ Bulkrax.setup do |config|
       'profile_version' => { split: false },
       'purl' => { split: false },
 
-      'source' => { from: ['source'], source_identifier: true, split: false },
-      'source_identifier' => { split: false },
+      'source' => { from: ['source'], split: false },
+      'source_identifier' => { source_identifier: true, split: false },
       'source_metadata_identifier' => { split: false }
     },
     "Bulkrax::MetsXmlParser" => {
-      'source' => { from: ['OBJID'], source_identifier: true, split: false },
-      "source_identifier" => { from: ["identifier"] },
+      'source_identifier' => { from: ['OBJID'], source_identifier: true, split: false },
+      "source" => { from: ["identifier"], source_identifier: true },
       "work_type" => 'PagedResource'
     }
   }

@@ -10,7 +10,7 @@ module Bulkrax
     before do
       Bulkrax.field_mappings.merge!(
         'Bulkrax::XmlParser' => {
-          "source" => { source_identifier: true, from: ["OBJID"] },
+          "source_identifier" => { source_identifier: true, from: ["OBJID"], split: false },
         }
       )
     end

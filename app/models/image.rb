@@ -5,6 +5,7 @@ class Image < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include StructuralMetadata
   include ExtraLockable
+  include ::Bulkrax::UpdateRoundTrippable
   # include ESSI::NumPagesMetadata
   include ESSI::NumPagesBehavior
   include ESSI::OCRBehavior

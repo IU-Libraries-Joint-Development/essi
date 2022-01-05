@@ -9,6 +9,10 @@ RSpec.describe ArchivalMaterial do
   include_examples "ExtraLockable Behaviors" do
     let(:curation_concern) { FactoryBot.create(:archival_material) }
   end
+  include_examples "round trip update behaviors" do
+    let(:new_work) { FactoryBot.build(:archival_material) }
+    let(:work) { FactoryBot.create(:archival_material) }
+  end
 
   describe '#ocr_searchable?' do
     let(:work) { described_class.new(ocr_state: nil) }

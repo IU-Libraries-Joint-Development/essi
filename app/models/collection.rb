@@ -4,6 +4,8 @@ class Collection < ActiveFedora::Base
   include ::ESSI::SourceIdentifierMetadata
   include ::Hyrax::CollectionBehavior
   include ::ESSI::CollectionBehavior
+  include ::Bulkrax::UpdateRoundTrippable
+  include ::Bulkrax::UpdateCollectionRoundTrippable
   # You can replace these metadata if they're not suitable
   include Hyrax::BasicMetadata
 

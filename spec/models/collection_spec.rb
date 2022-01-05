@@ -36,6 +36,22 @@ RSpec.describe Collection do
   end
 
   describe "#save", :clean do
+    context "of a new collection" do
+      it "assigns title and id to source_identifier" do
+        new_collection.source_identifier = []
+        new_collection.save
+        expect(new_collection.source_identifier).to include(new_collection.id)
+        expect(new_collection.source_identifier).to include(new_collection.title.first)
+      end
+    end
+    context "of an existing collection" do
+      it "assigns title and id to source_identifier" do
+        collection.source_identifier = []
+        collection.save
+        expect(collection.source_identifier).to include(collection.id)
+        expect(collection.source_identifier).to include(collection.title.first)
+      end
+    end
     context "with a thumbnail already specified" do
       before do
         allow(collection).to receive(:default_thumbnail_id).and_return(fs1.id)

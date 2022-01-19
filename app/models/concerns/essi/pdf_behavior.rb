@@ -3,7 +3,7 @@ module ESSI
     extend ActiveSupport::Concern
 
     def pdf_downloadable?
-      self.pdf_state == 'downloadable'
+      self.try(:pdf_state) == 'downloadable'
     end
 
     def to_solr(solr_doc = {})

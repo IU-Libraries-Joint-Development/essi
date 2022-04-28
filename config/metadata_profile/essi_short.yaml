@@ -195,6 +195,7 @@ properties:
         - BibRecord
         - PagedResource
         - ArchivalMaterial
+        - Scientific
     property_uri: http://purl.org/dc/terms/identifier
     cardinality:
       minimum: 0

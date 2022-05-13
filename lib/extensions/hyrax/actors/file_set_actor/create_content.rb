@@ -1,4 +1,4 @@
-# unmodified from hyrax
+# modified to apply helper jobs to individual FileSet
 module Extensions
   module Hyrax
     module Actors
@@ -22,8 +22,8 @@ module Extensions
               file_actor.ingest_file(wrapper!(file: file, relation: relation))
               # Copy visibility and permissions from parent (work) to
               # FileSets even if they come in from BrowseEverything
-              VisibilityCopyJob.perform_later(file_set.parent)
-              InheritPermissionsJob.perform_later(file_set.parent)
+              VisibilityCopyJob.perform_later(file_set.parent, file_set: file_set)
+              InheritPermissionsJob.perform_later(file_set.parent, file_set: file_set)
             else
               IngestJob.perform_later(wrapper!(file: file, relation: relation))
             end

@@ -72,6 +72,8 @@ RSpec.feature 'Create and run a CSV Importer', type: :system, js: true do
         expect(page).to have_content '1 file selected'
         check 'world-png'
         expect(page).to have_content '2 files selected'
+        page.driver.browser.manage.window.resize_to(1400,1400)
+        save_screenshot # FIXME remove me after successful testing
         click_button 'Submit'
       end
 

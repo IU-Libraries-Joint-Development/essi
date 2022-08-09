@@ -97,7 +97,7 @@ gem 'validatable'
 gem 'country_select', '~> 4.0', require: 'country_select_without_sort_alphabetical'
 gem 'prawn'
 gem 'airbrake'
-gem 'allinson_flex', github: 'IU-Libraries-Joint-Development/allinson_flex'
+gem 'allinson_flex', path: '/home/aploshay/Documents/iu_dev/libraries/allinson_flex' #github: 'IU-Libraries-Joint-Development/allinson_flex'
 gem 'okcomputer'
 
 # Bulk Import / Export

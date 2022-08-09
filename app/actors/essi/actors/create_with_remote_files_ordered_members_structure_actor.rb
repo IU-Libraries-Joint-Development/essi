@@ -5,6 +5,7 @@ module ESSI
         ::Rails.logger.debug "Called ESSI::Actors::CreateWithRemoteFilesOrderedMembersStructureActor#create for #{env.curation_concern.id}"
         structure = env.attributes.delete(:structure)&.deep_symbolize_keys
         super(env) && save_structure(env,structure) && copy_visibility(env) && inherit_permissions(env)
+        # FIXME: reconsider copy, inherit calls at end vs per-file/per-job?
       end
 
       def update(env)

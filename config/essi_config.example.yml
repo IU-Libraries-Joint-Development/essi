@@ -2,10 +2,10 @@ default: &default
   fedora:
     user: fedoraAdmin
     password: fedoraAdmin
-    url: http://localhost:8984/rest
+    url: http://0.0.0.0:8984/rest
     base_path: /dev
   solr:
-    url: http://localhost:8983/solr/hydra-development
+    url: http://0.0.0.0:8983/solr/hydra-development
   db:
     adapter: sqlite3
     database: db/development.sqlite3
@@ -48,7 +48,7 @@ default: &default
       store: memory_store
       options:
     active_job:
-      queue_adapter: async
+      queue_adapter: sidekiq #inline #async
   cantaloupe:
     iiif_server_url: http://localhost:3000/iiif/2/
 #    iiif_server_url: http://localhost:8182/iiif/2/
@@ -64,14 +64,20 @@ default: &default
   aws:
     endpoint: http://localhost:9000
     bucket: essi-dropbox
-    access_key_id: essi-minio
-    secret_access_key: Essi12345
+    :access_key_id: minioadmin
+    :secret_access_key: minioadmin
+    access_key_id: minioadmin
+    secret_access_key: minioadmin
     region: us-east-1
   browse_everything:
     s3:
       :bucket: essi-dropbox
       :region: iu-local
       :response_type: :public_url
+      :access_key_id: minioadmin
+      :secret_access_key: minioadmin
+      access_key_id: minioadmin
+      secret_access_key: minioadmin
     file_system:
       :home: <%= Rails.root.join("staged_files") %>
   airbrake:
@@ -95,7 +101,7 @@ default: &default
   authorized_ldap_groups:
     - ESSI-USERS
   essi:
-    allow_dev_login: false
+    allow_dev_login: true
     iiif_host: localhost:3000  # riiif only
     notifier_email: example@test.test
     store_original_files: true
@@ -117,10 +123,10 @@ default: &default
       default_bagit_dir: <%= Rails.root.join("staged_files/work_bags") %>
     manifest_builder:
       see_also_hash: # TODO: enable or deprecate
-        id: http://metadata.remote.service.url/iucatextract?maximumRecords=1&operation=searchRetrieve&query=cql.serverChoice=%s&recordSchema=marcxml&version=1.1
+        id: https://yaz.dlib.indiana.edu/iucatextract?maximumRecords=1&operation=searchRetrieve&query=cql.serverChoice=%s&recordSchema=marcxml&version=1.1
         format: application/xml
     metadata:
-      remote_lookup: http://metadata.remote.service.url
+      remote_lookup: https://yaz.dlib.indiana.edu
       url: https://purl.dlib.indiana.edu/iudl/iucat/%s
       editable:
         - :identifier
@@ -210,7 +216,7 @@ default: &default
     contact_email: example@test.test
     service_log: <%= Rails.root.join('log', 'file_service.log') %>
   geonames:
-    username: demo # change in deployment
+    username: iu_diglib # change in deployment
 
 development:
   <<: *default

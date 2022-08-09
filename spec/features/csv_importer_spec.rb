@@ -3,6 +3,7 @@
 require 'rails_helper'
 include Warden::Test::Helpers
 include ActiveJob::TestHelper
+include CapybaraWatcher
 
 # NOTE: If you generated more than one work, you have to set "js: true"
 RSpec.feature 'Create and run a CSV Importer', type: :system, js: true do
@@ -75,6 +76,11 @@ RSpec.feature 'Create and run a CSV Importer', type: :system, js: true do
         click_button 'Submit'
       end
 
+      # FIXME wait unil browse-everything has closed and updated the page
+      wait_until_content_has "Cloud Files Added" do |text|
+        page.should have_content text
+      end
+      save_screenshot # FIXME remove me after successful testing
       expect(page).to have_field 'selected_files[0][url]', type: 'hidden', with: /rgb\.png/
       expect(page).to have_field 'selected_files[1][url]', type: 'hidden', with: /world\.png/
       expect(page).to have_content 'Cloud Files Added'

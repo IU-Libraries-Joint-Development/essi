@@ -12,7 +12,7 @@
 Airbrake.configure do |c|
   # Set custom Airbrake endpoint (e.g. errbit)
   host_config = ESSI.config.dig :airbrake, :host
-  c.host = host_config unless host_config.blank?
+  c.error_host = host_config unless host_config.blank?
 
   # Disable unsupported features if using errbit
   if ESSI.config.dig :airbrake, :errbit

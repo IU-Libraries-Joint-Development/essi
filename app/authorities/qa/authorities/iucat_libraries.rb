@@ -24,7 +24,15 @@ module Qa::Authorities
         return {} unless api_enabled? && api_url(id)
         begin
           result = json(api_url(id)).with_indifferent_access
-          result[:success] ? result[:data] : {}
+          if result[:success]
+            # purge any incomplete API results missing a label
+            (result.dig(:data, :libraries) || []).select { |library| library[:label].blank? }.each do |library|
+              result[:data][:libraries].delete(library)
+            end
+            result[:data]
+          else
+            {}
+          end
         rescue TypeError, JSON::ParserError, Faraday::ConnectionFailed, URI::InvalidURIError
           {}
         end

@@ -1,4 +1,5 @@
-# unmodified from aws-sdk-core:3.131.1
+# modified from aws-sdk-core:3.131.1
+# provides accept-encoding value of "identity" instead of ""
 module Extensions
   module Seahorse
     module Client
@@ -12,7 +13,7 @@ module Extensions
               # Removing this is necessary for most services to not break request
               # signatures as well as dynamodb crc32 checks (these fail if the
               # response is gzipped).
-              headers = { 'accept-encoding' => '' }
+              headers = { 'accept-encoding' => 'identity' }
               request.headers.each_pair do |key, value|
                 headers[key] = value
               end

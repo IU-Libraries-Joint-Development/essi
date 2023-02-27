@@ -110,3 +110,6 @@ gem 'stackprof', require: false
 
 # hold back hydra-head due to implicit Blacklight 7 requirement in newer versions
 gem 'hydra-head', '10.6.1'
+
+# s3 support for HCP
+gem 'aws-sdk-s3'

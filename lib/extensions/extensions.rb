@@ -154,3 +154,6 @@ Hyrax::PresenterFactory.prepend Extensions::Hyrax::PresenterFactory::SolrRowLimi
 
 # prevent double-display of description from flexible metadata
 IIIFManifest::ManifestBuilder::RecordPropertyBuilder.prepend Extensions::IIIFManifest::ManifestBuilder::RecordPropertyBuilder::DynamicDescription
+
+# read pre-supplied file characterization, if present
+Hydra::Works::CharacterizationService.prepend Extensions::Hydra::Works::CharacterizationService::Precharacterization

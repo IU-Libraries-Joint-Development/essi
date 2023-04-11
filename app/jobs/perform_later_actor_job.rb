@@ -1,5 +1,7 @@
 class PerformLaterActorJob < ApplicationJob
-  queue_as Hyrax.config.ingest_queue_name
+  queue_as do
+    self.arguments.first == 'create' ? Hyrax.config.ingest_queue_name : :important
+  end
 
   def perform(action, curation_concern, ability_user, attributes_for_actor)
     # create action needs a new object, update/destroy should pass in the existing object.

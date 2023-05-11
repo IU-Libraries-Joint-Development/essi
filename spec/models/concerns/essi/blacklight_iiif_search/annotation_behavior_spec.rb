@@ -6,7 +6,8 @@ RSpec.describe BlacklightIiifSearch::AnnotationBehavior do
     SolrDocument.new('id' => file_set_id,
                      'work_id_ssi' => parent_id,
                      'word_boundary_tsi' => boundaries,
-                     'has_model_ssim' => ['FileSet'])
+                     'has_model_ssim' => ['FileSet'],
+                     'is_page_of_ssim' => [parent_id])
   end
   let(:controller) { CatalogController.new }
   let(:boundaries) do

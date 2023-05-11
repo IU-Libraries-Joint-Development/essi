@@ -3,6 +3,7 @@ module Extensions
   module Hydra::Works
     module CharacterizationService
       module Precharacterization
+        include PrederivationHelper
 
         # Get given source into form that can be passed to Hydra::FileCharacterization
         # Use Hydra::FileCharacterization to extract metadata (an OM XML document)
@@ -21,16 +22,7 @@ module Extensions
         end
   
         def precharacterization(filename)
-          Rails.logger.info 'Checking for a Pre-derived characterization folder.'
-          return false unless ESSI.config.dig(:essi, :characterization_folder)
-    
-          Rails.logger.info 'Checking for a Pre-derived characterization file.'
-          characterization_filename = "#{File.basename(filename, '.*')}-characterization.xml"
-          characterization_file = File.join(ESSI.config.dig(:essi, :characterization_folder), characterization_filename)
-          return false unless File.exist?(characterization_file)
-    
-          Rails.logger.info 'Using Pre-derived characterization file.'
-          characterization_file
+          pre_derived_file(filename, type: 'characterization')
         end
       end
     end

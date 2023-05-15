@@ -64,15 +64,17 @@ jobs:
             curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
             sudo apt-get update -qq
             sudo apt-get install -y --no-install-recommends build-essential default-jre-headless libpq-dev nodejs \
-                                    libreoffice-writer libreoffice-impress imagemagick unzip ghostscript \
+                                    libreoffice-writer libreoffice-impress imagemagick unzip ghostscript mediainfo \
                                     libtesseract-dev libleptonica-dev liblept5 tesseract-ocr \
-                                    yarn libopenjp2-tools libxml2-dev libsqlite3-dev
+                                    yarn libopenjp2-tools libxml2-dev libsqlite3-dev libjemalloc2
             sudo mkdir -p -m 777 /opt/fits
-            curl -fSL -o /tmp/fits-1.5.5.zip https://github.com/harvard-lts/fits/releases/download/1.5.5/fits-1.5.5.zip
-            sudo mv /tmp/fits-1.5.5.zip /opt/fits
-            cd /opt/fits && sudo unzip fits-1.5.5.zip && sudo chmod +X fits.sh
+            curl -fSL -o /tmp/fits-1.6.0.zip https://github.com/harvard-lts/fits/releases/download/1.6.0/fits-1.6.0.zip
+            sudo mv /tmp/fits-1.6.0.zip /opt/fits
+            cd /opt/fits && sudo unzip fits-1.6.0.zip && sudo chmod +X fits.sh
+            rm /opt/fits/tools/mediainfo/linux/libmediainfo.so.0 /opt/fits/tools/mediainfo/linux/libzen.so.0
             sudo sed -i 's/\(<tool.*TikaTool.*>\)/<!--\1-->/' /opt/fits/xml/fits.xml
-            echo 'export PATH=/opt/fits:$PATH' >> $BASH_ENV
+            ln -s /usr/lib/*-linux-gnu/libjemalloc.so.2 /usr/local/lib/libjemalloc.so.2
+            echo 'export PATH=/opt/fits:$PATH LD_PRELOAD=/usr/local/lib/libjemalloc.so.2' >> $BASH_ENV
 
       # Download and cache dependencies
       - restore_cache:

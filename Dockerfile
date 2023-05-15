@@ -11,7 +11,7 @@ RUN groupadd -g ${GROUP_ID} essi && \
     curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get update -qq && \
     apt-get install -y --no-install-recommends build-essential default-jre-headless libpq-dev nodejs \
-      libreoffice-writer libreoffice-impress imagemagick unzip ghostscript \
+      libreoffice-writer libreoffice-impress imagemagick unzip ghostscript mediainfo \
       libtesseract-dev libleptonica-dev liblept5 tesseract-ocr \
       yarn libopenjp2-tools libjemalloc2 && \
     apt-get clean all && rm -rf /var/lib/apt/lists/* && \
@@ -20,12 +20,15 @@ RUN yarn && \
     yarn config set no-progress && \
     yarn config set silent
 RUN mkdir -p /opt/fits && \
-    curl -fSL -o /opt/fits/fits-1.5.5.zip https://github.com/harvard-lts/fits/releases/download/1.5.5/fits-1.5.5.zip && \
-    cd /opt/fits && unzip fits-1.5.5.zip && rm fits-1.5.5.zip && chmod +X fits.sh && sed -i 's/\(<tool.*TikaTool.*>\)/<!--\1-->/' /opt/fits/xml/fits.xml
-ENV PATH /opt/fits:$PATH
-ENV RUBY_THREAD_MACHINE_STACK_SIZE 16777216
-ENV RUBY_THREAD_VM_STACK_SIZE 16777216
-ENV LD_PRELOAD=/usr/local/lib/libjemalloc.so.2
+    curl -fSL -o /opt/fits/fits.zip https://github.com/harvard-lts/fits/releases/download/1.6.0/fits-1.6.0.zip && \
+    cd /opt/fits && unzip fits.zip && rm fits.zip tools/mediainfo/linux/libmediainfo.so.0 tools/mediainfo/linux/libzen.so.0 && \
+    chmod +X fits.sh && sed -i 's/\(<tool.*TikaTool.*>\)/<!--\1-->/' /opt/fits/xml/fits.xml
+RUN gem update --system && chown -R essi:essi /usr/local/bundle
+ENV PATH=/opt/fits:$PATH \
+    RUBY_THREAD_MACHINE_STACK_SIZE=16777216 \
+    RUBY_THREAD_VM_STACK_SIZE=16777216 \
+    LD_PRELOAD=/usr/local/lib/libjemalloc.so.2
+
 
 ###
 # ruby dev image
@@ -40,7 +43,6 @@ COPY --chown=essi:essi Gemfile Gemfile.lock ./
 # DEV ONLY - REMOVE LATER
 # COPY --chown=essi:essi vendor/engines/bulkrax /app/vendor/engines/bulkrax
 # COPY --chown=essi:essi vendor/engines/allinson_flex /app/vendor/engines/allinson_flex
-RUN gem update bundler
 RUN bundle install -j 2 --retry=3
 
 COPY --chown=essi:essi . .

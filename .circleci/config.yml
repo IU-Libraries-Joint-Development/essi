@@ -25,7 +25,7 @@ default_environment: &default_environment
 jobs:
   build:
     docker:
-      - image: cimg/ruby:2.7.6-browsers
+      - image: cimg/ruby:2.7.8-browsers
       - image: cimg/redis:6.2
       - image: ghcr.io/samvera/fcrepo4:4.7.5
         environment:

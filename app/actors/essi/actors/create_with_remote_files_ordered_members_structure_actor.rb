@@ -17,7 +17,7 @@ module ESSI
         # @param [HashWithIndifferentAccess] remote_files
         # @return [TrueClass]
         def attach_files(env, remote_files)
-          return true unless remote_files
+          return true if remote_files.blank?
           env.store(self, :ordered_members, env.curation_concern.ordered_members.to_a)
           remote_files.each do |file_info|
             next if file_info.blank? || file_info[:url].blank?

@@ -35,4 +35,13 @@ module SequentialJob
       end
     end
   end
+
+  def perform_later(*args)
+    if Thread.current[:seq_job_parent_id].nil?  # Lowest perform_later call in stack, act normal.
+      super(*args)
+    else  # Nested perform call, store job for later.
+      Rails.logger.debug { "SequentialJob: Thread storing #{self.name} with #{Thread.current[:seq_job_queue].size} jobs in the queue." }
+      Thread.current[:seq_job_queue].push(new(*args))
+    end
+  end
 end

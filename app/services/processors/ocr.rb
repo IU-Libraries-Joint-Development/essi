@@ -9,6 +9,8 @@ module Processors
       if existing_file
         Rails.logger.info "Copying Pre-derived OCR file #{existing_file} to #{output_file}."
         execute "cp #{existing_file} #{output_file}"
+      elsif skip_derivatives?
+        Rails.logger.info "No pre-derived file provided; skipping OCR generation"
       elsif preprocess_ocr?
         Rails.logger.info "Pre-processing #{path} before OCR derivation."
         bitonal_file = ocr_clean_file(path)
@@ -46,6 +48,10 @@ module Processors
 
     def self.remove_tmp_file(file)
       execute "rm #{file}"
+    end
+
+    def self.skip_derivatives?
+      ESSI.config.dig(:essi, :skip_derivatives)
     end
 
     private

@@ -64,9 +64,16 @@ RSpec.describe Hyrax::DerivativeService do
           ESSI.config[:essi][:skip_derivatives] = true
           ESSI.config[:essi][:create_ocr_files] = true
         end
-        it 'does not call OCRunner' do
-          expect(OCRRunner).not_to receive(:create)
+        it 'calls OCRunner' do
+          expect(OCRRunner).to receive(:create)
           fsd_service.create_derivatives(image_file)
+        end
+        # simulate action of stubbed OCRRunner#create
+        it 'skips OCR generation in OCR Processor' do
+          expect(Rails.logger).to receive(:info).with("Checking for a Pre-derived OCR folder.")
+          expect(Processors::OCR).to receive(:skip_derivatives?).and_return(true)
+          expect(Rails.logger).to receive(:info).with("No pre-derived file provided; skipping OCR generation")
+          Processors::OCR.encode(image_file, {}, '')
         end
       end
       context 'with :skip_derivatives not set' do

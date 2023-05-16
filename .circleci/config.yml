@@ -70,11 +70,11 @@ jobs:
                                     yarn libopenjp2-tools libxml2-dev libsqlite3-dev libjemalloc2
             sudo mkdir -p -m 777 /opt/fits
             curl -fSL -o /tmp/fits-1.6.0.zip https://github.com/harvard-lts/fits/releases/download/1.6.0/fits-1.6.0.zip
-            sudo mv /tmp/fits-1.6.0.zip /opt/fits
-            cd /opt/fits && sudo unzip fits-1.6.0.zip && sudo chmod +X fits.sh
-            rm /opt/fits/tools/mediainfo/linux/libmediainfo.so.0 /opt/fits/tools/mediainfo/linux/libzen.so.0
-            sudo sed -i 's/\(<tool.*TikaTool.*>\)/<!--\1-->/' /opt/fits/xml/fits.xml
-            ln -s /usr/lib/*-linux-gnu/libjemalloc.so.2 /usr/local/lib/libjemalloc.so.2
+            mv /tmp/fits-1.6.0.zip /opt/fits/fits.zip
+            cd /opt/fits && unzip fits.zip && chmod +X fits.sh
+            rm fits.zip /opt/fits/tools/mediainfo/linux/libmediainfo.so.0 /opt/fits/tools/mediainfo/linux/libzen.so.0
+            sed -i 's/\(<tool.*TikaTool.*>\)/<!--\1-->/' /opt/fits/xml/fits.xml
+            sudo ln -s /usr/lib/*-linux-gnu/libjemalloc.so.2 /usr/local/lib/libjemalloc.so.2
             echo 'export PATH=/opt/fits:$PATH LD_PRELOAD=/usr/local/lib/libjemalloc.so.2' >> $BASH_ENV
             sudo gem update --system --no-document
 

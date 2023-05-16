@@ -75,6 +75,7 @@ jobs:
             sudo sed -i 's/\(<tool.*TikaTool.*>\)/<!--\1-->/' /opt/fits/xml/fits.xml
             ln -s /usr/lib/*-linux-gnu/libjemalloc.so.2 /usr/local/lib/libjemalloc.so.2
             echo 'export PATH=/opt/fits:$PATH LD_PRELOAD=/usr/local/lib/libjemalloc.so.2' >> $BASH_ENV
+            sudo gem update --system
 
       # Download and cache dependencies
       - restore_cache:
@@ -86,8 +87,6 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            gem update --system
-            gem update bundler
             bundle config path $CIRCLE_WORKING_DIRECTORY/vendor/bundle
             bundle install
             bundle pristine webdrivers

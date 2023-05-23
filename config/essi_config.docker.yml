@@ -27,6 +27,7 @@ default: &default
     cas_callback_url: /users/auth/cas/callback
   sidekiq:
     queue_names:
+      - important
       - default
       - ingest
       - import # Bulkrax

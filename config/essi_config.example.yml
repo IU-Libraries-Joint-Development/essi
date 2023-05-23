@@ -26,6 +26,7 @@ default: &default
     # This only signals whether Sidekiq runs locally and to check with OKComputer; doesn't alter Sidekiq config or behavior
     processes_locally: true
     queue_names:
+      - important
       - default
       - ingest
       - import # Bulkrax

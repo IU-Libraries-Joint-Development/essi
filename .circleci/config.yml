@@ -21,6 +21,7 @@ default_environment: &default_environment
   WD_INSTALL_DIR: ./webdriver
   KARMA_BROWSER: ChromeHeadless
   KARMA_HOSTNAME: localhost
+  NODE_OPTIONS: --openssl-legacy-provider
 
 jobs:
   build:

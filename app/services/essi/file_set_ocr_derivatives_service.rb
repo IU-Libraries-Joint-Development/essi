@@ -7,8 +7,6 @@ module ESSI
     end
 
     def create_derivatives(filename)
-      return if ESSI.config.dig(:essi, :skip_derivatives)
-
       # FIXME: Fix MiniMagick problems so we can still call super here to create thumbnails?
       # When we call create_derivatives upstream via super, we initiate thumbnail creation via MiniMagick.
       # This is randomly failing, which causes OCR jobs to get missed on affected FileSets.

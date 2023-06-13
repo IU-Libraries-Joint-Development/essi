@@ -155,5 +155,8 @@ Hyrax::PresenterFactory.prepend Extensions::Hyrax::PresenterFactory::SolrRowLimi
 # prevent double-display of description from flexible metadata
 IIIFManifest::ManifestBuilder::RecordPropertyBuilder.prepend Extensions::IIIFManifest::ManifestBuilder::RecordPropertyBuilder::DynamicDescription
 
+# s3 support for HCP
+Seahorse::Client::NetHttp::Handler.prepend Extensions::Seahorse::Client::NetHttp::Handler::HeadersPatch
+
 # read pre-supplied file characterization, if present
 Hydra::Works::CharacterizationService.prepend Extensions::Hydra::Works::CharacterizationService::Precharacterization

@@ -42,6 +42,7 @@ services:
     depends_on:
       - essi
       - worker
+      - derivatives
 
   essi:
     << : *default-app
@@ -54,6 +55,13 @@ services:
 
   worker:
     << : *default-app
+    command: bash -c "bundle install && bundle exec sidekiq -c 4"
+
+  derivatives:
+    <<: *default-app
+    environment:
+      IN_DOCKER: 'true'
+      SIDEKIQ_QUEUES: imageproc,derivatives
     command: bash -l -c "bundle install && bundle exec sidekiq -c 4"
 
   db:
@@ -158,10 +166,13 @@ services:
       - "8984:8080"
 
   chrome:
-    image: selenium/standalone-chrome:4.2.1
+    image: seleniarm/standalone-chromium:4.9.0
     volumes:
       - /dev/shm:/dev/shm
     shm_size: 2G
+    environment:
+      SE_SCREEN_WIDTH: 1920
+      SE_SCREEN_HEIGHT: 1080
     ports:
       - "4444:4444"
       - "5959:5900"

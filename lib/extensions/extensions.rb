@@ -157,3 +157,6 @@ IIIFManifest::ManifestBuilder::RecordPropertyBuilder.prepend Extensions::IIIFMan
 
 # s3 support for HCP
 Seahorse::Client::NetHttp::Handler.prepend Extensions::Seahorse::Client::NetHttp::Handler::HeadersPatch
+
+# read pre-supplied file characterization, if present
+Hydra::Works::CharacterizationService.prepend Extensions::Hydra::Works::CharacterizationService::Precharacterization

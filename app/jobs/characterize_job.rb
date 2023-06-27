@@ -19,7 +19,7 @@ class CharacterizeJob < ApplicationJob
     file_set.update_index
     file_set.parent&.in_collections&.each(&:update_index)
     derivation_path = filepath unless derivation_path && File.exist?(derivation_path)
-    CreateDerivativesJob.set(queue: queue_name).perform_later(file_set, file_id, derivation_path)
+    CreateDerivativesJob.set(queue: 'derivatives').perform_later(file_set, file_id, derivation_path)
     unlink_filepath(filepath, delete_characterization_path.to_s) if delete_characterization_path
   end
 

@@ -22,6 +22,14 @@ module Processors
       end
     end
 
+    # imported from hydra-derivatives
+    def encode_file(file_suffix, options)
+      temp_file_name = output_file(file_suffix)
+      self.class.encode(source_path, options, temp_file_name)
+      output_file_service.call(File.open(temp_file_name, 'rb'), directives)
+      File.unlink(temp_file_name)
+    end
+
     def options_for(_format)
       {
         options: string_options

@@ -29,3 +29,11 @@ AllinsonFlex::ProfileProperty.include Extensions::AllinsonFlex::IncludeProfilePr
 
 # profile texts
 AllinsonFlex::ProfileText.include Extensions::AllinsonFlex::IncludeProfileText
+
+# Create transient new objects for all registered work types. Attempts to work around failures to
+# define methods for some properties when loading works (e.g. missing ocr_state)
+unless ActiveRecord::Base.connection.migration_context.needs_migration?
+  Hyrax.config.registered_curation_concern_types.each do |klass|
+    klass.constantize.new
+  end
+end

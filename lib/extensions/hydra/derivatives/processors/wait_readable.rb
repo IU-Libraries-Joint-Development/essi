@@ -5,7 +5,10 @@ module Extensions
         module WaitReadable
           def self.prepended(base)
             base.class_eval do
-              # Unmodified execute_without_timeout from hydra-derivatives
+
+              # Modified execute_without_timeout from hydra-derivatives
+              # Retries IO::WaitReadable errors
+              # Remove when updated to hydra-derivatives >= 3.8.0
               def self.execute_without_timeout(command, context)
                 err_str = ''
                 stdin, stdout, stderr, wait_thr = popen3(command)
@@ -22,14 +25,18 @@ module Extensions
                     fileno = f.fileno
 
                     begin
-                      data = f.read_nonblock(BLOCK_SIZE)
+                      data = f.read_nonblock(::Hydra::Derivatives::Processors::ShellBasedProcessor::BLOCK_SIZE)
 
                       case fileno
                       when stderr.fileno
                         err_str << data
                       end
+                    rescue IO::WaitReadable
+                      ::Hydra::Derivatives::Logger.warn "Caught an IO::WaitReadable error in ShellBasedProcessor. Retrying..."
+                      IO.select([f], nil, nil, 60)
+                      retry
                     rescue EOFError
-                      Hydra::Derivatives::Logger.debug "Caught an eof error in ShellBasedProcessor"
+                      ::Hydra::Derivatives::Logger.debug "Caught an eof error in ShellBasedProcessor"
                       # No big deal.
                     end
                   end

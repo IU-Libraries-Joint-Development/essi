@@ -1,5 +1,5 @@
 # system dependency image
-FROM ruby:2.7.7-bullseye AS essi-sys-deps
+FROM ruby:2.7.8-bullseye AS essi-sys-deps
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000
@@ -21,7 +21,8 @@ RUN yarn && \
     yarn config set silent
 RUN mkdir -p /opt/fits && \
     curl -fSL -o /opt/fits/fits-1.5.5.zip https://github.com/harvard-lts/fits/releases/download/1.5.5/fits-1.5.5.zip && \
-    cd /opt/fits && unzip fits-1.5.5.zip && rm fits-1.5.5.zip && chmod +X fits.sh && sed -i 's/\(<tool.*TikaTool.*>\)/<!--\1-->/' /opt/fits/xml/fits.xml
+    cd /opt/fits && unzip fits-1.5.5.zip && rm fits-1.5.5.zip && chmod +X fits.sh && \
+    sed -i 's/\(<tool.*TikaTool.*>\)/<!--\1-->/ ; s/\(<tool.*FFIdent.*>\)/<!--\1-->/' /opt/fits/xml/fits.xml
 ENV PATH /opt/fits:$PATH
 ENV RUBY_THREAD_MACHINE_STACK_SIZE 16777216
 ENV RUBY_THREAD_VM_STACK_SIZE 16777216

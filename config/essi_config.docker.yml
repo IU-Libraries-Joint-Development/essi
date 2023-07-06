@@ -112,7 +112,10 @@ default: &default
     master_file_service_url: http://purl.dlib.indiana.edu/iudl/variations/master
     purl_redirect_url: /concern/works/%s
     skip_derivatives: false
-    derivatives_folder: false
+    derivatives_folder: 'staged_files'
+    derivatives_type_suffix: true
+    derivatives_type_subfolder: true
+    derivatives_work_subfolder: true
     ocr_language: [eng]
     ocr_preprocessor_path: <%= Rails.root.join('bin', 'ocr_preprocessor') %>
     create_ocr_files: true

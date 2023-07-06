@@ -1,3 +1,7 @@
 en:
   blacklight:
     application_name: 'Blacklight'
+    search:
+      fields:
+        show:
+          contributor: # nullify to override hyrax inheritance, use flexible metadata label

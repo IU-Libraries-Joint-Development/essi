@@ -1,4 +1,5 @@
 class PurlController < ApplicationController
+  before_action :add_headers
   def default
     set_object(WORK_LOOKUPS, split_id: true)
     respond_to do |f|
@@ -95,5 +96,9 @@ class PurlController < ApplicationController
 
     def normalize_number(n)
       [n.to_i - 1, 0].max
+    end
+
+    def add_headers
+      headers['Access-Control-Allow-Origin'] = '*'
     end
 end

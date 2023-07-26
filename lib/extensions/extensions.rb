@@ -164,3 +164,6 @@ Seahorse::Client::NetHttp::Handler.prepend Extensions::Seahorse::Client::NetHttp
 
 # read pre-supplied file characterization, if present
 Hydra::Works::CharacterizationService.prepend Extensions::Hydra::Works::CharacterizationService::Precharacterization
+
+# Patch ShellBasedProcessor to handle IO::EAGAINWaitReadable
+Hydra::Derivatives::Processors::Jpeg2kImage.prepend Extensions::Hydra::Derivatives::Processors::WaitReadable

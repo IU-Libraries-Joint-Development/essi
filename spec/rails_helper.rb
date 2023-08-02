@@ -105,7 +105,16 @@ RSpec.configure do |config|
 
       # Recreate only the AdminSet, not the associated permission template that is still in the database.
       # (Instead of AdminSet.find_or_create_default_admin_set_id)
-      AdminSet.create id: AdminSet::DEFAULT_ID, title: Array.wrap(AdminSet::DEFAULT_TITLE)
+      if AdminSet.count.zero?
+        AdminSet.create id: AdminSet::DEFAULT_ID, title: Array.wrap(AdminSet::DEFAULT_TITLE)
+      end
+      # recreate permission template if it's not in the database, after all
+      if ActiveRecord::Base.connection.table_exists?('permission_templates') && Hyrax::PermissionTemplate.count.zero?
+        hascs = Hyrax::AdminSetCreateService.new(admin_set: AdminSet.first, creating_user: nil)
+        pt = hascs.send :create_permission_template
+        workflow = hascs.send :create_workflows_for, permission_template: pt
+        access = hascs.send :create_default_access_for, permission_template: pt, workflow: workflow
+      end
 
       # Let the DatabaseCleaner take care of database rows written in an example
       if example.metadata[:type] == :feature && Capybara.current_driver != :rack_test

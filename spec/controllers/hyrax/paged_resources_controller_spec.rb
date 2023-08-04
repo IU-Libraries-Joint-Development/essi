@@ -8,4 +8,5 @@ RSpec.describe Hyrax::PagedResourcesController do
                    Hyrax::PagedResourcePresenter,
                    described_class)
   include_examples('update metadata remotely', :paged_resource)
+  include_examples('pdf controller actions', :paged_resource)
 end

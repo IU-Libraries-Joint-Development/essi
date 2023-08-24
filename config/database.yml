@@ -17,6 +17,8 @@ development:
 test:
   <<: *default
   timeout: 20000
+  variables:
+    innodb_lock_wait_timeout: 120
 
 production:
   <<: *default

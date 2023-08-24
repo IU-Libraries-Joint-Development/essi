@@ -9,10 +9,11 @@ module ESSI
         solr_doc['is_page_of_ssi'] = object.parent.id if object.parent
         solr_doc['parent_path_tesi'] = Rails.application.routes.url_helpers.polymorphic_path(object.parent) if object.parent
 
+        # Preserving `ocr_text_tesi` for backwards compatibility with existing implementations until we fully transition
+        # to just `all_text_tsimv` from IIIF Print
         solr_doc['ocr_text_tesi'] = object.extracted_text.content if object.extracted_text.present?
-        solr_doc['word_boundary_tsi'] = ::NewspaperWorks::TextExtraction::AltoReader.new(object.extracted_text.content).json if object.extracted_text.present?
+        solr_doc['word_boundary_tsi'] = IiifPrint::TextExtraction::AltoReader.new(object.extracted_text.content).json if object.extracted_text.present?
       end
     end
   end
 end
-

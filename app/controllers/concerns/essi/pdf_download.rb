@@ -15,7 +15,7 @@ module ESSI
                   type: 'application/pdf',
                   disposition: 'inline'
       else
-        redirect_to [main_app, curation_concern],
+        redirect_to [main_app, presenter],
                     alert: 'You do not have access to download this PDF.'
       end
     end

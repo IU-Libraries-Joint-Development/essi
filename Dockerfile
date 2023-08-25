@@ -11,7 +11,7 @@ RUN groupadd -g ${GROUP_ID} essi && \
     curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get update -qq && \
     apt-get install -y --no-install-recommends build-essential default-jre-headless libpq-dev nodejs \
-      libreoffice-writer libreoffice-impress imagemagick unzip ghostscript \
+      libreoffice-writer libreoffice-impress poppler-utils unzip ghostscript \
       libtesseract-dev libleptonica-dev liblept5 tesseract-ocr \
       yarn libopenjp2-tools libjemalloc2 && \
     apt-get clean all && rm -rf /var/lib/apt/lists/* && \
@@ -27,6 +27,12 @@ ENV PATH /opt/fits:$PATH
 ENV RUBY_THREAD_MACHINE_STACK_SIZE 16777216
 ENV RUBY_THREAD_VM_STACK_SIZE 16777216
 ENV LD_PRELOAD=/usr/local/lib/libjemalloc.so.2
+
+# Installs specific version of ImageMagick to work with iiif_print
+RUN wget https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.0-57.tar.gz && \
+    tar xf 7.1.0-57.tar.gz && apt-get install -y libpng-dev libtiff-dev librsvg2-dev && \
+    cd ImageMagick* && ./configure && make install && cd $OLDPWD && rm -rf ImageMagick* && \
+    sh -c 'echo "/usr/local/lib" >> /etc/ld.so.conf' && ldconfig
 
 ###
 # ruby dev image
@@ -70,12 +76,9 @@ RUN gem update bundler && \
 
 COPY --chown=essi:essi . .
 
-# The defaults for ImageMagick are too constrained, override so that MiniMagick won't fail
-RUN mkdir -p /etc/ImageMagick-6/
-COPY ./config/ImageMagick-6/policy.xml /etc/ImageMagick-6/
-
 ENV RAILS_LOG_TO_STDOUT true
 ENV RAILS_ENV production
+ENV SKIP_IIIF_PRINT_BULKRAX_VERSION_REQUIREMENT true
 
 ENTRYPOINT ["bundle", "exec"]
 

@@ -1,6 +1,7 @@
 class PurlController < ApplicationController
+  before_action :add_headers
   def default
-    set_object(WORK_LOOKUPS, split_id: true)
+    set_object(WORK_LOOKUPS, split_id: false)
     respond_to do |f|
       f.html { redirect_to @url }
       f.json { render json: { url: @url }.to_json }
@@ -25,7 +26,7 @@ class PurlController < ApplicationController
 
   private
     FILESET_LOOKUPS = { FileSet => nil }.freeze
-    DEFAULT_WORK_PATTERN = /^[a-zA-Z\/]{0,}\w{2,}\d{3,}$/.freeze
+    DEFAULT_WORK_PATTERN = /^[a-zA-Z\/]{0,}\w{2,}\d{3,}-{0,}\d{0,}$/.freeze
     DEFAULT_WORK_LOOKUPS = Hyrax.config.registered_curation_concern_types.sort.map do |klass|
       [klass.constantize, DEFAULT_WORK_PATTERN.dup]
     end.to_h.freeze
@@ -95,5 +96,9 @@ class PurlController < ApplicationController
 
     def normalize_number(n)
       [n.to_i - 1, 0].max
+    end
+
+    def add_headers
+      headers['Access-Control-Allow-Origin'] = '*'
     end
 end

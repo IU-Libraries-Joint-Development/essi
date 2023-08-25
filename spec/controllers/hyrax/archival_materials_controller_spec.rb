@@ -8,4 +8,5 @@ RSpec.describe Hyrax::ArchivalMaterialsController do
                    Hyrax::ArchivalMaterialPresenter,
                    described_class)
   include_examples('update metadata remotely', :archival_material)
+  include_examples('pdf controller actions', :archival_material)
 end

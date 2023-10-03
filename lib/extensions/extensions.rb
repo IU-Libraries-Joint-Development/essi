@@ -171,3 +171,6 @@ Hydra::Derivatives::Processors::Jpeg2kImage.prepend Extensions::Hydra::Derivativ
 # Workarounds to make previous IIIF search-related Solr fields compatible with iiif_print until they are reindexed
 IiifPrint::BlacklightIiifSearch::AnnotationDecorator.include Extensions::IiifPrint::BlacklightIiifSearch::AnnotationDecorator::AnnotationDecoratorCompatibility
 IiifPrint::IiifSearchDecorator.include Extensions::IiifPrint::IiifSearchDecorator::SearchDecoratorCompatibility
+
+# prep support for nested works generating file_set sequences in manifests
+IIIFManifest::ManifestBuilder::DeepFileSetEnumerator.prepend Extensions::IIIFManifest::ManifestBuilder::DeepFileSetEnumerator::NestedEach

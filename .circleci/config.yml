@@ -16,7 +16,6 @@ default_environment: &default_environment
   BUNDLE_RETRY: 3
   NOKOGIRI_USE_SYSTEM_LIBRARIES: true
   ENGINE_CART_RAILS_OPTIONS: --skip-git --skip-bundle --skip-listen --skip-spring --skip-yarn --skip-keeps --skip-action-cable --skip-coffee --skip-puma --skip-test
-  SPEC_OPTS: --profile 10 --format RspecJunitFormatter --out /tmp/test-results/rspec.xml --format progress
   COVERALLS_PARALLEL: true
   WD_INSTALL_DIR: ./webdriver
   KARMA_BROWSER: ChromeHeadless
@@ -42,6 +41,7 @@ jobs:
           MYSQL_PASSWORD: essi
 
     resource_class: medium+
+    parallelism: 4
     working_directory: ~/repo
 
     environment:

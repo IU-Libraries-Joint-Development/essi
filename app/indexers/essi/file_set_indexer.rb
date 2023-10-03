@@ -11,7 +11,7 @@ module ESSI
 
         # Preserving `ocr_text_tesi` for backwards compatibility with existing implementations until we fully transition
         # to just `all_text_tsimv` from IIIF Print
-        solr_doc['ocr_text_tesi'] = object.extracted_text.content if object.extracted_text.present?
+        # solr_doc['ocr_text_tesi'] = object.extracted_text.content if object.extracted_text.present?
         solr_doc['word_boundary_tsi'] = IiifPrint::TextExtraction::AltoReader.new(object.extracted_text.content).json if object.extracted_text.present?
         solr_doc[Solrizer.solr_name('iiif_index_strategy')] = IndexerHelper.iiif_index_strategy
       end

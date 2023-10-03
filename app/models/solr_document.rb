@@ -40,7 +40,7 @@ class SolrDocument
   attribute :original_file_id, Solr::String, solr_name('original_file_id', :stored_sortable)
   attribute :pdf_downloadable, Solr::String, solr_name('pdf_downloadable', Solrizer::Descriptor.new(:boolean, :stored, :indexed))
   attribute :file_set_ids, Solr::Array, solr_name('file_set_ids', :symbol)
-  attribute :extracted_text, Solr::String, 'ocr_text_tesi'
+  attribute :extracted_text, Solr::String, 'all_text_tsimv'
 
   def series
     self[Solrizer.solr_name('series')]

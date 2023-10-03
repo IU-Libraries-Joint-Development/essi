@@ -8,7 +8,7 @@ class ReindexWorksJob < ApplicationJob
     index_file_sets = opts.dig(:index_file_sets) || true
     async_fs_jobs = opts.dig(:async_fs_jobs) || false
     row_count = opts.dig(:row_count) || 100
-    sleep_break = opts.dig(:row_count) || 10
+    sleep_break = opts.dig(:sleep_break) || 10
     Hyrax.config.registered_curation_concern_types.each do |work_type|
       index_query = "-#{index_query_field}:#{index_query_value}"
       model_query = "has_model_ssim:#{work_type.constantize}"

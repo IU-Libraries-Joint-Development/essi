@@ -26,7 +26,8 @@ class PurlController < ApplicationController
 
   private
     FILESET_LOOKUPS = { FileSet => nil }.freeze
-    DEFAULT_WORK_PATTERN = /^[a-zA-Z\/]{0,}\w{2,}\d{3,}-{0,}\d{0,}$/.freeze
+    purl_regex = ESSI.config.dig(:essi, :purl_validation_regex) || '^[a-zA-Z\d\/-]{0,}$'
+    DEFAULT_WORK_PATTERN = /#{purl_regex}/.freeze
     DEFAULT_WORK_LOOKUPS = Hyrax.config.registered_curation_concern_types.sort.map do |klass|
       [klass.constantize, DEFAULT_WORK_PATTERN.dup]
     end.to_h.freeze

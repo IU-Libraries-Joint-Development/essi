@@ -65,4 +65,9 @@ class SolrDocument
       []
     end
   end
+
+  # for manifest caching
+  def version
+    self[Solrizer.solr_name('date_modified', Solrizer::Descriptor.new(:date, :stored, :indexed))]
+  end
 end

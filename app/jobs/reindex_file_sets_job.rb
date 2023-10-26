@@ -2,7 +2,8 @@
 
 class ReindexFileSetsJob < ApplicationJob
   def perform(file_set_ids = [], opts = {})
-    @reindex_logger = Logger.new(Rails.root.join('log', 'reindex_file_sets.log'))
+    start_time = opts.dig(:start_time) || Time.now.strftime("%Y-%m-%d_%H%M%S")
+    @reindex_logger = Logger.new(Rails.root.join('log', "reindex_file_sets_#{start_time}.log"))
     index_query_field = opts.dig(:index_query_field) || 'iiif_index_strategy_tesim'
     index_query_value = opts.dig(:index_query_value) || IndexerHelper.iiif_index_strategy
     row_count = opts.dig(:row_count) || 500
@@ -37,10 +38,10 @@ class ReindexFileSetsJob < ApplicationJob
       begin
         fs = FileSet.find(id)
         FileSet.new
-        @reindex_logger.info "Reindexing #{fs.class}: #{fs.id} started..."
+        @reindex_logger.info "Reindexing FileSet: #{id}"
         fs.update_index
       rescue => error
-        @reindex_logger.error "ReindexFileSetsJob: Reindexing #{fs&.id}failed,  #{error.message}"
+        @reindex_logger.error "ReindexFileSetsJob: Reindexing FileSet #{id} failed : #{error.message}"
       end
     end
 end

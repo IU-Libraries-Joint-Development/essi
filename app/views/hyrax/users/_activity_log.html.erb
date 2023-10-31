@@ -6,6 +6,9 @@
     </tr>
   </thead>
   <tbody>
+  <% if events.empty? %>
+    <tr><td class="ensure-wrapped">No activity records available</td><td></td></tr>
+  <% end %>
   <% events.each do |event| %>
     <% next if event[:action].blank? or event[:timestamp].blank? %>
     <tr>

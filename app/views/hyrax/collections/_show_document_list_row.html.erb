@@ -10,7 +10,7 @@
       <% link_destination = [main_app, document] %>
       <% link_destination << { query: params['cq'] } if params['cq'].present? %>
       <%= link_to link_destination, class: "media-left" do %>
-        <%= render_thumbnail_tag document, { class: "hidden-xs file_listing_thumbnail" }, { suppress_link: true } %>
+        <%= render_thumbnail_tag document, { class: "hidden-xs file_listing_thumbnail", alt: document.title_or_label }, { suppress_link: true } %>
       <% end %>
       <div class="media-body">
         <p class="media-heading">

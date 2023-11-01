@@ -23,6 +23,7 @@ class CatalogController < ApplicationController
 
     # configuration for Blacklight IIIF Content Search
     config.iiif_search = {
+      iiif_index_strategy: 'iiif_print_v1.0',
       full_text_field: 'all_text_tsimv',
       object_relation_field: 'is_page_of_ssim',
       supported_params: %w[q page],

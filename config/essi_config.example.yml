@@ -111,6 +111,7 @@ default: &default
     kdu_compress_path: '' # set as kdu_compress or opj_compress, or '' to use ImageMagick
     master_file_service_url: http://purl.dlib.indiana.edu/iudl/variations/master
     purl_redirect_url: /concern/works/%s
+    purl_validation_regex: '^[a-zA-Z\d\/-]{0,}$'
     skip_derivatives: false
     derivatives_folder: 'staged_files'
     derivatives_type_suffix: true
@@ -121,6 +122,7 @@ default: &default
     create_ocr_files: true
     index_ocr_files: true
     create_word_boundaries: true
+    nested_indexer_depth: 5
     allow_pdf_download: false
     link_banners: false
     bagit:

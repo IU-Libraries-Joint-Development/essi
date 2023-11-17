@@ -130,6 +130,10 @@ color: $black;
 	font-weight: bold;
 }
 
+.table-striped a {
+	color: $darkMidnight;
+}
+
 .media-left {
 	display: inline;
 	float: left;
@@ -782,9 +786,6 @@ tr:nth-child(even):hover {
 .gallery .grid-list dt {
 	padding: 1px 5px 1px 0;
 }
-
-
-
 
 .grid-list dt {
 	width: 9.4em;

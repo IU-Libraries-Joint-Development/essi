@@ -26,6 +26,7 @@ class CatalogController < ApplicationController
       iiif_index_strategy: 'iiif_print_v1.0',
       full_text_field: 'all_text_tsimv',
       object_relation_field: 'is_page_of_ssim',
+      extra_relation_field: 'is_page_of_ssi',
       supported_params: %w[q page],
       autocomplete_handler: 'iiif_suggest',
       suggester_name: 'iiifSuggester'

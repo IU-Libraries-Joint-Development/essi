@@ -1,26 +1,28 @@
 require 'rails_helper'
 
 RSpec.feature 'Switch User' do
-  let(:user_attributes) do
-    { email: 'test@example.com' }
-  end
-  let(:user) do
-    User.new(user_attributes) { |u| u.save(validate: false) }
+  let(:user) { FactoryBot.create(:user) }
+
+  context 'Non-admin user', :clean do
+    before do
+      login_as user
+    end
+    scenario 'is not allowed to see switch user form' do
+      visit '/users/sessions/log_in_as'
+      expect(page).to have_no_selector('select#switch_user_identifier')
+      logout
+    end
   end
 
-  before do
-    login_as user
-  end
-
-  scenario 'Non-admin user is not allowed to see switch user form' do
-    visit '/users/sessions/log_in_as'
-    expect(page).to have_no_selector('select#switch_user_identifier')
-  end
-
-  scenario 'Admin user is allowed to see switch user form' do
-    admin = Role.where(name: 'admin').first_or_create
-    admin.users << user
-    visit '/users/sessions/log_in_as'
-    expect(page).to have_css('select#switch_user_identifier')
+  context 'Admin user', :clean do
+    before do
+      login_as user
+      allow(user).to receive(:admin?).and_return(true)
+    end
+    scenario 'is allowed to see switch user form' do
+      visit '/users/sessions/log_in_as'
+      expect(page).to have_css('select#switch_user_identifier')
+      logout
+    end
   end
 end

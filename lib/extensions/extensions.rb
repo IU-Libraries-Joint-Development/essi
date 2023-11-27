@@ -25,7 +25,8 @@ Hyrax::Forms::FileManagerForm.include Extensions::Hyrax::Forms::FileManagerForm:
 Hyrax::FileSetPresenter.include Extensions::Hyrax::FileSetPresenter::ViewingHint
 
 # TODO: determine if needed?
-# iiif manifest support
+# iiif manifest support for parent work when using IIIF Print
+# this is responsible for displaying the parent metadata above the child metadata in the UV metadata pane
 Hyrax::WorkShowPresenter.prepend Extensions::Hyrax::WorkShowPresenter::ManifestMetadata
 
 # add campus logo information when available.
@@ -80,6 +81,9 @@ AttachFilesToWorkWithOrderedMembersJob.prepend Extensions::AttachFilesToWorkWith
 Bulkrax::CsvEntry.prepend Extensions::Bulkrax::CsvEntry::AddFileMetadata
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::FileFactoryMetadata
 Hyrax::Actors::CreateWithFilesActor.prepend Extensions::Hyrax::Actors::CreateWithFilesActor::UploadedFiles
+### IIIF Print, quick and dirty way to get the FileSetActor to load after CreateWithFilesActor
+Hyrax::Actors::FileSetActor.prepend(IiifPrint::Actors::FileSetActorDecorator)
+Hyrax::Actors::FileSetOrderedMembersActor.prepend Extensions::Hyrax::Actors::FileSetOrderedMembersActor::PdfSplit
 Hyrax::Actors::CreateWithFilesOrderedMembersActor.prepend Extensions::Hyrax::Actors::CreateWithFilesOrderedMembersActor::AttachFilesWithMetadata
 Hyrax::UploadedFile.prepend Extensions::Hyrax::UploadedFile::UploadedFileMetadata
 
@@ -154,3 +158,12 @@ Hyrax::PresenterFactory.prepend Extensions::Hyrax::PresenterFactory::SolrRowLimi
 
 # prevent double-display of description from flexible metadata
 IIIFManifest::ManifestBuilder::RecordPropertyBuilder.prepend Extensions::IIIFManifest::ManifestBuilder::RecordPropertyBuilder::DynamicDescription
+
+# s3 support for HCP
+Seahorse::Client::NetHttp::Handler.prepend Extensions::Seahorse::Client::NetHttp::Handler::HeadersPatch
+
+# read pre-supplied file characterization, if present
+Hydra::Works::CharacterizationService.prepend Extensions::Hydra::Works::CharacterizationService::Precharacterization
+
+# Patch ShellBasedProcessor to handle IO::EAGAINWaitReadable
+Hydra::Derivatives::Processors::Jpeg2kImage.prepend Extensions::Hydra::Derivatives::Processors::WaitReadable

@@ -42,6 +42,7 @@ services:
     depends_on:
       - essi
       - worker
+      - derivatives
 
   essi:
     << : *default-app
@@ -54,6 +55,13 @@ services:
 
   worker:
     << : *default-app
+    command: bash -c "bundle install && bundle exec sidekiq -c 4"
+
+  derivatives:
+    <<: *default-app
+    environment:
+      IN_DOCKER: 'true'
+      SIDEKIQ_QUEUES: imageproc,derivatives
     command: bash -l -c "bundle install && bundle exec sidekiq -c 4"
 
   db:

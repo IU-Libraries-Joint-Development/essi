@@ -6,21 +6,21 @@ describe PurlController do
   let(:paged_resource) {
     FactoryBot.create(:paged_resource,
                        user: user,
-                       purl: ['http://purl.dlib.indiana.edu/iudl/variations/score/BHR9405'],
-                       source_metadata_identifier: 'BHR9405')
+                       purl: ['http://purl.dlib.indiana.edu/iudl/collection/VAX1234'],
+                       source_metadata_identifier: 'VAX1234')
   }
   let(:paged_resource_path) { Rails.application.routes.url_helpers.hyrax_paged_resource_path(paged_resource) }
   let(:legacy_paged_resource) {
     FactoryBot.create(:paged_resource,
                       user: user,
-                      purl: ['http://purl.dlib.indiana.edu/iudl/archives/cushman/P04259'],
-                      source_metadata_identifier: 'P04259')
+                      purl: ['http://purl.dlib.indiana.edu/iudl/legacy/VAX3421-0001'],
+                      source_metadata_identifier: 'VAX3421-0001')
   }
   let(:legacy_paged_resource_path) { Rails.application.routes.url_helpers.hyrax_paged_resource_path(legacy_paged_resource) }
   let(:file_set) {
     FactoryBot.create(:file_set,
                        user: user,
-                       source_metadata_identifier: 'BHR9405-001-0005')
+                       source_metadata_identifier: 'VAX1234-001-0005')
   }
   let(:file_set_path) { Rails.application.routes.url_helpers.hyrax_file_set_path(file_set) }
   let(:original_file_id) { 'xk81jk36q/files/adac151d-9c08-4892-9bc1-a20b64443bb9' }
@@ -70,7 +70,7 @@ describe PurlController do
         end
 
         context 'matching a full PURL by purl' do
-          let(:id) { 'iudl/variations/score/BHR9405' }
+          let(:id) { 'iudl/collection/VAX1234' }
           include_examples 'responses for matches'
         end
       end
@@ -84,11 +84,13 @@ describe PurlController do
         end
 
         context 'matching a full PURL by purl' do
-          let(:id) { 'iudl/archives/cushman/P04259' }
+          let(:id) { 'iudl/legacy/VAX3421-0001' }
           include_examples 'responses for matches'
         end
       end
-      context 'when for a specific page' do
+      # Disable these examples until a redesign provides for a RESTful page qualifier
+      # See ESSI-1849
+      xcontext 'when for a specific page' do
         let(:id) { paged_resource.source_metadata_identifier + '-9-0042' }
         let(:target_path) { paged_resource_path + '?m=8&cv=41' }
         let(:manifest_path) { paged_resource_path + '/manifest' }

@@ -89,6 +89,7 @@ gem 'switch_user'
 gem 'iso-639'
 gem 'blacklight_iiif_search'
 gem 'iiif_manifest'
+gem 'iiif_print', "~> 1.0", git: 'https://github.com/scientist-softserv/iiif_print.git', ref: 'b804f16'
 gem 'i18n-js'
 gem 'bagit'
 gem 'validatable'
@@ -110,3 +111,6 @@ gem 'stackprof', require: false
 
 # hold back hydra-head due to implicit Blacklight 7 requirement in newer versions
 gem 'hydra-head', '10.6.1'
+
+# s3 support for HCP
+gem 'aws-sdk-s3'

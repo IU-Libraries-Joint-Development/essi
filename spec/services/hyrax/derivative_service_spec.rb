@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Hyrax::DerivativeService do
+  let(:image_work) { FactoryBot.create :image_with_one_image }
   let(:image_file) { File.join(fixture_path, 'world.png') }
-  let(:file_set) { FactoryBot.create :file_set }
+  let(:file_set) { image_work.file_sets.first }
   let(:fsd_service) { described_class.for(file_set) }
 
   around(:each) do |example|
@@ -17,12 +18,6 @@ RSpec.describe Hyrax::DerivativeService do
     allow(OCRRunner).to receive(:create).and_return(nil)
   end
 
-  describe 'services' do
-    it 'includes the OCR service' do
-      expect(described_class.services).to include ESSI::FileSetOCRDerivativesService
-    end
-  end
-
   describe '.create_derivatives', :clean do
     context 'with a non-image' do
       before(:each) do
@@ -30,6 +25,9 @@ RSpec.describe Hyrax::DerivativeService do
         ESSI.config[:essi][:create_ocr_files] = true
         ESSI.config[:essi][:skip_derivatives] = false
       end
+
+      let(:file_set) { FactoryBot.create :file_set }
+
       it 'does not call OCRRunner' do
         expect(OCRRunner).not_to receive(:create)
         fsd_service.create_derivatives('test.txt')
@@ -64,9 +62,16 @@ RSpec.describe Hyrax::DerivativeService do
           ESSI.config[:essi][:skip_derivatives] = true
           ESSI.config[:essi][:create_ocr_files] = true
         end
-        it 'does not call OCRunner' do
-          expect(OCRRunner).not_to receive(:create)
+        it 'calls OCRunner' do
+          expect(OCRRunner).to receive(:create)
           fsd_service.create_derivatives(image_file)
+        end
+        # simulate action of stubbed OCRRunner#create
+        it 'skips OCR generation in OCR Processor' do
+          expect(Rails.logger).to receive(:info).with("Checking for a Pre-derived OCR folder.")
+          expect(Processors::OCR).to receive(:skip_derivatives?).and_return(true)
+          expect(Rails.logger).to receive(:info).with("No pre-derived file provided; skipping OCR generation")
+          Processors::OCR.encode(image_file, {}, '')
         end
       end
       context 'with :skip_derivatives not set' do

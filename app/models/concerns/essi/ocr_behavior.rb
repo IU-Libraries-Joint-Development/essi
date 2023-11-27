@@ -10,6 +10,7 @@ module ESSI
       super.tap do |doc|
         doc[Solrizer.solr_name('ocr_searchable',
                                Solrizer::Descriptor.new(:boolean, :stored, :indexed))] = self.ocr_searchable?
+        doc[Solrizer.solr_name('iiif_index_strategy')] = IndexerHelper.iiif_index_strategy
       end
     end
   end

@@ -8,7 +8,7 @@ module ESSI
     private
 
       def set_num_pages
-        self.num_pages = pages_bucket(100)
+        self.num_pages = pages_bucket(100) if self.respond_to?(:num_pages)
       end
 
       def pages

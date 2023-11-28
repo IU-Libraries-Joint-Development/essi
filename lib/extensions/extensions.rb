@@ -167,3 +167,7 @@ Hydra::Works::CharacterizationService.prepend Extensions::Hydra::Works::Characte
 
 # Patch ShellBasedProcessor to handle IO::EAGAINWaitReadable
 Hydra::Derivatives::Processors::Jpeg2kImage.prepend Extensions::Hydra::Derivatives::Processors::WaitReadable
+
+# Workarounds to make previous IIIF search-related Solr fields compatible with iiif_print until they are reindexed
+IiifPrint::BlacklightIiifSearch::AnnotationDecorator.include Extensions::IiifPrint::BlacklightIiifSearch::AnnotationDecorator::AnnotationDecoratorCompatibility
+IiifPrint::IiifSearchDecorator.include Extensions::IiifPrint::IiifSearchDecorator::SearchDecoratorCompatibility

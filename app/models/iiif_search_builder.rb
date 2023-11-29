@@ -10,7 +10,9 @@ class IiifSearchBuilder < Blacklight::SearchBuilder
   def ocr_search_params(solr_parameters = {})
     solr_parameters[:facet] = false
     solr_parameters[:hl] = true
-    solr_parameters[:'hl.fl'] = blacklight_config.iiif_search[:full_text_field]
+    # Until reindexing for iiif_print is complete, we don't know which text field a match will occur in.
+    # Fortunately, Solr allows globbing when defining what field names to markup by the snippet processor.
+    solr_parameters[:'hl.fl'] = '*text*'
     solr_parameters[:'hl.fragsize'] = 100
     solr_parameters[:'hl.snippets'] = 10
   end

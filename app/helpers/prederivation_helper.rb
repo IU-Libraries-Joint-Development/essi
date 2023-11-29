@@ -9,7 +9,7 @@ module PrederivationHelper
     folders = Array.wrap(derivatives_folder)
     folders << type.downcase if path_includes_type?
     folders << work_root_name(filename) if path_includes_work_root_name?
-    File.join(derivatives_folder, type.downcase, work_root_name(filename))
+    File.join(folders)
   end
 
   def pre_derived_file(filename, type: '', suffix: 'xml')

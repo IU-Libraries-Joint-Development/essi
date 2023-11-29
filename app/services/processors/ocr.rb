@@ -22,6 +22,17 @@ module Processors
       end
     end
 
+    # imported from hydra-derivatives
+    # modified to skip calling output_file_service if file not present
+    def encode_file(file_suffix, options)
+      temp_file_name = output_file(file_suffix)
+      self.class.encode(source_path, options, temp_file_name)
+      if File.exist?(temp_file_name)
+        output_file_service.call(File.open(temp_file_name, 'rb'), directives)
+        File.unlink(temp_file_name)
+      end
+    end
+
     def options_for(_format)
       {
         options: string_options

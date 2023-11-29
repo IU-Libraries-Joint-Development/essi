@@ -174,3 +174,6 @@ IiifPrint::IiifSearchDecorator.include Extensions::IiifPrint::IiifSearchDecorato
 
 # support for nested works generating file_set sequences in manifests
 IIIFManifest::ManifestBuilder::DeepFileSetEnumerator.prepend Extensions::IIIFManifest::ManifestBuilder::DeepFileSetEnumerator::NestedEach
+
+# prep support for memoizing the member_presenter_factory
+Hyrax::WorkShowPresenter.prepend Extensions::Hyrax::WorkShowPresenter::MemberPresenterFactoryMemoization

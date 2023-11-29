@@ -2,9 +2,9 @@ module Extensions
   module Hyrax
     module WorkShowPresenter
       module MemberPresenterFactoryMemoization
-        # unmodified from hyrax
+        # modified from hyrax to add memoization
         def member_presenter_factory
-          ::Hyrax::MemberPresenterFactory.new(solr_document, current_ability, request)
+          @member_presenter_factory ||= ::Hyrax::MemberPresenterFactory.new(solr_document, current_ability, request)
         end
       end
     end

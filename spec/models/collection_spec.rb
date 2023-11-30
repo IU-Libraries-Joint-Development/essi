@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe Collection do
   let(:collection_type) { double(:brandable, true) }
   let(:collection_type_gid) { FactoryBot.create(:user_collection_type).gid }
-  let(:collection) { FactoryBot.create(:collection,
+  let(:collection) { FactoryBot.create(:collection_lw,
                                        title: ['Persisted collection'],
                                        collection_type_gid: collection_type_gid,
                                        visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC) }
-  let(:new_collection) { FactoryBot.build(:collection,
+  let(:new_collection) { FactoryBot.build(:collection_lw,
                                           title: ['Unpersisted collection'],
                                           collection_type_gid: collection_type_gid,
                                           visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC) }

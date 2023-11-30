@@ -5,7 +5,7 @@ RSpec.describe Hyrax::Dashboard::CollectionsController, :clean_repo do
   let(:user) { FactoryBot.create(:user) }
   let(:collection_type) { double(:brandable, true) }
   let(:collection_type_gid) { FactoryBot.create(:user_collection_type).gid }
-  let(:collection) { FactoryBot.create(:collection,
+  let(:collection) { FactoryBot.create(:collection_lw,
                                        title: ['Test collection'],
                                        collection_type_gid: collection_type_gid,
                                        visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC) }

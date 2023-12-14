@@ -3,20 +3,20 @@
   "private": true,
   "dependencies": {
     "@babel/preset-react": "^7.9.4",
-    "@rails/webpacker": "^5.4.3",
+    "@rails/webpacker": "^5.4.4",
     "@rjsf/core": "^2.0.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "immutability-helper": "^3.0.2",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-bootstrap": "^1.0.1",
-    "react-dom": "^16.13.1",
+    "react": "^18.2.0",
+    "react-bootstrap": "^1.6.7",
+    "react-dom": "^18.2.0",
     "react-jsonschema-form": "^1.8.1",
     "react-jsonschema-form-bs4": "^1.7.1",
-    "react-spinners": "^0.8.1",
+    "react-spinners": "^0.13.8",
     "react-transition-group": "^4.3.0",
-    "react_ujs": "^2.6.1",
+    "react_ujs": "^2.7.1",
     "universalviewer": "3.1.4"
   },
   "scripts": {
@@ -34,6 +34,6 @@
     "karma-jasmine": "^4.0.2",
     "karma-selenium-launcher": "^1.0.1",
     "karma-spec-reporter": "^0.0.34",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^4.15.0"
   }
 }

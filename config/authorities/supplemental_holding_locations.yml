@@ -75,3 +75,33 @@
   longitude: "-86.16780"
   parking: https://eiteljorg.org/visit/map-hours-parking/
   notes:
+- code: 'B-IGWS'
+  label: 'Bloomington - Indiana Geological and Water Survey'
+  address: 'Geology Building'
+  address2: '1001 E. 10th St.'
+  city: 'Bloomington'
+  state: 'IN'
+  zip: '47405'
+  phone: '812-855-7636'
+  email: 'igwsinfo@indiana.edu'
+  url: 'https://igws.indiana.edu'
+  urlHours: 'https://igws.indiana.edu/about/' 
+  latitude: '39.1719'
+  longitude: '-86.521264'
+  parking: https://parking.indiana.edu/ 
+  notes: ''
+- code: 'B-ESAAD'
+  label: 'Bloomington - Eskenazi School of Art, Architecture + Design'
+  address: 'Fine Arts Building'
+  address2: '1201 E. Seventh Street'
+  city: 'Bloomington'
+  state: 'IN'
+  zip: '47405'
+  phone: '812-855-4627'
+  email: 'ksrichar@iu.edu'
+  url: 'https://eskenazi.indiana.edu/exhibitions/sage-collection/index.html'
+  urlHours: 'https://eskenazi.indiana.edu/exhibitions/sage-collection/index.html'
+  latitude: '39.1689179'
+  longitude: '-86.5189909'
+  parking: https://parking.indiana.edu/
+  notes: ''

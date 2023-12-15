@@ -10,7 +10,7 @@ RSpec.describe Qa::Authorities::IucatLibraries do
                        api_enabled: true } }
   let(:api_disabled) { { url: 'http://some_unreachable_server',
                        api_enabled: false } }
-  let(:supplemental_data) { authority.supplemental_data }
+  let(:supplemental_data) { authority.send :supplemental_data }
 
   context 'when configuration does not exist' do
     before do
@@ -22,7 +22,7 @@ RSpec.describe Qa::Authorities::IucatLibraries do
         it 'returns only supplemental data' do
           expect(result).to be_a Array
           expect(result).not_to be_empty
-          expect(result.size).to eq 5
+          expect(result.size).to eq supplemental_data.size
         end
       end
     end
@@ -50,7 +50,7 @@ RSpec.describe Qa::Authorities::IucatLibraries do
         it 'returns only supplemental data' do
           expect(result).to be_a Array
           expect(result).not_to be_empty
-          expect(result.size).to eq 5
+          expect(result.size).to eq supplemental_data.size
         end
       end
     end

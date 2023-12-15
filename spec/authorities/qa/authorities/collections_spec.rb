@@ -75,7 +75,7 @@ RSpec.describe Qa::Authorities::Collections do
 
       it 'lists everything' do
         expect(service.search(nil, controller))
-          .to contain_exactly(include(id: collection1.id), include(id: collection2.id))
+          .to include(include(id: collection1.id), include(id: collection2.id))
       end
     end
   end

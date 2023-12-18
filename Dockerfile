@@ -41,7 +41,9 @@ COPY --chown=essi:essi Gemfile Gemfile.lock ./
 # DEV ONLY - REMOVE LATER
 # COPY --chown=essi:essi vendor/engines/bulkrax /app/vendor/engines/bulkrax
 # COPY --chown=essi:essi vendor/engines/allinson_flex /app/vendor/engines/allinson_flex
-RUN gem update bundler
+# hold back from bundler 2.5 onwards until ruby is updated
+# RUN gem update bundler
+RUN gem install bundler -v "~> 2.4.22"
 RUN bundle install -j 2 --retry=3
 
 COPY --chown=essi:essi . .
@@ -65,7 +67,9 @@ RUN bundle config --global frozen 1
 COPY --chown=essi:essi Gemfile Gemfile.lock ./
 # DEV ONLY - REMOVE LATER
 # COPY vendor/engines/allinson_flex vendor/engines/allinson_flex
-RUN gem update bundler && \
+# hold back from bundler 2.5 onwards until ruby is updated
+# RUN gem update bundler && \
+RUN gem install bundler -v "~> 2.4.22" && \
     bundle install -j 2 --retry=3 --deployment --without development
 
 COPY --chown=essi:essi . .

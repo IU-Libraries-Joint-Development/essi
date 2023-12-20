@@ -100,7 +100,7 @@ gem 'allinson_flex', github: 'IU-Libraries-Joint-Development/allinson_flex'
 gem 'okcomputer'
 
 # Bulk Import / Export
-gem 'bulkrax', '~> 1.0.0'
+gem 'bulkrax', '~> 5.0'
 gem 'willow_sword', github: 'notch8/willow_sword'
 gem 'webpacker'
 gem 'react-rails'

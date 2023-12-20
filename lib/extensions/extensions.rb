@@ -77,7 +77,6 @@ Bulkrax::Importer.prepend Extensions::Bulkrax::Importer::Mapping
 Bulkrax::ExportersController.prepend Extensions::Bulkrax::ExportersController::SupportMakeRoundTrippable
 Bulkrax::ApplicationParser.prepend Extensions::Bulkrax::ApplicationParser::IdentifierHash
 Bulkrax::ApplicationMatcher.prepend Extensions::Bulkrax::ApplicationMatcher::ParseSubject
-Bulkrax::ImportWorkCollectionJob.prepend Extensions::Bulkrax::ImportWorkCollectionJob::AddUserToPermissionTemplate
 # bulkrax import of file-specific metadata
 AttachFilesToWorkWithOrderedMembersJob.prepend Extensions::AttachFilesToWorkWithOrderedMembersJob::ImportMetadata
 Bulkrax::CsvEntry.prepend Extensions::Bulkrax::CsvEntry::AddFileMetadata

@@ -24,6 +24,16 @@ class Ability
     end
   end
 
+  # bulkrax import
+  def can_import_works?
+    can_create_any_work?
+  end
+
+  # bulkrax export
+  def can_export_works?
+    can_create_any_work?
+  end
+
   # Modified method from blacklight-access_controls Blacklight::AccessControls::Ability
   # Grants registered status for authenticated visibility ("Institution") by ldap group membership, if so configured, and admins
   def user_groups

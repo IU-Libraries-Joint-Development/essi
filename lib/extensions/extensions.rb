@@ -75,16 +75,9 @@ Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::Mapping
 Bulkrax::Importer.prepend Extensions::Bulkrax::Importer::Mapping
 Bulkrax::ApplicationParser.prepend Extensions::Bulkrax::ApplicationParser::IdentifierHash
 Bulkrax::ApplicationMatcher.prepend Extensions::Bulkrax::ApplicationMatcher::ParseSubject
-# bulkrax import of file-specific metadata
-AttachFilesToWorkWithOrderedMembersJob.prepend Extensions::AttachFilesToWorkWithOrderedMembersJob::ImportMetadata
-Bulkrax::CsvEntry.prepend Extensions::Bulkrax::CsvEntry::AddFileMetadata
-Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::FileFactoryMetadata
-Hyrax::Actors::CreateWithFilesActor.prepend Extensions::Hyrax::Actors::CreateWithFilesActor::UploadedFiles
 ### IIIF Print, quick and dirty way to get the FileSetActor to load after CreateWithFilesActor
 Hyrax::Actors::FileSetActor.prepend(IiifPrint::Actors::FileSetActorDecorator)
 Hyrax::Actors::FileSetOrderedMembersActor.prepend Extensions::Hyrax::Actors::FileSetOrderedMembersActor::PdfSplit
-Hyrax::Actors::CreateWithFilesOrderedMembersActor.prepend Extensions::Hyrax::Actors::CreateWithFilesOrderedMembersActor::AttachFilesWithMetadata
-Hyrax::UploadedFile.prepend Extensions::Hyrax::UploadedFile::UploadedFileMetadata
 
 # actor customizations
 Hyrax::CurationConcern.actor_factory.insert Hyrax::Actors::TransactionalRequest, ESSI::Actors::PerformLaterActor

@@ -69,12 +69,10 @@ Bulkrax::Entry.prepend Extensions::Bulkrax::Entry::SingularizeRightsStatement
 Bulkrax::CsvEntry.prepend Extensions::Bulkrax::CsvEntry::AddWorkType
 Bulkrax::CsvEntry.prepend Extensions::Bulkrax::Entry::DynamicSchemaField
 Bulkrax::MetsXmlEntry.prepend Extensions::Bulkrax::Entry::DynamicSchemaField
-Bulkrax::CsvEntry.prepend Extensions::Bulkrax::Entry::OptionalRoundTrippableSave
 Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::LastRun
 Bulkrax::Importer.prepend Extensions::Bulkrax::Importer::LastRun
 Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::Mapping
 Bulkrax::Importer.prepend Extensions::Bulkrax::Importer::Mapping
-Bulkrax::ExportersController.prepend Extensions::Bulkrax::ExportersController::SupportMakeRoundTrippable
 Bulkrax::ApplicationParser.prepend Extensions::Bulkrax::ApplicationParser::IdentifierHash
 Bulkrax::ApplicationMatcher.prepend Extensions::Bulkrax::ApplicationMatcher::ParseSubject
 # bulkrax import of file-specific metadata

@@ -59,22 +59,28 @@ Hyrax::Dashboard::CollectionsController.prepend Extensions::Hyrax::Dashboard::Co
 # purl controller support
 Hyrax::FileSetPresenter.include Extensions::Hyrax::FileSetPresenter::SourceMetadataIdentifier
 
-# bulkrax overrides
+## bulkrax overrides
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::Structure
-Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::CreateWithDynamicSchema
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::CreateAttributes
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::RemoveUpdateFilesets
+# bulkrax/allinson_flex integration support
 Bulkrax::Entry.prepend Extensions::Bulkrax::Entry::AllinsonFlexFields
 Bulkrax::Entry.prepend Extensions::Bulkrax::Entry::SingularizeRightsStatement
 Bulkrax::CsvEntry.prepend Extensions::Bulkrax::CsvEntry::AddWorkType
 Bulkrax::CsvEntry.prepend Extensions::Bulkrax::Entry::DynamicSchemaField
 Bulkrax::MetsXmlEntry.prepend Extensions::Bulkrax::Entry::DynamicSchemaField
+Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::CreateWithDynamicSchema
+# bugfixes / error catches
 Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::LastRun
 Bulkrax::Importer.prepend Extensions::Bulkrax::Importer::LastRun
+# feature change: merged configured/default mappings, instead of overridden
 Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::Mapping
 Bulkrax::Importer.prepend Extensions::Bulkrax::Importer::Mapping
+# bugfix?
 Bulkrax::ApplicationParser.prepend Extensions::Bulkrax::ApplicationParser::IdentifierHash
+# feature change: drop forced capitalization of subject
 Bulkrax::ApplicationMatcher.prepend Extensions::Bulkrax::ApplicationMatcher::ParseSubject
+
 ### IIIF Print, quick and dirty way to get the FileSetActor to load after CreateWithFilesActor
 Hyrax::Actors::FileSetActor.prepend(IiifPrint::Actors::FileSetActorDecorator)
 Hyrax::Actors::FileSetOrderedMembersActor.prepend Extensions::Hyrax::Actors::FileSetOrderedMembersActor::PdfSplit

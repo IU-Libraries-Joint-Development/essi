@@ -2,11 +2,11 @@ module Extensions
   module Bulkrax
     module Entry
       module AllinsonFlexFields
-        def build_for_importer
+        def build_metadata
           # Ensure loading of all flexible metadata properties for the imported work type
-          try(:add_work_type)
-          factory_class&.new
           super
+          factory_class&.new
+          self.parsed_metadata
         end
       end
     end

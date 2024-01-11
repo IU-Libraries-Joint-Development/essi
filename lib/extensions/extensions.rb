@@ -61,7 +61,6 @@ Hyrax::FileSetPresenter.include Extensions::Hyrax::FileSetPresenter::SourceMetad
 
 ## bulkrax overrides
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::Structure
-Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::CreateAttributes
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::RemoveUpdateFilesets
 # bulkrax/allinson_flex integration support
 Bulkrax::Entry.prepend Extensions::Bulkrax::Entry::AllinsonFlexFields
@@ -75,8 +74,6 @@ Bulkrax::Importer.prepend Extensions::Bulkrax::Importer::LastRun
 # feature change: merged configured/default mappings, instead of overridden
 Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::Mapping
 Bulkrax::Importer.prepend Extensions::Bulkrax::Importer::Mapping
-# bugfix?
-Bulkrax::ApplicationParser.prepend Extensions::Bulkrax::ApplicationParser::IdentifierHash
 # feature change: drop forced capitalization of subject
 Bulkrax::ApplicationMatcher.prepend Extensions::Bulkrax::ApplicationMatcher::ParseSubject
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_02_161158) do
+ActiveRecord::Schema.define(version: 2023_06_08_153601) do
 
   create_table "allinson_flex_contexts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name"
@@ -134,7 +134,11 @@ ActiveRecord::Schema.define(version: 2023_03_02_161158) do
     t.datetime "updated_at", null: false
     t.datetime "last_error_at"
     t.datetime "last_succeeded_at"
+    t.integer "import_attempts", default: 0
+    t.index ["identifier"], name: "index_bulkrax_entries_on_identifier"
+    t.index ["importerexporter_id", "importerexporter_type"], name: "bulkrax_entries_importerexporter_idx"
     t.index ["importerexporter_id"], name: "index_bulkrax_entries_on_importerexporter_id"
+    t.index ["type"], name: "index_bulkrax_entries_on_type"
   end
 
   create_table "bulkrax_exporter_runs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -166,6 +170,8 @@ ActiveRecord::Schema.define(version: 2023_03_02_161158) do
     t.string "work_visibility"
     t.string "workflow_status"
     t.boolean "make_round_trippable"
+    t.boolean "include_thumbnails", default: false
+    t.boolean "generated_metadata", default: false
     t.index ["user_id"], name: "index_bulkrax_exporters_on_user_id"
   end
 
@@ -181,9 +187,14 @@ ActiveRecord::Schema.define(version: 2023_03_02_161158) do
     t.integer "processed_collections", default: 0
     t.integer "failed_collections", default: 0
     t.integer "total_collection_entries", default: 0
-    t.integer "processed_children", default: 0
-    t.integer "failed_children", default: 0
+    t.integer "processed_relationships", default: 0
+    t.integer "failed_relationships", default: 0
     t.text "invalid_records", limit: 16777215
+    t.integer "processed_file_sets", default: 0
+    t.integer "failed_file_sets", default: 0
+    t.integer "total_file_set_entries", default: 0
+    t.integer "processed_works", default: 0
+    t.integer "failed_works", default: 0
     t.index ["importer_id"], name: "index_bulkrax_importer_runs_on_importer_id"
   end
 
@@ -204,10 +215,22 @@ ActiveRecord::Schema.define(version: 2023_03_02_161158) do
     t.index ["user_id"], name: "index_bulkrax_importers_on_user_id"
   end
 
+  create_table "bulkrax_pending_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.bigint "importer_run_id", null: false
+    t.string "parent_id", null: false
+    t.string "child_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "order", default: 0
+    t.index ["child_id"], name: "index_bulkrax_pending_relationships_on_child_id"
+    t.index ["importer_run_id"], name: "index_bulkrax_pending_relationships_on_importer_run_id"
+    t.index ["parent_id"], name: "index_bulkrax_pending_relationships_on_parent_id"
+  end
+
   create_table "bulkrax_statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "status_message"
     t.string "error_class"
-    t.string "error_message"
+    t.text "error_message"
     t.text "error_backtrace", limit: 16777215
     t.integer "statusable_id"
     t.string "statusable_type"
@@ -215,6 +238,9 @@ ActiveRecord::Schema.define(version: 2023_03_02_161158) do
     t.string "runnable_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["error_class"], name: "index_bulkrax_statuses_on_error_class"
+    t.index ["runnable_id", "runnable_type"], name: "bulkrax_statuses_runnable_idx"
+    t.index ["statusable_id", "statusable_type"], name: "bulkrax_statuses_statusable_idx"
   end
 
   create_table "checksum_audit_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -794,6 +820,7 @@ ActiveRecord::Schema.define(version: 2023_03_02_161158) do
 
   add_foreign_key "bulkrax_exporter_runs", "bulkrax_exporters", column: "exporter_id"
   add_foreign_key "bulkrax_importer_runs", "bulkrax_importers", column: "importer_id"
+  add_foreign_key "bulkrax_pending_relationships", "bulkrax_importer_runs", column: "importer_run_id"
   add_foreign_key "collection_type_participants", "hyrax_collection_types"
   add_foreign_key "curation_concerns_operations", "users"
   add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", column: "conversation_id", name: "mb_opt_outs_on_conversations_id"

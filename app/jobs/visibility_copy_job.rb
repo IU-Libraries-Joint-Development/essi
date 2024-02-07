@@ -1,5 +1,7 @@
 # imported from hyrax
 # modified to optionally specify single FileSet
+# modified to handle nil value for work
+#
 # Responsible for copying the following attributes from the work to each file in the file_sets
 #
 # * visibility
@@ -9,7 +11,9 @@ class VisibilityCopyJob < Hyrax::ApplicationJob
   # @api public
   # @param [#file_sets, #visibility, #lease, #embargo] work - a Work model
   def perform(work, file_set: nil)
-    if file_set
+    if work.nil?
+      Rails.logger.debug "#{self.class} called with nil work, file_set #{file_set&.id || 'nil' }. Skipping perform."
+    elsif file_set
       perform_for_file(work, file_set)
     else
       work.file_sets.each do |file|

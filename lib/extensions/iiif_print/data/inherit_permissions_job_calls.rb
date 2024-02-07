@@ -1,4 +1,5 @@
-# unmodified from iiif_print
+# modified from iiif_print
+# makes FileSet-specific call to InheritPermissionsJob
 module Extensions
   module IiifPrint
     module Data
@@ -17,7 +18,7 @@ module Extensions
               work = file_set.member_of[0]
               # Hyrax CreateWithRemoteFilesActor has glaring omission re: this job,
               #   so we call it here, once we have a fileset to copy permissions to.
-              ::InheritPermissionsJob.perform_later(work) unless work.nil?
+              ::InheritPermissionsJob.perform_later(work, file_set: file_set) unless work.nil?
             end
           end
         end

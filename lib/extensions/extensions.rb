@@ -170,6 +170,9 @@ Hydra::Derivatives::Processors::Jpeg2kImage.prepend Extensions::Hydra::Derivativ
 IiifPrint::BlacklightIiifSearch::AnnotationDecorator.include Extensions::IiifPrint::BlacklightIiifSearch::AnnotationDecorator::AnnotationDecoratorCompatibility
 IiifPrint::IiifSearchDecorator.include Extensions::IiifPrint::IiifSearchDecorator::SearchDecoratorCompatibility
 
+# Patch iiif_print FileSet job calls
+IiifPrint::Data.include Extensions::IiifPrint::Data::InheritPermissionsJobCalls
+
 # support for nested works generating file_set sequences in manifests
 IIIFManifest::ManifestBuilder::DeepFileSetEnumerator.prepend Extensions::IIIFManifest::ManifestBuilder::DeepFileSetEnumerator::NestedEach
 

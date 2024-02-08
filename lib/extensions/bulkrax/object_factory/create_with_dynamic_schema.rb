@@ -8,12 +8,12 @@ module Extensions
           init_attrs = {}
           init_attrs = { dynamic_schema_id: attrs[:dynamic_schema_id] } if attrs[:dynamic_schema_id].present? && klass.new.respond_to?(:dynamic_schema_id)
           @object = klass.new(init_attrs)
-          object.reindex_extent = Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX if defined?(Hyrax::Adapters::NestingIndexAdapter) && object.respond_to?(:reindex_extent)
+          object.reindex_extent = ::Hyrax::Adapters::NestingIndexAdapter::LIMITED_REINDEX if defined?(::Hyrax::Adapters::NestingIndexAdapter) && object.respond_to?(:reindex_extent=)
           run_callbacks :save do
             run_callbacks :create do
-              if klass == Collection
+              if klass == ::Collection
                 create_collection(attrs)
-              elsif klass == FileSet
+              elsif klass == ::FileSet
                 create_file_set(attrs)
               else
                 create_work(attrs)

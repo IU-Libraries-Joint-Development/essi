@@ -87,7 +87,7 @@ services:
       - minio:/data
 
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.5-7
+    image: uclalibrary/cantaloupe:5.0.6-1
     ports:
       - '8182:8182'
     environment:

@@ -92,6 +92,8 @@ Hyrax::CurationConcern.actor_factory.insert Hyrax::Actors::TransactionalRequest,
 Hyrax::CurationConcern.actor_factory.swap Hyrax::Actors::CreateWithRemoteFilesActor, ESSI::Actors::CreateWithRemoteFilesOrderedMembersStructureActor
 Hyrax::CurationConcern.actor_factory.swap Hyrax::Actors::CreateWithFilesActor, Hyrax::Actors::CreateWithFilesOrderedMembersActor
 Hyrax::Actors::BaseActor.prepend Extensions::Hyrax::Actors::BaseActor::UndoAttributeArrayWrap
+Hyrax::Actors::FileSetActor.prepend Extensions::Hyrax::Actors::FileSetActor::CreateContent
+
 
 # .jp2 conversion settings
 Hydra::Derivatives.kdu_compress_path = ESSI.config.dig(:essi, :kdu_compress_path)
@@ -171,6 +173,9 @@ Hydra::Derivatives::Processors::Jpeg2kImage.prepend Extensions::Hydra::Derivativ
 # Workarounds to make previous IIIF search-related Solr fields compatible with iiif_print until they are reindexed
 IiifPrint::BlacklightIiifSearch::AnnotationDecorator.include Extensions::IiifPrint::BlacklightIiifSearch::AnnotationDecorator::AnnotationDecoratorCompatibility
 IiifPrint::IiifSearchDecorator.include Extensions::IiifPrint::IiifSearchDecorator::SearchDecoratorCompatibility
+
+# Patch iiif_print FileSet job calls
+IiifPrint::Data.include Extensions::IiifPrint::Data::InheritPermissionsJobCalls
 
 # support for nested works generating file_set sequences in manifests
 IIIFManifest::ManifestBuilder::DeepFileSetEnumerator.prepend Extensions::IIIFManifest::ManifestBuilder::DeepFileSetEnumerator::NestedEach

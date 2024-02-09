@@ -9,7 +9,7 @@ module ESSI
 
       def update(env)
         structure = env.attributes.delete(:structure)&.deep_symbolize_keys
-        super(env) && save_structure(env,structure)
+        super(env) && save_structure(env,structure) && copy_visibility(env) && inherit_permissions(env)
       end
 
       private

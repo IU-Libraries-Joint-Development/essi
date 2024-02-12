@@ -48,7 +48,7 @@ module Hyrax
                                                       file_use,
                                                       versioning: false)
         end
-        return false unless file_set.save
+        return false unless file_set.persisted? # save call here is redundant at least one of Add.*File calls above should run and save
         repository_file = related_file
         Hyrax::VersioningService.create(repository_file, user)
         delete_characterization_path ||= false

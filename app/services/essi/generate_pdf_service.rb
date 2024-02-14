@@ -39,20 +39,45 @@ module ESSI
       # TODO Use logical structure if it exists?
       sorted_files = Hyrax::SolrDocument::OrderedMembers.decorate(@resource).ordered_member_ids
       sorted_files.each.with_index(1) do |fs, i|
-        fs_solr = SolrDocument.find fs
-        uri = Hyrax.config.iiif_image_url_builder.call(fs_solr.original_file_id, nil, '1024,')
-        URI.open(uri) do |file|
-          page_size = [CoverPageGenerator::LETTER_WIDTH, CoverPageGenerator::LETTER_HEIGHT]
-          file.binmode
-          pdf.image(file, fit: page_size, position: :center, vposition: :center)
+        pdf.start_new_page
+        begin
+          fs_solr = SolrDocument.find(fs)
+          image_width = get_image_width(fs_solr).to_i
+          raise StandardError, 'Image width unavailable' unless image_width > 0 # IIIF server call requires a positive integer value
+          uri = Hyrax.config.iiif_image_url_builder.call(fs_solr.original_file_id, nil, render_dimensions(image_width))
+          URI.open(uri) do |file|
+            page_size = [CoverPageGenerator::LETTER_WIDTH, CoverPageGenerator::LETTER_HEIGHT]
+            file.binmode
+            pdf.image(file, fit: page_size, position: :center, vposition: :center)
+          end
+        rescue => error
+          Rails.logger.error "PDF page generation failed for FileSet #{fs} with #{error.class}: #{error.message}"
+          pdf.text("Page #{i} generation failed")
         end
-        paginate_images(pdf, i)
       end
     end
 
-    def paginate_images(pdf, i)
-      num_of_images = @resource.file_set_ids.size
-      pdf.start_new_page unless num_of_images == i
+    # ensure not requesting greater than 100% image width, as that makes IIIF server 403
+    def get_image_width(solr_doc)
+      solr_doc.width || generate_width(solr_doc.id)
+    end
+
+    def render_dimensions(image_width)
+      render_width = [image_width, 1024].min
+      "#{render_width},"
+    end
+
+    # run characterization directly for width, then spawn normal job
+    def generate_width(file_set_id)
+      begin
+        file_set = FileSet.find(file_set_id)
+        filepath = Hyrax::WorkingDirectory.find_or_retrieve(file_set.original_file.id, file_set.id)
+        terms = Hydra::Works::CharacterizationService.run(file_set.original_file, filepath)
+        CharacterizeJob.perform_later(file_set, file_set.original_file.id)
+      rescue
+        terms = {}
+      end
+      terms[:width]&.first.to_i
     end
   end
 end

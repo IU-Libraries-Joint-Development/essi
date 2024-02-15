@@ -13,7 +13,7 @@ module Extensions
             # If the file set doesn't have a title or label assigned, set a default.
             file_set.label ||= label_for(file)
             file_set.title = [file_set.label] if file_set.title.blank?
-            return false unless file_set.save # Need to save to get an id
+            file_set.save if file_set.label_changed? || file_set.title_changed?
             if from_url
               # If ingesting from URL, don't spawn an IngestJob; instead
               # reach into the FileActor and run the ingest with the file instance in

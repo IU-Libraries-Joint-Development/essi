@@ -110,10 +110,6 @@ Hyrax::CollectionPresenter.include Extensions::Hyrax::CollectionPresenter::Custo
 AdminSet.include Extensions::Hyrax::AdminSet::CampusOnAdminSet
 Hyrax::Forms::AdminSetForm.include Extensions::Hyrax::Forms::AdminSetForm::CustomizedTerms
 
-# Skip these jobs when they sometimes get nil arguments
-VisibilityCopyJob.prepend Extensions::Hyrax::Jobs::ShortCircuitOnNil
-InheritPermissionsJob.prepend Extensions::Hyrax::Jobs::ShortCircuitOnNil
-
 # ESSI-1438 Large works cause solr URI Too Long error
 # @todo method is moved after upgrade to Hyrax 3.x
 Hyrax::GrantReadToMembersJob.prepend Extensions::Hyrax::Jobs::FileSetIdsPost

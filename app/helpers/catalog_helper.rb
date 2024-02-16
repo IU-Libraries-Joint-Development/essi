@@ -24,7 +24,8 @@ module CatalogHelper
       raise 'thumbnail_file_id is nil'
     end
 
-  rescue
+  rescue StandardError => e
+    Hyrax.logger.warn { "Failed to resolve thumbnail url for #{document&.id}: #{e.message}" }
     image_path 'default.png'
   end
 end

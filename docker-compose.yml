@@ -87,7 +87,7 @@ services:
       - minio:/data
 
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.6-1
+    image: uclalibrary/cantaloupe:5.0.6-2
     ports:
       - '8182:8182'
     environment:
@@ -106,7 +106,7 @@ services:
       CANTALOUPE_FEDORA_PATH: /rest/dev
       CANTALOUPE_PROCESSOR_SELECTION_STRATEGY: ManualSelectionStrategy
       CANTALOUPE_MANUAL_PROCESSOR_JPG: Java2dProcessor
-      CANTALOUPE_MANUAL_PROCESSOR_JP2: OpenJpegProcessor
+      CANTALOUPE_MANUAL_PROCESSOR_JP2: GrokProcessor
       CANTALOUPE_PROCESSOR_STREAM_RETRIEVAL_STRATEGY: StreamStrategy
       CANTALOUPE_PROCESSOR_FALLBACK_RETRIEVAL_STRATEGY: CacheStrategy
       CANTALOUPE_CACHE_SERVER_SOURCE_ENABLED: "true"

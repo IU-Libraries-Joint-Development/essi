@@ -2,11 +2,8 @@ module Extensions
   module Hyrax
     module WorkShowPresenter
       module CollectionBanner
-        def collection
-          # return work collection if any, else nil
-          return false if member_of_collection_ids.empty?
-
-          Collection.find(member_of_collection_ids.first)
+        def collection_banner_presenter
+          @collection_banner_presenter ||= member_of_collection_presenters.first
         end
       end
     end

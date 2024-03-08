@@ -3,10 +3,11 @@ module Extensions
     module WorkShowPresenter
       module CollectionBanner
         def collection
-          # return work collection if any, else nil
+          return @collection if @collection
           return false if member_of_collection_ids.empty?
-
-          Collection.find(member_of_collection_ids.first)
+          solr_hit = Collection.search_with_conditions(id: member_of_collection_ids.first).first
+          @collection = SolrDocument.new(solr_hit) if solr_hit
+          return @collection
         end
       end
     end

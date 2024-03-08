@@ -14,8 +14,8 @@ RSpec.describe Hyrax::FileSetPresenter do
   end
 
   context 'When initialized' do
-    it '.collection is available' do
-      expect(subject).to respond_to(:collection)
+    it '.collection_banner_presenter is available' do
+      expect(subject).to respond_to(:collection_banner_presenter)
     end
     it '.campus_logo is available' do
       expect(subject).to respond_to(:campus_logo)

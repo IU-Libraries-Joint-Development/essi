@@ -93,7 +93,7 @@ Hyrax::CurationConcern.actor_factory.swap Hyrax::Actors::CreateWithRemoteFilesAc
 Hyrax::CurationConcern.actor_factory.swap Hyrax::Actors::CreateWithFilesActor, Hyrax::Actors::CreateWithFilesOrderedMembersActor
 Hyrax::Actors::BaseActor.prepend Extensions::Hyrax::Actors::BaseActor::UndoAttributeArrayWrap
 Hyrax::Actors::FileSetActor.prepend Extensions::Hyrax::Actors::FileSetActor::CreateContent
-
+Hyrax::Actors::ApplyOrderActor.prepend Extensions::Hyrax::Actors::ApplyOrderActor::AddMembersSingleSave
 
 # .jp2 conversion settings
 Hydra::Derivatives.kdu_compress_path = ESSI.config.dig(:essi, :kdu_compress_path)

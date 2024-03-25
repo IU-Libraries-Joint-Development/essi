@@ -3,7 +3,12 @@ module ESSI
     extend ActiveSupport::Concern
 
     def ocr_searchable?
-      self.ocr_state == 'searchable'
+      begin
+        self.ocr_state == 'searchable'
+      rescue => error
+        Rails.logger.error "Error reading ocr_state for #{self.class} #{self.id}: #{error.message}"
+        false
+      end
     end
 
     def to_solr(solr_doc = {})

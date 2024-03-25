@@ -3,7 +3,12 @@ module ESSI
     extend ActiveSupport::Concern
 
     def pdf_downloadable?
-      [self.pdf_state, self.pdf_state.try(:first)].include? 'downloadable'
+      begin
+        [self.pdf_state, self.pdf_state.try(:first)].include? 'downloadable'
+      rescue => error
+        Rails.logger.error "Error reading pdf_state for #{self.class} #{self.id}: #{error.message}"
+        false
+      end
     end
 
     def to_solr(solr_doc = {})

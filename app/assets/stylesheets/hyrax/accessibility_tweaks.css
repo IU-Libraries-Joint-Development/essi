@@ -2,3 +2,8 @@
 table.related-files td.attribute-permission span.label {
         font-size:95%;
 }
+
+/* ESSI-1951: increase contrast of badges on users show page */ 
+.badge {
+    background-color: #4a3c31;
+}

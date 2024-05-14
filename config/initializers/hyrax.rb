@@ -155,7 +155,7 @@ Hyrax.config do |config|
   config.iiif_image_url_builder = lambda do |file_id, _base_url, size|
     if ESSI.config[:cantaloupe].present? && ESSI.config[:cantaloupe][:iiif_server_url]
       iiif_url = ESSI.config[:cantaloupe][:iiif_server_url] + file_id.gsub('/', '%2F') + '/full/' + size + '/0/default.jpg'
-      Rails.logger.debug "event: iiif_image_request: #{iiif_url}"
+      Rails.logger.debug { "event: iiif_image_request: #{iiif_url}" }
       iiif_url
     else
       Riiif::Engine.routes.url_helpers.image_url(file_id, host: ESSI.config.dig(:essi, :iiif_host), size: size)

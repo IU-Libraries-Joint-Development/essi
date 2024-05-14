@@ -31,6 +31,17 @@ module Hyrax
                                      iiif_endpoint: iiif_endpoint(latest_file_id))
     end
 
+    def lookup_original_file_id
+      return solr_document.content_location if solr_document.content_location&.start_with?('s3://')
+      result = original_file_id
+      if result.blank?
+        Rails.logger.warn "original_file_id for #{id} not found, falling back to Fedora."
+        # result = Hyrax::VersioningService.versioned_file_id ::FileSet.find(id).original_file
+        result = versioned_file_id ::FileSet.find(id).original_file
+      end
+      result
+    end
+
     private
 
       def iiif_endpoint(file_id)
@@ -39,16 +50,6 @@ module Hyrax
           Hyrax.config.iiif_info_url_builder.call(file_id, request.base_url),
           profile: Hyrax.config.iiif_image_compliance_level_uri
         )
-      end
-
-      def lookup_original_file_id
-        result = original_file_id
-        if result.blank?
-          Rails.logger.warn "original_file_id for #{id} not found, falling back to Fedora."
-          # result = Hyrax::VersioningService.versioned_file_id ::FileSet.find(id).original_file
-          result = versioned_file_id ::FileSet.find(id).original_file
-        end
-        result
       end
 
       # @todo remove after upgrade to Hyrax 3.x

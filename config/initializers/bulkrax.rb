@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 Bulkrax.setup do |config|
+  # separately configurable queue name from 5.5.1
+  config.ingest_queue_name = Hyrax.config.ingest_queue_name
+
   # Add local parsers
   config.parsers += [
     { name: 'METS XML', class_name: 'Bulkrax::MetsXmlParser', partial: 'mets_xml_fields' },

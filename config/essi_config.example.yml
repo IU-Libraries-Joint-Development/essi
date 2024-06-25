@@ -63,6 +63,8 @@ default: &default
     enabled: false
     url: //changeme
     site_id: 0
+  google_analytics:
+    id:
   aws:
     endpoint: http://localhost:9000
     bucket: essi-dropbox

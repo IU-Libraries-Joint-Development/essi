@@ -13,9 +13,6 @@ module ESSI
         end
         solr_doc['word_boundary_tsi'] = IiifPrint::TextExtraction::AltoReader.new(object.extracted_text.content).json if object.extracted_text.present?
         solr_doc[Solrizer.solr_name('iiif_index_strategy')] = IndexerHelper.iiif_index_strategy
-
-        # Records storage location of the file. e.g. 's3' if in external storage
-        solr_doc['content_location_ssi'] = object.content_location if object.content_location.present?
       end
     end
   end

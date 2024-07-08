@@ -71,13 +71,6 @@ default: &default
     bucket: essi-dev
     access_key_id: essi-minio
     secret_access_key: Essi12345
-  external_storage:
-    url: http://minio:9000
-    access_key: essi-minio
-    secret_key: Essi12345
-    region: us-east-1
-    bucket: essi-dev
-    prefix: ext-store
   browse_everything:
     file_system:
       :home: <%= Rails.root.join("staged_files") %>
@@ -116,8 +109,7 @@ default: &default
     iiif_host: essi.docker  # riiif only
     notifier_email: example@test.test
     store_original_files: true
-    store_files_as_jp2: false
-    store_in_external_storage: true
+    store_files_as_jp2: true
     kdu_compress_path: 'opj_compress' # set as kdu_compress or opj_compress, or '' to use ImageMagick
     master_file_service_url: http://purl.dlib.indiana.edu/iudl/variations/master
     purl_redirect_url: /concern/works/%s
@@ -265,13 +257,6 @@ test:
   browse_everything:
     file_system:
       :home: <%= Rails.root.join("spec/fixtures") %>
-  external_storage:
-    url: http://minio:9000
-    access_key: essi-minio
-    secret_key: Essi12345
-    region: us-east-1
-    bucket: essi-test
-    prefix: ext-store
 
 production:
   <<: *default

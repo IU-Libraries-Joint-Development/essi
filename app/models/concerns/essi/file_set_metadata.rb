@@ -7,10 +7,6 @@ module ESSI
       property :viewing_hint, predicate: ::RDF::Vocab::IIIF.viewingHint, multiple: false do |index|
         index.as :stored_searchable
       end
-
-      property :content_location, predicate: ::RDF::Vocab::IANA.service, multiple: false do |index|
-        index.as :stored_searchable
-      end
     end
   end
 end

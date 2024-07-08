@@ -35,15 +35,10 @@ module Hyrax
             delete_characterization_path = 'include_parent_dir'
           end
 
-          if use_external_storage?
-            add_file_to_external_storage(io)
-          else
-            Hydra::Works::AddFileToFileSet.call(file_set,
-                                                io,
-                                                relation,
-                                                versioning: false)
-          end
-
+          Hydra::Works::AddFileToFileSet.call(file_set,
+                                              io,
+                                              relation,
+                                              versioning: false)
         end
         if store_masters?
           url = master_url_for_file_set(file_set) || master_file_service_url
@@ -88,28 +83,9 @@ module Hyrax
         ESSI.config.dig :essi, :store_original_files
       end
 
-      def use_external_storage?
-        ESSI.config.dig :essi, :store_in_external_storage
-      end
-
       private
 
-      def add_file_to_external_storage(io)
-        original_name = Hydra::Works::DetermineOriginalName.call(io)
-        ext = File.extname(original_name)
-        mime_type = Hydra::Works::DetermineMimeType.call(io, original_name)
-        id = "#{file_set.id}-#{relation}#{ext}"
-        file = io.send :file  # This is a public method in later versions of Hyrax
-        response = ESSI.external_storage.put(id, file,
-                                             content_type: mime_type,
-                                             params: {  metadata: { original_name: original_name }})
-        content_location = ESSI.external_storage.id_to_s3_uri(id)
-        Hyrax.logger.debug { "Added #{id} to external storage at #{content_location}" }
-        file_set.content_location = content_location
-        Hydra::Works::AddExternalFileToFileSet.call(file_set, ::RDF::URI(content_location), relation, versioning: false)
-      end
-
-      # @return [Hydra::PCDM::File] the file referenced by relation
+        # @return [Hydra::PCDM::File] the file referenced by relation
         def related_file
           file_set.public_send(relation) || raise("No #{relation} returned for FileSet #{file_set.id}")
         end

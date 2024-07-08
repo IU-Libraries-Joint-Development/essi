@@ -36,7 +36,7 @@ server {
     proxy_redirect      http://essi_app /;
   }
 
-  location ~ /iiif/(2|3) {
+  location /iiif/2 {
     proxy_pass http://essi_iiif;
 
     proxy_set_header X-Forwarded-Proto $scheme;
@@ -44,6 +44,6 @@ server {
     proxy_set_header X-Forwarded-Port $server_port;
     proxy_set_header X-Forwarded-Path /;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_redirect http://essi_iiif:8182/ /iiif/$1;
+    proxy_redirect http://essi_iiif:8182/ /iiif/2;
   }
 }

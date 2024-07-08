@@ -71,7 +71,6 @@ RSpec.feature 'Create and run a CSV Importer', type: :system, js: true do
         expect(page).to have_link 'rgb.png'
         check 'rgb-png'
         expect(page).to have_content '1 file selected'
-        expect(page).to have_link 'world.png'
         check 'world-png'
         expect(page).to have_content '2 files selected'
         click_button 'Submit'

@@ -16,16 +16,14 @@ module CatalogHelper
       representative_document = ::SolrDocument.find(document.thumbnail_id)
     end
 
-    thumbnail_file_id = representative_document&.content_location
-    thumbnail_file_id ||= representative_document.original_file_id
+    thumbnail_file_id = representative_document.original_file_id
     if thumbnail_file_id
       Hyrax.config.iiif_image_url_builder.call(thumbnail_file_id, nil, '250,')
     else
       raise 'thumbnail_file_id is nil'
     end
 
-  rescue StandardError => e
-    Hyrax.logger.warn { "Failed to resolve thumbnail url for #{document&.id}: #{e.message}" }
+  rescue
     image_path 'default.png'
   end
 end

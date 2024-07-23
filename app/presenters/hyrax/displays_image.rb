@@ -32,7 +32,6 @@ module Hyrax
     end
 
     def lookup_original_file_id
-      return solr_document.content_location if solr_document.content_location&.start_with?('s3://')
       result = original_file_id
       if result.blank?
         Rails.logger.warn "original_file_id for #{id} not found, falling back to Fedora."

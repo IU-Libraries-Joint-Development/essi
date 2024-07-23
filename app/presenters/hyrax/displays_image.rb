@@ -41,6 +41,16 @@ module Hyrax
       result
     end
 
+    private
+
+      def iiif_endpoint(file_id)
+        return unless Hyrax.config.iiif_image_server?
+        IIIFManifest::IIIFEndpoint.new(
+          Hyrax.config.iiif_info_url_builder.call(file_id, request.base_url),
+          profile: Hyrax.config.iiif_image_compliance_level_uri
+        )
+      end
+
       # @todo remove after upgrade to Hyrax 3.x
       # cherry-picked from Hyrax 3.x VersioningService
       # @param [ActiveFedora::File | Hyrax::FileMetadata] content

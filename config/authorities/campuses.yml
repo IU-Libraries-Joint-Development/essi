@@ -5,12 +5,12 @@
   :url: https://www.indiana.edu
   :img_src: campuses/iub.jpg
   :img_alt: The Sample Gates at IU Bloomington
-- :id: IUPUI
-  :term: IUPUI
+- :id: IUI
+  :term: IU Indianapolis
   :active: true
-  :url: https://www.iupui.edu
-  :img_src: campuses/iupui.jpg
-  :img_alt: The Campus Center at IUPUI
+  :url: https://library.indianapolis.iu.edu
+  :img_src: campuses/iui.jpg
+  :img_alt: University Library at IU Indianapolis
 - :id: IUPUC
   :term: IUPUC
   :active: true

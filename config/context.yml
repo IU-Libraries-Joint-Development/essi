@@ -30,7 +30,7 @@
   coverage:
     "@id": dc:coverage
   creator:
-    "@id": dc:creator
+    "@id": dcterms:creator
   date:
     "@id": dc:date
   description:
@@ -48,7 +48,7 @@
   source:
     "@id": dc:source
   subject:
-    "@id": dc:subject
+    "@id": dcterms:subject
   type:
     "@id": dc:type
   date_created:
@@ -61,7 +61,7 @@
   purl:
     "@id": dc:identifier
   date_published:
-    "@id": dcterms:issued
+    "@id": dcterms:date
   modified:
     "@id": dcterms:modified
   replaces:

@@ -5,18 +5,18 @@
   :url: https://www.indiana.edu
   :img_src: campuses/iub.jpg
   :img_alt: The Sample Gates at IU Bloomington
-- :id: IUPUI
-  :term: IUPUI
+- :id: IUI
+  :term: IU Indianapolis
   :active: true
-  :url: https://www.iupui.edu
-  :img_src: campuses/iupui.jpg
-  :img_alt: The Campus Center at IUPUI
-- :id: IUPUC
-  :term: IUPUC
+  :url: https://library.indianapolis.iu.edu
+  :img_src: campuses/iui.jpg
+  :img_alt: Front of University Library building at IU Indianapolis
+- :id: IUC
+  :term: IU Columbus
   :active: true
-  :url: https://www.iupuc.edu
+  :url: https://columbus.iu.edu/
   :img_src: campuses/iupuc.jpg
-  :img_alt: Two people sit at a table looking at a book on the Indiana University Purdue University Columbus campus 
+  :img_alt: Two people sit at a table looking at a book on the Indiana University Columbus campus 
 - :id: IUE
   :term: IU East
   :active: true

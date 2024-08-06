@@ -1,5 +1,3 @@
-version: '3.7'
-
 x-app:
   &default-app
   image: "${REGISTRY_HOST}${REGISTRY_URI}:${TAG}"
@@ -84,10 +82,10 @@ services:
       MINIO_ROOT_PASSWORD: Essi12345
       MINIO_DEFAULT_BUCKETS: 'essi-dev,essi-test'
     volumes:
-      - minio:/data
+      - minio:/bitnami/minio/data
 
   cantaloupe:
-    image: uclalibrary/cantaloupe:5.0.6-2
+    image: uclalibrary/cantaloupe:5.0.6-4
     ports:
       - '8182:8182'
     environment:
@@ -106,7 +104,7 @@ services:
       CANTALOUPE_FEDORA_PATH: /rest/dev
       CANTALOUPE_PROCESSOR_SELECTION_STRATEGY: ManualSelectionStrategy
       CANTALOUPE_MANUAL_PROCESSOR_JPG: Java2dProcessor
-      CANTALOUPE_MANUAL_PROCESSOR_JP2: GrokProcessor
+      CANTALOUPE_MANUAL_PROCESSOR_JP2: OpenJpegProcessor
       CANTALOUPE_PROCESSOR_STREAM_RETRIEVAL_STRATEGY: StreamStrategy
       CANTALOUPE_PROCESSOR_FALLBACK_RETRIEVAL_STRATEGY: CacheStrategy
       CANTALOUPE_CACHE_SERVER_SOURCE_ENABLED: "true"

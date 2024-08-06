@@ -8,6 +8,8 @@ module Hyrax
   module DisplaysImage
     extend ActiveSupport::Concern
 
+    delegate :content_location, to: :solr_document
+
     # Creates a display image only where FileSet is an image.
     #
     # @return [IIIFManifest::DisplayImage] the display image required by the manifest builder.
@@ -32,7 +34,7 @@ module Hyrax
     end
 
     def lookup_original_file_id
-      return solr_document.content_location if solr_document.content_location&.start_with?('s3://')
+      return content_location if content_location&.start_with?('s3://')
       result = original_file_id
       if result.blank?
         Rails.logger.warn "original_file_id for #{id} not found, falling back to Fedora."

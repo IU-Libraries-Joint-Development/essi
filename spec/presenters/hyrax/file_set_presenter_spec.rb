@@ -20,6 +20,9 @@ RSpec.describe Hyrax::FileSetPresenter do
     it '.campus_logo is available' do
       expect(subject).to respond_to(:campus_logo)
     end
+    it '.content_location is available' do
+      expect(subject).to respond_to(:content_location)
+    end
   end
 
   context 'When campus_logos is not configured' do

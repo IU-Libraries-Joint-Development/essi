@@ -8,7 +8,7 @@
   state: 'IN'
   zip: '47405'
   phone: '812-855-9247'
-  email: 'tmsarch@indiana.edu'
+  email: 'tmsarch@iu.edu'
   url: 'https://mediaschool.indiana.edu/about/archive.html'
   urlHours: 'https://mediaschool.indiana.edu/about/facilities/index.html'
   latitude: '39.166887'
@@ -38,7 +38,7 @@
   state: 'IN'
   zip: '47408'
   phone: 812-855-6873
-  email: iumaa@indiana.edu
+  email: iumaa@iu.edu
   url: https://iumaa.iu.edu/
   urlHours: 
   latitude: '39.1700233'
@@ -53,7 +53,7 @@
   state: 'IN'
   zip: '47401'
   phone: 812-855-6224
-  email: libwylie@indiana.edu
+  email: libwylie@iu.edu
   url: https://libraries.indiana.edu/wylie-house-museum
   urlHours: https://libraries.indiana.edu/wylie-house-museum
   latitude: '39.1616539'
@@ -99,8 +99,8 @@
   zip: '47405'
   phone: '812-855-4627'
   email: 'ksrichar@iu.edu'
-  url: 'https://eskenazi.indiana.edu/exhibitions/sage-collection/index.html'
-  urlHours: 'https://eskenazi.indiana.edu/exhibitions/sage-collection/index.html'
+  url: 'https://eskenazi.indiana.edu/about/centers-collections/sage-collection/index.html'
+  urlHours: 'https://eskenazi.indiana.edu/exhibitions/sage-collection-exhibitions/index.html'
   latitude: '39.1689179'
   longitude: '-86.5189909'
   parking: https://parking.indiana.edu/

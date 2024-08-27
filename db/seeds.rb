@@ -31,7 +31,7 @@ end
 
 puts "\n== Adding user to admin role"
 admin = Role.create(name: "admin")
-admin.users << User.first
+admin.users << User.first if User.first && admin.users.blank?
 admin.save
 
 puts "\n== Loading workflows"

@@ -6,8 +6,13 @@ Bulkrax.setup do |config|
 
   # Add local parsers
   config.parsers += [
-    { name: 'METS XML', class_name: 'Bulkrax::MetsXmlParser', partial: 'mets_xml_fields' },
+    # @todo drop or fix -- currently broken, retaining at PO request
+    { name: 'METS XML (currently broken)', class_name: 'Bulkrax::MetsXmlParser', partial: 'mets_xml_fields' },
+    { name: 'XML (currently broken)', class_name: 'Bulkrax::XmlParser', partial: 'xml_fields' },
   ]
+
+  # remove incomplete XML parser
+  config.parsers.reject! { |parser| parser[:name] == 'XML' }
 
   # Field to use during import to identify if the Work or Collection already exists.
   # Default is 'source'.

@@ -35,6 +35,7 @@ module ESSI
             if prop.indexing.include?("facetable")
               name = solr_name(prop.name.to_s, :facetable)
               facet_args = { label: label }
+              facet_args.merge!({ limit: true }) # @todo read value from property config, if supplied
               if prop.indexing.include?("admin_only")
                 facet_args[:if] = lambda { |context, _field_config, _document| context.try(:current_user)&.admin? }
               end

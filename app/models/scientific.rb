@@ -1,7 +1,6 @@
 # Generated via
 #  `rails generate hyrax:work Scientific`
 class Scientific < ActiveFedora::Base
-  include ESSI::ScientificBehavior
   include ::Hyrax::WorkBehavior
   include StructuralMetadata
   include ExtraLockable

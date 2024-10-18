@@ -1,7 +1,6 @@
 # Generated via
 #  `rails generate hyrax:work Image`
 class Image < ActiveFedora::Base
-  include ESSI::ImageBehavior
   include ::Hyrax::WorkBehavior
   include StructuralMetadata
   include ExtraLockable

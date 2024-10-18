@@ -1,7 +1,6 @@
 # Generated via
 #  `rails generate hyrax:work ArchivalMaterial`
 class ArchivalMaterial < ActiveFedora::Base
-  include ESSI::ArchivalMaterialBehavior
   include ::Hyrax::WorkBehavior
   include StructuralMetadata
   include ExtraLockable

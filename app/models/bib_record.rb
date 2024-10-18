@@ -1,7 +1,6 @@
 # Generated via
 #  `rails generate hyrax:work BibRecord`
 class BibRecord < ActiveFedora::Base
-  include ESSI::BibRecordBehavior
   include ::Hyrax::WorkBehavior
   include StructuralMetadata
   include ExtraLockable

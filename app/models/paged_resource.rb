@@ -1,7 +1,6 @@
 # Generated via
 #  `rails generate hyrax:work PagedResource`
 class PagedResource < ActiveFedora::Base
-  include ESSI::PagedResourceBehavior
   include ::Hyrax::WorkBehavior
   include StructuralMetadata
   include ExtraLockable

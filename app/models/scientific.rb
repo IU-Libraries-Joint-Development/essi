@@ -13,9 +13,6 @@ class Scientific < ActiveFedora::Base
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
 
-  # This model includes metadata properties specific to the Scientific Work Type
-  # include ESSI::ScientificMetadata
-
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
 

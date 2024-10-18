@@ -14,9 +14,6 @@ class PagedResource < ActiveFedora::Base
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
 
-  # This model includes metadata properties specific to the PagedResource Work Type
-  # include ESSI::PagedResourceMetadata
-
   # Include properties for remote metadata lookup
   include ESSI::RemoteLookupMetadata
 

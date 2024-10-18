@@ -8,7 +8,6 @@ class ArchivalMaterial < ActiveFedora::Base
   include ESSI::NumPagesBehavior
   include ESSI::OCRBehavior
   include ESSI::PDFBehavior
-  #include ESSI::PDFMetadata
   include ESSI::PDFDefaultDownloadable
 
   self.indexer = ArchivalMaterialIndexer

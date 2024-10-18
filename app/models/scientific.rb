@@ -5,7 +5,6 @@ class Scientific < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
   include StructuralMetadata
   include ExtraLockable
-  # include ESSI::NumPagesMetadata
   include ESSI::NumPagesBehavior
   include ESSI::OCRBehavior
   # include ESSI::OCRMetadata

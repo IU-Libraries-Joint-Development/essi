@@ -7,7 +7,6 @@ class BibRecord < ActiveFedora::Base
   include ExtraLockable
   include ESSI::NumPagesBehavior
   include ESSI::OCRBehavior
-  # include ESSI::OCRMetadata
 
   self.indexer = BibRecordIndexer
   # Change this to restrict which works can be added as a child.

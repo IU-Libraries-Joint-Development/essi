@@ -7,7 +7,6 @@ class Scientific < ActiveFedora::Base
   include ExtraLockable
   include ESSI::NumPagesBehavior
   include ESSI::OCRBehavior
-  # include ESSI::OCRMetadata
 
   self.indexer = ScientificIndexer
   # Change this to restrict which works can be added as a child.

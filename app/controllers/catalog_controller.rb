@@ -76,7 +76,7 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name('member_of_collection_ids', :symbol),
       limit: true, label: 'Collections', helper_method: :collection_title_by_id
     config.add_facet_field 'workflow_state_name_ssim', label: 'State'
-    config.add_facet_field solr_name("campus", :facetable), label: 'Campus', limit: true
+    config.add_facet_field solr_name("campus", :facetable), label: 'Campus', limit: true, helper_method: :campus_label
 
     # The generic_type isn't displayed on the facet list
     # It's used to give a label to the filter that comes from the user profile

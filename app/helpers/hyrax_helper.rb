@@ -4,4 +4,5 @@ module HyraxHelper
   include Hyrax::HyraxHelperBehavior
   include AllinsonFlex::AllinsonFlexHelper
   include AllinsonFlex::AllinsonFlexModifiedHelper
+  include ::FacetHelper
 end

@@ -10,5 +10,9 @@
       required: f.object.required?(key),
       hint: dynamic_hint(key) %>
 <% end %>
+<p class="help-block">
+  For the following work types, the value above is saved and can be used to retrieve remote metadata: Archival Material, Paged Resource, Bib Record<br/>
+  For the remaining work types, the value is saved but cannot be used to retrieve or refresh remote metadata: Image, Scientific
+</p>
 <%= check_box_tag :refresh_remote_metadata, 1, false %>
 <label for="refresh_metadata">Refresh metadata from <%= t('services.metadata') %></label>

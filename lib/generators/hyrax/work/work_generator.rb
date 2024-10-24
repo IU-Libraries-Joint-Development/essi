@@ -197,10 +197,7 @@ class Hyrax::WorkGenerator < Rails::Generators::NamedBase
     end
 
     def metadata_mixin
-      "\n # Include extended metadata common to most Work Types\n" \
-          "  include ESSI::ExtendedMetadata\n" \
-      "\n  # This model includes metadata properties specific to the #{@archetype_name} Work Type\n" \
-          "  include ESSI::#{@archetype_name}Metadata\n"
+
     end
 
     def controller_mixin

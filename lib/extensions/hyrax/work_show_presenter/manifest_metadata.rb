@@ -15,16 +15,8 @@ module Extensions
           iiif_manifest_presenter.manifest_metadata(fields: sorted_manifest_fields)
         end
 
-        def static_iiif_metadata_fields
-          ::Hyrax.config.iiif_metadata_fields
-        end
-
         def public_view_properties
           @public_view_properties ||= dynamic_schema_service.view_properties.reject { |k,v| v[:admin_only] }
-        end
-
-        def label_for(field)
-          public_view_properties.dig(field, :label) || I18n.t("simple_form.labels.defaults.#{field}", default: field.to_s.humanize)
         end
 
         Field = Struct.new(:name, :value, :indexing, keyword_init: true)

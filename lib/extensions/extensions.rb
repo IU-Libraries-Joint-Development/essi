@@ -24,7 +24,6 @@ IIIFManifest::ManifestBuilder::ImageBuilder.prepend Extensions::IIIFManifest::Ma
 Hyrax::Forms::FileManagerForm.include Extensions::Hyrax::Forms::FileManagerForm::ViewingMetadata
 Hyrax::FileSetPresenter.include Extensions::Hyrax::FileSetPresenter::ViewingHint
 
-# TODO: determine if needed?
 # iiif manifest support for parent work when using IIIF Print
 # this is responsible for displaying the parent metadata above the child metadata in the UV metadata pane
 Hyrax::WorkShowPresenter.prepend Extensions::Hyrax::WorkShowPresenter::ManifestMetadata
@@ -172,6 +171,10 @@ IiifPrint::IiifSearchDecorator.include Extensions::IiifPrint::IiifSearchDecorato
 
 # Patch iiif_print FileSet job calls
 IiifPrint::Data.include Extensions::IiifPrint::Data::InheritPermissionsJobCalls
+
+# Patch iiif_print manifest metadata
+IiifPrint.include Extensions::IiifPrint::ManifestMetadata
+IiifPrint::IiifManifestPresenterBehavior.include Extensions::IiifPrint::IiifManifestPresenterBehavior::ManifestMetadata
 
 # support for nested works generating file_set sequences in manifests
 IIIFManifest::ManifestBuilder::DeepFileSetEnumerator.prepend Extensions::IIIFManifest::ManifestBuilder::DeepFileSetEnumerator::NestedEach

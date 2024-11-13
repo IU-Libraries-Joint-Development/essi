@@ -42,7 +42,9 @@ class CollectionBrandingInfo < ApplicationRecord
       user = User.find_by_user_key(user_key)
       attach_file_set(uploaded_file, user)
     end
-    super()
+    result = super()
+    file_set&.save
+    return result
   end
 
   def file_set_image_path

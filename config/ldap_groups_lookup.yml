@@ -1,9 +1,0 @@
-:enabled: <%= ESSI.config["ldap"]["enabled"] || false %>
-:host: <%= ESSI.config["ldap"]["host"] || "ads.example.edu" %>
-:auth:
-  :method: :simple
-  :username: cn=<%= ESSI.config["ldap"]["user"] || 'guest,ou=Accounts,dc=ads,dc=example,dc=net' %>
-  :password: <%= ESSI.config["ldap"]["pass"] || 'changeme' %>
-:tree: <%= ESSI.config["ldap"]["tree"] || 'dc=ads,dc=example,dc=net' %>
-:account_ou: <%= ESSI.config["ldap"]["account_ou"] || 'ou=Accounts' %>
-:group_ou: <%= ESSI.config["ldap"]["group_ou"] || 'ou=Groups' %>

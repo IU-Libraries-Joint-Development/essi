@@ -12,19 +12,23 @@ module Extensions
           # Using IIIF Print's approach to display parent metadata
           iiif_manifest_presenter = ::Hyrax::IiifManifestPresenter.new(self)
           iiif_manifest_presenter.ability = current_ability
-          iiif_manifest_presenter.manifest_metadata
-        end
-
-        def static_iiif_metadata_fields
-          ::Hyrax.config.iiif_metadata_fields
+          iiif_manifest_presenter.manifest_metadata(fields: sorted_manifest_fields)
         end
 
         def public_view_properties
           @public_view_properties ||= dynamic_schema_service.view_properties.reject { |k,v| v[:admin_only] }
         end
 
-        def label_for(field)
-          public_view_properties.dig(field, :label) || I18n.t("simple_form.labels.defaults.#{field}", default: field.to_s.humanize)
+        Field = Struct.new(:name, :value, :indexing, keyword_init: true)
+
+        def manifest_fields
+          @manifest_fields ||= dynamic_schema_service.send(:properties).map do |prop|
+            Field.new(name: prop[0], value: prop[1][:display_label], indexing: prop[1][:indexing])
+          end
+        end
+
+        def sorted_manifest_fields
+          @sorted_manifest_fields ||= ::IiifPrint.fields_for_allinson_flex(fields: manifest_fields)
         end
       end
     end

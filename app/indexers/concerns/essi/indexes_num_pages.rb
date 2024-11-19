@@ -4,12 +4,6 @@ module ESSI
   module IndexesNumPages
     extend ActiveSupport::Concern
 
-    included do
-      self.new(nil).rdf_service.class_eval do
-        self.stored_and_facetable_fields += %i[num_pages]
-      end
-    end
-
     # added to properly drop "m" from number_of_pages indexing
     def generate_solr_document
       super.tap do |solr_doc|

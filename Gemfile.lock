@@ -607,7 +607,7 @@ GEM
       rdf-xsd (~> 3.2)
       sparql (~> 3.2)
       sxp (~> 1.2)
-    ldap_groups_lookup (0.10.0)
+    ldap_groups_lookup (0.11.0)
       net-ldap
     ldp (1.0.3)
       deprecation
@@ -1127,7 +1127,7 @@ DEPENDENCIES
   iso-639
   jbuilder (~> 2.5)
   jquery-rails
-  ldap_groups_lookup (~> 0.10.0)
+  ldap_groups_lookup (~> 0.11.0)
   listen (>= 3.0.5, < 3.2)
   marc (~> 1.0.0)
   mysql2
@@ -1164,4 +1164,4 @@ DEPENDENCIES
   willow_sword!
 
 BUNDLED WITH
-   2.4.22
+   2.4.12

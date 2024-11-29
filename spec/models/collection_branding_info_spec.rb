@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CollectionBrandingInfo, type: :model do
   let(:banner) { FactoryBot.build(:collection_branding_banner) }
-  let(:file_set) { double(id: 'file_set_id', uri: 'file_set_uri') }
+  let(:file_set) { FactoryBot.create(:file_set, id: 'file_set_id', uri: 'file_set_uri') }
   let(:version) { double(uri: 'version_uri') }
   let(:versions) { double(any?: true, all: self, last: version) }
 

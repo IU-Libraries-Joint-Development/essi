@@ -7,10 +7,21 @@ module ESSI
     def generate_solr_document
       super.tap do |solr_doc|
         parent = object.parent
-        unless parent.nil?
+        collection_branding_info = object.collection_branding_info
+        if parent
+          solr_doc['parented_bsi'] = true
+          solr_doc['collection_branding_bsi'] = false
           solr_doc['is_page_of_ssi'] = parent.id
           solr_doc['parent_path_tesi'] = Rails.application.routes.url_helpers.polymorphic_path(parent)
+        elsif collection_branding_info
+          solr_doc['parented_bsi'] = false
+          solr_doc['collection_branding_bsi'] = true
+          solr_doc['is_collection_brand_of_ssi'] = collection_branding_info.collection_id
+        else
+          solr_doc['parented_bsi'] = false
+          solr_doc['collection_branding_bsi'] = false
         end
+
         solr_doc['word_boundary_tsi'] = IiifPrint::TextExtraction::AltoReader.new(object.extracted_text.content).json if object.extracted_text.present?
         solr_doc[Solrizer.solr_name('iiif_index_strategy')] = IndexerHelper.iiif_index_strategy
 

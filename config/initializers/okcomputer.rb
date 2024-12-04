@@ -29,7 +29,7 @@ Rails.application.configure do
 
     checks.register "cache", OkComputer::GenericCacheCheck.new
 
-    iiif_url = ESSI.config[:cantaloupe][:iiif_server_url]
+    iiif_url = ESSI.config[:cantaloupe][:iiif_server_url].chomp('/')
     checks.register "iiif", OkComputer::HttpCheck.new(iiif_url)
 
     solr_url = ESSI.config[:solr][:url]

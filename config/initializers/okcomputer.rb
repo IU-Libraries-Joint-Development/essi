@@ -29,7 +29,7 @@ Rails.application.configure do
 
     checks.register "cache", OkComputer::GenericCacheCheck.new
 
-    iiif_url = ESSI.config[:cantaloupe][:iiif_server_url]
+    iiif_url = ESSI.config[:cantaloupe][:iiif_server_url].chomp('/')
     checks.register "iiif", OkComputer::HttpCheck.new(iiif_url)
 
     solr_url = ESSI.config[:solr][:url]
@@ -41,6 +41,8 @@ Rails.application.configure do
     auth_options = [fcrepo_user, fcrepo_password]
     checks.register "fcrepo", EssiDevOps::FcrepoCheck.new(fcrepo_url, 10,
                                                         auth_options)
+
+    checks.register "external_storage", EssiDevOps::ExternalStorageCheck.new
 
     checks.register "image_sync", EssiDevOps::ImageSyncCheck.new if File.file?('/run/secrets/distributed_deployment')
 

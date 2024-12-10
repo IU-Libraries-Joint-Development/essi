@@ -75,6 +75,14 @@ module ESSI
       end
     end
 
+    # Health check of external storage bucket
+    # @return boolean
+    def health
+      @external_storage_pool.with do |client|
+        client.head_bucket(bucket: @bucket).successful?
+      end
+    end
+
     def id_to_http_uri(id)
       "#{endpoint}/#{@bucket}/#{prefix_id(id)}"
     end

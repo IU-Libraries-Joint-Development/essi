@@ -3,7 +3,7 @@ module EssiDevOps
   include OkComputer
   class ExternalStorageCheck < Check
     def check
-      if ESSI::ExternalStorageService.health
+      if ESSI.external_storage.health
         mark_message "External storage is up"
       else
         raise "External storage check failed"

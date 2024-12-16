@@ -13,6 +13,9 @@ ActiveFedora::Aggregation::ListSource.class_eval do
   end
 end
 
+# external storage download support
+Hyrax::DownloadsController.prepend Extensions::Hyrax::DownloadsController::ExternalStorage
+
 # extracted text support
 Hyrax::DownloadsController.prepend Extensions::Hyrax::DownloadsController::ExtractedText
 Hyrax::FileSetPresenter.include Extensions::Hyrax::FileSetPresenter::ExtractedText

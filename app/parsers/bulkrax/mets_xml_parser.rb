@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# @todo update for bulkrax 5+, where XML import isn't fully supported; currently broken
 module Bulkrax
   class MetsXmlParser < ApplicationParser
     def entry_class
@@ -14,6 +15,9 @@ module Bulkrax
 
     # @todo not yet supported
     def import_fields; end
+
+    # @todo not yet supported
+    def file_set_entry_class; end
 
     def valid_import?
       raise StandardError, 'No metadata files found' if metadata_paths.blank?

@@ -76,6 +76,8 @@ Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::Mapping
 Bulkrax::Importer.prepend Extensions::Bulkrax::Importer::Mapping
 # feature change: drop forced capitalization of subject
 Bulkrax::ApplicationMatcher.prepend Extensions::Bulkrax::ApplicationMatcher::ParseSubject
+# feature removal: drop support for files export
+Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::ExportMetadataOnly
 
 ### IIIF Print, quick and dirty way to get the FileSetActor to load after CreateWithFilesActor
 Hyrax::Actors::FileSetActor.prepend(IiifPrint::Actors::FileSetActorDecorator)

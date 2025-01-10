@@ -31,7 +31,18 @@ class Ability
 
   # bulkrax export
   def can_export_works?
-    can_create_any_work?
+    current_user.admin? || can_manage_works?
+  end
+
+  def can_manage_works?
+    @can_manage_works ||= begin
+      managing_role = Sipity::Role.find_by(name: Hyrax::RoleRegistry::MANAGING)
+      return false unless managing_role
+      Hyrax::Workflow::PermissionQuery.scope_processing_agents_for(user: current_user).any? do |agent|
+        agent.workflow_responsibilities.joins(:workflow_role)
+             .where('sipity_workflow_roles.role_id' => managing_role.id).any?
+      end
+    end
   end
 
   # Modified method from blacklight-access_controls Blacklight::AccessControls::Ability

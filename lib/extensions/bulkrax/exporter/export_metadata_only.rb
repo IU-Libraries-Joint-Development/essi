@@ -3,6 +3,24 @@ module Extensions
   module Bulkrax
     module Exporter
       module ExportMetadataOnly
+        # unmodified from bulkrax
+        def export_from_list
+          if defined?(::Hyrax)
+            [
+              [I18n.t('bulkrax.exporter.labels.importer'), 'importer'],
+              [I18n.t('bulkrax.exporter.labels.collection'), 'collection'],
+              [I18n.t('bulkrax.exporter.labels.worktype'), 'worktype'],
+              [I18n.t('bulkrax.exporter.labels.all'), 'all']
+            ]
+          else
+            [
+              [I18n.t('bulkrax.exporter.labels.importer'), 'importer'],
+              [I18n.t('bulkrax.exporter.labels.collection'), 'collection'],
+              [I18n.t('bulkrax.exporter.labels.all'), 'all']
+            ]
+          end
+        end
+
         # modified to remove option for files export
         def export_type_list
           [

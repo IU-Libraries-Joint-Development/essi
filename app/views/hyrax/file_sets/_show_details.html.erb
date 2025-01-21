@@ -1,6 +1,6 @@
 <h2>File Details</h2>
 <dl class="dl-horizontal file-show-term file-show-details">
-  <% if current_ability&.can?(:edit, @presenter.parent.id) %>
+  <% if @presenter.parent&.id && current_ability&.can?(:edit, @presenter.parent.id) %>
   <dt>Depositor</dt>
   <dd itemprop="accountablePerson" itemscope itemtype="http://schema.org/Person"><span itemprop="name"><%= link_to_profile @presenter.depositor %></span></dd>
   <% end %>

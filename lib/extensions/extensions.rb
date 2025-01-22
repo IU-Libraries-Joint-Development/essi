@@ -76,6 +76,8 @@ Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::Mapping
 Bulkrax::Importer.prepend Extensions::Bulkrax::Importer::Mapping
 # feature change: drop forced capitalization of subject
 Bulkrax::ApplicationMatcher.prepend Extensions::Bulkrax::ApplicationMatcher::ParseSubject
+# bugfix: drop nil values transforming into "[]" strings for single-valued properties
+Bulkrax::ApplicationMatcher.prepend Extensions::Bulkrax::ApplicationMatcher::NilResult
 # feature removal: drop support for files export
 Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::ExportMetadataOnly
 

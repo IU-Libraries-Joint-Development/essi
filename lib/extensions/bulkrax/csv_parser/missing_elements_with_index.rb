@@ -1,4 +1,4 @@
-# unmodified from bulkrax 5.5.1
+# modified from bulkrax 5.5.1
 module Extensions
   module Bulkrax
     module CsvParser
@@ -10,10 +10,15 @@ module Extensions
           # However, there's no guarantee.  So, we need to ensure that by running stringify.
           importerexporter.mapping.stringify_keys.map do |k, v|
             ::Array.wrap(v['from']).each do |vf|
-              keys << k if keys_from_record.include?(vf)
+              # below line modified to allow title_1 (from an export CSV) to pass for title
+              keys << unindex(k) if keys_from_record.include?(unindex(vf))
             end
           end
           required_elements.map(&:to_s) - keys.uniq.map(&:to_s)
+        end
+
+        def unindex(key)
+          key.sub(/_1$/, '')
         end
       end
     end

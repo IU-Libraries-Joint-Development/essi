@@ -78,6 +78,9 @@ Bulkrax::Importer.prepend Extensions::Bulkrax::Importer::Mapping
 Bulkrax::ApplicationMatcher.prepend Extensions::Bulkrax::ApplicationMatcher::ParseSubject
 # bugfix: drop nil values transforming into "[]" strings for single-valued properties
 Bulkrax::ApplicationMatcher.prepend Extensions::Bulkrax::ApplicationMatcher::NilResult
+# bugfix: recognize title_1 as valid instance of required title field for import
+Bulkrax::ApplicationParser.prepend Extensions::Bulkrax::ApplicationParser::RequiredElementsWithIndex
+Bulkrax::CsvParser.prepend Extensions::Bulkrax::CsvParser::MissingElementsWithIndex
 # feature removal: drop support for files export
 Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::ExportMetadataOnly
 

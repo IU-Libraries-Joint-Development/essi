@@ -3,7 +3,7 @@ class IIIFCollectionThumbnailPathService < Hyrax::CollectionThumbnailPathService
     # @return the network path to the thumbnail
     # @param [FileSet] thumbnail the object that is the thumbnail
     def thumbnail_path(thumbnail)
-      Hyrax.config.iiif_image_url_builder.call(thumbnail.original_file.id, nil, '250,')
+      IIIFFileSetPathService.new(thumbnail).iiif_image_url(size: '250,')
       # Hyrax::Engine.routes.url_helpers.download_path(thumbnail.id,
       #                                                file: 'thumbnail')
     end

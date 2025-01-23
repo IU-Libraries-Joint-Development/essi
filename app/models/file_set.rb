@@ -22,4 +22,20 @@ class FileSet < ActiveFedora::Base
      ESSI.config.dig(:essi, :ocr_language),
      'eng'].map { |l| Tesseract.try_languages(l) }.select(&:present?).first
   end
+
+  # @todo revisit after Hyrax 3.x upgrade
+  # copied from Hyrax::FileSetIndexer to provide a common interface across:
+  # - FileSet
+  # - SolrDocument
+  # - Hyrax::FileSetPresenter, initialized with either of above
+  def original_file_id
+    @original_file_id ||= begin
+      return unless self.original_file
+      if self.original_file.versions.present?
+        ActiveFedora::File.uri_to_id(self.current_content_version_uri)
+      else
+        self.original_file.id
+      end
+    end
+  end
 end

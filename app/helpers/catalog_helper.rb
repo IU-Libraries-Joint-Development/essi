@@ -15,11 +15,9 @@ module CatalogHelper
     else
       representative_document = ::SolrDocument.find(document.thumbnail_id)
     end
-
-    thumbnail_file_id = representative_document&.content_location
-    thumbnail_file_id ||= representative_document.original_file_id
-    if thumbnail_file_id
-      Hyrax.config.iiif_image_url_builder.call(thumbnail_file_id, nil, '250,')
+    iiif_path_service = IIIFFileSetPathService.new(representative_document)
+    if iiif_path_service.lookup_id
+      iiif_path_service.iiif_image_url(size: '250,')
     else
       raise 'thumbnail_file_id is nil'
     end

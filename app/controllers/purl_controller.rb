@@ -76,7 +76,7 @@ class PurlController < ApplicationController
 
     def jp2_url(solr_hit)
       begin
-        Hyrax.config.iiif_image_url_builder.call(solr_hit['original_file_id_ssi'], nil, '!600,600')
+        IIIFFileSetPathService.new(solr_hit).iiif_image_url(size: '!600,600')
       rescue StandardError
         nil
       end

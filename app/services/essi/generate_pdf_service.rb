@@ -44,7 +44,9 @@ module ESSI
           fs_solr = SolrDocument.find(fs)
           image_width = get_image_width(fs_solr).to_i
           raise StandardError, 'Image width unavailable' unless image_width > 0 # IIIF server call requires a positive integer value
-          uri = Hyrax.config.iiif_image_url_builder.call(fs_solr.original_file_id, nil, render_dimensions(image_width))
+          iiif_path_service = IIIFFileSetPathService.new(fs_solr)
+          raise StandardError, 'Source image file unavailable' unless iiif_path_service.lookup_id
+          uri = iiif_path_service.iiif_image_url(size: render_dimensions(image_width))
           URI.open(uri) do |file|
             page_size = [CoverPageGenerator::LETTER_WIDTH, CoverPageGenerator::LETTER_HEIGHT]
             file.binmode

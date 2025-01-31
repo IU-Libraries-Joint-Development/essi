@@ -24,7 +24,7 @@ module Hyrax
 
     private
       def iiif_path_service
-        @iiif_path_service ||= IIIFFileSetPathService.new(solr_document, versioned_lookup: true)
+        @iiif_path_service ||= IIIFFileSetPathService.new(solr_document)
       end
 
       def iiif_endpoint

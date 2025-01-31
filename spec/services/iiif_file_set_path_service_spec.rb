@@ -14,7 +14,7 @@ RSpec.describe IIIFFileSetPathService do
   let(:file_set_presenter) { Hyrax::FileSetPresenter.new(source, Ability.new(FactoryBot.build(:user))) }
   let(:versioned_lookup) { false } # default, override when desired
   # must explicitly define :resource
-  let(:service) { described_class.new(resource, versioned_lookup: versioned_lookup) }
+  let(:service) { described_class.new(resource) }
 
   # requires defining lookup_id, url
   shared_examples "url examples" do
@@ -41,23 +41,14 @@ RSpec.describe IIIFFileSetPathService do
     end
     context "with versioned_file_id lookup" do
       let(:file_set) { empty_file_set }
-      let(:versioned_lookup) { true }
-      context "that fails" do
-        it "returns nil" do
-          expect(lookup_id).to be_nil
-          expect(url).to be_nil
-        end
+      before do
+        allow(service).to receive(:original_file).and_return(local_file_set.original_file)
       end
-      context "that succeeds" do
-        before do
-          allow(service).to receive(:original_file).and_return(local_file_set.original_file)
-        end
-        it "returns a url" do
-          expect(lookup_id).not_to match /^s3/
-          expect(url).to match /^http/
-          # below is proxy check that #versioned_file_id was called
-          expect(service.instance_variable_get(:@versioned_file_id)).not_to be_nil
-        end
+      it "returns a url" do
+        expect(lookup_id).not_to match /^s3/
+        expect(url).to match /^http/
+        # below is proxy check that #versioned_file_id was called
+        expect(service.instance_variable_get(:@versioned_file_id)).not_to be_nil
       end
     end
   end

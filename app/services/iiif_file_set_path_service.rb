@@ -1,10 +1,8 @@
 class IIIFFileSetPathService
-  attr_reader :file_set, :versioned_lookup
+  attr_reader :file_set
 
   # @param [ActiveFedora::SolrHit, FileSet, Hash, SolrDocument, Hyrax::FileSetPresenter] file_set
-  # @param [TrueClass, FalseClass, NilClass] versioned_lookup: whether to use versioned file lookup if original_file_id fails
-  def initialize(file_set, versioned_lookup: false)
-    @versioned_lookup = versioned_lookup
+  def initialize(file_set)
     file_set = SolrDocument.new(file_set) if file_set.class.in? [ActiveFedora::SolrHit, Hash]
     if [:id, :content_location, :original_file_id].map { |m| file_set.respond_to?(m) }.all?
       @file_set = file_set
@@ -14,7 +12,7 @@ class IIIFFileSetPathService
   end
 
   def lookup_id
-    @lookup_id ||= (@versioned_lookup ? versioned_lookup_id : basic_lookup_id)
+    @lookup_id ||= versioned_lookup_id
   end
 
   # @return [String] a URL that resolves to an image provided by a IIIF image server
@@ -30,27 +28,18 @@ class IIIFFileSetPathService
   end
 
   private
-    # imported logic from IIIFThumbnailPathService, etc
-    def basic_lookup_id
-      @basic_lookup_id ||= (file_set.content_location || file_set.original_file_id)
-    end
-
-    # imported from Hyrax::DisplaysImage
     def versioned_lookup_id
-      @versioned_lookup_id ||= begin
-        result = basic_lookup_id
-        if result.blank?
-          Rails.logger.warn "original_file_id for #{file_set.id} not found, falling back to Fedora."
-          # result = Hyrax::VersioningService.versioned_file_id(original_file)
-          result = versioned_file_id(original_file) if original_file
-
-        end
-        if result.blank?
-          Rails.logger.warn "original_file for #{file_set.id} not found, versioned_lookup_id failed."
-          nil
-        else
-          result
-        end
+      result = file_set.content_location || file_set.original_file_id
+      if result.blank?
+        Rails.logger.warn "original_file_id for #{file_set.id} not found, falling back to Fedora."
+        # result = Hyrax::VersioningService.versioned_file_id(original_file)
+        result = versioned_file_id(original_file) if original_file
+      end
+      if result.blank?
+        Rails.logger.warn "original_file for #{file_set.id} not found, versioned_lookup_id failed."
+        nil
+      else
+        result
       end
     end
 

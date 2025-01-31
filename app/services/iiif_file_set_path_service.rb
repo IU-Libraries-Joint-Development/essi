@@ -38,8 +38,7 @@ class IIIFFileSetPathService
     # imported from Hyrax::DisplaysImage
     def versioned_lookup_id
       @versioned_lookup_id ||= begin
-        return file_set.content_location if file_set.content_location&.start_with?('s3://')
-        result = file_set.original_file_id
+        result = basic_lookup_id
         if result.blank?
           Rails.logger.warn "original_file_id for #{file_set.id} not found, falling back to Fedora."
           # result = Hyrax::VersioningService.versioned_file_id(original_file)

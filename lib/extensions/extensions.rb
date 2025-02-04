@@ -178,6 +178,7 @@ IiifPrint::Data.include Extensions::IiifPrint::Data::InheritPermissionsJobCalls
 # Patch iiif_print manifest metadata
 IiifPrint.include Extensions::IiifPrint::ManifestMetadata
 IiifPrint::IiifManifestPresenterBehavior.include Extensions::IiifPrint::IiifManifestPresenterBehavior::ManifestMetadata
+IiifPrint::Metadata.prepend Extensions::IiifPrint::Metadata::FacetedValuesForCampus
 
 # support for nested works generating file_set sequences in manifests
 IIIFManifest::ManifestBuilder::DeepFileSetEnumerator.prepend Extensions::IIIFManifest::ManifestBuilder::DeepFileSetEnumerator::NestedEach

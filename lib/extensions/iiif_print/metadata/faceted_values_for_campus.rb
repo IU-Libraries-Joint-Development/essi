@@ -1,4 +1,4 @@
-# unmodified from iiif_print to
+# modified from iiif_print to handle campus display
 module Extensions
   module IiifPrint
     module Metadata
@@ -10,6 +10,7 @@ module Extensions
               "f[#{search_field}][]": value, locale: I18n.locale
             ) 
             path += '&include_child_works=true' if work["is_child_bsi"] == true
+            value = CampusService.find(value)[:term] || '' if field_name == :campus
             "<a href='#{File.join(@base_url, path)}'>#{value}</a>"
           end
         end 

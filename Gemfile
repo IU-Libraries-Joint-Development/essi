@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
+# git_source(:github) do |repo_name|
+#   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+#   "https://github.com/#{repo_name}.git"
+# end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -84,7 +84,7 @@ gem 'ldap_groups_lookup', '~> 0.11.0'
 gem 'hydra-role-management'
 gem 'riiif', '~> 2.0'
 gem 'marc', '~> 1.0.0'
-gem 'sidekiq'
+gem 'sidekiq', '~> 6.0'
 gem 'switch_user'
 gem 'iso-639'
 gem 'blacklight_iiif_search'
@@ -114,3 +114,5 @@ gem 'hydra-head', '10.6.1'
 
 # s3 support for HCP
 gem 'aws-sdk-s3'
+
+gem "posix-spawn", github: "https://github.com/rtomayko/posix-spawn/pull/93"

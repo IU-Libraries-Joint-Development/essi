@@ -52,6 +52,17 @@ describe Hyrax::Actors::FileActor do
         file_actor.ingest_file(io)
         expect(file_set.reload.original_file.mime_type).to include "image/png"
       end
+      context 'when :store_in_external_storage is true' do
+        before do
+          allow(ESSI.config).to receive(:dig) \
+                                  .with(:essi, :store_in_external_storage) \
+                                  .and_return(true)
+        end
+        it 'saves an image file to the member file_set as an external file' do
+          file_actor.ingest_file(io)
+          expect(file_set.reload.original_file.mime_type).to include "message/external-body;access-type=URL;url="
+        end
+      end
       context 'when the file_set is for collection branding' do
         before do
           allow(file_set).to receive(:collection_branding?).and_return(true)

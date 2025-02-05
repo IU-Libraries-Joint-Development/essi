@@ -48,9 +48,16 @@ describe Hyrax::Actors::FileActor do
           .with(:essi, :store_original_files) \
           .and_return(true)
       end
-      it 'saves an image file to the member file_set' do
-        file_actor.ingest_file(io)
-        expect(file_set.reload.original_file.mime_type).to include "image/png"
+      context 'when :store_in_external_storage is false' do
+        before do
+          allow(ESSI.config).to receive(:dig) \
+                                  .with(:essi, :store_in_external_storage) \
+                                  .and_return(false)
+        end
+        it 'saves an image file to the member file_set' do
+          file_actor.ingest_file(io)
+          expect(file_set.reload.original_file.mime_type).to include "image/png"
+        end
       end
       context 'when :store_in_external_storage is true' do
         before do

@@ -1,22 +1,12 @@
 GIT
   remote: https://github.com/IU-Libraries-Joint-Development/allinson_flex.git
-  revision: 86ecb693044f451811a52033b643c91f9a241c3b
+  revision: 0fadf99b61b6567f240927e7dd54830878b315ac
   specs:
     allinson_flex (0.1.0)
       json_schemer
       rails (>= 5.1.6)
       react-rails
       webpacker
-
-GIT
-  remote: https://github.com/notch8/willow_sword.git
-  revision: 0a669d78617c6003e4aa1a46a10447be92be27d5
-  ref: 0a669d7
-  specs:
-    willow_sword (0.2.0)
-      bagit (~> 0.4.1)
-      rails (>= 5.1.6)
-      rubyzip (>= 1.0.0)
 
 GIT
   remote: https://github.com/rtomayko/posix-spawn.git
@@ -1179,7 +1169,6 @@ DEPENDENCIES
   webdrivers
   webmock
   webpacker
-  willow_sword!
 
 BUNDLED WITH
    2.4.22

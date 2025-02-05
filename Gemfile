@@ -102,7 +102,6 @@ gem 'okcomputer'
 
 # Bulk Import / Export
 gem 'bulkrax', '~> 5.0'
-gem 'willow_sword', github: 'notch8/willow_sword', ref: '0a669d7' # deprecate willow_sword in bulkrax 5 upgrade
 gem 'webpacker'
 gem 'react-rails'
 

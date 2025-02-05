@@ -91,7 +91,7 @@ gem 'iso-639'
 gem 'blacklight_iiif_search'
 gem 'iiif_manifest'
 gem 'iiif_print', "~> 1.0", git: 'https://github.com/scientist-softserv/iiif_print.git', ref: 'b804f16'
-gem 'i18n-js'
+gem 'i18n-js', '~> 3.9.2' # jasmine specs fail on newer
 gem 'bagit'
 gem 'validatable'
 gem 'country_select', '~> 4.0', require: 'country_select_without_sort_alphabetical'
@@ -102,7 +102,7 @@ gem 'okcomputer'
 
 # Bulk Import / Export
 gem 'bulkrax', '~> 1.0.0'
-gem 'willow_sword', github: 'notch8/willow_sword'
+gem 'willow_sword', github: 'notch8/willow_sword', ref: '0a669d7' # deprecate willow_sword in bulkrax 5 upgrade
 gem 'webpacker'
 gem 'react-rails'
 
@@ -117,3 +117,5 @@ gem 'hydra-head', '10.6.1'
 gem 'aws-sdk-s3'
 
 gem "posix-spawn", github: "https://github.com/rtomayko/posix-spawn/pull/93"
+
+gem 'redlock', '~> 1.2' # redis locking fails in specs on newer

@@ -95,26 +95,19 @@ class CollectionBrandingInfo < ApplicationRecord
       File.join(Hyrax.config.branding_path, collection_id.to_s, role.to_s)
     end  
     
-    # this passes a nil value for request base_url, as our custom url builder
-    # does not use that argument, and the model also doesn't have a request
     def generate_image_path!
-      if image_path.blank? && file_set_versions.any?
-        original_uri = file_set_versions.all.last.uri
-        uri_to_id = ActiveFedora::File.uri_to_id(original_uri.sub(/\/fcr.versions.*/,''))
-        self.image_path = \
-          Hyrax.config.iiif_image_url_builder.call(uri_to_id,
-                                                   nil,
-                                                   ESSI.config.dig(:essi, :collection_banner_size) || Hyrax.config.iiif_image_size_default)
+      if image_path.blank? && iiif_path_service.lookup_id.present?
+        self.image_path = iiif_path_service.iiif_image_url(size: ESSI.config.dig(:essi, :collection_banner_size))
         save
       end
     end  
 
-    def file_set_versions
-      file_set&.reload&.original_file&.versions || []
-    end
-
     def uploaded_files(uploaded_file_ids)
       return [] if uploaded_file_ids.empty?
       Hyrax::UploadedFile.find(uploaded_file_ids)
+    end
+
+    def iiif_path_service
+      @iiif_path_service ||= IIIFFileSetPathService.new(file_set || {})
     end
 end

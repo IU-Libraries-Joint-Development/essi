@@ -3,9 +3,8 @@ require 'rails_helper'
 RSpec.describe CollectionBrandingInfo, type: :model do
   let(:banner) { FactoryBot.build(:collection_branding_banner) }
   let(:file_set) { FactoryBot.create(:file_set, id: 'file_set_id', uri: 'file_set_uri') }
-  let(:version) { double(uri: 'version_uri') }
-  let(:versions) { double(any?: true, all: self, last: version) }
-
+  let(:local_file) { File.open(RSpec.configuration.fixture_path + '/world.png') }
+  let(:local_file_set) { FactoryBot.create(:file_set, content: local_file) }
 
   describe '#initialize' do
     context 'with local_path value provided' do
@@ -101,24 +100,18 @@ RSpec.describe CollectionBrandingInfo, type: :model do
         banner.send(:image_path=, nil)
       end
       context 'and unable to generate one' do
-        before do
-          allow(banner).to receive(:file_set_versions).and_return([])
-        end
         it 'returns nil' do
           expect(banner.file_set_image_path).to be_nil
         end
       end
       context 'but able to generate one' do
-        before do
-          allow(banner).to receive(:file_set_versions).and_return(versions)
-          allow(versions).to receive(:all).and_return(versions)
-        end
+        let(:banner) { FactoryBot.build(:collection_branding_banner, file_set_id: local_file_set.id) }
         it 'sets the image_path value' do
           expect(banner).to receive(:image_path=)
           banner.file_set_image_path
         end
         it 'returns the image_path value' do
-          expect(banner.file_set_image_path).to match version.uri
+          expect(banner.file_set_image_path).to match /^http/
         end
       end
     end

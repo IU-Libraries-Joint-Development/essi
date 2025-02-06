@@ -188,3 +188,6 @@ Hyrax::WorkShowPresenter.prepend Extensions::Hyrax::WorkShowPresenter::MemberPre
 
 # support for rendering an orphan FileSet
 Hyrax::FileSetsController.prepend Extensions::Hyrax::FileSetsController::RenderOrphanFileSet
+
+# support for FileSetPresenter#content_location
+Hyrax::FileSetPresenter.include Extensions::Hyrax::FileSetPresenter::ContentLocation

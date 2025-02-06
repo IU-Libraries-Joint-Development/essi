@@ -22,4 +22,9 @@ class FileSet < ActiveFedora::Base
      ESSI.config.dig(:essi, :ocr_language),
      'eng'].map { |l| Tesseract.try_languages(l) }.select(&:present?).first
   end
+
+  # @todo revisit after Hyrax 3.x upgrade
+  def original_file_id
+    @original_file_id ||= self.original_file&.id
+  end
 end

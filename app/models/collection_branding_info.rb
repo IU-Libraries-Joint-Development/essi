@@ -96,16 +96,11 @@ class CollectionBrandingInfo < ApplicationRecord
     end  
     
     def generate_image_path!
-      if image_path.blank? && file_set_versions.any?
-        return unless iiif_path_service.lookup_id
+      if image_path.blank? && iiif_path_service.lookup_id.present?
         self.image_path = iiif_path_service.iiif_image_url(size: ESSI.config.dig(:essi, :collection_banner_size))
         save
       end
     end  
-
-    def file_set_versions
-      file_set&.reload&.original_file&.versions || []
-    end
 
     def uploaded_files(uploaded_file_ids)
       return [] if uploaded_file_ids.empty?
@@ -113,6 +108,6 @@ class CollectionBrandingInfo < ApplicationRecord
     end
 
     def iiif_path_service
-      @iiif_path_service ||= IIIFFileSetPathService.new(file_set)
+      @iiif_path_service ||= IIIFFileSetPathService.new(file_set || {})
     end
 end

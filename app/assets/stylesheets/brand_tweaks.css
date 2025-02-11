@@ -90,3 +90,8 @@ html {
 	height: 1rem !important;
 	width: 1rem !important;
 }
+
+/* cherry-picked from bootstrap, for bulkrax 5 implicit requirement */
+.d-none {
+  display: none !important;
+}

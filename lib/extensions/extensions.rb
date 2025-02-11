@@ -59,35 +59,34 @@ Hyrax::Dashboard::CollectionsController.prepend Extensions::Hyrax::Dashboard::Co
 # purl controller support
 Hyrax::FileSetPresenter.include Extensions::Hyrax::FileSetPresenter::SourceMetadataIdentifier
 
-# bulkrax overrides
+## bulkrax overrides
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::Structure
-Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::CreateWithDynamicSchema
-Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::CreateAttributes
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::RemoveUpdateFilesets
+# bulkrax/allinson_flex integration support
 Bulkrax::Entry.prepend Extensions::Bulkrax::Entry::AllinsonFlexFields
 Bulkrax::Entry.prepend Extensions::Bulkrax::Entry::SingularizeRightsStatement
-Bulkrax::CsvEntry.prepend Extensions::Bulkrax::CsvEntry::AddWorkType
 Bulkrax::CsvEntry.prepend Extensions::Bulkrax::Entry::DynamicSchemaField
 Bulkrax::MetsXmlEntry.prepend Extensions::Bulkrax::Entry::DynamicSchemaField
-Bulkrax::CsvEntry.prepend Extensions::Bulkrax::Entry::OptionalRoundTrippableSave
+Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::CreateWithDynamicSchema
+# bugfixes / error catches
 Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::LastRun
 Bulkrax::Importer.prepend Extensions::Bulkrax::Importer::LastRun
+# feature change: merged configured/default mappings, instead of overridden
 Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::Mapping
 Bulkrax::Importer.prepend Extensions::Bulkrax::Importer::Mapping
-Bulkrax::ExportersController.prepend Extensions::Bulkrax::ExportersController::SupportMakeRoundTrippable
-Bulkrax::ApplicationParser.prepend Extensions::Bulkrax::ApplicationParser::IdentifierHash
+# feature change: drop forced capitalization of subject
 Bulkrax::ApplicationMatcher.prepend Extensions::Bulkrax::ApplicationMatcher::ParseSubject
-Bulkrax::ImportWorkCollectionJob.prepend Extensions::Bulkrax::ImportWorkCollectionJob::AddUserToPermissionTemplate
-# bulkrax import of file-specific metadata
-AttachFilesToWorkWithOrderedMembersJob.prepend Extensions::AttachFilesToWorkWithOrderedMembersJob::ImportMetadata
-Bulkrax::CsvEntry.prepend Extensions::Bulkrax::CsvEntry::AddFileMetadata
-Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::FileFactoryMetadata
-Hyrax::Actors::CreateWithFilesActor.prepend Extensions::Hyrax::Actors::CreateWithFilesActor::UploadedFiles
+# bugfix: drop nil values transforming into "[]" strings for single-valued properties
+Bulkrax::ApplicationMatcher.prepend Extensions::Bulkrax::ApplicationMatcher::NilResult
+# bugfix: recognize title_1 as valid instance of required title field for import
+Bulkrax::ApplicationParser.prepend Extensions::Bulkrax::ApplicationParser::RequiredElementsWithIndex
+Bulkrax::CsvParser.prepend Extensions::Bulkrax::CsvParser::MissingElementsWithIndex
+# feature removal: drop support for files export
+Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::ExportMetadataOnly
+
 ### IIIF Print, quick and dirty way to get the FileSetActor to load after CreateWithFilesActor
 Hyrax::Actors::FileSetActor.prepend(IiifPrint::Actors::FileSetActorDecorator)
 Hyrax::Actors::FileSetOrderedMembersActor.prepend Extensions::Hyrax::Actors::FileSetOrderedMembersActor::PdfSplit
-Hyrax::Actors::CreateWithFilesOrderedMembersActor.prepend Extensions::Hyrax::Actors::CreateWithFilesOrderedMembersActor::AttachFilesWithMetadata
-Hyrax::UploadedFile.prepend Extensions::Hyrax::UploadedFile::UploadedFileMetadata
 
 # actor customizations
 Hyrax::CurationConcern.actor_factory.insert Hyrax::Actors::TransactionalRequest, ESSI::Actors::PerformLaterActor

@@ -1,2 +1,5 @@
-file,source_identifier,source,model,resource_type,ocr_state,source_metadata_identifier,purl,title,date_created,creator,holding_location,related_url,collection
-rgb.png;world.png,TEST-1234,TEST-1234,Image,Image,searchable,TEST-1234,http://purl.dlib.indiana.edu/iudl/test/TEST-1234,A Test Image,2015-03,"Technologies, Library",EAST,https://iu.box.com/Test,Testing Collection
+source_identifier,source,source_metadata_identifier,model,file,parents,title,description,ocr_state,purl,date_created,creator,holding_location,related_url
+csource_1,csource_1,csource_1,Collection,,,A Test Collection,This is a test collection,,,,,,
+TEST-1234,TEST-1234,TEST-1234,Image,,csource_1,A Test Image,This is a test image,searchable,http://purl.dlib.indiana.edu/iudl/test/TEST-1234,2015-03,"Technologies, Library",EAST,https://iu.box.com/Test
+fsource_1,file_set_1,file_set_1,FileSet,rgb.png,TEST-1234,RGB FileSet,This is an RGB png,,,,,,
+fsource_2,file_set_2,file_set_2,FileSet,world.png,TEST-1234,world FileSet,This is a world png,,,,,,

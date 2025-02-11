@@ -1,10 +1,18 @@
 # frozen_string_literal: true
 
 Bulkrax.setup do |config|
+  # separately configurable queue name from 5.5.1
+  config.ingest_queue_name = Hyrax.config.ingest_queue_name
+
   # Add local parsers
   config.parsers += [
-    { name: 'METS XML', class_name: 'Bulkrax::MetsXmlParser', partial: 'mets_xml_fields' },
+    # @todo drop or fix -- currently broken, retaining at PO request
+    { name: 'METS XML (currently broken)', class_name: 'Bulkrax::MetsXmlParser', partial: 'mets_xml_fields' },
+    { name: 'XML (currently broken)', class_name: 'Bulkrax::XmlParser', partial: 'xml_fields' },
   ]
+
+  # remove incomplete XML parser
+  config.parsers.reject! { |parser| parser[:name] == 'XML' }
 
   # Field to use during import to identify if the Work or Collection already exists.
   # Default is 'source'.
@@ -53,10 +61,11 @@ Bulkrax.setup do |config|
       'profile_id' => { split: false },
       'profile_version' => { split: false },
       'purl' => { split: false },
-
       'source' => { from: ['source'], source_identifier: true, split: false },
       'source_identifier' => { split: false },
-      'source_metadata_identifier' => { split: false }
+      'source_metadata_identifier' => { split: false },
+      'parents' => { from: ['parents'], related_parents_field_mapping: true },
+      'children' => { from: ['children'], related_children_field_mapping: true }
     },
     "Bulkrax::MetsXmlParser" => {
       'source' => { from: ['OBJID'], source_identifier: true, split: false },

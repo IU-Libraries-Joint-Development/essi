@@ -95,6 +95,12 @@ default: &default
         password:
   rack_profiler:
     enabled: true
+  rack_attack:
+    enabled: true
+    config_key: rack_attack_config-v1
+    config_ttl: 60
+    throttle_limit: 50
+    throttle_period: 120
   ldap:
     enabled: false
     host: ads.iu.edu

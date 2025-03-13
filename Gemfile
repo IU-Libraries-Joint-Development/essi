@@ -118,3 +118,5 @@ gem 'aws-sdk-s3'
 gem "posix-spawn", github: "https://github.com/rtomayko/posix-spawn/pull/93"
 
 gem 'redlock', '~> 1.2' # redis locking fails in specs on newer
+
+gem 'rack-attack', '~> 6.7'

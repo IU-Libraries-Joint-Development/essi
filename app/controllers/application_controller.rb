@@ -41,8 +41,10 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    I18n.locale = constrained_locale || I18n.default_locale
-    params[:locale] = I18n.locale.to_s if params[:locale].present?
+    if params[:locale].present?
+      I18n.locale = constrained_locale || I18n.default_locale
+      params[:locale] = I18n.locale.to_s
+    end
   end
 
   def constrained_locale

@@ -50,11 +50,4 @@ class ApplicationController < ActionController::Base
   def constrained_locale
     return params[:locale] if params[:locale].in? Object.new.extend(HyraxHelper).available_translations
   end
-
-  # undo Hyrax::Controller's insertion of locale
-  def default_url_options
-    opts = super
-    opts.delete(:locale)
-    opts
-  end
 end

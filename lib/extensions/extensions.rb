@@ -179,6 +179,9 @@ IiifPrint.include Extensions::IiifPrint::ManifestMetadata
 IiifPrint::IiifManifestPresenterBehavior.include Extensions::IiifPrint::IiifManifestPresenterBehavior::ManifestMetadata
 IiifPrint::Metadata.prepend Extensions::IiifPrint::Metadata::FacetedValuesForCampus
 
+# Patch iiif_print for solr 9
+IiifPrint::HighlightSearchParams.include Extensions::IiifPrint::HighlightSearchParams::HighlightSearchParamsCompatibility
+
 # support for nested works generating file_set sequences in manifests
 IIIFManifest::ManifestBuilder::DeepFileSetEnumerator.prepend Extensions::IIIFManifest::ManifestBuilder::DeepFileSetEnumerator::NestedEach
 

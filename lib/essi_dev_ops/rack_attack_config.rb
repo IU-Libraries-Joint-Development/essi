@@ -18,6 +18,12 @@ module EssiDevOps
         end
       end
 
+      def default_config
+        { 'safe_ips' => [], 'safe_user_agents' => [],
+          'block_ips' => [], 'block_user_agents' => [],
+          'throttle_ips' => [], 'throttle_user_agents' => [] }
+      end
+
       # @param conf String rack attack config in yaml
       # @see .default_config for format
       def save_config(conf)
@@ -51,8 +57,6 @@ module EssiDevOps
           config[:throttle_user_agents].find { |ua| ua.match?(req.user_agent) }
       end
 
-      private
-
       def client_ip(req)
         req.try(:remote_ip) || req.ip
       end
@@ -67,12 +71,6 @@ module EssiDevOps
           throttle_ips: new_config.fetch('throttle_ips', []).collect { |addr| IPAddr.new(addr) },
           throttle_user_agents: new_config.fetch('throttle_user_agents', []).collect { |regexp| Regexp.new(regexp) }
         }
-      end
-
-      def default_config
-        { 'safe_ips' => [], 'safe_user_agents' => [],
-          'block_ips' => [], 'block_user_agents' => [],
-          'throttle_ips' => [], 'throttle_user_agents' => [] }
       end
     end
   end

@@ -101,8 +101,9 @@ Rails.application.routes.draw do
   get '/purl/formats/:id', to: 'purl#formats', as: 'formats_purl'
   get '/purl/*id', to: 'purl#default', as: 'default_purl'
 
-  # robots.txt
+  # robots.txt and rack attack config forms
   resource :robots, only: [:show, :edit, :update]
+  resource :rack_attack, only: [:edit, :update]
 
   # Send ActionController::RoutingError to 404 page
   # Must be the last route defined

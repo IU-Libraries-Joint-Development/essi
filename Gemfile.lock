@@ -755,6 +755,8 @@ GEM
       rdf
     racc (1.8.1)
     rack (2.2.8)
+    rack-attack (6.7.0)
+      rack (>= 1.0, < 4)
     rack-mini-profiler (3.3.1)
       rack (>= 1.2.0)
     rack-proxy (0.7.2)
@@ -1142,6 +1144,7 @@ DEPENDENCIES
   posix-spawn!
   prawn
   puma
+  rack-attack (~> 6.7)
   rack-mini-profiler
   rails (~> 5.2.8)
   rails-controller-testing

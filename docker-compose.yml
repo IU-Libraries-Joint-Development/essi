@@ -21,13 +21,20 @@ x-app:
     - rails_cache:/app/tmp/cache
     - ./config/essi_config.docker.yml:/run/secrets/essi_config.yml
   depends_on:
-    - redis_jobs
-    - solr
-    - fcrepo
-    - db
-    - minio
-    - cantaloupe
-    - chrome
+    redis_jobs:
+      condition: service_started
+    solr:
+      condition: service_started
+    fcrepo:
+      condition: service_started
+    minio:
+      condition: service_started
+    cantaloupe:
+      condition: service_started
+    chrome:
+      condition: service_started
+    db:
+      condition: service_healthy
 
 services:
   web:
@@ -71,6 +78,8 @@ services:
       - './db/50-mysql-create-db.sql:/docker-entrypoint-initdb.d/50-mysql-create-db.sql'
     environment:
       MYSQL_ROOT_PASSWORD: essi
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD
 
   minio:
     image: bitnami/minio:latest
@@ -148,17 +157,15 @@ services:
     command: redis-server --maxmemory-policy allkeys-lru --maxmemory 256mb
 
   solr:
-    image: solr:6.6
+    image: solr:9
     ports:
       - "8983:8983"
     volumes:
       - './solr:/myconfig:delegated'
-      - solr:/opt/solr/server/solr/mycores
-      - './solr/lib/tokenizing-suggest-v1.0.1.jar:/opt/solr/contrib/tokenizing-suggest-v1.0.1.jar'
       - './solr/50-precreate-cores.sh:/docker-entrypoint-initdb.d/50-precreate-cores.sh'
-    entrypoint:
-      - docker-entrypoint.sh
-      - solr-foreground
+      - solr:/var/solr
+    environment:
+      - SOLR_MODULES=analysis-extras,extraction
 
   fcrepo:
     image: ghcr.io/samvera/fcrepo4:4.7.5

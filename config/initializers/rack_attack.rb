@@ -1,5 +1,7 @@
 Rack::Attack.enabled = ESSI.config.dig(:rack_attack, :enabled) || false
 
+Rack::Attack.throttled_response_retry_after_header = true
+
 Rack::Attack.safelist('Safe') do |req|
   EssiDevOps::RackAttackConfig.safe_req?(req)
 end

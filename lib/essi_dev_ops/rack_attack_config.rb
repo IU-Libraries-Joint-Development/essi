@@ -19,7 +19,8 @@ module EssiDevOps
       end
 
       def default_config
-        { 'safe_ips' => [], 'safe_user_agents' => [],
+        { 'safe_paths' => %w[^/assets ^/rack_attack],
+          'safe_ips' => [], 'safe_user_agents' => [],
           'block_ips' => [], 'block_user_agents' => [],
           'throttle_ips' => [], 'throttle_user_agents' => [] }
       end
@@ -38,7 +39,8 @@ module EssiDevOps
       # @param req Rack::Attack::Request
       # @return Boolean
       def safe_req?(req)
-        config[:safe_ips].any? { |addr| addr.include?(client_ip(req)) } ||
+        config[:safe_paths].any? { |path| path.match?(req.path) } ||
+          config[:safe_ips].any? { |addr| addr.include?(client_ip(req)) } ||
           config[:safe_user_agents].any? { |ua| ua.match?(req.user_agent) }
       end
 
@@ -64,6 +66,7 @@ module EssiDevOps
       def build_config(conf: config_source.value)
         new_config = YAML.safe_load(conf)
         {
+          safe_paths: new_config.fetch('safe_paths', []).collect { |path| Regexp.new(path) },
           safe_ips: new_config.fetch('safe_ips', []).collect { |addr| IPAddr.new(addr) },
           safe_user_agents: new_config.fetch('safe_user_agents', []).collect { |regexp| Regexp.new(regexp) },
           block_ips: new_config.fetch('block_ips', []).collect { |addr| IPAddr.new(addr) },

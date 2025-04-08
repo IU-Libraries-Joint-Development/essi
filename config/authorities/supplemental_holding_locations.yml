@@ -105,3 +105,16 @@
   longitude: '-86.5189909'
   parking: https://parking.indiana.edu/
   notes: ''
+- code: 'B-MPP'
+  label: 'Bloomington - Modern Political Papers'
+  address: '1320 E 10th St.'
+  address2: 'Wells Library E460'
+  city: 'Bloomington'
+  state: 'IN'
+  zip: '47405'
+  phone: '812-855-1538'
+  email: 'congpprs@iu.edu'
+  url: 'https://libraries.indiana.edu/modern-political-papers'
+  latitude: '39.17098'
+  longitude: "-86.516189"
+  parking: https://parking.indiana.edu/

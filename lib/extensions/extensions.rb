@@ -68,9 +68,6 @@ Bulkrax::Entry.prepend Extensions::Bulkrax::Entry::SingularizeRightsStatement
 Bulkrax::CsvEntry.prepend Extensions::Bulkrax::Entry::DynamicSchemaField
 Bulkrax::MetsXmlEntry.prepend Extensions::Bulkrax::Entry::DynamicSchemaField
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::CreateWithDynamicSchema
-# bugfixes / error catches
-Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::LastRun
-Bulkrax::Importer.prepend Extensions::Bulkrax::Importer::LastRun
 # feature change: merged configured/default mappings, instead of overridden
 Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::Mapping
 Bulkrax::Importer.prepend Extensions::Bulkrax::Importer::Mapping

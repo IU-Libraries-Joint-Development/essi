@@ -11,7 +11,7 @@ module Qa::Authorities
     end
 
     def all
-      ((api_data_for('all')[:libraries] || []) + supplemental_data).uniq { |r| r[:code] }
+      ((api_data_for('all')[:libraries] || []) + supplemental_data).uniq { |r| r[:code] }.sort { |a,b| a[:label].to_s <=> b[:label].to_s }
     end
 
     private

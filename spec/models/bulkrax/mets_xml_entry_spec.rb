@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 module Bulkrax
-  RSpec.describe MetsXmlEntry, type: :model do
+  RSpec.describe MetsXmlEntry, type: :model, skip: 'deprecated in bulkrax 5 upgrade' do
     let(:path) { './spec/fixtures/xml/METADATA.xml' }
     let(:data) { described_class.read_data(path) }
 

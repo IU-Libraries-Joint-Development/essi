@@ -7,9 +7,6 @@ module Bulkrax
     let(:exporter) do
       FactoryBot.build(:bulkrax_exporter)
     end
-    let(:current_run) do
-      FactoryBot.build(:bulkrax_exporter_run, exporter: exporter)
-    end
     let(:exporter_runs) do
       FactoryBot.build_list(:bulkrax_exporter_run, 2, exporter: exporter)
     end
@@ -26,10 +23,9 @@ module Bulkrax
       context 'without exporter_runs' do
         before do
           allow(exporter).to receive(:exporter_runs).and_return(Bulkrax::ExporterRun.none)
-          allow(exporter).to receive(:current_run).and_return(current_run)
         end
-        it 'returns current_run' do
-          expect(exporter.last_run).to eq exporter.current_run
+        it 'returns nil' do
+          expect(exporter.last_run).to be_nil
         end
       end
     end

@@ -73,6 +73,8 @@ Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::Mapping
 Bulkrax::Importer.prepend Extensions::Bulkrax::Importer::Mapping
 # feature change: drop forced capitalization of subject
 Bulkrax::ApplicationMatcher.prepend Extensions::Bulkrax::ApplicationMatcher::ParseSubject
+# bugfix: handle nil, single-valued properties getting converted to '[]'
+Bulkrax::Entry.prepend Extensions::Bulkrax::Entry::SingleMetadata
 # bugfix: recognize title_1 as valid instance of required title field for import
 Bulkrax::ApplicationParser.prepend Extensions::Bulkrax::ApplicationParser::RequiredElementsWithIndex
 Bulkrax::CsvParser.prepend Extensions::Bulkrax::CsvParser::MissingElementsWithIndex

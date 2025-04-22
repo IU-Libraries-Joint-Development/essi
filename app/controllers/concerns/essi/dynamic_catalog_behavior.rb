@@ -5,8 +5,10 @@ module ESSI
 
     class_methods do
       def load_allinson_flex
-        profile = AllinsonFlex::Profile.includes(properties: :texts).order("created_at desc").first
-        unless profile.blank?
+        current_version = AllinsonFlex::Profile.order('created_at desc').select(:profile_version).first.profile_version
+        if current_version.present? && current_version != @loaded_version
+          profile = AllinsonFlex::Profile.includes(properties: :texts).order('created_at desc').first
+
           profile.properties.each do |prop|
             # blacklight wants 1 label for all classes with this property
             # therefor we need to use the default label
@@ -44,6 +46,8 @@ module ESSI
               end
             end
           end
+
+          @loaded_version = profile.profile_version
         end
       end
     end

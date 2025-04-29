@@ -24,6 +24,7 @@
             <%= render 'representative_media', presenter: @presenter, viewer: false unless @presenter.iiif_viewer? %>
             <%= render 'citations', presenter: @presenter %>
             <%= render 'social_media' %>
+            <%= render 'a11y_remediation' %>
           </div>
           <div class="col-sm-9">
             <%= render 'work_description', presenter: @presenter %>

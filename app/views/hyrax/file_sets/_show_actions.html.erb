@@ -1,4 +1,4 @@
-<div class="form-actions">
+<div class="form-actions" style="margin-bottom: 20px;">
   <% if Hyrax.config.analytics? %>
     <%= link_to "Analytics", @presenter.stats_path, id: 'stats', class: 'btn btn-default' %>
   <% end %>
@@ -10,6 +10,4 @@
                   class: 'btn btn-danger', data: { confirm: "Delete this #{@presenter.human_readable_type}?" },
                   method: :delete %>
   <% end %>
-
-  <%= render 'social_media' %>
 </div>

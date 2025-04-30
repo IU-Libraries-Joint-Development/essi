@@ -61,6 +61,10 @@ en:
       file_manager_actions:
         save: Save changes
         saving: Saving...
+      a11y:
+        remediation_request: Need an accessible version?
+        contact_us: Contact Us
+        remediation_form_url: https://iublib-fireform.eas.iu.edu/online/form/index/libacc
     collection_type:
       default_title: Collection
     collection_types:

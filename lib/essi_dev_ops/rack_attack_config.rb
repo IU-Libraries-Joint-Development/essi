@@ -56,7 +56,7 @@ module EssiDevOps
       # @return false or nil?
       def throttle_req?(req)
         config[:throttle_ips].find { |addr| addr.include?(client_ip(req)) } ||
-          config[:throttle_user_agents].find { |ua| ua.match?(req.user_agent) }
+          config[:throttle_user_agents].find { |ua| ua.match?(req.user_agent.to_s) }
       end
 
       def client_ip(req)
@@ -66,13 +66,13 @@ module EssiDevOps
       def build_config(conf: config_source.value)
         new_config = YAML.safe_load(conf)
         {
-          safe_paths: new_config.fetch('safe_paths', []).collect { |path| Regexp.new(path) },
+          safe_paths: new_config.fetch('safe_paths', []).collect { |path| Regexp.new(path, Regexp::IGNORECASE) },
           safe_ips: new_config.fetch('safe_ips', []).collect { |addr| IPAddr.new(addr) },
-          safe_user_agents: new_config.fetch('safe_user_agents', []).collect { |regexp| Regexp.new(regexp) },
+          safe_user_agents: new_config.fetch('safe_user_agents', []).collect { |regexp| Regexp.new(regexp, Regexp::IGNORECASE) },
           block_ips: new_config.fetch('block_ips', []).collect { |addr| IPAddr.new(addr) },
-          block_user_agents: new_config.fetch('block_user_agents', []).collect { |regexp| Regexp.new(regexp) },
+          block_user_agents: new_config.fetch('block_user_agents', []).collect { |regexp| Regexp.new(regexp, Regexp::IGNORECASE) },
           throttle_ips: new_config.fetch('throttle_ips', []).collect { |addr| IPAddr.new(addr) },
-          throttle_user_agents: new_config.fetch('throttle_user_agents', []).collect { |regexp| Regexp.new(regexp) }
+          throttle_user_agents: new_config.fetch('throttle_user_agents', []).collect { |regexp| Regexp.new(regexp, Regexp::IGNORECASE) }
         }
       end
     end

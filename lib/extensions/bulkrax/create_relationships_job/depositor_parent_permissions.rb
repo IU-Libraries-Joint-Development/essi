@@ -1,8 +1,9 @@
-# unmodified from bulkrax 5.5.1
+# modified from bulkrax 5.5.1
 module Extensions
   module Bulkrax
     module CreateRelationshipsJob
       module DepositorParentPermissions
+        # modified to accept :deposit or :edit permissions on parent
         def process(relationship:, importer_run_id:, parent_record:, ability:)
           raise "#{relationship} needs a child to create relationship" if relationship.child_id.nil?
           raise "#{relationship} needs a parent to create relationship" if relationship.parent_id.nil?
@@ -15,7 +16,8 @@ module Extensions
           ability.authorize!(:edit, child_record)
     
           # We could do this outside of the loop, but that could lead to odd counter failures.
-          ability.authorize!(:edit, parent_record)
+          # modified to accept :deposit or :edit permissions on parent
+          ability.authorize!(:edit, parent_record) unless ability.can?(:deposit, parent_record)
     
           parent_record.is_a?(::Collection) ? add_to_collection(child_record, parent_record) : add_to_work(child_record, parent_record)
     

@@ -81,7 +81,7 @@ Bulkrax::ApplicationParser.prepend Extensions::Bulkrax::ApplicationParser::Requi
 Bulkrax::CsvParser.prepend Extensions::Bulkrax::CsvParser::MissingElementsWithIndex
 # feature removal: drop support for files export
 Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::ExportMetadataOnly
-# prepare bugfix: accept depositor permissions for parent relationship
+# bugfix: accept depositor permissions for parent relationship
 Bulkrax::CreateRelationshipsJob.prepend Extensions::Bulkrax::CreateRelationshipsJob::DepositorParentPermissions
 
 ### IIIF Print, quick and dirty way to get the FileSetActor to load after CreateWithFilesActor

@@ -181,6 +181,7 @@ IiifPrint::Metadata.prepend Extensions::IiifPrint::Metadata::FacetedValuesForCam
 
 # Patch iiif_print for solr 9
 IiifPrint::HighlightSearchParams.include Extensions::IiifPrint::HighlightSearchParams::HighlightSearchParamsCompatibility
+IiifPrint::CatalogSearchBuilder.include Extensions::IiifPrint::CatalogSearchBuilder::SkipCollectionsFacetFiltering
 
 # support for nested works generating file_set sequences in manifests
 IIIFManifest::ManifestBuilder::DeepFileSetEnumerator.prepend Extensions::IIIFManifest::ManifestBuilder::DeepFileSetEnumerator::NestedEach

@@ -183,6 +183,9 @@ IiifPrint::Metadata.prepend Extensions::IiifPrint::Metadata::FacetedValuesForCam
 IiifPrint::HighlightSearchParams.include Extensions::IiifPrint::HighlightSearchParams::HighlightSearchParamsCompatibility
 IiifPrint::CatalogSearchBuilder.include Extensions::IiifPrint::CatalogSearchBuilder::SkipCollectionsFacetFiltering
 
+# Patch iiif_print for broken is_child filtering
+IiifPrint::CatalogSearchBuilder.prepend Extensions::IiifPrint::CatalogSearchBuilder::FixIsChildFiltering
+
 # support for nested works generating file_set sequences in manifests
 IIIFManifest::ManifestBuilder::DeepFileSetEnumerator.prepend Extensions::IIIFManifest::ManifestBuilder::DeepFileSetEnumerator::NestedEach
 

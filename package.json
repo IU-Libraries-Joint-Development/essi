@@ -34,6 +34,6 @@
     "karma-jasmine": "^4.0.2",
     "karma-selenium-launcher": "^1.0.1",
     "karma-spec-reporter": "^0.0.34",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^5.2.1"
   }
 }

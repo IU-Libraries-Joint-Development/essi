@@ -50,4 +50,10 @@ class ApplicationController < ActionController::Base
   def constrained_locale
     return params[:locale] if params[:locale].in? Object.new.extend(HyraxHelper).available_translations
   end
+
+  # Devise uses this method to tell where to send the user to after signing in.
+  # Conditionally set to either the dashboard or root_path based on site_usage.
+  def user_root_path
+    helpers.access_only? ? root_path : hyrax.dashboard_path
+  end
 end

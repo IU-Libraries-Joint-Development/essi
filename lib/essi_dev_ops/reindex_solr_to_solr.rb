@@ -20,7 +20,7 @@ module EssiDevOps
       puts "Starting reindex at #{DateTime.now.utc.iso8601}"
       docs_processed = 0
       while docs_processed < total_docs
-        docs = old_solr.conn.get('select', params: {q: query, rows: batch_size, start: docs_processed})["response"]["docs"]
+        docs = old_solr.conn.get('select', params: {q: query, fl: '*', rows: batch_size, start: docs_processed})["response"]["docs"]
         reconstructed_docs = docs.collect do |doc|
           SolrDocReconstructor.new(doc).reconstruct
         rescue RuntimeError => e
@@ -177,51 +177,74 @@ module EssiDevOps
       end
 
       def reconstruct_class(new_doc, klass)
-        class_metadata_fields = case klass
-        when AdminSet
-          {
-            # Hyrax::AdminSet
-            "title_sim" => "title_tesim"
-          }
-        when Collection
-          {}
-        when FileSet
-          {
-            # Hyrax::FileSetIndexer
-            "file_format_sim" => "file_format_tesim",
-            "all_text_timv" => "all_text_tsimv"
-          }
-        else
-          if klass.ancestors.include?(Hyrax::WorkBehavior)
-            {
-              # Hyrax::WorkIndexer
-              "admin_set_sim" => "admin_set_tesim",
-            }
-          else
-            {}
-          end
-        end
+        class_metadata_fields = case klass.to_s
+                                when AdminSet.to_s
+                                  {
+                                    # Hyrax::AdminSet
+                                    "title_sim" => "title_tesim"
+                                  }
+                                when Collection.to_s
+                                  {}
+                                when FileSet.to_s
+                                  {
+                                    # Hyrax::FileSetIndexer
+                                    "file_format_sim" => "file_format_tesim",
+                                    "all_text_timv" => "all_text_tsimv"
+                                  }
+                                else
+                                  if klass.ancestors.include?(Hyrax::WorkBehavior)
+                                    {
+                                      # Hyrax::WorkIndexer
+                                      "admin_set_sim" => "admin_set_tesim",
+                                    }
+                                  else
+                                    {}
+                                  end
+                                end
 
         class_metadata_fields.each { |unstored, stored| new_doc[unstored] = new_doc[stored] }
 
         if klass == FileSet
           # ESSI::FileSetIndexer
           new_doc["iiif_index_strategy_tesim"] = ["iiif_print_v1.0"]
+
+          # Reconstruct all_text_timv if not present
+          if new_doc["all_text_timv"].blank?
+            puts "No all_text_timv equivalent found for file set #{doc["id"]}..."
+	    if new_doc["ocr_text_tesi"].present? && new_doc["ocr_text_tesi"].include?("<alto")
+	      puts "Taking from ocr_text_tesi ALTO"
+	      text = Nokogiri::XML(new_doc["ocr_text_tesi"]).xpath('//*/@CONTENT').map(&:text).join(' ')
+	      new_doc["all_text_timv"] = new_doc["all_text_tsimv"] = text
+	    end
+            if new_doc["all_text_timv"].blank? && new_doc["word_boundary_tsi"].present?
+	      puts "Taking from word_boundary_tsi JSON"
+	      text = JSON.parse(new_doc["word_boundary_tsi"])["coords"].keys.join(' ')
+	      new_doc["all_text_timv"] = new_doc["all_text_tsimv"] = text
+	    end
+	    if new_doc["all_text_timv"].blank?
+	      puts "falling back to ActiveFedora and IiifPrint"
+	      # Need to reify FileSet
+	      object = ActiveFedora::Base.find(new_doc["id"])
+	      # Assuming IiifPrint v1.0.0
+	      text = IiifPrint::Data::WorkDerivatives.data(from: object, of_type: 'txt')&.tr("\n", ' ')&.squeeze(' ')
+	      new_doc["all_text_timv"] = new_doc["all_text_tsimv"] = text
+	    end
+          end
         end
 
         # generic_type_sim
-        generic_type = case klass
-        when AdminSet
-          "Admin Set" # Hyrax::AdminSetIndexer
-        when Collection
-          "Collection" # Hyrax::CollectionIndexer
-        else
-          if klass.ancestors.include?(Hyrax::WorkBehavior)
-            "Work" # Hyrax::WorkIndexer
-          else
-            nil
-          end
-        end
+        generic_type = case klass.to_s
+                       when AdminSet.to_s
+                         "Admin Set" # Hyrax::AdminSetIndexer
+                       when Collection.to_s
+                         "Collection" # Hyrax::CollectionIndexer
+                       else
+                         if klass.ancestors.include?(Hyrax::WorkBehavior)
+                           "Work" # Hyrax::WorkIndexer
+                         else
+                           nil
+                         end
+                       end
         new_doc["generic_type_sim"] = [generic_type]
 
         new_doc

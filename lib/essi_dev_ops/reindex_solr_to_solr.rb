@@ -4,20 +4,24 @@ module EssiDevOps
     # Only url is needed for new solr but other config options can be passed in addition
     attr_accessor :old_solr, :new_solr
 
-    def initialize(new_solr_config)
-      @old_solr = ActiveFedora.solr
+    def initialize(new_solr_config:, old_solr_config:)
+      @old_solr = ActiveFedora::SolrService.new(old_solr_config) if old_solr_config.present?
+      @old_solr ||= ActiveFedora.solr
       @new_solr = ActiveFedora::SolrService.new(new_solr_config)
     end
 
     # Example reindexing a delta via query: "timestamp:[#{(DateTime.now - 1.day).utc.iso8601} TO *]"
     def reindex(query: "*", batch_size: 1000)
+      puts "Old solr: #{@old_solr.conn.uri.to_s}"
+      puts "New solr: #{@new_solr.conn.uri.to_s}"
+
       total_docs = old_solr.conn.get('select', params: {q: query, rows: 0})["response"]["numFound"]
       if total_docs == 0
         puts "No documents found to reindex."
         return
       end
 
-      puts "Starting reindex at #{DateTime.now.utc.iso8601}"
+      puts "Starting reindex of #{total_docs} docs at #{DateTime.now.utc.iso8601}"
       docs_processed = 0
       while docs_processed < total_docs
         docs = old_solr.conn.get('select', params: {q: query, fl: '*', rows: batch_size, start: docs_processed})["response"]["docs"]
@@ -37,7 +41,7 @@ module EssiDevOps
       new_solr.conn.commit
       puts "Optimizing..."
       new_solr.conn.optimize
-      puts "Complete"
+      puts "Complete at #{DateTime.now.utc.iso8601}"
     end
 
     class SolrDocReconstructor
@@ -210,25 +214,33 @@ module EssiDevOps
 
           # Reconstruct all_text_timv if not present
           if new_doc["all_text_timv"].blank?
-            puts "No all_text_timv equivalent found for file set #{doc["id"]}..."
+            print "No all_text_timv equivalent found for file set #{doc["id"]}..."
 	    if new_doc["ocr_text_tesi"].present? && new_doc["ocr_text_tesi"].include?("<alto")
-	      puts "Taking from ocr_text_tesi ALTO"
-	      text = Nokogiri::XML(new_doc["ocr_text_tesi"]).xpath('//*/@CONTENT').map(&:text).join(' ')
-	      new_doc["all_text_timv"] = new_doc["all_text_tsimv"] = text
+              text = Nokogiri::XML(new_doc["ocr_text_tesi"]).xpath('//*/@CONTENT').map(&:text).join(' ') rescue nil
+              if text.present?
+	        print "Taking from ocr_text_tesi ALTO\n"
+	        new_doc["all_text_timv"] = new_doc["all_text_tsimv"] = text
+              end
 	    end
             if new_doc["all_text_timv"].blank? && new_doc["word_boundary_tsi"].present?
-	      puts "Taking from word_boundary_tsi JSON"
-	      text = JSON.parse(new_doc["word_boundary_tsi"])["coords"].keys.join(' ')
-	      new_doc["all_text_timv"] = new_doc["all_text_tsimv"] = text
+              text = JSON.parse(new_doc["word_boundary_tsi"])["coords"].keys.join(' ') rescue nil
+              if text.present?
+                print "Taking from word_boundary_tsi JSON\n"
+                new_doc["all_text_timv"] = new_doc["all_text_tsimv"] = text
+              end
 	    end
 	    if new_doc["all_text_timv"].blank?
-	      puts "falling back to ActiveFedora and IiifPrint"
 	      # Need to reify FileSet
-	      object = ActiveFedora::Base.find(new_doc["id"])
 	      # Assuming IiifPrint v1.0.0
-	      text = IiifPrint::Data::WorkDerivatives.data(from: object, of_type: 'txt')&.tr("\n", ' ')&.squeeze(' ')
-	      new_doc["all_text_timv"] = new_doc["all_text_tsimv"] = text
+              text = IiifPrint::Data::WorkDerivatives.data(from: ActiveFedora::Base.find(new_doc["id"], of_type: 'txt'))&.tr("\n", ' ')&.squeeze(' ') rescue nil
+              if text.present?
+	        print "Taking from ActiveFedora and IiifPrint\n"
+	        new_doc["all_text_timv"] = new_doc["all_text_tsimv"] = text
+              end
 	    end
+            if new_doc["all_text_timv"].blank?
+              print "No textual content found so leaving blank\n"
+            end
           end
         end
 

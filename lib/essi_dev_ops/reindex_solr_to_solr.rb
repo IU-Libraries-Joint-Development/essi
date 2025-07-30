@@ -22,7 +22,7 @@ module EssiDevOps
       end
 
       puts "Starting reindex of #{total_docs} docs at #{DateTime.now.utc.iso8601}"
-      docs_processed = 0
+      docs_processed = total_docs_processed = 0
       while docs_processed < total_docs
         docs = old_solr.conn.get('select', params: {q: query, fl: '*', rows: batch_size, start: docs_processed})["response"]["docs"]
         reconstructed_docs = docs.collect do |doc|
@@ -30,12 +30,21 @@ module EssiDevOps
         rescue RuntimeError => e
           puts "Error reconstructing #{doc["id"]}...falling back to ActiveFedora method"
           puts e.message
-          ActiveFedora::Base.find(doc["id"]).to_solr
+          begin
+            ActiveFedora::Base.find(doc["id"]).to_solr
+          rescue Ldp::Gone
+            puts "Object no longer exists in Fedora (Ldp::Gone)"
+          rescue RuntimeError => e2
+            puts "Error reindexing from Fedora"
+            puts e.message
+          end
         end
 
+        reconstructed_docs.compact!
         new_solr.conn.add(reconstructed_docs, {softCommit: true})
         docs_processed += docs.size
-        puts "Migrated #{docs_processed} out of #{total_docs}"
+        total_docs_processed += reconstructed_docs.size
+        puts "Migrated #{total_docs_processed} out of #{total_docs}"
       end
       puts "Committing..."
       new_solr.conn.commit

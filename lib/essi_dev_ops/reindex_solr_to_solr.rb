@@ -24,7 +24,8 @@ module EssiDevOps
       puts "Starting reindex of #{total_docs} docs at #{DateTime.now.utc.iso8601}"
       docs_processed = total_docs_processed = 0
       while docs_processed < total_docs
-        docs = old_solr.conn.get('select', params: {q: query, fl: '*', rows: batch_size, start: docs_processed})["response"]["docs"]
+        docs = old_solr.conn.get('select', params: {q: query, fl: '*', sort: 'timestamp asc', rows: batch_size, start: docs_processed})["response"]["docs"]
+
         reconstructed_docs = docs.collect do |doc|
           SolrDocReconstructor.new(doc).reconstruct
         rescue RuntimeError => e

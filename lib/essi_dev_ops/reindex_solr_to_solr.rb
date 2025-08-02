@@ -75,7 +75,7 @@ module EssiDevOps
       private
 
       def detect_class(doc)
-        doc["has_model_ssim"].first.safe_constantize || Object
+        doc["has_model_ssim"]&.first&.safe_constantize || Object
       end
 
       def find_value(field, stored_def, new_doc)
@@ -173,7 +173,7 @@ module EssiDevOps
             problem_fields += [field]
             next
           end
-          value = find_value(field, stored.first, new_doc)
+          value = find_value(field, Array(stored).first, new_doc)
           next unless value.present?
           non_stored.each { |non_store_def| set_value(field, non_store_def, value, new_doc) }
         end

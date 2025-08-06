@@ -228,8 +228,11 @@ module EssiDevOps
 	    if new_doc["ocr_text_tesi"].present? && new_doc["ocr_text_tesi"].include?("<alto")
               text = Nokogiri::XML(new_doc["ocr_text_tesi"]).xpath('//*/@CONTENT').map(&:text).join(' ') rescue nil
               if text.present?
-	        print "Taking from ocr_text_tesi ALTO\n"
-	        new_doc["all_text_timv"] = new_doc["all_text_tsimv"] = text
+                print "Taking from ocr_text_tesi ALTO\n"
+                new_doc["all_text_tsimv"] = text
+                # Index the raw ALTO to preserve behavior with searching possessive words by quirk of apostrophe's being character encoded in the XML.
+                # For example searching "migration" matching "Migration's".
+                new_doc["all_text_timv"] = new_doc["ocr_text_tesi"]
               end
 	    end
             if new_doc["all_text_timv"].blank? && new_doc["word_boundary_tsi"].present?

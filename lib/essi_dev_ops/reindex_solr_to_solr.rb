@@ -4,40 +4,54 @@ module EssiDevOps
     # Only url is needed for new solr but other config options can be passed in addition
     attr_accessor :old_solr, :new_solr
 
-    def initialize(new_solr_config)
-      @old_solr = ActiveFedora.solr
+    def initialize(new_solr_config:, old_solr_config:)
+      @old_solr = ActiveFedora::SolrService.new(old_solr_config) if old_solr_config.present?
+      @old_solr ||= ActiveFedora.solr
       @new_solr = ActiveFedora::SolrService.new(new_solr_config)
     end
 
     # Example reindexing a delta via query: "timestamp:[#{(DateTime.now - 1.day).utc.iso8601} TO *]"
     def reindex(query: "*", batch_size: 1000)
+      puts "Old solr: #{@old_solr.conn.uri.to_s}"
+      puts "New solr: #{@new_solr.conn.uri.to_s}"
+
       total_docs = old_solr.conn.get('select', params: {q: query, rows: 0})["response"]["numFound"]
       if total_docs == 0
         puts "No documents found to reindex."
         return
       end
 
-      puts "Starting reindex at #{DateTime.now.utc.iso8601}"
-      docs_processed = 0
+      puts "Starting reindex of #{total_docs} docs at #{DateTime.now.utc.iso8601}"
+      docs_processed = total_docs_processed = 0
       while docs_processed < total_docs
-        docs = old_solr.conn.get('select', params: {q: query, rows: batch_size, start: docs_processed})["response"]["docs"]
+        docs = old_solr.conn.get('select', params: {q: query, fl: '*', sort: 'timestamp asc', rows: batch_size, start: docs_processed})["response"]["docs"]
+
         reconstructed_docs = docs.collect do |doc|
           SolrDocReconstructor.new(doc).reconstruct
         rescue RuntimeError => e
           puts "Error reconstructing #{doc["id"]}...falling back to ActiveFedora method"
           puts e.message
-          ActiveFedora::Base.find(doc["id"]).to_solr
+          begin
+            ActiveFedora::Base.find(doc["id"]).to_solr
+          rescue Ldp::Gone
+            puts "Object no longer exists in Fedora (Ldp::Gone)"
+          rescue RuntimeError => e2
+            puts "Error reindexing from Fedora"
+            puts e.message
+          end
         end
 
+        reconstructed_docs.compact!
         new_solr.conn.add(reconstructed_docs, {softCommit: true})
         docs_processed += docs.size
-        puts "Migrated #{docs_processed} out of #{total_docs}"
+        total_docs_processed += reconstructed_docs.size
+        puts "Migrated #{total_docs_processed} out of #{total_docs}"
       end
       puts "Committing..."
       new_solr.conn.commit
       puts "Optimizing..."
       new_solr.conn.optimize
-      puts "Complete"
+      puts "Complete at #{DateTime.now.utc.iso8601}"
     end
 
     class SolrDocReconstructor
@@ -61,7 +75,7 @@ module EssiDevOps
       private
 
       def detect_class(doc)
-        doc["has_model_ssim"].first.safe_constantize || Object
+        doc["has_model_ssim"]&.first&.safe_constantize || Object
       end
 
       def find_value(field, stored_def, new_doc)
@@ -159,7 +173,7 @@ module EssiDevOps
             problem_fields += [field]
             next
           end
-          value = find_value(field, stored.first, new_doc)
+          value = find_value(field, Array(stored).first, new_doc)
           next unless value.present?
           non_stored.each { |non_store_def| set_value(field, non_store_def, value, new_doc) }
         end
@@ -177,51 +191,85 @@ module EssiDevOps
       end
 
       def reconstruct_class(new_doc, klass)
-        class_metadata_fields = case klass
-        when AdminSet
-          {
-            # Hyrax::AdminSet
-            "title_sim" => "title_tesim"
-          }
-        when Collection
-          {}
-        when FileSet
-          {
-            # Hyrax::FileSetIndexer
-            "file_format_sim" => "file_format_tesim",
-            "all_text_timv" => "all_text_tsimv"
-          }
-        else
-          if klass.ancestors.include?(Hyrax::WorkBehavior)
-            {
-              # Hyrax::WorkIndexer
-              "admin_set_sim" => "admin_set_tesim",
-            }
-          else
-            {}
-          end
-        end
+        class_metadata_fields = case klass.to_s
+                                when AdminSet.to_s
+                                  {
+                                    # Hyrax::AdminSet
+                                    "title_sim" => "title_tesim"
+                                  }
+                                when Collection.to_s
+                                  {}
+                                when FileSet.to_s
+                                  {
+                                    # Hyrax::FileSetIndexer
+                                    "file_format_sim" => "file_format_tesim",
+                                    "all_text_timv" => "all_text_tsimv"
+                                  }
+                                else
+                                  if klass.ancestors.include?(Hyrax::WorkBehavior)
+                                    {
+                                      # Hyrax::WorkIndexer
+                                      "admin_set_sim" => "admin_set_tesim",
+                                    }
+                                  else
+                                    {}
+                                  end
+                                end
 
         class_metadata_fields.each { |unstored, stored| new_doc[unstored] = new_doc[stored] }
 
         if klass == FileSet
           # ESSI::FileSetIndexer
           new_doc["iiif_index_strategy_tesim"] = ["iiif_print_v1.0"]
+
+          # Reconstruct all_text_timv if not present
+          if new_doc["all_text_timv"].blank?
+            print "No all_text_timv equivalent found for file set #{doc["id"]}..."
+	    if new_doc["ocr_text_tesi"].present? && new_doc["ocr_text_tesi"].include?("<alto")
+              text = Nokogiri::XML(new_doc["ocr_text_tesi"]).xpath('//*/@CONTENT').map(&:text).join(' ') rescue nil
+              if text.present?
+                print "Taking from ocr_text_tesi ALTO\n"
+                new_doc["all_text_tsimv"] = text
+                # Index the raw ALTO to preserve behavior with searching possessive words by quirk of apostrophe's being character encoded in the XML.
+                # For example searching "migration" matching "Migration's".
+                new_doc["all_text_timv"] = new_doc["ocr_text_tesi"]
+              end
+	    end
+            if new_doc["all_text_timv"].blank? && new_doc["word_boundary_tsi"].present?
+              text = JSON.parse(new_doc["word_boundary_tsi"])["coords"].keys.join(' ') rescue nil
+              if text.present?
+                print "Taking from word_boundary_tsi JSON\n"
+                new_doc["all_text_timv"] = new_doc["all_text_tsimv"] = text
+              end
+	    end
+	    if new_doc["all_text_timv"].blank?
+	      # Need to reify FileSet
+	      # Assuming IiifPrint v1.0.0
+              text = IiifPrint::Data::WorkDerivatives.data(from: ActiveFedora::Base.find(new_doc["id"], of_type: 'txt'))&.tr("\n", ' ')&.squeeze(' ') rescue nil
+              if text.present?
+	        print "Taking from ActiveFedora and IiifPrint\n"
+	        new_doc["all_text_timv"] = new_doc["all_text_tsimv"] = text
+              end
+	    end
+            if new_doc["all_text_timv"].blank?
+              print "No textual content found so leaving blank\n"
+            end
+          end
         end
 
         # generic_type_sim
-        generic_type = case klass
-        when AdminSet
-          "Admin Set" # Hyrax::AdminSetIndexer
-        when Collection
-          "Collection" # Hyrax::CollectionIndexer
-        else
-          if klass.ancestors.include?(Hyrax::WorkBehavior)
-            "Work" # Hyrax::WorkIndexer
-          else
-            nil
-          end
-        end
+        generic_type = case klass.to_s
+                       when AdminSet.to_s
+                         "Admin Set" # Hyrax::AdminSetIndexer
+                       when Collection.to_s
+                         "Collection" # Hyrax::CollectionIndexer
+                       else
+                         if klass.ancestors.include?(Hyrax::WorkBehavior)
+                           "Work" # Hyrax::WorkIndexer
+                         else
+                           nil
+                         end
+                       end
         new_doc["generic_type_sim"] = [generic_type]
 
         new_doc

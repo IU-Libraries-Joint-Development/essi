@@ -245,7 +245,7 @@ module EssiDevOps
 	    if new_doc["all_text_timv"].blank?
 	      # Need to reify FileSet
 	      # Assuming IiifPrint v1.0.0
-              text = IiifPrint::Data::WorkDerivatives.data(from: ActiveFedora::Base.find(new_doc["id"], of_type: 'txt'))&.tr("\n", ' ')&.squeeze(' ') rescue nil
+              text = IiifPrint::Data::WorkDerivatives.data(from: ActiveFedora::Base.find(new_doc["id"]), of_type: 'txt')&.tr("\n", ' ')&.squeeze(' ') rescue nil
               if text.present?
 	        print "Taking from ActiveFedora and IiifPrint\n"
 	        new_doc["all_text_timv"] = new_doc["all_text_tsimv"] = text

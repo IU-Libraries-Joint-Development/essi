@@ -68,7 +68,7 @@ RSpec.describe Hyrax::DerivativeService do
         end
         # simulate action of stubbed OCRRunner#create via Processor::OCR#encode_file
         it 'skips OCR generation in OCR Processor' do
-          expect(Rails.logger).to receive(:info).with("Checking for a Pre-derived OCR folder.")
+          expect(Rails.logger).to receive(:info).with("Checking for world-ocr.xml in OCR folders.")
           expect(Processors::OCR).to receive(:skip_derivatives?).and_return(true)
           expect(Rails.logger).to receive(:info).with("No pre-derived file provided; skipping OCR generation")
           Processors::OCR.new(image_file,

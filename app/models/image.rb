@@ -7,6 +7,7 @@ class Image < ActiveFedora::Base
   include ESSI::NumPagesBehavior
   include ESSI::OCRBehavior
   include ESSI::SolrErrorBehavior
+  include ESSI::OrderedMembersNilValues
 
   self.indexer = ImageIndexer
   # Change this to restrict which works can be added as a child.

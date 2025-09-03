@@ -16,7 +16,7 @@ class CharacterizeJob < ApplicationJob
         filepath = Hyrax::WorkingDirectory.send(:copy_stream_to_working_directory, ext_id, ext_id, ext_resp.body)
         delete_characterization_path = true
       else
-        filepath = Hyrax::WorkingDirectory.find_or_retrieve(file_id, file_set.id) unless filepath && File.exist?(filepath)
+        filepath = Hyrax::WorkingDirectory.find_or_retrieve(file_id, file_set.id)
         delete_characterization_path = false
       end
     end

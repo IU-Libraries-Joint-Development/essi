@@ -43,4 +43,27 @@ RSpec.describe Hyrax::FileSetPresenter do
   after do
     ESSI.config[:essi][:campus_logos] = @campus_logos
   end
+
+  describe "#ocr_file?" do
+    context "when OCR file is absent" do
+      before { allow(subject).to receive(:solr_document).and_return({ 'word_boundary_tsi' => nil }) }
+      it "returns false" do
+        expect(subject.ocr_file?).to eq false
+      end
+    end
+    context "when OCR file is present" do
+      context "with no text content" do
+        before { allow(subject).to receive(:solr_document).and_return({ 'word_boundary_tsi' => '' }) }
+        it "returns false" do
+          expect(subject.ocr_file?).to eq false
+        end
+      end
+      context "with text content" do
+        before { allow(subject).to receive(:solr_document).and_return({ 'word_boundary_tsi' => 'text content' }) }
+        it "returns true" do
+          expect(subject.ocr_file?).to eq true
+        end
+      end
+    end
+  end
 end

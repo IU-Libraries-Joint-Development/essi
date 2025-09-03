@@ -9,8 +9,11 @@
   <dt>Date Modified</dt>
   <dd itemprop="dateModified"><%= @presenter.date_modified %></dd>
   <dt>OCR</dt>
-  <% if @presenter.extracted_text? %>
-    <dd><%= link_to 'Download', @presenter.extracted_text_link %></dd>
+  <% if @presenter.ocr_file? %>
+    <dd>
+      <%= link_to 'Download', @presenter.extracted_text_link %>
+      <%= "(no text content)" unless @presenter.extracted_text? %>
+    </dd>
   <% else %>
     <dd>not available</dd>
   <% end %>

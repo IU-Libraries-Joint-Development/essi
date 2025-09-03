@@ -6,6 +6,7 @@ class Collection < ActiveFedora::Base
   include ::ESSI::CollectionBehavior
   # You can replace these metadata if they're not suitable
   include Hyrax::BasicMetadata
+  include ESSI::SolrErrorBehavior
 
   self.indexer = ESSI::CollectionIndexer
 

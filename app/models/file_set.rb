@@ -3,6 +3,8 @@ class FileSet < ActiveFedora::Base
   include ESSI::FileSetMetadata
   include ESSI::RemoteLookupMetadata
   include ::Hyrax::FileSetBehavior
+  include ESSI::SolrErrorBehavior
+  include ESSI::OrderedMembersNilValues
 
   directly_contains_one :preservation_master_file, through: :files, type: ::RDF::URI('http://pcdm.org/use#PreservationMasterFile'), class_name: 'Hydra::PCDM::File'
 

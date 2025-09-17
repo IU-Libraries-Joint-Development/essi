@@ -41,7 +41,7 @@ jobs:
           MYSQL_DATABASE: essi_test
           MYSQL_USER: essi
           MYSQL_PASSWORD: essi
-      - image: bitnami/minio:latest
+      - image: bitnamilegacy/minio:latest
         environment:
           MINIO_ROOT_USER: essi-minio
           MINIO_ROOT_PASSWORD: Essi12345

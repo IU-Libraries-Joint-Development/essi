@@ -18,7 +18,16 @@ module Extensions
             extracted_md = extract_metadata(content)
           end
           terms = parse_metadata(extracted_md)
+          terms = revise_metadata(terms)
           store_metadata(terms)
+        end
+
+        # for pyramidal tiffs characterized at multiple resolutions, use max
+        def revise_metadata(terms)
+          [:width, :height].each do |k|
+            terms[k] = [terms[k].map(&:to_i).max.to_s] if terms[k]&.size > 1
+          end
+          terms
         end
   
         def precharacterization(filename)

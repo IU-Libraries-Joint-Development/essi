@@ -95,6 +95,28 @@ module ESSI
       "#{@prefix}/#{treeify_id(id)}"
     end
 
+    def external?(file_set)
+      file_set.content_location&.start_with?('s3://') || false
+    end
+
+    def external_id(file_set)
+      file_set.content_location.split('/').last if external?(file_set)
+    end
+
+    # external equivalent to Hyrax::WorkingDirectory.find_or_retrieve
+    def find_or_retrieve(file_set, file_id: file_set.original_file&.id, filepath: nil)
+      return filepath if filepath && File.exist?(filepath)
+      if external?(file_set)
+        ext_id = external_id(file_set)
+        ext_resp = get(ext_id)
+        filepath = Hyrax::WorkingDirectory.send(:copy_stream_to_working_directory, ext_id, ext_id, ext_resp.body)
+      else
+        Rails.logger.warn("External storage find_or_retrieve called for FileSet #{file_set.id} not stored externally")
+        filepath = nil
+      end
+      return filepath
+    end
+
   private
 
     def endpoint

@@ -73,7 +73,7 @@ module ESSI
     def generate_width(file_set_id)
       begin
         file_set = FileSet.find(file_set_id)
-        filepath = Hyrax::WorkingDirectory.find_or_retrieve(file_set.original_file.id, file_set.id)
+        filepath = file_set.find_or_retrieve
         terms = Hydra::Works::CharacterizationService.run(file_set.original_file, filepath)
         CharacterizeJob.perform_later(file_set, file_set.original_file.id)
       rescue

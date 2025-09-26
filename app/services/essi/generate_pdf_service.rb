@@ -44,7 +44,7 @@ module ESSI
           fs_solr = SolrDocument.find(fs)
           iiif_path_service = IIIFFileSetPathService.new(fs_solr)
           raise StandardError, 'Source image file unavailable' unless iiif_path_service.lookup_id
-          uri = iiif_path_service.iiif_image_url(size: '!1024,9999')
+          uri = iiif_path_service.iiif_image_url(size: 'max')
           URI.open(uri) do |file|
             page_size = [CoverPageGenerator::LETTER_WIDTH, CoverPageGenerator::LETTER_HEIGHT]
             file.binmode

@@ -42,11 +42,9 @@ module ESSI
         pdf.start_new_page
         begin
           fs_solr = SolrDocument.find(fs)
-          image_width = get_image_width(fs_solr).to_i
-          raise StandardError, 'Image width unavailable' unless image_width > 0 # IIIF server call requires a positive integer value
           iiif_path_service = IIIFFileSetPathService.new(fs_solr)
           raise StandardError, 'Source image file unavailable' unless iiif_path_service.lookup_id
-          uri = iiif_path_service.iiif_image_url(size: render_dimensions(image_width))
+          uri = iiif_path_service.iiif_image_url(size: render_dimensions(fs_solr))
           URI.open(uri) do |file|
             page_size = [CoverPageGenerator::LETTER_WIDTH, CoverPageGenerator::LETTER_HEIGHT]
             file.binmode
@@ -59,20 +57,21 @@ module ESSI
       end
     end
 
-    # ensure not requesting greater than 100% image width, as that makes IIIF server 403
-    def get_image_width(solr_doc)
-      solr_doc.width || generate_width(solr_doc.id)
+    def render_dimensions(solr_doc)
+      render_width = [get_or_generate_width(solr_doc), 2048].min # limit maximum width to 2048
+      raise StandardError, 'Image width unavailable' unless render_width > 0 # IIIF server call requires a positive integer value
+      "!#{render_width},9999"
     end
 
-    def render_dimensions(image_width)
-      render_width = [image_width, 1024].min
-      "#{render_width},"
+    # ensure not requesting greater than 100% image width, as that makes IIIF server 403
+    def get_or_generate_width(solr_doc)
+      (solr_doc.width || generate_width!(solr_doc)).to_i
     end
 
     # run characterization directly for width, then spawn normal job
-    def generate_width(file_set_id)
+    def generate_width!(solr_doc)
       begin
-        file_set = FileSet.find(file_set_id)
+        file_set = FileSet.find(solr_doc.id)
         filepath = file_set.find_or_retrieve
         terms = Hydra::Works::CharacterizationService.run(file_set.original_file, filepath)
         CharacterizeJob.perform_later(file_set, file_set.original_file.id)

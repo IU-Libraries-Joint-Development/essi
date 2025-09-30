@@ -44,7 +44,7 @@ class FileSet < ActiveFedora::Base
     if self.external?
       filepath = ESSI.external_storage.find_or_retrieve(self, file_id: file_id, filepath: filepath)
     else
-      filepath = Hyrax::WorkingDirectory.find_or_retrieve(file_id, self.id, filepath: filepath)
+      filepath = Hyrax::WorkingDirectory.find_or_retrieve(file_id, self.id, filepath)
     end
     return filepath
   end

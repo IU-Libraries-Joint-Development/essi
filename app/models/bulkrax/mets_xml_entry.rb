@@ -3,19 +3,17 @@
 require 'nokogiri'
 module Bulkrax
   class MetsXmlEntry < XmlEntry
-    # MetsXmlEntry method overrides (pending)
+    # MetsXmlEntry method overrides
     #
 
-    # unmodified from XmlEntry
+    # modified from XmlEntry: don't remove namespaces
     # @param [String] path
     # @return [Nokogiri::XML::Document]
     def self.read_data(path)
-      # This doesn't cope with BOM sequences:
-      # Nokogiri::XML(open(path), nil, 'UTF-8').remove_namespaces!
-      Nokogiri::XML(open(path)).remove_namespaces!
+      Nokogiri::XML(open(path))
     end
 
-    # unmodified from XmlEntry
+    # modified from XmlEntry for source_id value sourcing
     # @param [Nokogiri::XML::Element] data
     # @param [Symbol] source_id
     # @param [Bulkrax::MetsXMLParser] _parser
@@ -23,9 +21,9 @@ module Bulkrax
     def self.data_for_entry(data, source_id, _parser)
       collections = []
       children = []
-      xpath_for_source_id = ".//*[name()='#{source_id}']"
+     
       return {
-        source_id => data.xpath(xpath_for_source_id).first.text,
+        source_id => data.attributes.with_indifferent_access[source_id].text,
         delete: data.xpath(".//*[name()='delete']").first&.text,
         data:
           data.to_xml(
@@ -38,49 +36,89 @@ module Bulkrax
       }
     end
 
-    # unmodified from XmlEntry
-    # @return Nokogiri::XML
+    # modified from XmlEntry
+    # uses mets instead of xml for record
+    # @return IuMetata::METSRecord
     def record
-      @record ||= Nokogiri::XML(self.raw_metadata['data'], nil, 'UTF-8')
+      @record ||= IuMetadata::METSRecord.new(source_identifier_value, raw_metadata['data'])
     end
 
-    # unmodified from XmlEntry
+    # modified from XmlEntry
+    # sources model from importer form, rather than imported record
     def establish_factory_class
-      model_field_names = parser.model_field_mappings
-
-      each_candidate_metadata_node_name_and_content(elements: parser.model_field_mappings) do |name, content|
-        next unless model_field_names.include?(name)
-        add_metadata(name, content)
-      end
+      self.parsed_metadata['model'] = parser.parser_fields['work_type'] || 'PagedResource'
     end
 
-    # unmodified from XmlEntry
+    # modified from XmlEntry
+    # uses IuMetatata::METSRecord for sourcing,
+    # elements defaults to all available attributes
     # @param Array elements
-    def each_candidate_metadata_node_name_and_content(elements: field_mapping_from_values_for_xml_element_names)
-      elements.each do |name|
-        # NOTE: the XML element name's case matters
-        nodes = record.xpath("//*[name()='#{name}']")
-        next if nodes.empty?
-
-        nodes.each do |node|
-          node.children.each do |content|
-            next if content.to_s.blank?
-
-            yield(name, content.to_s)
-          end
-        end
+    def each_candidate_metadata_node_name_and_content(elements: record.attributes.keys)
+      record.attributes.select { |k,v| k.in?(elements) }.each do |k,v|
+        yield(k,v)
       end
     end
 
-    # unmodifed from HasLocalProcessing module
-    def add_local; end
+    # MetsXmlEntry overrides of inherited methods
+    #
 
-    # unmodified from ImportBehavior
+    # modifed from HasLocalProcessing module
+    # adds mets-specific metadata handling
+    def add_local
+      add_local_files
+      add_remote_files
+      add_title
+      add_logical_structure
+      add_parents
+    end
+
+    # modified from ImportBehavior
+    # gets single collection_id, if any, from importer form
     def find_collection_ids
+      if parser.parser_fields['collection_id'].present?
+        self.collection_ids = Array.wrap(parser.parser_fields['collection_id'])
+      else
+        self.collection_ids = []
+      end
       self.collection_ids
     end
 
     # MetsXmlEntry new methods
     #
+
+    def source_identifier_value
+      @source_identifier_value ||= self.raw_metadata[source_identifier]
+    end
+
+    # memoize to handle url redirections just once
+    def files
+      @files ||= record.files
+    end
+
+    def add_local_files
+      local_files = files.reject { |e| e[:url].match(URI::ABS_URI) }.map { |e| e[:url] }
+      self.parsed_metadata['file'] = local_files if local_files.any?
+    end
+
+    def add_remote_files
+      remote_files = files.select { |e| e[:url].match(URI::ABS_URI) }
+      self.parsed_metadata['remote_files'] = remote_files if remote_files.any?
+    end
+
+    def add_logical_structure
+      self.parsed_metadata['structure'] = record.structure 
+    end
+
+    def add_parents
+      self.parsed_metadata['parents'] = collection_ids     
+    end
+
+    def override_title?
+      %w[true 1].include?(parser.parser_fields['override_title'].to_s)
+    end
+
+    def add_title
+      self.parsed_metadata['title'] = [parser.parser_fields['title']] if override_title? || self.parsed_metadata['title'].blank?
+    end
   end
 end

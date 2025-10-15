@@ -6,8 +6,7 @@ Bulkrax.setup do |config|
 
   # Add local parsers
   config.parsers += [
-    # @todo drop or fix -- currently broken, retaining at PO request
-    { name: 'METS XML (currently broken)', class_name: 'Bulkrax::MetsXmlParser', partial: 'mets_xml_fields' },
+    { name: 'METS XML', class_name: 'Bulkrax::MetsXmlParser', partial: 'mets_xml_fields' },
     { name: 'XML (currently broken)', class_name: 'Bulkrax::XmlParser', partial: 'xml_fields' },
   ]
 
@@ -67,10 +66,10 @@ Bulkrax.setup do |config|
       'parents' => { from: ['parents'], related_parents_field_mapping: true },
       'children' => { from: ['children'], related_children_field_mapping: true }
     },
+    # Mets import primarily uses METSRecord attributes
     "Bulkrax::MetsXmlParser" => {
-      'source' => { from: ['OBJID'], source_identifier: true, split: false },
-      "source_identifier" => { from: ["identifier"] },
-      "work_type" => 'PagedResource'
+      'source_identifier' => { from: ['OBJID'], source_identifier: true, split: false },
+      'model' => { from: ['work_type'] }
     }
   }
 

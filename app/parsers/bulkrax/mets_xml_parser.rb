@@ -2,12 +2,16 @@
 
 module Bulkrax
   class MetsXmlParser < XmlParser
-    # unmodified from XmlParser
+    # modified from XmlParser
     def entry_class
-      Bulkrax::XmlEntry
+      Bulkrax::MetsXmlEntry
     end
 
-    # unmodified from ApplicationParser
-    def create_relationships; end
+    # modified from ApplicationParser
+    def create_relationships
+      if parser_fields['collection_id'].present?
+        ScheduleRelationshipsJob.set(wait: 5.minutes).perform_later(importer_id: importerexporter.id)
+      end
+    end
   end
 end

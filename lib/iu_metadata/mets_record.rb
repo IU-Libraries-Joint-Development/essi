@@ -20,7 +20,7 @@ module IuMetadata
     ].freeze
 
     def attributes
-      ATTRIBUTES.map { |att| [att, send(att)] }.to_h.compact
+      @attributes ||= ATTRIBUTES.map { |att| [att, send(att)] }.to_h.compact.with_indifferent_access
     end
 
     def identifier

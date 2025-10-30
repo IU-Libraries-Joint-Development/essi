@@ -1,4 +1,5 @@
-# unmodified from iiif_print
+# modified from iiif_print
+# uses version of find_or_retrieve that is aware of external storage
 module Extensions
   module IiifPrint
     module Data
@@ -7,12 +8,7 @@ module Extensions
           private
     
           def checkout
-            file = @fileset.original_file
-            # find_or_retrieve returns path to working copy, but only
-            #   fetches from Fedora if no working copy exists on filesystem.
-            # NOTE: there may be some benefit to memoizing to avoid
-            #   call and File.exist? IO operation, but YAGNI for now.
-            Hyrax::WorkingDirectory.find_or_retrieve(file.id, @fileset.id)
+            @fileset.find_or_retrieve
           end
         end
       end

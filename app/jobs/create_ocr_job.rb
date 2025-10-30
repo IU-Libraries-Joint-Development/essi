@@ -7,7 +7,7 @@ class CreateOCRJob < CreateDerivativesJob
   def perform(file_set, file_id, filepath = nil)
     return if file_set.video? && !Hyrax.config.enable_ffmpeg
 
-    filepath = file_set.find_or_retrieve(file_id: file_id, filepath: filepath)
+    filepath = file_set.find_or_retrieve(file_id: file_id, filepath: filepath, restore_filename: true)
 
     # using #create_derivatives instead of #create_ocr_derivatives to use IIIF Print
     # @see https://github.com/scientist-softserv/iiif_print/blob/d14246664048c708071c7ff4de2e9a34aa703465/app/services/iiif_print/pluggable_derivative_service.rb#L25

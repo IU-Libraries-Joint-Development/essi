@@ -12,7 +12,7 @@ class CharacterizeJob < ApplicationJob
     unless filepath && File.exist?(filepath)
       delete_characterization_path = file_set.external?
     end
-    filepath = file_set.find_or_retrieve(file_id: file_id, filepath: filepath)
+    filepath = file_set.find_or_retrieve(file_id: file_id, filepath: filepath, restore_filename: true)
     Hydra::Works::CharacterizationService.run(file_set.characterization_proxy, filepath)
     Rails.logger.debug "Ran characterization on #{file_set.characterization_proxy.id} (#{file_set.characterization_proxy.mime_type})"
     file_set.characterization_proxy.save!

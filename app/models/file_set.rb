@@ -39,12 +39,17 @@ class FileSet < ActiveFedora::Base
   end
 
   # supplement to Hyrax::WorkingDirectory.find_or_retrieve, but aware of external storage
-  def find_or_retrieve(file_id: original_file&.id, filepath: nil)
+  def find_or_retrieve(file_id: original_file&.id, filepath: nil, restore_filename: false)
     return filepath if filepath && File.exist?(filepath)
     if self.external?
       filepath = ESSI.external_storage.find_or_retrieve(self, file_id: file_id, filepath: filepath)
     else
       filepath = Hyrax::WorkingDirectory.find_or_retrieve(file_id, self.id, filepath)
+    end
+    if restore_filename && (Pathname.new(filepath).basename != self.label)
+      original_path = filepath.dup
+      filepath = Pathname.new(filepath).dirname.join(self.label)
+      FileUtils.mv(original_path, filepath)
     end
     return filepath
   end

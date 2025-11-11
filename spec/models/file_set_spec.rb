@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe FileSet do
-  let(:file_set) { FactoryBot.build(:file_set) }
+  let(:file_set) { FactoryBot.build(:file_set, label: 'image.tif') }
   let(:collection_branding_info) { FactoryBot.build(:collection_branding_banner, file_set_id: nil) }
 
   describe 'collection_branding_info' do
@@ -69,10 +69,40 @@ RSpec.describe FileSet do
   end
 
   describe "#find_or_retrieve" do
+    shared_examples "restore_filename examples" do |argument_filepath, output_filepath|
+        context "with restore_filename: true" do
+          before { allow(FileUtils).to receive(:mv) }
+          context "with a file label present" do
+            it "restores the original filename" do
+              expect(FileUtils).to receive(:mv).with(output_filepath, Pathname.new(output_filepath.sub(File.basename(output_filepath), file_set.label)))
+              file_set.find_or_retrieve(filepath: argument_filepath, restore_filename: true)
+            end
+          end
+          context "without a file label" do
+            let(:unlabeled_file_set) { FactoryBot.build(:file_set, label: nil) }
+            before { allow(Hyrax::WorkingDirectory).to receive(:find_or_retrieve).and_return(output_filepath) }
+            it "does not restore the filename" do
+              expect(FileUtils).not_to receive(:mv)
+              unlabeled_file_set.find_or_retrieve(filepath: argument_filepath, restore_filename: true)
+            end
+            it "logs a warning" do
+              expect(Rails.logger).to receive(:warn)
+              unlabeled_file_set.find_or_retrieve(filepath: argument_filepath, restore_filename: true)
+            end
+          end
+        end
+        context "with restore_filename: false" do
+          before { allow(FileUtils).to receive(:mv) }
+          it "retains internal filename" do
+            expect(FileUtils).not_to receive(:mv)
+            file_set.find_or_retrieve(filepath: argument_filepath, restore_filename: false)
+          end
+        end
+    end
     shared_examples "find_or_retrieve examples" do |argument_filepath|
       context "when file is stored in S3" do
         before { allow(file_set).to receive(:content_location).and_return(external_location) }
-        let(:output_filepath) { 'filepath_from_s3' }
+        let(:output_filepath) { '/filepath_from_s3/internal_name.tif' }
         before { allow(ESSI.external_storage).to receive(:find_or_retrieve).and_return(output_filepath) }
         it "calls ESSI.external_storage.find_or_retrieve" do
           expect(ESSI.external_storage).to receive(:find_or_retrieve)
@@ -81,9 +111,10 @@ RSpec.describe FileSet do
         it "returns filepath" do
           expect(file_set.find_or_retrieve(filepath: argument_filepath)).to eq output_filepath
         end
+        include_examples "restore_filename examples", argument_filepath, '/filepath_from_s3/internal_name.tif'
       end
       context "when file is stored in Fedora" do
-        let(:output_filepath) { 'filepath_from_fedora' }
+        let(:output_filepath) { '/filepath_from_fedora/internal_name.tif' }
         before { allow(Hyrax::WorkingDirectory).to receive(:find_or_retrieve).and_return(output_filepath) }
         it "calls Hyrax::WorkingDirectory.find_or_retrieve" do
           expect(Hyrax::WorkingDirectory).to receive(:find_or_retrieve)
@@ -92,6 +123,7 @@ RSpec.describe FileSet do
         it "returns filepath" do
           expect(file_set.find_or_retrieve(filepath: argument_filepath)).to eq output_filepath
         end
+        include_examples "restore_filename examples", argument_filepath, '/filepath_from_fedora/internal_name.tif'
       end
     end
     context "when filepath provided" do

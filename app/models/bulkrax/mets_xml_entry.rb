@@ -2,97 +2,97 @@
 
 require 'nokogiri'
 module Bulkrax
-  # Generic XML Entry
-  class MetsXmlEntry < Entry
-    serialize :raw_metadata, JSON
+  class MetsXmlEntry < XmlEntry
+    # MetsXmlEntry method overrides
+    #
 
-    def self.fields_from_data(data); end
-
+    # modified from XmlEntry: don't remove namespaces
     # @param [String] path
     # @return [Nokogiri::XML::Document]
     def self.read_data(path)
-      # This doesn't cope with BOM sequences:
-      # Nokogiri::XML(open(path), nil, 'UTF-8').remove_namespaces!
       Nokogiri::XML(open(path))
     end
 
-    # replacement for bulkrax 0.1.0 method
-    def self.source_identifier_field
-      source_identifier_config.last&.[](:from)&.first
-    end
-
-    def self.source_identifier_export
-      source_identifier_config.first
-    end
-
-    def self.source_identifier_config
-      Bulkrax.field_mappings['Bulkrax::MetsXmlParser'].select { |k,v| v.is_a?(Hash) && v[:source_identifier] }.first
-    end
-
+    # modified from XmlEntry for source_id value sourcing
     # @param [Nokogiri::XML::Element] data
-    def self.data_for_entry(data)
+    # @param [Symbol] source_id
+    # @param [Bulkrax::MetsXMLParser] _parser
+    # @return Hash
+    def self.data_for_entry(data, source_id, _parser)
       collections = []
       children = []
-
-      source_identifier = data.attributes[source_identifier_field].text
+     
       return {
-        source_identifier: source_identifier,
+        source_id => data.attributes.with_indifferent_access[source_id].text,
+        delete: data.xpath(".//*[name()='delete']").first&.text,
         data:
-          data.document.to_xml(
-            encoding: 'utf-8',
+          data.to_xml(
+            encoding: 'UTF-8',
             save_with:
-                Nokogiri::XML::Node::SaveOptions::DEFAULT_XML
-          ),
+              Nokogiri::XML::Node::SaveOptions::NO_DECLARATION | Nokogiri::XML::Node::SaveOptions::NO_EMPTY_TAGS
+          ).delete("\n").delete("\t").squeeze(' '), # Remove newlines, tabs, and extra whitespace
         collection: collections,
         children: children
       }
     end
 
-    def source_identifier
-      @source_identifier ||= self.raw_metadata['source_identifier']
-    end
-    
+    # modified from XmlEntry
+    # uses mets instead of xml for record
+    # @return IuMetata::METSRecord
     def record
-      @record ||= IuMetadata::METSRecord.new(source_identifier, raw_metadata['data'])
+      @record ||= IuMetadata::METSRecord.new(source_identifier_value, raw_metadata['data'])
     end
 
-    def files
-      @files ||= record.files
+    # modified from XmlEntry
+    # sources model from importer form, rather than imported record
+    def establish_factory_class
+      self.parsed_metadata['model'] = parser.parser_fields['work_type'] || 'PagedResource'
     end
 
-    def add_work_type
-      self.parsed_metadata ||= {}
-      self.parsed_metadata['work_type'] = [parser.parser_fields['work_type'] || 'PagedResource']
-    end
-
-    def build_metadata
-      raise StandardError, 'Record not found' if record.nil?
-      raise StandardError, 'Missing source identifier' if source_identifier.blank?
-      self.parsed_metadata = {}
-      self.parsed_metadata['admin_set_id'] = self.importerexporter.admin_set_id
-      self.parsed_metadata[self.class.source_identifier_export] = [source_identifier]
-      add_work_type
-      record.attributes.each do |k,v|
-        add_metadata(k, v) unless v.blank?
+    # modified from XmlEntry
+    # uses IuMetatata::METSRecord for sourcing,
+    # elements defaults to all available attributes
+    # @param Array elements
+    def each_candidate_metadata_node_name_and_content(elements: record.attributes.keys)
+      record.attributes.select { |k,v| k.in?(elements) }.each do |k,v|
+        yield(k,v)
       end
-      add_title
-      add_visibility
-      add_rights_statement
+    end
+
+    # MetsXmlEntry overrides of inherited methods
+    #
+
+    # modifed from HasLocalProcessing module
+    # adds mets-specific metadata handling
+    def add_local
       add_local_files
       add_remote_files
+      add_title
       add_logical_structure
-      add_collections
-      add_local
-      raise StandardError, "title is required" if self.parsed_metadata['title'].join.blank?
-      self.parsed_metadata
+      add_parents
     end
 
-    def override_title
-      %w[true 1].include?(parser.parser_fields['override_title'].to_s)
+    # modified from ImportBehavior
+    # gets single collection_id, if any, from importer form
+    def find_collection_ids
+      if parser.parser_fields['collection_id'].present?
+        self.collection_ids = Array.wrap(parser.parser_fields['collection_id'])
+      else
+        self.collection_ids = []
+      end
+      self.collection_ids
     end
 
-    def add_title
-      self.parsed_metadata['title'] = [parser.parser_fields['title']] if override_title || self.parsed_metadata['title'].blank?
+    # MetsXmlEntry new methods
+    #
+
+    def source_identifier_value
+      @source_identifier_value ||= self.raw_metadata[source_identifier]
+    end
+
+    # memoize to handle url redirections just once
+    def files
+      @files ||= record.files
     end
 
     def add_local_files
@@ -109,15 +109,16 @@ module Bulkrax
       self.parsed_metadata['structure'] = record.structure 
     end
 
-    # the form only allows selecting an existing collection
-    def find_or_create_collection_ids
-      if parser.parser_fields['collection_id'].present?
-        self.collection_ids = Array.wrap(parser.parser_fields['collection_id'])
-      else
-        self.collection_ids = []
-      end
-      self.collection_ids
+    def add_parents
+      self.parsed_metadata['parents'] = collection_ids     
+    end
+
+    def override_title?
+      %w[true 1].include?(parser.parser_fields['override_title'].to_s)
+    end
+
+    def add_title
+      self.parsed_metadata['title'] = [parser.parser_fields['title']] if override_title? || self.parsed_metadata['title'].blank?
     end
   end
 end
-

@@ -9,7 +9,8 @@ module Extensions
           elsif asset.try(:external?)
             ext_id = asset.external_id
             external_asset = ESSI.external_storage.get(ext_id)
-            send_data external_asset.body.read, filename: ext_id
+            filename = ext_id.sub(/\.ptif$/, '.tif')
+            send_data external_asset.body.read, filename: filename
           else
             super
           end

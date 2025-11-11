@@ -46,10 +46,14 @@ class FileSet < ActiveFedora::Base
     else
       filepath = Hyrax::WorkingDirectory.find_or_retrieve(file_id, self.id, filepath)
     end
-    if restore_filename && (Pathname.new(filepath).basename != self.label)
-      original_path = filepath.dup
-      filepath = Pathname.new(filepath).dirname.join(self.label)
-      FileUtils.mv(original_path, filepath)
+    if restore_filename && (File.basename(filepath) != self.label)
+      if self.label.present?
+        original_path = filepath.dup
+        filepath = Pathname.new(filepath).dirname.join(self.label)
+        FileUtils.mv(original_path, filepath)
+      else
+        Rails.logger.warn "FileSet #{self.id} missing label"
+      end
     end
     return filepath
   end

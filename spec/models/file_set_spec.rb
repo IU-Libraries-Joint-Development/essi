@@ -72,9 +72,23 @@ RSpec.describe FileSet do
     shared_examples "restore_filename examples" do |argument_filepath, output_filepath|
         context "with restore_filename: true" do
           before { allow(FileUtils).to receive(:mv) }
-          it "restores the original filename" do
-            expect(FileUtils).to receive(:mv).with(output_filepath, Pathname.new(output_filepath.sub('internal_name.tif', file_set.label)))
-            file_set.find_or_retrieve(filepath: argument_filepath, restore_filename: true)
+          context "with a file label present" do
+            it "restores the original filename" do
+              expect(FileUtils).to receive(:mv).with(output_filepath, Pathname.new(output_filepath.sub(File.basename(output_filepath), file_set.label)))
+              file_set.find_or_retrieve(filepath: argument_filepath, restore_filename: true)
+            end
+          end
+          context "without a file label" do
+            let(:unlabeled_file_set) { FactoryBot.build(:file_set, label: nil) }
+            before { allow(Hyrax::WorkingDirectory).to receive(:find_or_retrieve).and_return(output_filepath) }
+            it "does not restore the filename" do
+              expect(FileUtils).not_to receive(:mv)
+              unlabeled_file_set.find_or_retrieve(filepath: argument_filepath, restore_filename: true)
+            end
+            it "logs a warning" do
+              expect(Rails.logger).to receive(:warn)
+              unlabeled_file_set.find_or_retrieve(filepath: argument_filepath, restore_filename: true)
+            end
           end
         end
         context "with restore_filename: false" do

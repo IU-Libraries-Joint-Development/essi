@@ -1,7 +1,8 @@
 module PrederivationHelper
 
+  # note: this returns "" if the filename contains no "-" characters
   def work_root_name(filename)
-    filename.split('/').last.split('-').first
+    filename.split('/').last.split('-')[0..-2].join('-')
   end
 
   def derivatives_folder_for(filename, type: '')

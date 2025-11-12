@@ -67,12 +67,14 @@ RSpec.describe Hyrax::DerivativeService do
           fsd_service.create_derivatives(image_file)
         end
         # simulate action of stubbed OCRRunner#create via Processor::OCR#encode_file
+        let(:folders) { Processors::OCR.derivatives_folders_for(File.basename(image_file), type: 'ocr').join(', ') }
         it 'skips OCR generation in OCR Processor' do
-          expect(Rails.logger).to receive(:info).with("Checking for world-ocr.xml in OCR folders.")
+          expect(Rails.logger).to receive(:info).with("Checking for world-ocr.xml in OCR folders: #{folders}")
           expect(Processors::OCR).to receive(:skip_derivatives?).and_return(true)
+          expect(Rails.logger).to receive(:info).with("No pre-derived file found")
           expect(Rails.logger).to receive(:info).with("No pre-derived file provided; skipping OCR generation")
           Processors::OCR.new(image_file,
-                              { label: "test123-alto.xml",
+                              { label: 'test123-alto.xml',
                                 mime_type: 'text/html; charset=utf-8',
                                 format: 'xml',
                                 container: 'extracted_text',

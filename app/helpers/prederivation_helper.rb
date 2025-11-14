@@ -1,16 +1,17 @@
 module PrederivationHelper
 
-  # note: this returns "" if the filename contains no "-" characters
-  def work_root_name(filename)
-    filename.split('/').last.split('-')[0..-2].join('-')
+  def derivatives_folders_for(filename, type: '', include_ungrouped: true)
+    segments = filename.split('-')[0..-2] # drop final segment as file-specific
+    folders = (1..segments.size).map { |i| segments[0..-i].join('-') }
+    folders << 'ungrouped' if include_ungrouped
+    folders.map { |folder| derivatives_folder_for(folder, type) }.uniq
   end
 
-  def derivatives_folder_for(filename, type: '')
-    return false unless root_derivatives_folder
-    folders = Array.wrap(root_derivatives_folder)
-    folders << type.downcase if path_includes_type?
-    folders << work_root_name(filename) if path_includes_work_root_name?
-    File.join(folders)
+  def derivatives_folder_for(folder, type)
+    segments = [root_derivatives_folder]
+    segments << type.downcase if path_includes_type?
+    segments << folder if path_includes_work_root_name?
+    File.join(segments)
   end
 
   def pre_derived_file(filename, type: '', suffix: 'xml')
@@ -20,20 +21,17 @@ module PrederivationHelper
       pre_derived_filename = "#{File.basename(filename, '.*')}.#{suffix}"
     end
 
-    Rails.logger.info "Checking for #{pre_derived_filename} in #{type} folders."
+    folders = derivatives_folders_for(filename, type: type)
+    Rails.logger.info "Checking for #{pre_derived_filename} in #{type} folders: #{folders.join(', ')}"
+    pre_derived_file = folders.select { |f| File.exist?(f) }.first
 
-    ungrouped_filename = File.join(root_derivatives_folder, type.downcase, 'ungrouped', pre_derived_filename)
-    if ungrouped_file_path?(ungrouped_filename)
-      pre_derived_file = ungrouped_filename
+    if pre_derived_file
+      Rails.logger.info "Using #{pre_derived_file} as #{type} file"
+      pre_derived_file
     else
-      derivatives_folder = derivatives_folder_for(filename, type: type)
-      pre_derived_file = File.join(derivatives_folder, pre_derived_filename)
+      Rails.logger.info "No pre-derived file found"
+      false
     end
-
-    return false unless File.exist?(pre_derived_file)
-
-    Rails.logger.info "Using #{pre_derived_file} as #{type} file."
-    pre_derived_file
   end
 
   def root_derivatives_folder
@@ -50,10 +48,5 @@ module PrederivationHelper
 
   def file_includes_type?
     ESSI.config.dig(:essi, :derivatives_type_suffix)
-  end
-
-  def ungrouped_file_path?(ungrouped_filename)
-    return false unless File.exist?(ungrouped_filename)
-    true
   end
 end

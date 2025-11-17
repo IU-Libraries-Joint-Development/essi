@@ -23,7 +23,8 @@ module PrederivationHelper
 
     folders = derivatives_folders_for(filename, type: type)
     Rails.logger.info "Checking for #{pre_derived_filename} in #{type} folders: #{folders.join(', ')}"
-    pre_derived_file = folders.select { |f| File.exist?(f) }.first
+    files = folders.map { |f| File.join(f, pre_derived_filename) }
+    pre_derived_file = files.select { |f| File.exist?(f) }.first
 
     if pre_derived_file
       Rails.logger.info "Using #{pre_derived_file} as #{type} file"

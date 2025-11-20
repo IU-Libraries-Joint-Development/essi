@@ -197,3 +197,6 @@ Hyrax::FileSetsController.prepend Extensions::Hyrax::FileSetsController::RenderO
 
 # support for FileSetPresenter#content_location
 Hyrax::FileSetPresenter.include Extensions::Hyrax::FileSetPresenter::ContentLocation
+
+# patch iiif_print to handle external storage
+IiifPrint::Data::WorkFile.prepend Extensions::IiifPrint::Data::WorkFile::ExternalFileLocation

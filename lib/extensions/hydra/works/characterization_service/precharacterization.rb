@@ -10,7 +10,8 @@ module Extensions
         # Get the terms (and their values) from the extracted metadata
         # Assign the values of the terms to the properties of the object
         def characterize
-          existing_file = precharacterization(source)
+          file_name = File.basename(source)
+          existing_file = precharacterization(file_name)
           if existing_file
             extracted_md = File.read(existing_file)
           else

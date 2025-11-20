@@ -15,13 +15,14 @@ module PrederivationHelper
   end
 
   def pre_derived_file(filename, type: '', suffix: 'xml')
+    file_basename = File.basename(filename, '.*')
     if file_includes_type?
-      pre_derived_filename = "#{File.basename(filename, '.*')}-#{type.downcase}.#{suffix}"
+      pre_derived_filename = "#{file_basename}-#{type.downcase}.#{suffix}"
     else
-      pre_derived_filename = "#{File.basename(filename, '.*')}.#{suffix}"
+      pre_derived_filename = "#{file_basename}.#{suffix}"
     end
 
-    folders = derivatives_folders_for(filename, type: type)
+    folders = derivatives_folders_for(file_basename, type: type)
     Rails.logger.info "Checking for #{pre_derived_filename} in #{type} folders: #{folders.join(', ')}"
     files = folders.map { |f| File.join(f, pre_derived_filename) }
     pre_derived_file = files.select { |f| File.exist?(f) }.first

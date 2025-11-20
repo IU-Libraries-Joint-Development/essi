@@ -74,7 +74,7 @@ RSpec.describe FileSet do
           before { allow(FileUtils).to receive(:mv) }
           context "with a file label present" do
             it "restores the original filename" do
-              expect(FileUtils).to receive(:mv).with(output_filepath, Pathname.new(output_filepath.sub(File.basename(output_filepath), file_set.label)))
+              expect(FileUtils).to receive(:mv).with(output_filepath, output_filepath.sub(File.basename(output_filepath), file_set.label))
               file_set.find_or_retrieve(filepath: argument_filepath, restore_filename: true)
             end
           end

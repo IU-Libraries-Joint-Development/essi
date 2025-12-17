@@ -49,7 +49,7 @@ class FileSet < ActiveFedora::Base
     if restore_filename && (File.basename(filepath) != self.label)
       if self.label.present?
         original_filepath = filepath.dup
-        filepath = original_filepath.sub(File.basename(original_filepath), self.label)
+        filepath = Pathname.new(original_filepath).dirname.join(self.label).to_s
         FileUtils.mv(original_filepath, filepath)
       else
         Rails.logger.warn "FileSet #{self.id} missing label"

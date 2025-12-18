@@ -39,15 +39,44 @@ class METSDocument
     @mets.xpath("/mets:mets/mets:metsHdr/mets:altRecordID").map(&:content)
   end
 
-  def series
-    xpath = "/mets:mets/mets:dmdSec[@ID='dmdSec-DC']/mets:mdWrap[@MDTYPE='DC']/mets:xmlData/qdc:qualifieddc/dcterms:isPartOf"
+  def wrapped_metadata(term)
+    xpath = "/mets:mets/mets:dmdSec[@ID='dmdSec-DC']/mets:mdWrap[@MDTYPE='DC']/mets:xmlData/qdc:qualifieddc/#{term}"
     # by default, nokogiri only looks for namespaces in the root node
     # @mets.collect_namespaces will collect all namespaces defined in the document
     # the reverse_merge ensures additional namespaces used in the XPATH statement are available
     namespaces = { 'xmlns:qdc' => 'http://www.bl.uk/namespaces/oai_dcq/',
-                   'xmlns:dcterms' => 'http://purl.org/dc/terms/' }
+                   'xmlns:dcterms' => 'http://purl.org/dc/terms/',
+                   'xmlns:dc' => 'http://purl.org/dc/elements/1.1/' }
     namespaces = @mets.collect_namespaces.reverse_merge(namespaces)
     @mets.xpath(xpath, namespaces).map(&:content)
+  end
+
+  def series
+    wrapped_metadata('dcterms:isPartOf')
+  end
+
+  def description
+    wrapped_metadata('dc:description')
+  end
+
+  def date_created
+    wrapped_metadata('dc:date')
+  end
+
+  def creator
+    wrapped_metadata('dc:creator')
+  end
+
+  def publisher
+    wrapped_metadata('dc:publisher')
+  end
+
+  def language
+    wrapped_metadata('dc:language')
+  end
+
+  def subject
+    wrapped_metadata('dc:subject')
   end
 
   def thumbnail_path

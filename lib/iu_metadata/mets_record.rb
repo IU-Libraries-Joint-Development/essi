@@ -8,7 +8,7 @@ module IuMetadata
 
     attr_reader :id, :source
 
-    # local metadata
+    # local metadata; can be overriden by descriptive metadata
     ATTRIBUTES = %w[
       identifier
       purl
@@ -20,7 +20,23 @@ module IuMetadata
     ].freeze
 
     def attributes
-      @attributes ||= ATTRIBUTES.map { |att| [att, send(att)] }.to_h.compact.with_indifferent_access
+      @attributes ||= local_metadata.merge(descriptive_metadata).with_indifferent_access
+    end
+
+    def local_metadata
+      ATTRIBUTES.map { |att| [att, send(att)] }.to_h.compact
+    end
+
+    def descriptive_metadata
+      { description: description,
+        date_created: date_created,
+        creator: creator,
+        publisher: publisher,
+        language: language,
+        subject: subject,
+        title: wrapped_metadata('dc:title'), # overrides title
+        related_url: wrapped_metadata('dcterms:relation') # overrides related_url
+      }
     end
 
     def identifier

@@ -48,14 +48,32 @@
     input_html: { class: 'form-control' }
     %>
   
-  <h4>Visiblity</h4>
-
   <%= fi.input :visibility,
     collection: [
       ['Public', 'open'],
       ['Private', 'restricted']
     ],
     selected: importer.parser_fields['visibility'] || 'open',
+    input_html: { class: 'form-control' }
+  %>
+
+  <%= fi.input :campus,
+    collection: CampusService.select_all_options,
+    selected: importer.parser_fields['campus'] || 'IUB',
+    input_html: { class: 'form-control' }
+  %>
+
+  <%= fi.input :ocr_state,
+    label: 'OCR state', 
+    collection: [['searchable', 'searchable'], ['not searchable', nil]],
+    selected: importer.parser_fields['ocr_state'] || 'searchable',
+    input_html: { class: 'form-control' }
+  %>
+
+  <%= fi.input :pdf_state,
+    label: 'PDF state',
+    collection: [['downloadable', 'downloadable'], ['not downloadable', nil]],
+    selected: importer.parser_fields['pdf_state'] || true,
     input_html: { class: 'form-control' }
   %>
 

@@ -8,7 +8,7 @@ RSpec.describe IuMetadata::METSRecord do
   }
   let(:thumbnail_path) { "file:///users/escowles/downloads/tmp/00000001.tif" }
 
-  record1_attributes =
+  local_metadata =
     {
       "identifier" => 'ark:/88435/7d278t10z',
       "purl" => 'ark:/88435/7d278t10z',
@@ -18,15 +18,47 @@ RSpec.describe IuMetadata::METSRecord do
       "title" => ['BHR9405'],
       "viewing_direction" => 'left-to-right',
     }
+  descriptive_metadata =
+    {
+      creator: [],
+      date_created: [],
+      description: [],
+      language: [],
+      publisher: [],
+      subject: [],
+      related_url: [],
+      title: [],
+    }
+  let(:combined_attributes) { local_metadata.dup.merge(descriptive_metadata).with_indifferent_access }
 
   describe "#attributes" do
     it "provides attibutes" do
-      expect(record1.attributes).to eq record1_attributes
+      expect(record1.attributes).to eq combined_attributes
+    end
+  end
+
+  describe "#local_metadata" do
+    it "provides attibutes" do
+      expect(record1.local_metadata).to eq local_metadata
+    end
+  end
+
+  describe "#descriptive_metadata" do
+    it "provides attibutes" do
+      expect(record1.descriptive_metadata).to eq descriptive_metadata
     end
   end
 
   describe "parses attributes" do
-    record1_attributes.each do |att, val|
+    local_metadata.each do |att, val|
+      describe "##{att}" do
+        it "retrieves the correct value" do
+          expect(record1.send(att)).to eq val
+        end
+      end
+    end
+    # exclude overridden title, related_url
+    descriptive_metadata.reject { |k,v| k.to_s.in? ['title', 'related_url'] }.each do |att, val|
       describe "##{att}" do
         it "retrieves the correct value" do
           expect(record1.send(att)).to eq val

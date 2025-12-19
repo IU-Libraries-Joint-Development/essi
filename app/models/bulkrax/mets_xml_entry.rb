@@ -70,6 +70,7 @@ module Bulkrax
       add_title
       add_logical_structure
       add_parents
+      add_form_values
     end
 
     # modified from ImportBehavior
@@ -119,6 +120,14 @@ module Bulkrax
 
     def add_title
       self.parsed_metadata['title'] = [parser.parser_fields['title']] if override_title? || self.parsed_metadata['title'].blank?
+    end
+
+    def add_form_values
+      ['campus', 'pdf_state', 'ocr_state'].each do |term|
+        value = parser.parser_fields[term]
+        value = Array.wrap(value) if factory_class.properties.with_indifferent_access[term]&.multiple?
+        self.parsed_metadata[term] = value
+      end
     end
   end
 end

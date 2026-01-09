@@ -13,11 +13,16 @@ module Bulkrax
       Nokogiri::XML(open(path))
     end
 
-    # modified from XmlEntry for source_id value sourcing
+    # modified from XmlEntry for:
+    # - source_id value sourcing
+    # - helper method .entry_formatted_xml for data
     # @param [Nokogiri::XML::Element] data
     # @param [Symbol] source_id
     # @param [Bulkrax::MetsXMLParser] _parser
     # @return Hash
+    #
+    # called by MetsXmlParser#records:
+    #   data is sourced from #read_data(path).xpath("//#{record_element}"), with record_element = "mets:mets"
     def self.data_for_entry(data, source_id, _parser)
       collections = []
       children = []
@@ -25,15 +30,20 @@ module Bulkrax
       return {
         source_id => data.attributes.with_indifferent_access[source_id].text,
         delete: data.xpath(".//*[name()='delete']").first&.text,
-        data:
-          data.to_xml(
-            encoding: 'UTF-8',
-            save_with:
-              Nokogiri::XML::Node::SaveOptions::NO_DECLARATION | Nokogiri::XML::Node::SaveOptions::NO_EMPTY_TAGS
-          ).delete("\n").delete("\t").squeeze(' '), # Remove newlines, tabs, and extra whitespace
+        data: entry_formatted_xml(data),
         collection: collections,
         children: children
       }
+    end
+
+    # @param [Nokogiri::XML::Document]
+    # return String
+    def self.entry_formatted_xml(data)
+      data.to_xml(
+        encoding: 'UTF-8',
+        save_with:
+          Nokogiri::XML::Node::SaveOptions::NO_DECLARATION | Nokogiri::XML::Node::SaveOptions::NO_EMPTY_TAGS
+        ).delete("\n").delete("\t").squeeze(' ') # Remove newlines, tabs, and extra whitespace
     end
 
     # modified from XmlEntry

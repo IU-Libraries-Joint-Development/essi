@@ -18,6 +18,9 @@ class CatalogController < ApplicationController
   include BlacklightIiifSearch::Controller
 
   configure_blacklight do |config|
+    # Do not store searches for anyone since Hyrax can't display them anyway
+    config.crawler_detector = ->(req) { true }
+
     # IiifPrint index fields
     config.add_index_field 'all_text_tsimv', highlight: true, helper_method: :render_ocr_snippets
 

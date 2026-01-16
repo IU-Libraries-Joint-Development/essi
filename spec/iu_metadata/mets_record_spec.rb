@@ -26,6 +26,8 @@ RSpec.describe IuMetadata::METSRecord do
       genre: [],
       language: [],
       publisher: [],
+      source_identifier: ['BHR9405'],
+      source: ['BHR9405'],
       subject: [],
       related_url: [],
       title: [],

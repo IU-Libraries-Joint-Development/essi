@@ -34,6 +34,7 @@ module IuMetadata
         genre: genre,
         publisher: publisher,
         language: language,
+        source: source,
         subject: subject,
         title: wrapped_metadata('dc:title'), # overrides title
         related_url: wrapped_metadata('dcterms:relation') # overrides related_url
@@ -48,6 +49,10 @@ module IuMetadata
 
     def source_metadata_identifier
       mets_id
+    end
+
+    def source
+      [source_metadata_identifier]
     end
 
     def title

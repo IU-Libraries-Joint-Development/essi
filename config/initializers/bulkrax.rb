@@ -68,7 +68,7 @@ Bulkrax.setup do |config|
     },
     # Mets import primarily uses METSRecord attributes
     "Bulkrax::MetsXmlParser" => {
-      'source_identifier' => { from: ['OBJID'], source_identifier: true, split: false },
+      'source_identifier' => { from: ['ID'], source_identifier: true, split: false },
       'model' => { from: ['work_type'] }
     }
   }

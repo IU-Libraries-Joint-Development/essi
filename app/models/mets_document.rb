@@ -67,6 +67,10 @@ class METSDocument
     wrapped_metadata('dc:creator')
   end
 
+  def genre
+    wrapped_metadata('dc:type')
+  end
+
   def publisher
     wrapped_metadata('dc:publisher')
   end

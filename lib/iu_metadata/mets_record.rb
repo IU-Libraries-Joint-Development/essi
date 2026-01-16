@@ -10,7 +10,6 @@ module IuMetadata
 
     # local metadata; can be overriden by descriptive metadata
     ATTRIBUTES = %w[
-      identifier
       purl
       related_url
       series
@@ -31,8 +30,10 @@ module IuMetadata
       { description: description,
         date_created: date_created,
         creator: creator,
+        genre: genre,
         publisher: publisher,
         language: language,
+        source: source,
         subject: subject,
         title: wrapped_metadata('dc:title'), # overrides title
         related_url: wrapped_metadata('dcterms:relation') # overrides related_url
@@ -47,6 +48,10 @@ module IuMetadata
 
     def source_metadata_identifier
       mets_id
+    end
+
+    def source
+      [source_metadata_identifier]
     end
 
     def title

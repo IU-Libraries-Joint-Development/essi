@@ -31,6 +31,7 @@ module IuMetadata
       { description: description,
         date_created: date_created,
         creator: creator,
+        genre: genre,
         publisher: publisher,
         language: language,
         subject: subject,

@@ -23,6 +23,7 @@ RSpec.describe IuMetadata::METSRecord do
       creator: [],
       date_created: [],
       description: [],
+      genre: [],
       language: [],
       publisher: [],
       subject: [],

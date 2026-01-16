@@ -10,7 +10,6 @@ RSpec.describe IuMetadata::METSRecord do
 
   local_metadata =
     {
-      "identifier" => 'ark:/88435/7d278t10z',
       "purl" => 'ark:/88435/7d278t10z',
       "related_url" => [],
       "series" => [],
@@ -26,7 +25,6 @@ RSpec.describe IuMetadata::METSRecord do
       genre: [],
       language: [],
       publisher: [],
-      source_identifier: ['BHR9405'],
       source: ['BHR9405'],
       subject: [],
       related_url: [],

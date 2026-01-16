@@ -10,7 +10,6 @@ module IuMetadata
 
     # local metadata; can be overriden by descriptive metadata
     ATTRIBUTES = %w[
-      identifier
       purl
       related_url
       series

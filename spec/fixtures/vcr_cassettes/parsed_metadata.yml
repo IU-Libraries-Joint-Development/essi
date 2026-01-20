@@ -1,0 +1,488 @@
+---
+source_identifier:
+- http://purl.dlib.indiana.edu/iudl/archives/VAC1741-00310
+model: PagedResource
+purl:
+- http://purl.dlib.indiana.edu/iudl/archives/VAC1741-00310
+related_url: []
+series: []
+source:
+- VAC1741-00310
+source_metadata_identifier: VAC1741-00310
+title:
+- 
+viewing_direction: left-to-right
+description: []
+date_created: []
+creator: []
+publisher: []
+language: []
+subject: []
+visibility: open
+rights_statement:
+- 
+admin_set_id: MyString
+file:
+- ''
+remote_files:
+- id: VAC1741-U-00064-001-thumbnail
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229891/THUMBNAIL
+  file_name: VAC1741-U-00064-001-thumbnail
+  file_opts: {}
+  attributes:
+    title:
+    - VAC1741-U-00064. page 1
+- id: VAC1741-U-00064-002-thumbnail
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229892/THUMBNAIL
+  file_name: VAC1741-U-00064-002-thumbnail
+  file_opts:
+    viewing_hint: non-paged
+  attributes:
+    title:
+    - VAC1741-U-00064
+- id: VAC1741-U-00064-003-thumbnail
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229893/THUMBNAIL
+  file_name: VAC1741-U-00064-003-thumbnail
+  file_opts: {}
+  attributes:
+    title:
+    - page 3
+- id: VAC1741-U-00065-001-thumbnail
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229895/THUMBNAIL
+  file_name: VAC1741-U-00065-001-thumbnail
+  file_opts: {}
+  attributes:
+    title:
+    - page 1
+- id: VAC1741-U-00066-001-thumbnail
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229897/THUMBNAIL
+  file_name: VAC1741-U-00066-001-thumbnail
+  file_opts: {}
+  attributes:
+    title:
+    - page 1
+- id: VAC1741-U-00067-001-thumbnail
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229899/THUMBNAIL
+  file_name: VAC1741-U-00067-001-thumbnail
+  file_opts: {}
+  attributes:
+    title:
+    - page 1
+- id: VAC1741-U-00068-001-thumbnail
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229902/THUMBNAIL
+  file_name: VAC1741-U-00068-001-thumbnail
+  file_opts: {}
+  attributes:
+    title:
+    - page 1
+- id: VAC1741-U-00068-002-thumbnail
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229903/THUMBNAIL
+  file_name: VAC1741-U-00068-002-thumbnail
+  file_opts: {}
+  attributes:
+    title:
+    - page 2
+- id: VAC1741-U-00068-003-thumbnail
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229904/THUMBNAIL
+  file_name: VAC1741-U-00068-003-thumbnail
+  file_opts: {}
+  attributes:
+    title:
+    - page 3
+- id: VAC1741-U-00069-001-thumbnail
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229906/THUMBNAIL
+  file_name: VAC1741-U-00069-001-thumbnail
+  file_opts: {}
+  attributes:
+    title:
+    - page 1
+- id: VAC1741-U-00069-002-thumbnail
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229907/THUMBNAIL
+  file_name: VAC1741-U-00069-002-thumbnail
+  file_opts: {}
+  attributes:
+    title:
+    - page 2
+- id: VAC1741-U-00064-001-screen
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229891/SCREEN
+  file_name: VAC1741-U-00064-001-screen
+  file_opts: {}
+  attributes:
+    title:
+    - VAC1741-U-00064. page 1
+- id: VAC1741-U-00064-002-screen
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229892/SCREEN
+  file_name: VAC1741-U-00064-002-screen
+  file_opts:
+    viewing_hint: non-paged
+  attributes:
+    title:
+    - VAC1741-U-00064
+- id: VAC1741-U-00064-003-screen
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229893/SCREEN
+  file_name: VAC1741-U-00064-003-screen
+  file_opts: {}
+  attributes:
+    title:
+    - page 3
+- id: VAC1741-U-00065-001-screen
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229895/SCREEN
+  file_name: VAC1741-U-00065-001-screen
+  file_opts: {}
+  attributes:
+    title:
+    - page 1
+- id: VAC1741-U-00066-001-screen
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229897/SCREEN
+  file_name: VAC1741-U-00066-001-screen
+  file_opts: {}
+  attributes:
+    title:
+    - page 1
+- id: VAC1741-U-00067-001-screen
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229899/SCREEN
+  file_name: VAC1741-U-00067-001-screen
+  file_opts: {}
+  attributes:
+    title:
+    - page 1
+- id: VAC1741-U-00067-002-screen
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229900/SCREEN
+  file_name: VAC1741-U-00067-002-screen
+  file_opts: {}
+  attributes:
+    title:
+    - page 2
+- id: VAC1741-U-00068-001-screen
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229902/SCREEN
+  file_name: VAC1741-U-00068-001-screen
+  file_opts: {}
+  attributes:
+    title:
+    - page 1
+- id: VAC1741-U-00068-002-screen
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229903/SCREEN
+  file_name: VAC1741-U-00068-002-screen
+  file_opts: {}
+  attributes:
+    title:
+    - page 2
+- id: VAC1741-U-00068-003-screen
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229904/SCREEN
+  file_name: VAC1741-U-00068-003-screen
+  file_opts: {}
+  attributes:
+    title:
+    - page 3
+- id: VAC1741-U-00069-001-screen
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229906/SCREEN
+  file_name: VAC1741-U-00069-001-screen
+  file_opts: {}
+  attributes:
+    title:
+    - page 1
+- id: VAC1741-U-00069-002-screen
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229907/SCREEN
+  file_name: VAC1741-U-00069-002-screen
+  file_opts: {}
+  attributes:
+    title:
+    - page 2
+- id: VAC1741-U-00064-001-large
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229891/LARGE
+  file_name: VAC1741-U-00064-001-large
+  file_opts: {}
+  attributes:
+    title:
+    - VAC1741-U-00064. page 1
+- id: VAC1741-U-00064-002-large
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229892/LARGE
+  file_name: VAC1741-U-00064-002-large
+  file_opts:
+    viewing_hint: non-paged
+  attributes:
+    title:
+    - VAC1741-U-00064
+- id: VAC1741-U-00064-003-large
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229893/LARGE
+  file_name: VAC1741-U-00064-003-large
+  file_opts: {}
+  attributes:
+    title:
+    - page 3
+- id: VAC1741-U-00065-001-large
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229895/LARGE
+  file_name: VAC1741-U-00065-001-large
+  file_opts: {}
+  attributes:
+    title:
+    - page 1
+- id: VAC1741-U-00066-001-large
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229897/LARGE
+  file_name: VAC1741-U-00066-001-large
+  file_opts: {}
+  attributes:
+    title:
+    - page 1
+- id: VAC1741-U-00067-001-large
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229899/LARGE
+  file_name: VAC1741-U-00067-001-large
+  file_opts: {}
+  attributes:
+    title:
+    - page 1
+- id: VAC1741-U-00067-002-large
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229900/LARGE
+  file_name: VAC1741-U-00067-002-large
+  file_opts: {}
+  attributes:
+    title:
+    - page 2
+- id: VAC1741-U-00068-001-large
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229902/LARGE
+  file_name: VAC1741-U-00068-001-large
+  file_opts: {}
+  attributes:
+    title:
+    - page 1
+- id: VAC1741-U-00068-002-large
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229903/LARGE
+  file_name: VAC1741-U-00068-002-large
+  file_opts: {}
+  attributes:
+    title:
+    - page 2
+- id: VAC1741-U-00068-003-large
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229904/LARGE
+  file_name: VAC1741-U-00068-003-large
+  file_opts: {}
+  attributes:
+    title:
+    - page 3
+- id: VAC1741-U-00069-001-large
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229906/LARGE
+  file_name: VAC1741-U-00069-001-large
+  file_opts: {}
+  attributes:
+    title:
+    - page 1
+- id: VAC1741-U-00069-002-large
+  checksum: ''
+  mime_type: image/jpeg
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229907/LARGE
+  file_name: VAC1741-U-00069-002-large
+  file_opts: {}
+  attributes:
+    title:
+    - page 2
+- id: VAC1741-U-00064-printable
+  checksum: ''
+  mime_type: application/pdf
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229890/OVERVIEW
+  file_name: VAC1741-U-00064-printable
+  file_opts:
+    viewing_hint: non-paged
+  attributes:
+    title:
+    - VAC1741-U-00064
+- id: VAC1741-U-00065-printable
+  checksum: ''
+  mime_type: application/pdf
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229894/OVERVIEW
+  file_name: VAC1741-U-00065-printable
+  file_opts: {}
+  attributes:
+    title:
+    - VAC1741-U-00065
+- id: VAC1741-U-00066-printable
+  checksum: ''
+  mime_type: application/pdf
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229896/OVERVIEW
+  file_name: VAC1741-U-00066-printable
+  file_opts: {}
+  attributes:
+    title:
+    - VAC1741-U-00066
+- id: VAC1741-U-00067-printable
+  checksum: ''
+  mime_type: application/pdf
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229898/OVERVIEW
+  file_name: VAC1741-U-00067-printable
+  file_opts: {}
+  attributes:
+    title:
+    - VAC1741-U-00067
+- id: VAC1741-U-00068-printable
+  checksum: ''
+  mime_type: application/pdf
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229901/OVERVIEW
+  file_name: VAC1741-U-00068-printable
+  file_opts: {}
+  attributes:
+    title:
+    - VAC1741-U-00068
+- id: VAC1741-U-00069-printable
+  checksum: ''
+  mime_type: application/pdf
+  url: http://fedora.dlib.indiana.edu/fedora/get/iudl:1229905/OVERVIEW
+  file_name: VAC1741-U-00069-printable
+  file_opts: {}
+  attributes:
+    title:
+    - VAC1741-U-00069
+structure:
+  label: Logical
+  nodes:
+  - label: page 3
+    nodes:
+    - label: page 3
+      proxy: VAC1741-U-00064-003-thumbnail
+    - label: page 3
+      proxy: VAC1741-U-00064-003-screen
+    - label: page 3
+      proxy: VAC1741-U-00064-003-large
+  - label: page 1
+    nodes:
+    - label: page 1
+      proxy: VAC1741-U-00065-001-thumbnail
+    - label: page 1
+      proxy: VAC1741-U-00065-001-screen
+    - label: page 1
+      proxy: VAC1741-U-00065-001-large
+  - label: page 1
+    nodes:
+    - label: page 1
+      proxy: VAC1741-U-00066-001-thumbnail
+    - label: page 1
+      proxy: VAC1741-U-00066-001-screen
+    - label: page 1
+      proxy: VAC1741-U-00066-001-large
+  - label: page 1
+    nodes:
+    - label: page 1
+      proxy: VAC1741-U-00067-001-thumbnail
+    - label: page 1
+      proxy: VAC1741-U-00067-001-screen
+    - label: page 1
+      proxy: VAC1741-U-00067-001-large
+  - label: page 2
+    nodes:
+    - label: page 2
+      proxy: VAC1741-U-00067-002-thumbnail
+    - label: page 2
+      proxy: VAC1741-U-00067-002-screen
+    - label: page 2
+      proxy: VAC1741-U-00067-002-large
+  - label: page 1
+    nodes:
+    - label: page 1
+      proxy: VAC1741-U-00068-001-thumbnail
+    - label: page 1
+      proxy: VAC1741-U-00068-001-screen
+    - label: page 1
+      proxy: VAC1741-U-00068-001-large
+  - label: page 2
+    nodes:
+    - label: page 2
+      proxy: VAC1741-U-00068-002-thumbnail
+    - label: page 2
+      proxy: VAC1741-U-00068-002-screen
+    - label: page 2
+      proxy: VAC1741-U-00068-002-large
+  - label: page 3
+    nodes:
+    - label: page 3
+      proxy: VAC1741-U-00068-003-thumbnail
+    - label: page 3
+      proxy: VAC1741-U-00068-003-screen
+    - label: page 3
+      proxy: VAC1741-U-00068-003-large
+  - label: page 1
+    nodes:
+    - label: page 1
+      proxy: VAC1741-U-00069-001-thumbnail
+    - label: page 1
+      proxy: VAC1741-U-00069-001-screen
+    - label: page 1
+      proxy: VAC1741-U-00069-001-large
+  - label: page 2
+    nodes:
+    - label: page 2
+      proxy: VAC1741-U-00069-002-thumbnail
+    - label: page 2
+      proxy: VAC1741-U-00069-002-screen
+    - label: page 2
+      proxy: VAC1741-U-00069-002-large
+parents: []
+campus: 
+pdf_state: 
+ocr_state: 
+dynamic_schema_id: 2

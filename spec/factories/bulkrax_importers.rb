@@ -9,8 +9,7 @@ FactoryBot.define do
     parser_fields { { 'import_file_path' => 'spec/fixtures/xml/mets.xml' } }
     field_mapping do
       {
-        "source_identifier" => { from: ["identifier"] },
-        "work_type" => 'PagedResource'
+        "source_identifier" => { from: ["OBJID"], source_identifier: true }
       }
     end
   end

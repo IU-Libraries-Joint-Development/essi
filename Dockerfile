@@ -8,7 +8,7 @@ RUN groupadd -g ${GROUP_ID} essi && \
     useradd -m -l -g essi -u ${USER_ID} essi && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get update -qq && \
     apt-get install -y --no-install-recommends build-essential default-jre-headless libpq-dev nodejs \
       libreoffice-writer libreoffice-impress poppler-utils unzip ghostscript \

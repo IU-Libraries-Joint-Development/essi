@@ -3,6 +3,7 @@ class CleanListSourceJob < ApplicationJob
 
   # Cleans up extraneous list_source resources that were left behind when adding a file to an existing work when using OrderedMembersActor.
   def perform(work, batch_size = 100)
+    return unless work.respond_to?(:list_source)
     # raise ArgumentError, "batch size must be positive" unless batch_size > 0
     list_source = work.list_source
     # Build list of resources that need to be cleaned up, leaving out the active resources.

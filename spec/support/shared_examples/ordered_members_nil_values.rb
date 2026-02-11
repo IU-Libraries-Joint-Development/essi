@@ -25,7 +25,12 @@ RSpec.shared_examples "ordered_members nil values" do |resource_symbol|
           resource.remove_nil_ordered_members(ordered_members)
         end
         it "notifies depositor" do
+
           expect(resource).to receive(:notify_user_of_nil_values).with(true, [1,3])
+          resource.remove_nil_ordered_members(ordered_members)
+        end
+        it "calls CleanListSourceByIdJob" do
+          expect(CleanListSourceByIdJob).to receive(:perform_later).with(resource.id)
           resource.remove_nil_ordered_members(ordered_members)
         end
         it "returns revised ordered_member values" do
@@ -49,6 +54,10 @@ RSpec.shared_examples "ordered_members nil values" do |resource_symbol|
           expect(resource).to receive(:notify_user_of_nil_values).with(false, [1,3])
           resource.remove_nil_ordered_members(ordered_members)
         end
+        it "does not call CleanListSourceByIdJob" do
+          expect(CleanListSourceByIdJob).not_to receive(:perform_later).with(resource.id)
+          resource.remove_nil_ordered_members(ordered_members)
+        end
         it "returns false" do
           expect(resource.remove_nil_ordered_members(ordered_members)).to eq false
         end
@@ -64,6 +73,10 @@ RSpec.shared_examples "ordered_members nil values" do |resource_symbol|
         end
         it "notifies depositor" do
           expect(resource).to receive(:notify_user_of_nil_values).with(false, [1,3])
+          resource.remove_nil_ordered_members(ordered_members)
+        end
+        it "does not call CleanListSourceByIdJob" do
+          expect(CleanListSourceByIdJob).not_to receive(:perform_later).with(resource.id)
           resource.remove_nil_ordered_members(ordered_members)
         end
         it "returns false" do

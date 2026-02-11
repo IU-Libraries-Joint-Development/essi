@@ -28,6 +28,7 @@ module ESSI
         if self.save(validate: false)
           Rails.logger.info("Nil values successfully removed from ordered_members of #{self.class.to_s} #{self.id} at indexes: #{nil_indexes.join(', ')}")
           notify_user_of_nil_values(true, nil_indexes)
+          CleanListSourceByIdJob.perform_later(self.id)
           revised_members
         else
           Rails.logger.error("Save failure updating resource to remove nil values from ordered_members of #{self.class.to_s} #{self.id} at indexes: #{nil_indexes.join(', ')}")

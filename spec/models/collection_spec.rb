@@ -94,4 +94,6 @@ RSpec.describe Collection do
       end
     end
   end
+
+  include_examples "ordered_members nil values", :collection_lw
 end

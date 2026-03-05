@@ -2,10 +2,11 @@
 module Extensions
   module ActiveFedora
     module SolrService
-      # Original from active_fedora 12.2.4 solr_service.rb
+      # Modified from active_fedora 12.2.4 solr_service.rb
+      # to use POST by default
       def query(query, args = {})
         Base.logger.warn "Calling ActiveFedora::SolrService.get without passing an explicit value for ':rows' is not recommended. You will end up with Solr's default (usually set to 10)\nCalled by #{caller[0]}" unless args.key?(:rows)
-        method = args.delete(:method) || :get
+        method = args.delete(:method) || :post
 
         result = case method
                  when :get
@@ -22,7 +23,7 @@ module Extensions
 
       def count(query, args = {})
         args = args.merge(rows: 0)
-        SolrService.get(query, args)['response']['numFound'].to_i
+        SolrService.post(query, args)['response']['numFound'].to_i
       end
     end
   end

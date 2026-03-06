@@ -1,4 +1,6 @@
-<% if current_user.admin? %>
+<% if current_user.admin? ||
+      current_ability.can?(:edit, f.object.model.admin_set) ||
+      f.object.model.member_of_collections.any? { |c| current_ability.can?(:edit, c) } %>
   <%= f.input key, as: :radio_buttons,
       collection: [[true, 'downloadable'], [false, 'disabled']],
       label: dynamic_label(key),

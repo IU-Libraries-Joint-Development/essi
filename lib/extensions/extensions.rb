@@ -14,6 +14,7 @@ ActiveFedora::Aggregation::ListSource.class_eval do
 end
 
 ActiveFedora::SolrService.prepend Extensions::ActiveFedora::SolrService
+ActiveFedora::FinderMethods.prepend Extensions::ActiveFedora::FinderMethods
 
 # external storage download support
 Hyrax::DownloadsController.prepend Extensions::Hyrax::DownloadsController::ExternalStorage

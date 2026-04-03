@@ -9,6 +9,11 @@ class PurlController < ApplicationController
         @url = manifest_url(@url)
         @url.present? ? (redirect_to @url) : render_404
       end
+      # A catch-all redirect in case the route captures an ID with
+      # dot notation and interprets the last segment as a format.
+      # This handles the redirect, but later we add that segment back
+      # to the ID for the lookup (see set_object)
+      f.any { redirect_to @url }
     end
   end
 
@@ -17,26 +22,35 @@ class PurlController < ApplicationController
     respond_to do |f|
       f.html { redirect_to @url }
       f.json { render json: { url: @url }.to_json }
-      f.jp2 do
-        @url = jp2_url(@solr_hit)
+      f.any(:jp2, :ptif) do
+        @url = image_url(@solr_hit)
         @url.present? ? (redirect_to @url) : render_404
       end
     end
   end
 
   private
+    ALLOWABLE_FORMAT_SEGMENTS = ['json', 'html', 'iiif', 'jp2', 'ptif']
     FILESET_LOOKUPS = { FileSet => nil }.freeze
-    purl_regex = ESSI.config.dig(:essi, :purl_validation_regex) || '^[a-zA-Z\d\/-]{0,}$'
+    purl_regex = ESSI.config.dig(:essi, :purl_validation_regex) || '^[a-zA-Z\d.\/-]{0,}$'
     DEFAULT_WORK_PATTERN = /#{purl_regex}/.freeze
     DEFAULT_WORK_LOOKUPS = Hyrax.config.registered_curation_concern_types.sort.map do |klass|
       [klass.constantize, DEFAULT_WORK_PATTERN.dup]
     end.to_h.freeze
     CUSTOM_WORK_LOOKUPS = {}.freeze
     WORK_LOOKUPS = DEFAULT_WORK_LOOKUPS.dup.merge(CUSTOM_WORK_LOOKUPS.dup).freeze
-   
+
     # sets @solr_hit (if found), @url (always)
     def set_object(lookup_rules, split_id: false)
       id, volume, page = (split_id ? params[:id].split('-') : params[:id] )
+
+      # A quick fix to allow for IDs that include dot notation.  The last
+      # segment will get interpreted on the route as a format, so add it
+      # back to the ID if it isn't a format we respond_to
+      unless ALLOWABLE_FORMAT_SEGMENTS.include? params[:format]
+        id = "#{params[:id]}.#{params[:format].to_s.chomp}" unless params[:format].nil?
+      end
+
       volume = normalize_number(volume)
       page = normalize_number(page)
       lookup_rules.each do |klass, match_pattern|
@@ -74,7 +88,7 @@ class PurlController < ApplicationController
       @rescue_url ||= ESSI.config.dig(:essi, :purl_redirect_url) % params[:id]
     end
 
-    def jp2_url(solr_hit)
+    def image_url(solr_hit)
       begin
         IIIFFileSetPathService.new(solr_hit).iiif_image_url(size: '!600,600')
       rescue StandardError

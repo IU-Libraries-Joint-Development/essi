@@ -6,6 +6,7 @@ module Hyrax
     include ESSI::PresentsOCR
     include ESSI::PresentsStructure
     include AllinsonFlex::DynamicPresenterBehavior
+    include ESSI::OptimizedAdminSetLookup
     self.model_class = ::Scientific
     include ESSI::PresentsCustomRenderedAttributes
     delegate(*delegated_properties, to: :solr_document)

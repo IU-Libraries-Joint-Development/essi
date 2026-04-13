@@ -2,6 +2,7 @@
 .home_welcome {
   .collection-counts-wrapper {
     text-align: left;
+    margin-top: 30px;
 
     @media (max-width: 992px) {
       text-align: left;

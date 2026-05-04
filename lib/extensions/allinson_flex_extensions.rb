@@ -14,6 +14,8 @@ AllinsonFlex::AllinsonFlexConstructor.include Extensions::AllinsonFlex::IncludeA
 Hyrax::Admin::PermissionTemplatesController.prepend Extensions::AllinsonFlex::PrependPermissionTemplatesController
 AllinsonFlex::ProfilesController.prepend Extensions::AllinsonFlex::PrependProfilesController
 
+# DynamicSchemaService
+AllinsonFlex::DynamicSchemaService.prepend Extensions::AllinsonFlex::OptimizedAdminSetLookup
 #  forms
 Hyrax::Forms::AdminSetForm.prepend Extensions::AllinsonFlex::PrependAdminSetForm
 Hyrax::Forms::PermissionTemplateForm.prepend Extensions::AllinsonFlex::PrependPermissionTemplateForm

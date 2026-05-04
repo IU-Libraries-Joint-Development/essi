@@ -24,6 +24,11 @@ module Extensions
         def total_viewable_collections
           num_collections
         end
+
+        # Uses blank? in place of nil? to handle empty array
+        def total_parent_collections
+          parent_collections.blank? ? 0 : parent_collections.response['numFound']
+        end
       end
     end
   end

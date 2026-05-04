@@ -14,5 +14,6 @@ LDAPGroupsLookup.config = {
   },
   tree: ESSI.config[:ldap][:tree],
   account_ou: ESSI.config[:ldap][:account_ou],
-  group_ou: ESSI.config[:ldap][:group_ou]
+  group_ou: ESSI.config[:ldap][:group_ou],
+  member_allowlist: ESSI.config[:ldap][:member_allowlist]
 }

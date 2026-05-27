@@ -24,10 +24,11 @@ RUN mkdir -p /opt/fits && \
     cd /opt/fits && unzip fits-1.5.5.zip && rm fits-1.5.5.zip && chmod +X fits.sh && \
     sed -i 's/\(<tool.*TikaTool.*>\)/<!--\1-->/ ; s/\(<tool.*FFIdent.*>\)/<!--\1-->/' /opt/fits/xml/fits.xml && \
     sed -i "s/exiftool\/ImageWidth\[last()\]/substring-before(exiftool\/ImageSize, 'x')/ ; s/exiftool\/ImageHeight\[last()\]/substring-after(exiftool\/ImageSize, 'x')/" /opt/fits/xml/exiftool/exiftool_image_to_fits.xslt
-ENV PATH /opt/fits:$PATH
-ENV RUBY_THREAD_MACHINE_STACK_SIZE 16777216
-ENV RUBY_THREAD_VM_STACK_SIZE 16777216
-ENV LD_PRELOAD=/usr/local/lib/libjemalloc.so.2
+ENV PATH=/opt/fits:$PATH \
+    RUBY_THREAD_MACHINE_STACK_SIZE=16777216 \
+    RUBY_THREAD_VM_STACK_SIZE=16777216 \
+    LD_PRELOAD=/usr/local/lib/libjemalloc.so.2 \
+    NODE_OPTIONS=--openssl-legacy-provider
 
 # Installs specific version of ImageMagick to work with iiif_print
 RUN wget https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.0-57.tar.gz && \
@@ -57,7 +58,7 @@ COPY --chown=essi:essi . .
 
 RUN mkdir /app/tmp/cache
 
-ENV RAILS_LOG_TO_STDOUT true
+ENV RAILS_LOG_TO_STDOUT=true
 
 ###
 # ruby dependencies image
@@ -81,26 +82,26 @@ RUN gem install bundler -v "~> 2.4.22" && \
 
 COPY --chown=essi:essi . .
 
-ENV RAILS_LOG_TO_STDOUT true
-ENV RAILS_ENV production
-ENV SKIP_IIIF_PRINT_BULKRAX_VERSION_REQUIREMENT true
+ENV RAILS_LOG_TO_STDOUT=true \
+    RAILS_ENV=production \
+    SKIP_IIIF_PRINT_BULKRAX_VERSION_REQUIREMENT=true
 
 ENTRYPOINT ["bundle", "exec"]
 
 ###
 # sidekiq image
-FROM essi-deps as essi-sidekiq
+FROM essi-deps AS essi-sidekiq
 USER essi:essi
 ARG SOURCE_COMMIT
-ENV SOURCE_COMMIT $SOURCE_COMMIT
-CMD sidekiq
+ENV SOURCE_COMMIT=$SOURCE_COMMIT
+CMD ["sidekiq"]
 
 ###
 # webserver image
-FROM essi-deps as essi-web
+FROM essi-deps AS essi-web
 USER essi:essi
 RUN bundle exec rake assets:precompile
 EXPOSE 3000
 ARG SOURCE_COMMIT
-ENV SOURCE_COMMIT $SOURCE_COMMIT
-CMD puma -b tcp://0.0.0.0:3000
+ENV SOURCE_COMMIT=$SOURCE_COMMIT
+CMD ["puma", "-b", "tcp://0.0.0.0:3000"]

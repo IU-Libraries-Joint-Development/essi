@@ -209,3 +209,7 @@ IiifPrint::Data::WorkFile.prepend Extensions::IiifPrint::Data::WorkFile::Externa
 
 # patch iiif_print's patching of hyrax, that uses blacklight Search records
 Hyrax::IiifHelper.prepend Extensions::Hyrax::IiifHelper::PatchUvSearchParam
+
+# patch blacklight/iiif_print text search
+BlacklightIiifSearch::IiifSearchResponse.prepend Extensions::BlacklightIiifSearch::IiifSearchResponse::ResourcesMethod
+

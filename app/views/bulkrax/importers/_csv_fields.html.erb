@@ -8,6 +8,7 @@
   <%= fi.input :visibility,
     collection: [
       ['Public', 'open'],
+      ['Institution', 'authenticated'],
       ['Private', 'restricted']
     ],
     selected: importer.parser_fields['visibility'] || 'open',

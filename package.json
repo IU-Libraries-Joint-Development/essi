@@ -10,13 +10,13 @@
     "lodash": "^4.18.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react_ujs": "^2.6.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
     "react-jsonschema-form": "^1.8.1",
     "react-jsonschema-form-bs4": "^1.7.1",
     "react-spinners": "^0.8.1",
     "react-transition-group": "^4.3.0",
-    "react_ujs": "^2.6.1",
     "universalviewer": "3.1.4"
   },
   "scripts": {
@@ -26,6 +26,7 @@
     "uv-config": "cp ./config/uv/uv.html ./public/uv/uv.html && cp ./config/uv/uv_config.json ./public/uv/"
   },
   "devDependencies": {
+    "browserslist": "^4.24.0",
     "dotenv": "^16.0.1",
     "jasmine-core": "^3.99",
     "karma": "^6.3.20",

@@ -110,8 +110,8 @@ RUN yarn && \
     yarn config set no-progress && \
     yarn config set silent
 RUN mkdir -p /opt/fits && \
-    curl -fSL -o /opt/fits/fits-1.6.0.zip https://github.com/harvard-lts/fits/releases/download/1.6.0/fits-1.6.0.zip && \
-    cd /opt/fits && unzip fits-1.6.0.zip && rm fits-1.6.0.zip && chmod +X fits.sh && \
+    curl -fSL -o /opt/fits/fits-1.5.5.zip https://github.com/harvard-lts/fits/releases/download/1.5.5/fits-1.5.5.zip && \
+    cd /opt/fits && unzip fits-1.5.5.zip && rm fits-1.5.5.zip && chmod +X fits.sh && \
     sed -i 's/\(<tool.*TikaTool.*>\)/<!--\1-->/ ; s/\(<tool.*FFIdent.*>\)/<!--\1-->/' /opt/fits/xml/fits.xml && \
     sed -i "s/exiftool\/ImageWidth\[last()\]/substring-before(exiftool\/ImageSize, 'x')/ ; s/exiftool\/ImageHeight\[last()\]/substring-after(exiftool\/ImageSize, 'x')/" /opt/fits/xml/exiftool/exiftool_image_to_fits.xslt
 ENV PATH=/opt/fits:$PATH \

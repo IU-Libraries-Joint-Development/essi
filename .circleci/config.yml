@@ -83,6 +83,8 @@ jobs:
             cd /opt/fits && sudo unzip fits-1.5.5.zip && sudo chmod +X fits.sh
             sudo sed -i 's/\(<tool.*TikaTool.*>\)/<!--\1-->/' /opt/fits/xml/fits.xml
             echo 'export PATH=/opt/fits:$PATH' >> $BASH_ENV
+            # Sometimes this updated PATH isn't available so set fits_path in Hyrax initializer too
+            sed -i 's/# config.fits_path = "fits.sh"/config.fits_path = "\/opt\/fits\/fits.sh"/' /home/circleci/repo/config/initializers/hyrax.rb
 
       # Download and cache dependencies
       - restore_cache:

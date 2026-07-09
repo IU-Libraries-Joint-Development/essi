@@ -1,14 +1,12 @@
-# unmodified from iiif_print-b804f165ef61
+# modified from iiif_print-b804f165ef61
+# pull query parameter, if any, from standard params intead of blacklight Search
 module Extensions
   module Hyrax
     module IiifHelper
       module PatchUvSearchParam
         # Extract query param from search
         def uv_search_param
-          search_params = current_search_session.try(:query_params) || {}
-          q = search_params['q'].presence || ''
-        
-          "&q=#{url_encode(q)}" if q.present?
+          "&q=#{url_encode(params['query'])}" if params['query'].present? && params[:highlight]
         end  
       end
     end

@@ -64,9 +64,10 @@ RSpec.shared_examples "create work feature spec" do |work_class|
       end
 
       # On works dashboard (would probably need a page refresh in actual use)
-      expect(page).to have_content('My Test Work', count: 1)
-      expect(page).to have_content('1 works you own in the repository')
       expect(page).to have_content "Your files are being processed by Digital Collections in the background."
+      page.refresh
+      expect(page).to have_content('My Test Work', count: 1, wait: 5)
+      expect(page).to have_content('1 works you own in the repository')
       click_on('My Test Work')
 
       # On work show page

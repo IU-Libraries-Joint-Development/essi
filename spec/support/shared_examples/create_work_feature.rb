@@ -45,7 +45,6 @@ RSpec.shared_examples "create work feature spec" do |work_class|
       end
       click_link "Descriptions" # switch tab
       fill_in('Title', with: 'My Test Work')
-      fill_in('Source Metadata Identifier', with: ' ') if work_class.in? ['ArchivalMaterial', 'BibRecord', 'PagedResource'] # Workaround until the form is fixed for blank field
       click_link 'Additional fields'
       fill_in('Publication Place', with: 'Wells')
 

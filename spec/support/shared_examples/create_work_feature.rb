@@ -61,10 +61,12 @@ RSpec.shared_examples "create work feature spec" do |work_class|
 
       perform_enqueued_jobs do
         click_on('Save')
+        sleep(5)
       end
 
       # On works dashboard (would probably need a page refresh in actual use)
       expect(page).to have_content "Your files are being processed by Digital Collections in the background."
+      sleep(5)
       page.refresh
       expect(page).to have_content('My Test Work', count: 1, wait: 5)
       expect(page).to have_content('1 works you own in the repository')

@@ -16,7 +16,9 @@ ENV RUBY_VERSION=2.7.8 \
 # OpenSSL 1.1.1 compatibility version for Ruby 2.7.8
 ENV OPENSSL_VERSION=1.1.1w \
     OPENSSL_DOWNLOAD_URL=https://www.openssl.org/source/openssl-1.1.1w.tar.gz \
-    OPENSSL_DOWNLOAD_SHA256=cf3098950cb4d853ad95c0841f1f9c6d3dc102dccfcacd521d93925208b76ac8
+    OPENSSL_DOWNLOAD_SHA256=cf3098950cb4d853ad95c0841f1f9c6d3dc102dccfcacd521d93925208b76ac8 \
+    SSL_CERT_DIR=/etc/ssl/certs \
+    SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 
 RUN set -eux; \
         # Compile OpenSSL 1.1.1 from source

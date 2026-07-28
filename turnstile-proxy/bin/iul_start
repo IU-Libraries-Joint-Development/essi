@@ -1,0 +1,11 @@
+#!/bin/bash
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+PIDFILE=$SCRIPT_DIR/../turnstile_proxy.pid
+
+
+cd $SCRIPT_DIR/../turnstile_proxy
+#. .venv/bin/activate
+pip install --cache-dir ./pip-cache -r ./requirements.txt
+./turnstile_proxy.py --nohup turnstile_proxy.yaml "$@"
+
+

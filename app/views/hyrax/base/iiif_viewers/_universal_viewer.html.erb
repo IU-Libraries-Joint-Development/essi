@@ -1,8 +1,9 @@
 <div class="viewer-wrapper">
+  <%# override uv_search_param inline: use params for query value, instead of blacklight Search record %>
   <iframe
     id="uv-iframe"
     title="IIIF Viewer displaying <%= presenter.title.join(';') %>"
-    src="<%= universal_viewer_base_url %>#?manifest=<%= main_app.polymorphic_url [main_app, :manifest, presenter], { locale: nil } %>&config=<%= universal_viewer_config_url %><%= uv_search_param %>"
+    src="<%= universal_viewer_base_url %>#?manifest=<%= main_app.polymorphic_url [main_app, :manifest, presenter], { locale: nil } %>&config=<%= universal_viewer_config_url %><%# uv_search_param %><%= "&q=#{url_encode(params['query'])}" if params['query'].present? %>"
     allowfullscreen="true"
     frameborder="0"
   ></iframe>

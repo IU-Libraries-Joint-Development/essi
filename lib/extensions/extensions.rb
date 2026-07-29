@@ -206,3 +206,7 @@ Hyrax::FileSetPresenter.include Extensions::Hyrax::FileSetPresenter::ContentLoca
 
 # patch iiif_print to handle external storage
 IiifPrint::Data::WorkFile.prepend Extensions::IiifPrint::Data::WorkFile::ExternalFileLocation
+
+# patch blacklight/iiif_print text search
+BlacklightIiifSearch::IiifSearchResponse.prepend Extensions::BlacklightIiifSearch::IiifSearchResponse::ResourcesMethod
+

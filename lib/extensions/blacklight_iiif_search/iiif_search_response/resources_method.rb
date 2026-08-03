@@ -49,7 +49,7 @@ module Extensions
           query = annotation.query.gsub(annotation.additional_query_terms, '')
           query_terms = query.split(' ').map(&:downcase)
           matches = coords_json['coords'].select { |k, _v| k.downcase =~ /(#{query_terms.join('|')})/ }
-          if matches.size > 1
+          if matches.any?
             coords_array = matches.values.flatten(1)
             { _key: Array.new(coords_array.size, nil) }
           else

@@ -105,7 +105,8 @@ RUN groupadd -g ${GROUP_ID} essi && \
       libreoffice-writer libreoffice-impress poppler-utils unzip ghostscript \
       libtesseract-dev libleptonica-dev tesseract-ocr \
       libpng-dev libtiff-dev librsvg2-dev libpango1.0-dev \
-      yarn libopenjp2-tools libjemalloc2 && \
+      yarn libopenjp2-tools libjemalloc2 \
+      python3 python3-pip python3-venv supervisor && \
     apt-get clean all && rm -rf /var/lib/apt/lists/* && \
     ln -s /usr/lib/*-linux-gnu/libjemalloc.so.2 /usr/local/lib/libjemalloc.so.2
 RUN yarn && \
@@ -173,11 +174,16 @@ RUN gem install bundler -v "~> 2.4.22" && \
 
 COPY --chown=essi:essi . .
 
+RUN python3 -m venv /app/turnstile-proxy/.venv && \
+    . /app/turnstile-proxy/.venv/bin/activate && \
+    pip install  -r /app/turnstile-proxy/turnstile_proxy/requirements.txt
+
 ENV RAILS_LOG_TO_STDOUT=true \
     RAILS_ENV=production \
     SKIP_IIIF_PRINT_BULKRAX_VERSION_REQUIREMENT=true
 
 ENTRYPOINT ["bundle", "exec"]
+
 
 ###
 # sidekiq image
@@ -191,7 +197,7 @@ CMD sidekiq
 # webserver image
 FROM essi-deps AS essi-web
 USER essi:essi
-RUN bundle exec rake assets:precompile
+#RUN bundle exec rake assets:precompile
 EXPOSE 3000
 ARG SOURCE_COMMIT
 ENV SOURCE_COMMIT=$SOURCE_COMMIT

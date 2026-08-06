@@ -197,7 +197,7 @@ CMD sidekiq
 # webserver image
 FROM essi-deps AS essi-web
 USER essi:essi
-#RUN bundle exec rake assets:precompile
+RUN bundle exec rake assets:precompile
 EXPOSE 3000
 ARG SOURCE_COMMIT
 ENV SOURCE_COMMIT=$SOURCE_COMMIT

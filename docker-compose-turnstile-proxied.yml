@@ -60,12 +60,14 @@ services:
       HUB_URL: http://chrome:4444/wd/hub
 
   turnstile:
-    image: python:3.11-slim
+    # Our default app already has Python and all the deps, but this could
+    # also be based on a slim Python image
+    << : *default-app
     ports:
-      - 8888:8888
-    command: bash -l -c "cd /turnstile-proxy && ./bin/turnstile_start"
+      - 3001:3001
+    command: /app/turnstile-proxy/bin/turnstile_start
     volumes:
-      - './turnstile-proxy:/turnstile-proxy'
+      - './turnstile-proxy:/app/turnstile-proxy'
 
   worker:
     << : *default-app

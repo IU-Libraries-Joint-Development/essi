@@ -1,10 +1,21 @@
 #!/bin/bash
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-PIDFILE=$SCRIPT_DIR/../turnstile_proxy.pid
 
+if [[ ! -f "/app/turnstile-proxy/.venv/bin/activate" ]]; then
+    echo "Make sure we have the Python virtual environment"
+    python3 -m venv /app/turnstile-proxy/.venv && \
+    . /app/turnstile-proxy/.venv/bin/activate && \
+    pip install  -r /app/turnstile-proxy/turnstile_proxy/requirements.txt
+fi
 
-cd $SCRIPT_DIR/../turnstile_proxy
+cd /app/turnstile-proxy/turnstile_proxy
+
+CONFIG_FILE="/app/turnstile-proxy/turnstile_proxy/turnstile_proxy.yaml"
+
+if [[ -f "/run/secrets/turnstile_proxy.yaml" ]]; then
+  CONFIG_FILE="/run/secrets/turnstile_proxy.yaml"
+fi
+
 . /app/turnstile-proxy/.venv/bin/activate
-./turnstile_proxy.py turnstile_proxy.yaml "$@"
+./turnstile_proxy.py $CONFIG_FILE "$@"
 
 

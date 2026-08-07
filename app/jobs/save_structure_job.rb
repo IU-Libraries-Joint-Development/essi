@@ -9,7 +9,7 @@ class SaveStructureJob < ApplicationJob
     curation_concern.logical_order.destroy eradicate: true
     curation_concern.reload
     curation_concern.logical_order.order = JSON.parse(structure)
-    curation_concern.date_modified = ::Hyrax::TimeService.time_in_utc # needed to trigger new manifest cache
+    curation_concern.date_modified = ::Hyrax::TimeService.time_in_utc
     curation_concern.save
     if !curation_concern.persisted? ||
        !curation_concern.logical_order.persisted?

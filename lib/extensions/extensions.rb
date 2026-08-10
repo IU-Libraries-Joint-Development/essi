@@ -129,7 +129,8 @@ Hyrax::SelectTypeListPresenter.prepend Extensions::Hyrax::SelectTypeListPresente
 # ESSI-2206 Load from solr for public site
 Hyrax::CollectionsController.prepend Extensions::Hyrax::CollectionsController::LoadFromSolr
 
-# return false for render_bookmarks_control? in CollectionsController
+# return false for render_bookmarks_control?
+CatalogController.prepend Extensions::Hyrax::CollectionsController::RenderBookmarksControl
 Hyrax::CollectionsController.prepend Extensions::Hyrax::CollectionsController::RenderBookmarksControl
 
 # ESSI-1578: Add all searchable fields into the collection search builder context
@@ -211,4 +212,5 @@ IiifPrint::Data::WorkFile.prepend Extensions::IiifPrint::Data::WorkFile::Externa
 BlacklightIiifSearch::IiifSearchResponse.prepend Extensions::BlacklightIiifSearch::IiifSearchResponse::ResourcesMethod
 
 # block creation, querying of blacklight Search records
+CatalogController.prepend Extensions::CatalogController::BlockFindSearchSession
 Hyrax::My::WorksController.prepend Extensions::CatalogController::BlockFindSearchSession

@@ -210,3 +210,5 @@ IiifPrint::Data::WorkFile.prepend Extensions::IiifPrint::Data::WorkFile::Externa
 # patch blacklight/iiif_print text search
 BlacklightIiifSearch::IiifSearchResponse.prepend Extensions::BlacklightIiifSearch::IiifSearchResponse::ResourcesMethod
 
+# block creation, querying of blacklight Search records
+Hyrax::My::WorksController.prepend Extensions::CatalogController::BlockFindSearchSession

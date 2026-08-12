@@ -213,4 +213,7 @@ BlacklightIiifSearch::IiifSearchResponse.prepend Extensions::BlacklightIiifSearc
 
 # block creation, querying of blacklight Search records
 CatalogController.prepend Extensions::CatalogController::BlockFindSearchSession
+Hyrax::Dashboard::WorksController.prepend Extensions::CatalogController::BlockFindSearchSession
+Hyrax::Dashboard::CollectionsController.prepend Extensions::CatalogController::BlockFindSearchSession
 Hyrax::My::WorksController.prepend Extensions::CatalogController::BlockFindSearchSession
+Hyrax::My::CollectionsController.prepend Extensions::CatalogController::BlockFindSearchSession

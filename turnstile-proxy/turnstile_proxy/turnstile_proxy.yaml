@@ -13,8 +13,11 @@ default_action: pass
 
 rules:
   # Note: set local to "no" to bypass check on "catalog" and allow IU in automatically
-  - pattern: ~catalog
-    local: yes
+
+  - pattern: ~^/catalog/
+    action: pass
+
+  - pattern: ~^/catalog
     action: check
 
   # don't mess with obvious support files

@@ -17,24 +17,75 @@ def test_trit(expected: Trit, value: bool) -> Trit:
         return Trit.NO
 
 
+# Address ranges we treat as our own infrastructure ("trusted proxies"), not
+# as clients.  Only genuinely private / loopback / link-local ranges belong
+# here -- NOT our institution's public ranges, which are real client
+# addresses.  This mirrors the default trusted set that Rails'
+# ActionDispatch::RemoteIp uses.
+trusted_proxy_networks: list[IPv4Network] = [
+    ip_network("10.0.0.0/8"),
+    ip_network("172.16.0.0/12"),
+    ip_network("192.168.0.0/16"),
+    ip_network("127.0.0.0/8"),
+    ip_network("169.254.0.0/16"),  # link-local
+]
+
+
+def _is_trusted_proxy(addr: IPv4Address) -> bool:
+    return any(addr in net for net in trusted_proxy_networks)
+
+
 def get_client_ip(request: Request) -> IPv4Address:
-    """Return the real IPv4Address of the client"""
-    # nginx's way
-    if 'X-Real-IP' in request.headers:
-        return IPv4Address(request.headers['X-Real-IP'])
-    
-    # the "standard" way of doing it
-    if 'Forwarded' in request.headers:
-        fwd = request.headers['Forwarded'].lower()
-        if m := re.match(r'for=([0-9]{1,3}(\.[0-9]{1,3}){3}))', fwd):
-            return IPv4Address(m.group(1))
+    """Return the real client address.
 
-    # how everyone really does it
-    if 'X-Forwarded-For' in request.headers:
-        return IPv4Address(request.headers['X-Forwarded-For'].split(',')[0])
+    Behind a multi-node ingress (Traefik/Kubernetes) the request reaches us via
+    a chain of internal hops, and the closest hop's address changes from one
+    request to the next.  Naively trusting X-Real-IP, the first X-Forwarded-For
+    entry, or the raw TCP peer therefore yields an unstable address -- which
+    breaks anything that keys off the client IP (e.g. the validation cookie,
+    which then never matches and re-challenges the user on every request).
 
-    # just assume we're a direct connection
-    return IPv4Address(request.client.host)
+    We instead resolve the client the way Rails' ActionDispatch::RemoteIp does:
+    collect the forwarded chain closest-hop-first, and return the first address
+    that isn't one of our own private/loopback proxy hops.  Walking from the
+    closest hop outward (rather than trusting the left-most, client-supplied
+    entry) also means a spoofed X-Forwarded-For prefix can't win.
+    """
+    candidates: list[str] = []
+
+    # X-Forwarded-For is "client, proxy1, proxy2, ..." -- left-most is the
+    # original client, each hop appends the peer it saw.  Reverse it so we
+    # evaluate the hop closest to us first.
+    xff = request.headers.get('X-Forwarded-For')
+    if xff:
+        candidates.extend(reversed([p.strip() for p in xff.split(',') if p.strip()]))
+
+    # nginx-style single-value header, if an upstream set one.
+    xri = request.headers.get('X-Real-IP')
+    if xri:
+        candidates.append(xri.strip())
+
+    # the raw TCP peer, as a last resort.
+    if request.client:
+        candidates.append(request.client.host)
+
+    first_valid: IPv4Address | None = None
+    for raw in candidates:
+        try:
+            addr = IPv4Address(raw)
+        except ValueError:
+            # skip IPv6 hops and any garbage -- see IPv6 note below.
+            continue
+        if first_valid is None:
+            first_valid = addr
+        if not _is_trusted_proxy(addr):
+            return addr
+
+    # Every candidate was one of our own hops (or there were none): fall back to
+    # the closest valid address rather than raising.
+    if first_valid is not None:
+        return first_valid
+    raise ValueError("Could not determine a client IP from the request")
 
 
 # DNS forward + reverse lookup is really expensive, so I'm going to cache most 

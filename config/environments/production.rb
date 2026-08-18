@@ -54,6 +54,14 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
 
+  # Silence per-partial render logging. Rails 5.2 logs every "Rendered
+  # <partial>" at INFO (moved to DEBUG upstream in 6.1), so a single catalog
+  # page emits one line per result plus one per facet -- ~85% of this app's log
+  # volume, at ~1,800 events/sec in production. Nils out ActionView::Base.logger
+  # only; request lifecycle lines (Started/Processing/Parameters/Completed),
+  # the ACCESS audit line, and all errors and backtraces are unaffected.
+  config.action_view.logger = nil
+
   # Use a different cache store in production.
   config.cache_store = ESSI.config[:rails][:cache][:store].to_sym, ESSI.config[:rails][:cache][:options]
 

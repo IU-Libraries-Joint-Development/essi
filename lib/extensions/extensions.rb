@@ -66,11 +66,14 @@ Hyrax::FileSetPresenter.include Extensions::Hyrax::FileSetPresenter::SourceMetad
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::Structure
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::RemoveUpdateFilesets
 # bulkrax/allinson_flex integration support
-Bulkrax::Entry.prepend Extensions::Bulkrax::Entry::AllinsonFlexFields
 Bulkrax::Entry.prepend Extensions::Bulkrax::Entry::SingularizeRightsStatement
 Bulkrax::Entry.prepend Extensions::Bulkrax::Entry::MultipleCheck
 Bulkrax::CsvEntry.prepend Extensions::Bulkrax::Entry::DynamicSchemaField
+Bulkrax::CsvEntry.prepend Extensions::Bulkrax::Entry::AllinsonFlexFields
 Bulkrax::MetsXmlEntry.prepend Extensions::Bulkrax::Entry::DynamicSchemaField
+Bulkrax::MetsXmlEntry.prepend Extensions::Bulkrax::Entry::AllinsonFlexFields
+Bulkrax::XmlEntry.prepend Extensions::Bulkrax::Entry::DynamicSchemaField
+Bulkrax::XmlEntry.prepend Extensions::Bulkrax::Entry::AllinsonFlexFields
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::CreateWithDynamicSchema
 # feature change: merged configured/default mappings, instead of overridden
 Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::Mapping
@@ -129,7 +132,8 @@ Hyrax::SelectTypeListPresenter.prepend Extensions::Hyrax::SelectTypeListPresente
 # ESSI-2206 Load from solr for public site
 Hyrax::CollectionsController.prepend Extensions::Hyrax::CollectionsController::LoadFromSolr
 
-# return false for render_bookmarks_control? in CollectionsController
+# return false for render_bookmarks_control?
+CatalogController.prepend Extensions::Hyrax::CollectionsController::RenderBookmarksControl
 Hyrax::CollectionsController.prepend Extensions::Hyrax::CollectionsController::RenderBookmarksControl
 
 # ESSI-1578: Add all searchable fields into the collection search builder context
@@ -206,3 +210,13 @@ Hyrax::FileSetPresenter.include Extensions::Hyrax::FileSetPresenter::ContentLoca
 
 # patch iiif_print to handle external storage
 IiifPrint::Data::WorkFile.prepend Extensions::IiifPrint::Data::WorkFile::ExternalFileLocation
+
+# patch blacklight/iiif_print text search
+BlacklightIiifSearch::IiifSearchResponse.prepend Extensions::BlacklightIiifSearch::IiifSearchResponse::ResourcesMethod
+
+# block creation, querying of blacklight Search records
+CatalogController.prepend Extensions::CatalogController::BlockFindSearchSession
+Hyrax::Dashboard::WorksController.prepend Extensions::CatalogController::BlockFindSearchSession
+Hyrax::Dashboard::CollectionsController.prepend Extensions::CatalogController::BlockFindSearchSession
+Hyrax::My::WorksController.prepend Extensions::CatalogController::BlockFindSearchSession
+Hyrax::My::CollectionsController.prepend Extensions::CatalogController::BlockFindSearchSession

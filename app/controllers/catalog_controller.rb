@@ -353,13 +353,6 @@ class CatalogController < ApplicationController
     config.spell_max = 5
   end
 
-  # disable the bookmark control from displaying in gallery view
-  # Hyrax doesn't show any of the default controls on the list view, so
-  # this method is not called in that context.
-  def render_bookmarks_control?
-    false
-  end
-
   private
 
   def limit_per_page

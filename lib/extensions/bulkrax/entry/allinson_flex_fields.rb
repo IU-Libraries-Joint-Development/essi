@@ -1,12 +1,13 @@
+# written as an Entry module, but needs to be applied to a specific subclass (e.g. CsvEntry)
 module Extensions
   module Bulkrax
     module Entry
       module AllinsonFlexFields
-        def build_metadata
+        def establish_factory_class
+          result = super
           # Ensure loading of all flexible metadata properties for the imported work type
-          super
           factory_class&.new
-          self.parsed_metadata
+          result
         end
       end
     end

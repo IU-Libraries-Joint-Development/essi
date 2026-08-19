@@ -66,11 +66,14 @@ Hyrax::FileSetPresenter.include Extensions::Hyrax::FileSetPresenter::SourceMetad
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::Structure
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::RemoveUpdateFilesets
 # bulkrax/allinson_flex integration support
-Bulkrax::Entry.prepend Extensions::Bulkrax::Entry::AllinsonFlexFields
 Bulkrax::Entry.prepend Extensions::Bulkrax::Entry::SingularizeRightsStatement
 Bulkrax::Entry.prepend Extensions::Bulkrax::Entry::MultipleCheck
 Bulkrax::CsvEntry.prepend Extensions::Bulkrax::Entry::DynamicSchemaField
+Bulkrax::CsvEntry.prepend Extensions::Bulkrax::Entry::AllinsonFlexFields
 Bulkrax::MetsXmlEntry.prepend Extensions::Bulkrax::Entry::DynamicSchemaField
+Bulkrax::MetsXmlEntry.prepend Extensions::Bulkrax::Entry::AllinsonFlexFields
+Bulkrax::XmlEntry.prepend Extensions::Bulkrax::Entry::DynamicSchemaField
+Bulkrax::XmlEntry.prepend Extensions::Bulkrax::Entry::AllinsonFlexFields
 Bulkrax::ObjectFactory.prepend Extensions::Bulkrax::ObjectFactory::CreateWithDynamicSchema
 # feature change: merged configured/default mappings, instead of overridden
 Bulkrax::Exporter.prepend Extensions::Bulkrax::Exporter::Mapping

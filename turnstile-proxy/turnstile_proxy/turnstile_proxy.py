@@ -12,9 +12,19 @@ import uvicorn
 from client_tests import compile_rule, get_client_ip, get_debug_id
 from validation import update_cookie, validate_cookie
 import sys
+import os
 from string import Template
 import signal
 import logging.handlers
+
+
+def _log_to_stdout() -> bool:
+    """When running under a container/orchestrator (e.g. Kubernetes) logs must go
+       to stdout/stderr so `kubectl logs` can see them; TimedRotatingFileHandler
+       writes to files inside the container where they're invisible.  Opt in with
+       TURNSTILE_LOG_TO_STDOUT=1.  Defaults off so file logging is preserved for
+       single-host deployments."""
+    return os.environ.get("TURNSTILE_LOG_TO_STDOUT", "").strip().lower() in ("1", "true", "yes", "on")
 
 def sighup_handler(sig, frame):
     logging.info("Caught SIGHUP - disconnecting from terminal")
@@ -96,10 +106,15 @@ if __name__ == "__main__":
 
     config: Config = Config(**yaml.safe_load(Path(args.config).read_text()))
 
-    app_log_handler = logging.handlers.TimedRotatingFileHandler(Path(__file__).parent / "logs/application.log",
-                                                                when="midnight")
+    log_to_stdout = _log_to_stdout()
+
+    if log_to_stdout:
+        app_log_handler = logging.StreamHandler(sys.stdout)
+    else:
+        app_log_handler = logging.handlers.TimedRotatingFileHandler(Path(__file__).parent / "logs/application.log",
+                                                                    when="midnight")
     logging.basicConfig(level=logging.DEBUG if args.debug else logging.INFO,
-                        #filename=Path(__file__).parent / "logs/application.log",                        
+                        #filename=Path(__file__).parent / "logs/application.log",
                         handlers=[app_log_handler],
                         format="%(asctime)s | %(levelname)-8s | "
                             "%(module)s:%(funcName)s:%(lineno)d - %(message)s")
@@ -116,21 +131,23 @@ if __name__ == "__main__":
         
     # reconfigure obnoxious uvicorn's logging
     log_config = uvicorn.config.LOGGING_CONFIG
-    log_config["handlers"]["file"] = {
-        "class": "logging.handlers.TimedRotatingFileHandler",
-        "when": "midnight",
-        "filename": Path(__file__).parent / "logs/uvicorn.log",
-        "formatter": "default",
-        
-    }
-    log_config["loggers"]["uvicorn"]["handlers"] = ["file"]
-    log_config["handlers"]["access"] = {
-        "class": "logging.handlers.TimedRotatingFileHandler",
-        "when": "midnight",
-        "filename": Path(__file__).parent / "logs/access.log",
-        "formatter": "access",        
-    }
-    log_config["loggers"]["uvicorn.access"]["handlers"] = ["access"]
+    if not log_to_stdout:
+        log_config["handlers"]["file"] = {
+            "class": "logging.handlers.TimedRotatingFileHandler",
+            "when": "midnight",
+            "filename": Path(__file__).parent / "logs/uvicorn.log",
+            "formatter": "default",
+
+        }
+        log_config["loggers"]["uvicorn"]["handlers"] = ["file"]
+        log_config["handlers"]["access"] = {
+            "class": "logging.handlers.TimedRotatingFileHandler",
+            "when": "midnight",
+            "filename": Path(__file__).parent / "logs/access.log",
+            "formatter": "access",
+        }
+        log_config["loggers"]["uvicorn.access"]["handlers"] = ["access"]
+    # else: leave uvicorn's default handlers, which already write to stdout/stderr.
 
     uvicorn.run(app, 
                 host=str(config.host), 

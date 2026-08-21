@@ -46,6 +46,8 @@ module Extensions
                                                                         @parent_document)
 
           coords_json = annotation.send(:fetch_and_parse_coords) || {}
+          return hash unless coords_json['coords'].present?
+
           query = annotation.query.gsub(annotation.additional_query_terms, '')
           query_terms = query.split(' ').map(&:downcase)
           matches = coords_json['coords'].select { |k, _v| k.downcase =~ /(#{query_terms.join('|')})/ }

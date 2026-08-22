@@ -12,6 +12,7 @@ module Extensions
           solr_response['highlighting'].each do |id, hl_hash|
             hit = { '@type': 'search:Hit', 'annotations': [] }
             document = solr_response.documents.select { |v| v[:id] == id }.first
+            next if document.fetch('generic_type_sim', []).include? 'Work'
             hl_hash = substitute_hash(hl_hash, document)
             if hl_hash.empty?
               @total += 1

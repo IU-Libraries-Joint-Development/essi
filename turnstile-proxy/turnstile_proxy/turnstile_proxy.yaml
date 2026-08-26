@@ -14,6 +14,10 @@ default_action: pass
 rules:
   # Note: set local to "no" to bypass check on "catalog" and allow IU in automatically
 
+  # check on /catalog/facet/<field> as it's a Solr facet query
+  - pattern: ~^/catalog/facet
+    action: check
+
   - pattern: ~^/catalog/
     action: pass
 

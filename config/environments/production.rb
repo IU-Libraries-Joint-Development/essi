@@ -97,6 +97,16 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  # Silence per-partial render logging. Rails 5.2 logs every "Rendered <partial>" 
+  # at INFO (moved to DEBUG upstream in 6.1)
+  #
+  # Nils out ActionView::Base.logger only; request lifecycle lines
+  # (Started/Processing/Parameters/Completed), the ACCESS audit line, and all
+  # errors and backtraces are unaffected.
+  if ActiveModel::Type::Boolean.new.cast(ENV["RAILS_SILENCE_RENDER_LOGGING"].to_s.downcase)
+    config.action_view.logger = nil
+  end
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end

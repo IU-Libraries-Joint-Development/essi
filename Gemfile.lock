@@ -269,8 +269,6 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise-guests (0.8.3)
-      devise
     devise-i18n (1.15.0)
       devise (>= 4.9.0)
       rails-i18n
@@ -1128,7 +1126,6 @@ DEPENDENCIES
   country_select (~> 4.0)
   database_cleaner
   devise
-  devise-guests (~> 0.6)
   devise-i18n
   factory_bot_rails
   fcrepo_wrapper

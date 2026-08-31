@@ -11,6 +11,9 @@ $(function () {
       dialog = $('<div tabindex="-1" id="browse-everything" class="ev-browser modal fade" aria-live="polite" role="dialog" aria-labelledby="beModalLabel">' + '<div class="modal-dialog modal-lg" role="document"></div>' + '</div>').hide().appendTo('body');
     }
 
+    if (options['context'] == null) {
+      options['context'] = $('#relationships select:first option:selected').attr('value')
+    }
     dialog.modal({
       backdrop: 'static',
       show: false
@@ -411,6 +414,10 @@ $(function () {
     } else {
       return selectChildRows(row, action);
     }
+  });
+
+  $('#relationships select:first').on('change', function () {
+    $('#browse-btn').data('ev-state')['opts'].context = $('#relationships select:first option:selected').attr('value')
   });
 
   return $(document).on('change', 'input.ev-select-file', function (event) {

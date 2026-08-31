@@ -12,17 +12,31 @@ backend: http://0.0.0.0:3000
 default_action: pass
 
 rules:
-  # Note: set local to "no" to bypass check on "catalog" and allow IU in automatically
+  # Note: set "local: no" on any pattern to allow IU networks through unchallenged
 
-  # check on /catalog/facet/<field> as it's a Solr facet query
-  - pattern: ~^/catalog/facet
-    action: check
-
-  - pattern: ~^/catalog/
+  # Always let '/concern/<id>/manifest' go unchallenged or embedded content breaks
+  - pattern: ~manifest
     action: pass
 
+  # Always let '/catalog/<id>/iiif_search' go unchallenged or search within the UV breaks.
+  - pattern: ~iiif_search
+    action: pass
+
+  # Since we are carving out specific patterns from within /catalog in previous rules,
+  # we can assume that anything else should be challenged.
   - pattern: ~^/catalog
+    local: no  # Setting to "no" means do NOT challenge IU networks
     action: check
+
+  # Unfortunately, we need to challenge on the routes to works and file_sets because
+  # unfriendly bots already learned their URLs.
+  - pattern: ~^/concern
+    local: no  # Setting to "no" means do NOT challenge IU networks
+    action: check
+
+  # ========================================
+  # Rules that always apply
+  # ========================================
 
   # don't mess with obvious support files
   - pattern: ~\.(jpg|png|gif|webm|js|css|svg|pdf|woff)$

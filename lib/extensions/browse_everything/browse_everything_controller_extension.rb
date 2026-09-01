@@ -1,6 +1,6 @@
 BrowseEverythingController.before_action do
   # Skip this new functionality if dropbox config file doesn't exist or is invalid yaml
-  if (params[:context].present? && browser.providers[:file_system].present? && !current_user.admin? && dropbox_map.present?)
+  if (params[:context].present? && browser.providers[:file_system].present? && !current_user&.admin? && dropbox_map.present?)
     new_base_path = dropbox_map[params[:context]] if dropbox_map.key?(params[:context])
 
     # Scope Browse-Everything to configured home for this request

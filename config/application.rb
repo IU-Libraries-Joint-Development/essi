@@ -26,6 +26,9 @@ module ESSI
       Dir.glob(File.join(File.dirname(__FILE__), '../lib/extensions/allinson_flex_extensions.rb')) do |c|
         Rails.configuration.cache_classes ? require(c) : load(c)
       end
+      Dir.glob(File.join(File.dirname(__FILE__), '../lib/extensions/browse_everything/browse_everything_controller_extension.rb')) do |c|
+        Rails.configuration.cache_classes ? require(c) : load(c)
+      end
     end
 
     # avoid deprecation warning for ActiveRecord::ConnectionAdapters::SQLite3Adapter.represent_boolean_as_integer

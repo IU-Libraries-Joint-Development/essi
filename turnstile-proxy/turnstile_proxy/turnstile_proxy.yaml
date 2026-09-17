@@ -12,29 +12,50 @@ backend: http://0.0.0.0:3000
 default_action: pass
 
 rules:
-  # Note: set local to "no" to bypass check on "catalog" and allow IU in automatically
+  # Note: set "local: no" on any pattern to allow IU networks through unchallenged
 
-  # check on /catalog/facet/<field> as it's a Solr facet query
-  - pattern: ~^/catalog/facet
-    action: check
-
-  - pattern: ~^/catalog/
+  # ==========================================================================
+  # Rules that always apply
+  # ==========================================================================
+  # Always let '/concern/<id>/manifest' go unchallenged or embedded content breaks
+  - pattern: ~manifest
     action: pass
 
-  - pattern: ~^/catalog
-    action: check
+  # Always let '/catalog/<id>/iiif_search' go unchallenged or search within the UV breaks.
+  - pattern: ~iiif_search
+    action: pass
 
   # don't mess with obvious support files
   - pattern: ~\.(jpg|png|gif|webm|js|css|svg|pdf|woff)$
     action: pass
-  
-  # allow search engines in
+
+  # allow local networks in
+  - pattern: ~.
+    local: yes
+    action: pass
+
+  # allow good search engines in
   - pattern: ~.
     search_engine: yes
     action: pass
 
   # non-search engine crawlers need to go away
   - pattern: ~.
-    search_engine: no
     crawler: yes
     action: deny
+
+  # ==========================================================================
+  # Rules that challenge expensive endpoints for whatever gets this far.
+  # Local networks have already been given a pass on the entire site, so no
+  # need to test for local on these rules.
+  # ==========================================================================
+
+  # Since we are carving out specific patterns from within /catalog in previous rules,
+  # we can assume that anything else should be challenged.
+  - pattern: ~^/catalog
+    action: check
+
+  # Unfortunately, we need to challenge on the routes to works and file_sets because
+  # unfriendly bots already learned their URLs.
+  - pattern: ~^/concern
+    action: check

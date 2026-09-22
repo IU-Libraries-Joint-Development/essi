@@ -57,6 +57,7 @@ services:
       VIRTUAL_PORT: 3000
       IN_DOCKER: 'true'
       HUB_URL: http://chrome:4444/wd/hub
+      TURNSTILE_PROXY_ENV: development
 
   worker:
     << : *default-app

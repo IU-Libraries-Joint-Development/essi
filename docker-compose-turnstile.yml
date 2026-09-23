@@ -40,7 +40,7 @@ services:
   web:
     image: nginxinc/nginx-unprivileged:stable-alpine
     volumes:
-      - ./essi-nginx-turnstile-internal.nginx:/etc/nginx/conf.d/essi-nginx.conf
+      - ./essi-nginx-turnstile.nginx:/etc/nginx/conf.d/essi-nginx.conf
       - ./tmp/certs:/etc/nginx/certs
     ports:
       - "3000:3000"

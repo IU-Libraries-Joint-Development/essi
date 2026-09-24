@@ -48,26 +48,16 @@ services:
       - essi
       - worker
       - derivatives
-      - turnstile
 
   essi:
     << : *default-app
-    command: bash -l -c "bundle install && bundle exec rake db:migrate db:seed yarn:install && bundle exec rails s"
+    command: /usr/bin/supervisord -n -c essi-supervisord.conf
     environment:
       VIRTUAL_HOST: essi.docker
       VIRTUAL_PORT: 3000
       IN_DOCKER: 'true'
       HUB_URL: http://chrome:4444/wd/hub
-
-  turnstile:
-    # Our default app already has Python and all the deps, but this could
-    # also be based on a slim Python image
-    << : *default-app
-    ports:
-      - 3001:3001
-    command: /app/turnstile-proxy/bin/turnstile_start
-    volumes:
-      - './turnstile-proxy:/app/turnstile-proxy'
+      TURNSTILE_PROXY_ENV: development
 
   worker:
     << : *default-app
@@ -204,4 +194,4 @@ volumes:
   solr:
   rails_cache:
   minio:
-  turnstile:
+

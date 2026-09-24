@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import logging
 import urllib.request
+import os
 
 def test_trit(expected: Trit, value: bool) -> Trit:
     if (expected == Trit.YES and value) or (expected == Trit.NO and not value):
@@ -144,6 +145,11 @@ def is_search(mode: Trit, request: Request) -> Trit:
                 return Trit.YES
             else:
                 return Trit.NO
+
+        elif (os.environ.get("TURNSTILE_PROXY_ENV") == "development") and ('search_engine_test' in ua):
+              # We're trying to pretend to be a good bot that gets a pass, which
+              # is helpful for testing rules and patterns in the configuration
+              return Trit.YES
 
         elif 'bingbot/' in ua:
             # Bing sez that you do the forward search and look for a name ending 

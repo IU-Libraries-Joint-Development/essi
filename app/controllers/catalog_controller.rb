@@ -4,6 +4,7 @@ class CatalogController < ApplicationController
   include ESSI::DynamicCatalogBehavior
   # This filter applies the hydra access controls
   before_action :enforce_show_permissions, only: :show
+  before_action :limit_per_page, only: :index
 
   def self.uploaded_field
     solr_name('system_create', :stored_sortable, type: :date)
@@ -19,6 +20,8 @@ class CatalogController < ApplicationController
 
   configure_blacklight do |config|
     config.http_method = :post
+
+    config.add_results_collection_tool(:per_page_widget, if: :current_user)
 
     # IiifPrint index fields
     config.add_index_field 'all_text_tsimv', highlight: true, helper_method: :render_ocr_snippets
@@ -348,5 +351,11 @@ class CatalogController < ApplicationController
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
     config.spell_max = 5
+  end
+
+  private
+
+  def limit_per_page
+    blacklight_config.max_per_page = 10 unless current_user.present?
   end
 end

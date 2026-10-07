@@ -59,3 +59,7 @@ rules:
   # unfriendly bots already learned their URLs.
   - pattern: ~^/concern
     action: check
+
+  # We need to challenge on the routes to the contact form to prevent spam to email
+  - pattern: ~^/contact
+    action: check

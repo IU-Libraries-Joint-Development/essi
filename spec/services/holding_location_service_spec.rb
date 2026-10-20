@@ -6,11 +6,11 @@ RSpec.describe HoldingLocationService do
                        api_enabled: true } }
 
   let(:id) { 'B-WELLS' }
-  let(:email) { 'libref@indiana.edu' }
+  let(:email) { 'libref@iu.edu' }
   let(:label) { 'Bloomington - Herman B Wells Library' }
   let(:phone) { '(812) 855-0100' }
 
-  context "with rights statements", vcr: { cassette_name: 'iucat_libraries_up', record: :new_episodes } do
+  context "with rights statements" do
     it "gets the email of a holding location" do
       allow(ESSI.config).to receive(:[]).with(:iucat_libraries).and_return(api_config)
       expect(service.find(id).fetch('email')).to eq(email)

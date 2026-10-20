@@ -1,28 +1,32 @@
-# file-based backup data for API
 ---
-terms:
-- id: 41
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 41
   code: B-AAAMC
   label: Bloomington - Archives of African American Music & Culture
-  address: 2805 E 10th St., Suite 180-181
-  address2: 1320 E 10th St.
+  parent_id:
+  lib_cal_id:
+  address: Herman B Wells Library, 1320 E. 10th Street
+  address2: West Tower, Suite 305
   city: Bloomington
   state: IN
-  zip: '47408'
-  phone: 8812-855-8547
-  email: aaamc@indiana.edu
+  zip: '47405'
+  phone: "(812) 855-8547"
+  email: aaamc@iu.edu
   url: https://aaamc.indiana.edu/
   urlHours: ''
-  latitude: '39.173407'
-  longitude: "-86.499948"
+  latitude: '39.1710'
+  longitude: '86.5168'
   parking: https://parking.indiana.edu/
   notes: ''
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-04-03T19:46:44.000Z'
-- id: 5
+  updated_at: '2026-05-29T16:48:59.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 5
   code: B-ALF
   label: Bloomington - Auxiliary Library Facility
+  parent_id:
+  lib_cal_id:
   address: 2850 East Discovery Parkway
   address2: ''
   city: Bloomington
@@ -46,66 +50,66 @@ terms:
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
   updated_at: '2020-02-07T18:31:52.000Z'
-- id: 3
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 3
   code: B-ARCHIVES
   label: Bloomington - University Archives
+  parent_id:
+  lib_cal_id: 15444
   address: Wells Library E460
   address2: 1320 E 10th St.
   city: Bloomington
   state: IN
   zip: '47405'
   phone: 812-855-1127
-  email: archives@indiana.edu
+  email: archives@iu.edu
   url: https://libraries.indiana.edu/archives
   urlHours: https://libraries.indiana.edu/archives/hours
   latitude: '39.17098'
   longitude: "-86.516189"
   parking: https://parking.indiana.edu/
-  notes: '<p><span style="font-family: BentonSansRegular, Helvetica, Arial, sans-serif;
-    font-size: 18.4px; background-color: rgb(254, 254, 254);">Until further notice,
-    University Archives is providing virtual consultations only. Please contact&nbsp;</span><a
-    href="mailto:archives@indiana.edu" class="external" style="box-sizing: inherit;
-    text-decoration-line: underline; line-height: inherit; background-color: rgb(254,
-    254, 254); color: rgb(32, 94, 153); cursor: pointer; margin-bottom: 0px; overflow-wrap:
-    break-word; font-family: BentonSansRegular, Helvetica, Arial, sans-serif; font-size:
-    18.4px;">archives@indiana.edu</a><span style="font-family: BentonSansRegular,
-    Helvetica, Arial, sans-serif; font-size: 18.4px; background-color: rgb(254, 254,
-    254);">&nbsp;with inquiries.</span><br></p>'
+  notes: "<p><br></p>"
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2020-08-21T16:05:38.000Z'
-- id: 14
+  updated_at: '2024-10-22T16:15:38.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 14
   code: B-ATM
   label: Bloomington- Archives of Traditional Music
+  parent_id:
+  lib_cal_id: 15451
   address: Morrison Hall 117
   address2: 1165 E. 3rd St.
   city: Bloomington
   state: IN
   zip: '47405'
   phone: 812-855-4679
-  email: atmusic@indiana.edu
-  url: https://www.indiana.edu/~libarchm/
+  email: atmusic@iu.edu
+  url: https://libraries.indiana.edu/archives-traditional-music
   urlHours: ''
   latitude: '39.165459'
   longitude: "-86.519511"
-  parking: https://parking.indiana.edu/
+  parking: https://libraries.indiana.edu/atm-visit
   notes: '<p>Books and manuscripts at the Archives of Traditional Music do not circulate
     outside of the reading room. </p><p>For reading room and listening library policies,
     please visit:&nbsp;<a href="https://libraries.indiana.edu/atm-listening-library-and-reading-room-policies"
     style="background-color: rgb(255, 255, 255);">https://libraries.indiana.edu/atm-listening-library-and-reading-room-policies</a><br></p>'
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-09-09T13:32:10.000Z'
-- id: 2
+  updated_at: '2024-10-22T16:16:53.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 2
   code: B-BCC
   label: Bloomington - Neal-Marshall Black Culture Center Library
+  parent_id:
+  lib_cal_id: 15442
   address: Neal-Marshall Center A113
   address2: 275 N Jordan Ave
   city: Bloomington
   state: IN
   zip: '47405'
   phone: "(812) 855-9271"
-  email: bcclib@indiana.edu
+  email: bcclib@iu.edu
   url: https://libraries.indiana.edu/NMBCC-Library
   urlHours: https://libraries.indiana.edu/NMBCC-Library/hours
   latitude: '39.1682904'
@@ -114,36 +118,42 @@ terms:
   notes: ''
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-07-29T17:49:15.000Z'
-- id: 6
+  updated_at: '2024-10-22T16:15:01.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 6
   code: B-BUSSPEA
   label: Bloomington - Business/SPEA Library
+  parent_id:
+  lib_cal_id: 6207
   address: 1315 E. 10th Street
   address2: ''
   city: Bloomington
   state: IN
   zip: '47405'
   phone: 812-855-1957
-  email: libbus@indiana.edu
+  email: libbus@iu.edu
   url: https://libraries.indiana.edu/bsic
-  urlHours: https://libraries.indiana.edu/bsic/hours
+  urlHours: https://libraries.indiana.edu/hours#6207
   latitude: '39.17259'
   longitude: "-86.51771"
   parking: https://parking.indiana.edu/
   notes: ''
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2020-08-21T15:51:33.000Z'
-- id: 50
+  updated_at: '2024-10-22T16:13:01.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 50
   code: B-CEDIR
   label: Bloomington - Indiana Institute on Disability
+  parent_id:
+  lib_cal_id:
   address: 1905 N Range Rd
   address2: ''
   city: Bloomington
   state: '47408'
   zip: IN
   phone: 812-855-9396
-  email: libiidc@indiana.edu
+  email: libiidc@iu.edu
   url: https://www.iidc.indiana.edu/pages/library
   urlHours: ''
   latitude: '39.174703'
@@ -155,83 +165,86 @@ terms:
     rather than our address.</p>
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2020-08-21T16:12:35.000Z'
-- id: 7
+  updated_at: '2024-10-22T16:13:46.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 7
   code: B-CHEM
   label: Bloomington - Sciences Library
+  parent_id:
+  lib_cal_id: 15450
   address: 800 E. Kirkwood Avenue
   address2: ''
   city: Bloomington
   state: IN
   zip: 47405-7005
   phone: 812-855-9452
-  email: libsci@indiana.edu
+  email: libsci@iu.edu
   url: https://libraries.indiana.edu/sciences-library
   urlHours: https://libraries.indiana.edu/sciences-library/hours
   latitude: '39.165949'
   longitude: "-86.522658"
   parking: https://parking.indiana.edu/
-  notes: '<p><span style="font-family: BentonSansRegular, Helvetica, Arial, sans-serif;
-    font-size: 18.4px; background-color: rgb(254, 254, 254);">Until further notice,
-    the Sciences Library is providing consultations by appointment only. Please contact&nbsp;</span><a
-    href="mailto:libsci@indiana.edu" class="external" style="box-sizing: inherit;
-    text-decoration-line: underline; line-height: inherit; background-color: rgb(254,
-    254, 254); color: rgb(32, 94, 153); cursor: pointer; margin-bottom: 0px; overflow-wrap:
-    break-word; font-family: BentonSansRegular, Helvetica, Arial, sans-serif; font-size:
-    18.4px;">libsci@indiana.edu</a><span style="font-family: BentonSansRegular, Helvetica,
-    Arial, sans-serif; font-size: 18.4px; background-color: rgb(254, 254, 254);">&nbsp;with
-    inquiries.</span><br></p>'
+  notes: ''
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2020-08-21T16:04:15.000Z'
-- id: 9
+  updated_at: '2024-10-22T16:15:26.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 9
   code: B-EDUC
   label: Bloomington - Education Library
+  parent_id:
+  lib_cal_id: 15303
   address: 201 N. Rose Street
   address2: ''
   city: Bloomington
   state: IN
   zip: '47405'
   phone: 812-856-8590
-  email: libeduc@indiana.edu
+  email: libeduc@iu.edu
   url: https://libraries.indiana.edu/education-library
-  urlHours: https://libraries.indiana.edu/libeduc/hours
+  urlHours: https://libraries.indiana.edu/hours#15303
   latitude: '39.167360'
   longitude: "-86.512497"
   parking: https://parking.indiana.edu/
   notes: ''
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-07-28T12:24:52.000Z'
-- id: 16
+  updated_at: '2024-10-22T16:13:13.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 16
   code: B-KINSEY
   label: Bloomington - Kinsey Institute Library
-  address: Morrison Hall 4th Floor
-  address2: 1165 E 3rd St
+  parent_id:
+  lib_cal_id:
+  address: Lindley Hall 305
+  address2: 150 S Woodlawn Ave
   city: Bloomington
-  state: '47401'
+  state: '47405'
   zip: IN
-  phone: 812-855-3058
-  email: libknsy@indiana.edu
-  url: https://kinseyinstitute.org/collections/library/
+  phone: "(812) 855-7686"
+  email: libknsy@iu.edu
+  url: https://kinseyinstitute.org/collections/index.html
   urlHours: ''
   latitude: '39.165570'
   longitude: "-86.519634"
   parking: https://parking.indiana.edu/
-  notes: "<p>By Appointment Only</p>"
+  notes: "<p>By Appointment Only, email libknsy@iu.edu for more information</p>"
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-03-27T16:53:04.000Z'
-- id: 17
+  updated_at: '2025-12-15T17:48:12.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 17
   code: B-LAW
   label: Bloomington - Law Library
+  parent_id:
+  lib_cal_id:
   address: 211 S Indiana Ave
   address2: ''
   city: Bloomington
   state: IN
   zip: '47405'
   phone: "(812) 855-9666"
-  email: lawcirc@indiana.edu
+  email: lawcirc@iu.edu
   url: https://www.law.indiana.edu/lawlibrary/
   urlHours: ''
   latitude: '39.1649932'
@@ -240,17 +253,20 @@ terms:
   notes: ''
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-03-29T11:53:49.000Z'
-- id: 18
+  updated_at: '2024-10-22T16:14:08.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 18
   code: B-LIFESCI
   label: Bloomington - Life Sciences Library
+  parent_id:
+  lib_cal_id:
   address: Jordan Hall A304
   address2: 1001 E. Third Street
   city: Bloomington
   state: IN
   zip: '47405'
   phone: 812-855-8947
-  email: libsci@indiana.edu
+  email: libsci@iu.edu
   url: https://libraries.indiana.edu/life
   urlHours: ''
   latitude: '39.164896'
@@ -259,37 +275,42 @@ terms:
   notes: ''
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-05-05T11:58:43.000Z'
-- id: 19
+  updated_at: '2024-10-22T16:14:24.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 19
   code: B-LILLY
   label: Bloomington - Lilly Library
+  parent_id:
+  lib_cal_id: 15447
   address: 1200 E. Seventh St
   address2: ''
   city: Bloomington
   state: IN
   zip: '47405'
   phone: 812-855-2452
-  email: liblilly@indiana.edu
+  email: liblilly@iu.edu
   url: https://libraries.indiana.edu/lilly-library
   urlHours: ''
   latitude: '39.168052'
   longitude: "-86.518974"
   parking: https://parking.indiana.edu/
-  notes: "<p>The Lilly Library building is now closed.&nbsp;Research services are
-    now available at Herman B Wells Library, by appointment only.</p><p><br></p>"
+  notes: ''
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2020-03-16T15:35:30.000Z'
-- id: 20
+  updated_at: '2024-10-22T16:14:34.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 20
   code: B-MUSIC
   label: Bloomington - Music Library
-  address: 200 S Jordan Ave
+  parent_id:
+  lib_cal_id: 5903
+  address: 200 S Eagleson Ave
   address2: ''
   city: Bloomington
   state: IN
   zip: '47401'
   phone: "(812) 855-8541"
-  email: mlcirc@indiana.edu
+  email: mlcirc@iu.edu
   url: https://libraries.indiana.edu/music
   urlHours: https://libraries.indiana.edu/music/hours
   latitude: '39.165133'
@@ -298,17 +319,20 @@ terms:
   notes: ''
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-07-29T17:48:49.000Z'
-- id: 21
+  updated_at: '2024-10-22T16:14:45.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 21
   code: B-OPTOMTRY
   label: Bloomington - Optometry Library
+  parent_id:
+  lib_cal_id:
   address: Optometry 202
   address2: 800 E. Atwater Avenue
   city: 'Bloomington '
   state: IN
   zip: '47405'
   phone: 812-855-8629
-  email: libsci@indiana.edu
+  email: libsci@iu.edu
   url: https://libraries.indiana.edu/optometry-library
   urlHours: ''
   latitude: '39.162991'
@@ -321,49 +345,61 @@ terms:
     through in-person and digital means.<br></p>
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2020-08-21T16:01:02.000Z'
-- id: 1
+  updated_at: '2024-10-22T16:15:14.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 1
   code: B-WELLS
   label: Bloomington - Herman B Wells Library
+  parent_id:
+  lib_cal_id: 264
   address: 1320 E 10th St.
   address2: ''
   city: Bloomington
   state: IN
   zip: '47405'
   phone: "(812) 855-0100"
-  email: libref@indiana.edu
+  email: libref@iu.edu
   url: https://libraries.indiana.edu/wells
-  urlHours: https://libraries.indiana.edu/wells/hours
+  urlHours: https://libraries.indiana.edu/hours#264
   latitude: '39.17098'
   longitude: "-86.51689"
   parking: https://parking.indiana.edu/
   notes: ''
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-07-28T12:25:45.000Z'
-- id: 24
+  updated_at: '2024-10-22T16:13:26.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 24
   code: BH-APTLIB
   label: Bloomington Res Halls - Campus View Apartments Lib & Res Ctr
+  parent_id:
+  lib_cal_id:
   address: 800 N Union St
   address2: ''
   city: Bloomington
   state: IN
   zip: '47408'
   phone: 812-855-3050
-  email: rpslib@indiana.edu
-  url: http://www.rps.indiana.edu/experience/Libraries/
+  email: rpslib@iu.edu
+  url: https://housing.indiana.edu/services/Libraries/index.html
   urlHours: ''
   latitude: '39.173838'
   longitude: "-86.508926"
   parking: https://parking.indiana.edu/
-  notes: "<p>RPS Libraries (except our&nbsp;Campus View location) are closed during
-    summer sessions. <br></p>"
+  notes: <p>Open 3–9 p.m. daily</p><p>Items checked out at Campus View Library must
+    be returned to Campus View Library.</p><p>Campus View Library is a member of RPS
+    Libraries. Check out their website for more information on loan periods and late
+    fees.</p><p>For accessibility concerns contact <a href="mailto:rpslib@iu.edu"
+    class="external">rpslib@iu.edu</a>&nbsp;or 812-856-4001</p>
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-10-04T14:36:21.000Z'
-- id: 25
+  updated_at: '2025-03-07T20:10:17.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 25
   code: BH-BRISCOE
   label: Bloomington Res Halls - Briscoe Movies Music & More
+  parent_id:
+  lib_cal_id:
   address: 1225 N Fee Ln
   address2: ''
   city: Bloomington
@@ -381,69 +417,93 @@ terms:
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
   updated_at: '2019-10-04T14:36:09.000Z'
-- id: 26
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 26
   code: BH-COLLINS
   label: Bloomington Res Halls - Collins Comm Lib & Res Ctr
+  parent_id:
+  lib_cal_id:
   address: 541 N Woodlawn Ave
   address2: ''
   city: Bloomington
   state: IN
   zip: '47406'
   phone: 812-855-5626
-  email: rpslib@indiana.edu
-  url: http://www.rps.indiana.edu/experience/Libraries/
+  email: rpslib@iu.edu
+  url: https://housing.indiana.edu/services/Libraries/index.html
   urlHours: ''
   latitude: '39.171201'
   longitude: "-86.524360"
   parking: https://parking.indiana.edu/
-  notes: "<p>RPS Libraries (except our&nbsp;Campus View location) are closed during
-    summer sessions. <br></p>"
+  notes: <p>Open from 5–11:30 p.m. starting on the first Friday of the school year
+    and closed during breaks, Martin Luther King, Jr. Day, and finals week</p><p>Items
+    checked out at Collins Library must be returned to Collins Library.</p><p>Collins
+    Library is a member of RPS Libraries. Check out their website for more information
+    on loan periods and late fees.</p><p>For accessibility concerns contact <a href="mailto:rpslib@iu.edu"
+    class="external">rpslib@iu.edu</a>&nbsp;or 812-856-4001</p><p><br></p>
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-10-04T14:36:32.000Z'
-- id: 28
+  updated_at: '2025-03-07T20:12:42.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 28
   code: BH-EIGENMN
   label: Bloomington Res Halls - Eigenmann Comm Lib & Res Ctr
+  parent_id:
+  lib_cal_id:
   address: 1900 E 10th St
   address2: ''
   city: Bloomington
   state: IN
   zip: '47405'
   phone: 812-855-1391
-  email: rpslib@indiana.edu
-  url: http://www.rps.indiana.edu/experience/Libraries/
+  email: rpslib@iu.edu
+  url: https://housing.indiana.edu/services/Libraries/index.html
   urlHours: ''
   latitude: '39.171048'
   longitude: "-86.508764"
   parking: https://parking.indiana.edu/
-  notes: "<p>RPS Libraries (except our&nbsp;Campus View location) are closed during
-    summer sessions. <br></p>"
+  notes: "<p>Open from 5–11:30 p.m. starting on the first Friday of the school \r\nyear
+    and closed during breaks, Martin Luther King, Jr. Day, and finals \r\nweek</p><p>Items
+    checked out at Eigenmann Library must be returned to Eigenmann Library.</p><p>Eigenmann
+    Library is a member of RPS Libraries. Check out their website for more information
+    on loan periods and late fees.</p><p>For accessibility concerns contact <a href=\"mailto:rpslib@iu.edu\"
+    class=\"external\">rpslib@iu.edu</a>&nbsp;or 812-856-4001</p><p></p>"
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-10-04T14:36:44.000Z'
-- id: 29
+  updated_at: '2025-03-07T21:09:47.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 29
   code: BH-FOREST
   label: Bloomington Res Halls - Forest Movies Music & More
+  parent_id:
+  lib_cal_id:
   address: 1725 E 3rd St
   address2: ''
   city: Bloomington
   state: Indiana
   zip: '47406'
   phone: 812-855-9863
-  email: rpslib@indiana.edu
-  url: https://www.rps.indiana.edu/experience/Libraries/
+  email: rpslib@iu.edu
+  url: https://housing.indiana.edu/services/Libraries/index.html
   urlHours: ''
   latitude: '39.165067'
   longitude: "-86.512461"
   parking: https://parking.indiana.edu/
-  notes: "<p>RPS Libraries (except our&nbsp;Campus View location) are closed during
-    summer sessions.&nbsp;</p>"
+  notes: "<p>Open from 5–11:30 p.m. starting on the first Friday of the school \r\nyear
+    and closed during breaks, Martin Luther King, Jr. Day, and finals \r\nweek</p><p>Items
+    checked out at Forest Library must be returned to Forest Library.</p><p>Forest
+    Library is a member of RPS Libraries. Check out their website for more information
+    on loan periods and late fees.</p><p>For accessibility concerns contact <a href=\"mailto:rpslib@iu.edu\"
+    class=\"external\">rpslib@iu.edu</a>&nbsp;or 812-856-4001</p><p></p>"
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-08-21T20:09:21.000Z'
-- id: 30
+  updated_at: '2025-03-07T21:05:08.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 30
   code: BH-FOSTER
   label: Bloomington Res Halls - Foster Comm Lib & Res Ctr
+  parent_id:
+  lib_cal_id:
   address: 1000 North Fee Lane
   address2: ''
   city: Bloomington
@@ -451,231 +511,272 @@ terms:
   zip: '47406'
   phone: 812-855-2613
   email: rpslib@indiana.edu
-  url: http://www.rps.indiana.edu/experience/Libraries
+  url: https://housing.indiana.edu/services/Libraries/index.html
   urlHours: ''
   latitude: '39.174654'
   longitude: "-86.518890"
   parking: https://parking.indiana.edu/
-  notes: "<p>RPS Libraries (except our&nbsp;Campus View location) are closed during
-    summer sessions. </p><p>Foster Library is closed for the 19-20 academic year.</p>"
+  notes: "<p>Open from 5–11:30 p.m. starting on the first Friday of the school \r\nyear
+    and closed during breaks, Martin Luther King, Jr. Day, and finals \r\nweek</p><p>Items
+    checked out at Foster Library must be returned to Foster Library.</p><p>Foster
+    Library is a member of RPS Libraries. Check out their website for more information
+    on loan periods and late fees.</p><p>For accessibility concerns contact <a href=\"mailto:rpslib@iu.edu\"
+    class=\"external\">rpslib@iu.edu</a>&nbsp;or 812-856-4001</p>"
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-10-04T14:37:04.000Z'
-- id: 31
+  updated_at: '2025-03-07T20:32:53.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 31
   code: BH-MCNUTT
   label: Bloomington Res Halls - McNutt Comm Lib & Res Ctr
+  parent_id:
+  lib_cal_id:
   address: 1101 N Fee Ln
   address2: ''
   city: Bloomington
   state: Indiana
   zip: '47406'
   phone: 812-855-3400
-  email: rpslib@indiana.edu
+  email: rpslib@iu.edu
   url: http://www.rps.indiana.edu/experience/Libraries/
   urlHours: ''
   latitude: '39.176658'
   longitude: "-86.519702"
   parking: https://parking.indiana.edu/
-  notes: "<p>RPS Libraries (except our&nbsp;Campus View location) are closed during
-    summer sessions.</p><p>McNutt Library is closed for the 19-20 academic year.</p><p>
-    </p>"
+  notes: "<p>Open from 5–11:30 p.m. starting on the first Friday of the school \r\nyear
+    and closed during breaks, Martin Luther King, Jr. Day, and finals \r\nweek</p><p>Items
+    checked out at McNutt Library must be returned to McNutt Library.</p><p>McNutt
+    Library is a member of RPS Libraries. Check out their website for more information
+    on loan periods and late fees.</p><p>For accessibility concerns contact <a href=\"mailto:rpslib@iu.edu\"
+    class=\"external\">rpslib@iu.edu</a>&nbsp;or 812-856-4001</p>"
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-10-04T14:37:16.000Z'
-- id: 32
+  updated_at: '2025-03-07T21:04:25.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 32
   code: BH-READ
   label: Bloomington Res Halls - Read Movies Music & More
+  parent_id:
+  lib_cal_id:
   address: 125 S Jordan Ave
   address2: ''
   city: Bloomington
   state: IN
   zip: '47406'
   phone: 812-855-1391
-  email: rpslib@indiana.edu
-  url: http://www.rps.indiana.edu/experience/Libraries/
+  email: rpslib@iu.edu
+  url: https://housing.indiana.edu/services/Libraries/index.html
   urlHours: ''
   latitude: '39.166113'
   longitude: "-86.514883"
   parking: https://parking.indiana.edu/
-  notes: "<p>RPS Libraries (except our&nbsp;Campus View location) are closed during
-    summer sessions. </p>"
+  notes: "<p>Open from 5–11:30 p.m. starting on the first Friday of the school \r\nyear
+    and closed during breaks, Martin Luther King, Jr. Day, and finals \r\nweek</p><p>Items
+    checked out at Read Library must be returned to Read Library.</p><p>Read Library
+    is a member of RPS Libraries. Check out their website for more information on
+    loan periods and late fees.</p><p>For accessibility concerns contact <a href=\"mailto:rpslib@iu.edu\"
+    class=\"external\">rpslib@iu.edu</a>&nbsp;or 812-856-4001</p><p></p>"
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-10-04T14:37:26.000Z'
-- id: 27
+  updated_at: '2025-03-07T21:04:09.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 27
   code: BH-ROSE
   label: Bloomington Res Halls - Spruce Movies Music & More
+  parent_id:
+  lib_cal_id:
   address: 1801 E Jones Ave
   address2: ''
   city: Bloomington
   state: IN
   zip: '47406'
   phone: 812-855-3362
-  email: rpslib@indiana.edu
-  url: http://www.rps.indiana.edu/experience/Libraries/
+  email: rpslib@iu.edu
+  url: https://housing.indiana.edu/services/Libraries/index.html
   urlHours: ''
   latitude: '39.166518'
   longitude: "-86.511977"
   parking: https://parking.indiana.edu/
-  notes: "<p>RPS Libraries (except our&nbsp;Campus View location) are closed during
-    summer sessions. </p>"
+  notes: "<p>Open from 5–11:30 p.m. starting on the first Friday of the school \r\nyear
+    and closed during breaks, Martin Luther King, Jr. Day, and finals \r\nweek</p><p>Items
+    checked out at Spruce Library must be returned to Spruce Library.</p><p>Spruce
+    Library is a member of RPS Libraries. Check out their website for more information
+    on loan periods and late fees.</p><p>For accessibility concerns contact <a href=\"mailto:rpslib@iu.edu\"
+    class=\"external\">rpslib@iu.edu</a>&nbsp;or 812-856-4001</p><p></p>"
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-10-04T14:37:38.000Z'
-- id: 33
+  updated_at: '2025-03-07T21:03:52.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 33
   code: BH-TETER
   label: Bloomington Res Halls - Teter Comm Lib & Res Ctr
+  parent_id:
+  lib_cal_id:
   address: 501 N Sunrise Dr
   address2: ''
   city: Bloomington
   state: IN
   zip: '47406'
   phone: 812-855-4200
-  email: rpslib@indiana.edu
-  url: http://www.rps.indiana.edu/experience/Libraries/
+  email: rpslib@iu.edu
+  url: https://housing.indiana.edu/services/Libraries/index.html
   urlHours: ''
   latitude: '39.170477'
   longitude: "-86.512926"
   parking: https://parking.indiana.edu/
-  notes: "<p>RPS Libraries (except our&nbsp;Campus View location) are closed during
-    summer sessions.</p><p>Teter Library will open later in the Fall Semester.</p><p>
-    </p>"
+  notes: "<p>Open from 5–11:30 p.m. starting on the first Friday of the school \r\nyear
+    and closed during breaks, Martin Luther King, Jr. Day, and finals \r\nweek</p><p>Items
+    checked out at Teter Library must be returned to Teter Library.</p><p>Teter Library
+    is a member of RPS Libraries. Check out their website for more information on
+    loan periods and late fees.</p><p>For accessibility concerns contact <a href=\"mailto:rpslib@iu.edu\"
+    class=\"external\">rpslib@iu.edu</a>&nbsp;or 812-856-4001</p>"
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-10-04T14:37:53.000Z'
-- id: 15
+  updated_at: '2025-03-07T21:03:32.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 15
   code: BH-UNIONST
   label: Bloomington Res Halls - Union Street Movies Music & More
+  parent_id:
+  lib_cal_id:
   address: 445 N Union St
   address2: ''
   city: Bloomington
   state: IN
   zip: '47406'
   phone: '8128552345'
-  email: rpslib@indiana.edu
-  url: http://www.rps.indiana.edu/experience/Libraries/
+  email: rpslib@iu.edu
+  url: https://housing.indiana.edu/services/Libraries/index.html
   urlHours: ''
   latitude: '39.170541'
   longitude: "-86.509597"
   parking: https://parking.indiana.edu/
-  notes: '<p><span style="color: rgb(25, 25, 25); font-family: BentonSansRegular,
-    Arial, serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal;
-    font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans:
-    2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal;
-    widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color:
-    rgb(248, 248, 248); text-decoration-style: initial; text-decoration-color: initial;
-    display: inline !important; float: none;">RPS Libraries (except our&nbsp;Campus
-    View location) are closed during summer sessions.</span></p>'
+  notes: "<p>Open from 5–11:30 p.m. starting on the first Friday of the school \r\nyear
+    and closed during breaks, Martin Luther King, Jr. Day, and finals \r\nweek</p><p>Items
+    checked out at Union Street Library must be returned to Union Street Library.</p><p>Union
+    Street Library is a member of RPS Libraries. Check out their website for more
+    information on loan periods and late fees.</p><p>For accessibility concerns contact
+    <a href=\"mailto:rpslib@iu.edu\" class=\"external\">rpslib@iu.edu</a>&nbsp;or
+    812-856-4001</p><p></p>"
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-10-04T14:38:13.000Z'
-- id: 34
+  updated_at: '2025-03-07T21:03:12.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 34
   code: BH-WILLKIE
   label: Bloomington Res Halls - Willkie Comm Lib & Res Ctr
+  parent_id:
+  lib_cal_id:
   address: 150 North Rose Ave
   address2: 1320 E 10th St.
   city: Bloomington
   state: IN
   zip: '47406'
   phone: 812-855-7552
-  email: rpslib@indiana.edu
-  url: http://www.rps.indiana.edu/experience/Libraries/
+  email: rpslib@iu.edu
+  url: https://housing.indiana.edu/services/Libraries/index.html
   urlHours: ''
   latitude: '39.166198'
   longitude: "-86.510435"
   parking: https://parking.indiana.edu/
-  notes: '<p><span style="color: rgb(25, 25, 25); font-family: BentonSansRegular,
-    Arial, serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal;
-    font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans:
-    2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal;
-    widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color:
-    rgb(248, 248, 248); text-decoration-style: initial; text-decoration-color: initial;
-    display: inline !important; float: none;">RPS Libraries (except our&nbsp;Campus
-    View location) are closed during summer sessions.</span></p>'
+  notes: "<p>Open from 5–11:30 p.m. starting on the first Friday of the school \r\nyear
+    and closed during breaks, Martin Luther King, Jr. Day, and finals \r\nweek</p><p>Items
+    checked out at Wilkie Library must be returned to Wilkie Library.</p><p>Wilkie
+    Library is a member of RPS Libraries. Check out their website for more information
+    on loan periods and late fees.</p><p>For accessibility concerns contact <a href=\"mailto:rpslib@iu.edu\"
+    class=\"external\">rpslib@iu.edu</a>&nbsp;or 812-856-4001</p><p></p>"
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-10-04T14:38:49.000Z'
-- id: 22
+  updated_at: '2025-03-07T21:02:35.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 22
   code: BH-WQUAD
   label: Bloomington Res Halls - Wells Quad Movies Music & More
+  parent_id:
+  lib_cal_id:
   address: 1021 E 3rd St
   address2: ''
   city: Bloomington
   state: IN
   zip: '47405'
   phone: 812-855-7022
-  email: rpslib@indiana.edu
-  url: http://www.rps.indiana.edu/experience/Libraries/
+  email: rpslib@iu.edu
+  url: https://housing.indiana.edu/services/Libraries/index.html
   urlHours: ''
   latitude: '39.164816'
   longitude: "-86.519728"
   parking: https://parking.indiana.edu/
-  notes: '<p><span style="color: rgb(25, 25, 25); font-family: BentonSansRegular,
-    Arial, serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal;
-    font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans:
-    2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal;
-    widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color:
-    rgb(248, 248, 248); text-decoration-style: initial; text-decoration-color: initial;
-    display: inline !important; float: none;">RPS Libraries (except our&nbsp;Campus
-    View location) are closed during summer sessions.</span></p>'
+  notes: "<p>Open from 5–11:30 p.m. starting on the first Friday of the school \r\nyear
+    and closed during breaks, Martin Luther King, Jr. Day, and finals \r\nweek</p><p>Items
+    checked out at Wells Quad Library must be returned to Wells Quad Library.</p><p>Wells
+    Quad Library is a member of RPS Libraries. Check out their website for more information
+    on loan periods and late fees.</p><p>For accessibility concerns contact <a href=\"mailto:rpslib@iu.edu\"
+    class=\"external\">rpslib@iu.edu</a>&nbsp;or 812-856-4001</p><p></p>"
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2021-05-25T15:54:38.000Z'
-- id: 35
+  updated_at: '2025-03-07T21:02:55.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 35
   code: BH-WRIGHT
   label: Bloomington Res Halls - Wright Movies Music & More
+  parent_id:
+  lib_cal_id:
   address: 501 N Jordan Ave
   address2: ''
   city: Bloomington
   state: IN
   zip: '47406'
   phone: 812-555-6421
-  email: rpslib@indiana.edu
-  url: ''
+  email: rpslib@iu.edu
+  url: https://housing.indiana.edu/services/Libraries/index.html
   urlHours: ''
   latitude: '39.170439'
   longitude: "-86.514291"
   parking: https://parking.indiana.edu/
-  notes: '<p><span style="color: rgb(25, 25, 25); font-family: BentonSansRegular,
-    Arial, serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal;
-    font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans:
-    2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal;
-    widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color:
-    rgb(248, 248, 248); text-decoration-style: initial; text-decoration-color: initial;
-    display: inline !important; float: none;">RPS Libraries (except our&nbsp;Campus
-    View location) are closed during summer sessions.</span></p>'
+  notes: "<p>Open from 5–11:30 p.m. starting on the first Friday of the school \r\nyear
+    and closed during breaks, Martin Luther King, Jr. Day, and finals \r\nweek</p><p>Items
+    checked out at Wright Library must be returned to Wright Library.</p><p>Wright
+    Library is a member of RPS Libraries. Check out their website for more information
+    on loan periods and late fees.</p><p>For accessibility concerns contact <a href=\"mailto:rpslib@iu.edu\"
+    class=\"external\">rpslib@iu.edu</a>&nbsp;or 812-856-4001</p><p></p>"
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-10-04T14:39:02.000Z'
-- id: 36
+  updated_at: '2025-03-07T21:01:32.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 36
   code: COLUMBUS
   label: Columbus - University Library of Columbus
+  parent_id:
+  lib_cal_id:
   address: 4555 Central Ave
   address2: ''
   city: Columbus
   state: IN
   zip: '47203'
   phone: 812-375-7510
-  email: https://www.iupuc.edu/library/forms/ask-a-librarian.html
-  url: https://www.iupuc.edu/library/index.html
+  email: https://columbus.iu.edu/library/forms/ask-a-librarian.html
+  url: https://columbus.iu.edu/library/index.html
   urlHours: ''
   latitude: '39.251150'
   longitude: "-85.902880"
-  parking: https://www.iupuc.edu/about/parking/index.html
+  parking: https://columbus.iu.edu/admissions/visit/parking.html
   notes: ''
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-04-07T12:14:41.000Z'
-- id: 45
+  updated_at: '2024-07-08T13:03:17.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 45
   code: EAST
   label: East Library - Richmond
+  parent_id:
+  lib_cal_id:
   address: 2325 Chester Blvd
   address2: ''
   city: Richmond
   state: IN
   zip: '47374'
   phone: '765-973-8311 '
-  email: iueref@iue.edu
+  email: iueref@iu.edu
   url: https://www.iue.edu/library/
   urlHours: ''
   latitude: '39.868168'
@@ -684,17 +785,20 @@ terms:
   notes: ''
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-03-27T17:25:50.000Z'
-- id: 39
+  updated_at: '2024-06-21T18:38:24.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 39
   code: I-ART
   label: Indianapolis - Herron Art Library
+  parent_id:
+  lib_cal_id:
   address: 735 West New York Street
   address2: ''
   city: " Indianapolis"
   state: IN
   zip: '46202'
   phone: 317-278-9484
-  email: herron@iupui.edu
+  email: herron@iu.edu
   url: https://ulib.iupui.edu/herron
   urlHours: ''
   latitude: '39.771229'
@@ -703,17 +807,20 @@ terms:
   notes: ''
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-03-27T17:24:58.000Z'
-- id: 38
+  updated_at: '2024-10-22T16:17:33.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 38
   code: I-DENTSTRY
   label: Indianapolis - Dentistry Library
+  parent_id:
+  lib_cal_id:
   address: 1121 W Michigan St, DS 128
   address2: ''
   city: Indianapolis
   state: IN
   zip: '46202'
   phone: 317-274-7204
-  email: dentlib@iupui.edu
+  email: dentlib@iu.edu
   url: https://www.dentistry.iu.edu/library/
   urlHours: ''
   latitude: '39.774080'
@@ -722,17 +829,20 @@ terms:
   notes: ''
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-03-27T17:24:49.000Z'
-- id: 40
+  updated_at: '2024-10-22T16:17:20.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 40
   code: I-LAW
   label: Indianapolis - Ruth Lilly Law Library
+  parent_id:
+  lib_cal_id:
   address: 530 West New York Street
   address2: ''
   city: Indianapolis
   state: IN
   zip: '46202'
   phone: "(317) 274-4028"
-  email: circlawl@iupui.edu
+  email: circlawl@iu.edu
   url: http://mckinneylaw.iu.edu/library/
   urlHours: https://mckinneylaw.iu.edu/library/about/hours.html
   latitude: '39.77237'
@@ -741,11 +851,14 @@ terms:
   notes: ''
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-10-25T20:04:22.000Z'
-- id: 49
+  updated_at: '2024-10-22T16:17:44.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 49
   code: I-MEDICINE
   label: Indianapolis - Ruth Lilly Medical Library
-  address: 975 W. Walnut St., IB 100
+  parent_id:
+  lib_cal_id:
+  address: 975 W. Walnut Street, IB 100
   address2: ''
   city: Indianapolis
   state: IN
@@ -754,42 +867,48 @@ terms:
   email: medlref@iu.edu
   url: https://library.mednet.iu.edu/
   urlHours: ''
-  latitude: '39.776712'
-  longitude: "-86.176677"
+  latitude: '39.77678978000001'
+  longitude: "-86.17685868999999"
   parking: https://www.parking.iupui.edu/
   notes: ''
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-04-04T16:01:43.000Z'
-- id: 42
+  updated_at: '2025-10-23T17:22:16.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 42
   code: I-UNIVLIB
-  label: Indianapolis - IUPUI University Library
-  address: '755 W Michigan St, Indianapolis, IN '
+  label: Indianapolis - University Library
+  parent_id:
+  lib_cal_id:
+  address: 755 W MICHIGAN ST
   address2: ''
   city: Indianapolis
   state: IN
   zip: '46202'
-  phone: 317-274-8278
-  email: http://www.ulib.iupui.edu/form/info_request
-  url: http://www.ulib.iupui.edu/
-  urlHours: http://www.ulib.iupui.edu/about/hours
+  phone: "(317) 274-0469  "
+  email: https://library.indianapolis.iu.edu/contact-us
+  url: https://library.indianapolis.iu.edu/
+  urlHours: https://iu.libcal.com/hours/
   latitude: '39.773223'
   longitude: "-86.172097"
-  parking: https://www.parking.iupui.edu/
+  parking: https://parking.indianapolis.iu.edu/index.html
   notes: ''
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-03-27T17:25:12.000Z'
-- id: 43
+  updated_at: '2025-07-31T18:57:52.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 43
   code: KOKOMO
   label: Kokomo Library
+  parent_id:
+  lib_cal_id:
   address: 2500 S. Washington Street
   address2: ''
   city: Kokomo
   state: IN
   zip: '46902'
   phone: "(765) 455-9513"
-  email: iuklib@iuk.edu
+  email: iuklib@iu.edu
   url: ''
   urlHours: ''
   latitude: '40.458798'
@@ -798,34 +917,35 @@ terms:
   notes: ''
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2021-04-27T14:53:40.000Z'
-- id: 44
+  updated_at: '2024-10-22T16:18:26.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 44
   code: NORTHWEST
   label: Northwest Library (Gary)
+  parent_id:
+  lib_cal_id:
   address: '3400 Broadway '
   address2: ''
   city: Gary
   state: IN
   zip: '46408'
-  phone: 219-980-6580
+  phone: 219-980-6582
   email: https://www.iun.edu/library/ask-a-librarian.htm
   url: https://www.iun.edu/library/
-  urlHours: ''
+  urlHours: https://www.iun.edu/library/hours.htm
   latitude: '41.555339'
   longitude: "-87.338355"
   parking: https://www.iun.edu/parking/
-  notes: "<p>The library is currently undergoing renovations that affect its collections
-    and services. Library books HG-Z from the Stacks location are currently unavailable.</p><p>Around
-    the end of May or beginning of June, all other books with the exception of Reserves,
-    Reference Desk, and current Periodicals will be unavailable. Archives and Government
-    Documents items will only be available by speaking with someone from the library
-    and asking them to retrieve the item.<br></p>"
+  notes: "<p><br></p>"
   no_display:
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-05-09T23:41:53.000Z'
-- id: 46
+  updated_at: '2021-10-14T20:43:59.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 46
   code: SBEND
   label: South Bend - Schurz Library
+  parent_id:
+  lib_cal_id:
   address: 1700 E Mishawaka Ave
   address2: ''
   city: South Bend
@@ -842,16 +962,19 @@ terms:
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
   updated_at: '2019-04-04T17:58:00.000Z'
-- id: 47
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 47
   code: SBENDLRC
   label: South Bend - Educational Resource Commons
+  parent_id:
+  lib_cal_id:
   address: 1002 Esther St.
   address2: ''
   city: South Bend
   state: 'IN '
   zip: '46634'
   phone: 574-520-5548
-  email: milleref@iusb.edu
+  email: milleref@iu.edu
   url: https://library.iusb.edu/werc
   urlHours: ''
   latitude: '41.664100'
@@ -860,17 +983,20 @@ terms:
   notes: ''
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-04-04T14:56:41.000Z'
-- id: 48
+  updated_at: '2024-10-22T16:18:49.000Z'
+- !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+  id: 48
   code: SOUTHEAST
   label: Southeast Library - New Albany
+  parent_id:
+  lib_cal_id:
   address: 4201 Grant Line Rd
   address2: ''
   city: New Albany
   state: IN
   zip: '47150'
   phone: 812-941-2485
-  email: serefdsk@ius.edu
+  email: libhelp@iu.edu
   url: http://www.ius.edu/library
   urlHours: ''
   latitude: '38.344181'
@@ -879,4 +1005,4 @@ terms:
   notes: ''
   no_display: true
   created_at: '2018-12-11T21:47:17.000Z'
-  updated_at: '2019-04-04T13:40:35.000Z'
+  updated_at: '2024-10-22T16:19:07.000Z'

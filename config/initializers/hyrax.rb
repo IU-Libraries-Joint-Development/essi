@@ -330,6 +330,9 @@ Qa::Authorities::Local.register_subauthority('subjects', 'Qa::Authorities::Local
 Qa::Authorities::Local.register_subauthority('languages', 'Qa::Authorities::Local::TableBasedAuthority')
 Qa::Authorities::Local.register_subauthority('genres', 'Qa::Authorities::Local::TableBasedAuthority')
 
+# Rebuild Holding Location data from IUCAT API
+Qa::Authorities::IucatLibraries.new.reload_data! unless Rails.env.test?
+
 # Adding Hyrax's FactoryBot factories into the locations that definitions are initialized from.
 # This alleviates having to copy down common reusable factories.  To customize any factories
 # defined in the gem location, use the 'modify' method instead of 'define':

@@ -31,9 +31,7 @@ RSpec.shared_examples "create work feature spec" do |work_class|
 
       # If you generate more than one work uncomment these lines
       choose "payload_concern", option: work_class
-      VCR.use_cassette('iucat_libraries_up') do
-        click_button "Create work"
-      end
+      click_button "Create work"
 
       expect(page).to have_content "Add New #{work_class.underscore.titleize}"
       click_link "Files" # switch tab

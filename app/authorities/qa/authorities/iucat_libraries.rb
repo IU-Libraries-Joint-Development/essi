@@ -3,15 +3,21 @@ module Qa::Authorities
     include WebServiceBase
 
     def search(id)
-      all.select { |library| library[:code].match(id.to_s) }
+      all_data.select { |library| library[:code].match(id.to_s) }
     end
 
     def find(id)
-      api_data_for(id)[:library] || supplemental_data_for(id) || {}
+      all_data.select { |e| e[:code] == id }.first || {}
     end
 
     def all
-      ((api_data_for('all')[:libraries] || []) + supplemental_data).uniq { |r| r[:code] }.sort { |a,b| a[:label].to_s <=> b[:label].to_s }
+      all_data
+    end
+
+    def reload_data!
+      reload_data_from_api!
+      @holding_location_data = nil
+      @supplemental_data = nil
     end
 
     private
@@ -52,12 +58,41 @@ module Qa::Authorities
         supplemental_data.select { |e| e[:code] == id }.first
       end
 
+      def supplemental_filepath
+        Rails.root.join('config', 'authorities', 'supplemental_holding_locations.yml')
+      end
+
       def supplemental_data
-        data_path = Rails.root.join('config', 'authorities', 'supplemental_holding_locations.yml')
         @supplemental_data ||= begin
-          YAML.load_file(data_path).map { |h| h.with_indifferent_access }
+          YAML.load_file(supplemental_filepath).map { |h| h.with_indifferent_access }
         rescue
           []
+        end
+      end
+
+      def holding_location_filepath
+        Rails.root.join('config', 'authorities', 'holding_locations.yml')
+      end
+
+      def holding_location_data
+        @holding_location_data ||= begin
+          YAML.load_file(holding_location_filepath).map { |h| h.with_indifferent_access }
+        rescue
+          []
+        end
+      end
+
+      def all_data
+        (holding_location_data + supplemental_data).uniq { |r| r[:code] }.sort { |a,b| a[:label].to_s <=> b[:label].to_s }
+      end
+
+      def reload_data_from_api!
+        new_data = api_data_for('all')[:libraries]
+        # If new data is empty then it must be an error so don't overwrite the file removing the existing data
+        return if new_data.blank?
+
+        File.open(holding_location_filepath, 'w') do |file|
+          file.write YAML.dump(new_data)
         end
       end
   end

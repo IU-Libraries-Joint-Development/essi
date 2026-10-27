@@ -47,7 +47,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
   gem 'database_cleaner'
-  gem 'factory_bot_rails'
+  gem 'factory_bot_rails', require: false
   gem 'solr_wrapper', '>= 0.3'
   gem 'fcrepo_wrapper'
   gem 'rspec-rails'

@@ -27,7 +27,7 @@ x-app:
       condition: service_started
     fcrepo:
       condition: service_started
-    minio:
+    s3proxy:
       condition: service_started
     cantaloupe:
       condition: service_started
@@ -81,17 +81,28 @@ services:
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD
 
-  minio:
-    image: bitnamilegacy/minio:latest
+  s3proxy:
+    image: docker.io/andrewgaul/s3proxy:latest
     ports:
-      - '9000:9000'
-      - '9001:9001'
+      - '9000:80'
     environment:
-      MINIO_ROOT_USER: essi-minio
-      MINIO_ROOT_PASSWORD: Essi12345
-      MINIO_DEFAULT_BUCKETS: 'essi-dev,essi-test'
+      S3PROXY_IDENTITY: essi-s3proxy
+      S3PROXY_CREDENTIAL: Essi12345
+    depends_on:
+      s3proxy-seed:
+        condition: service_completed_successfully
     volumes:
-      - minio:/bitnami/minio/data
+      - s3:/data
+
+  s3proxy-seed:
+    image: docker.io/andrewgaul/s3proxy:latest
+    command:
+      - mkdir
+      - -p
+      - /data/essi-dev
+      - /data/essi-test
+    volumes:
+      - s3:/data
 
   cantaloupe:
     image: uclalibrary/cantaloupe:5.0.6-4
@@ -100,15 +111,16 @@ services:
     environment:
       CANTALOUPE_SOURCE_DELEGATE: "true"
       CANTALOUPE_S3SOURCE_LOOKUP_STRATEGY: ScriptLookupStrategy
-      CANTALOUPE_S3SOURCE_ENDPOINT: http://minio:9000
+      CANTALOUPE_S3SOURCE_ENDPOINT: http://s3proxy:80
       CANTALOUPE_S3SOURCE_REGION: us-east-1  # Set with custom endpoint to avoid lookup query
-      CANTALOUPE_S3SOURCE_ACCESS_KEY_ID: essi-minio
+      CANTALOUPE_S3SOURCE_ACCESS_KEY_ID: essi-s3proxy
       CANTALOUPE_S3SOURCE_SECRET_KEY: Essi12345
       CANTALOUPE_HTTPSOURCE_LOOKUP_STRATEGY: ScriptLookupStrategy
       CANTALOUPE_HTTPSOURCE_CHUNKING: "false"
       CANTALOUPE_DELEGATE_SCRIPT_ENABLED: "true"
       CANTALOUPE_DELEGATE_SCRIPT_CACHE_ENABLED: "true"
       CANTALOUPE_DELEGATE_SCRIPT_PATHNAME: /cantaloupe/delegate/delegates.rb
+      CANTALOUPE_META_IDENTIFIER_TRANSFORMER: DelegateMetaIdentifierTransformer
       CANTALOUPE_FEDORA_BASE: http://fcrepo:8080
       CANTALOUPE_FEDORA_PATH: /rest/dev
       CANTALOUPE_PROCESSOR_SELECTION_STRATEGY: ManualSelectionStrategy
@@ -136,6 +148,9 @@ services:
       CANTALOUPE_LOG_APPLICATION_LEVEL: debug
       CANTALOUPE_LOG_ERROR_RESPONSES: "true"
       CANTALOUPE_LOG_ACCESS_CONSOLEAPPENDER_ENABLED: "true"
+      CANTALOUPE_AUTH_EXTERNAL_HOST: "https://localhost:3000"
+      CANTALOUPE_AUTH_INTERNAL_HOST: "https://web:3000"
+      CANTALOUPE_AUTH_SSL_VERIFY_NONE: "true"
     volumes:
       - './cantaloupe:/cantaloupe/delegate'
     depends_on:
@@ -192,4 +207,5 @@ volumes:
   redis:
   solr:
   rails_cache:
-  minio:
+  s3:
+  mongo:

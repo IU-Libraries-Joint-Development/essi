@@ -1,6 +1,8 @@
 require 'java'
 require 'cgi'
 require 'net/http'
+require 'openssl'
+require 'base64'
 
 # Delegate script to use Fedora as an HttpSource.
 
@@ -89,6 +91,7 @@ class CustomDelegate
   #                             {serialize_meta_identifier}.
   #
   def deserialize_meta_identifier(meta_identifier)
+    { 'identifier' => Base64.urlsafe_decode64(meta_identifier) }
   end
 
   ##
@@ -104,6 +107,7 @@ class CustomDelegate
   #                  {deserialize_meta_identifier}.
   #
   def serialize_meta_identifier(components)
+    Base64.urlsafe_encode64(components['identifier'])
   end
 
   ##
@@ -141,7 +145,57 @@ class CustomDelegate
   # @return [Boolean,Hash<String,Object>] See above.
   #
   def pre_authorize(options = {})
-    true
+    logger = Java::edu.illinois.library.cantaloupe.delegate.Logger
+    token_endpoint = URI(auth_internal_host + '/auth/token/')
+    probe_endpoint = URI(auth_internal_host + '/auth/probe/')
+    file_id = CGI.escape(context['identifier'])
+
+    conn = Net::HTTP.new(token_endpoint.host, token_endpoint.port)
+    conn.use_ssl = true
+    conn.verify_mode = OpenSSL::SSL::VERIFY_NONE if ENV.fetch('CANTALOUPE_AUTH_SSL_VERIFY_NONE', 'false') == 'true'
+
+    auth_param = /auth=(\w{24})/.match(URI(context['local_uri']).query)&.[](1)
+    authorization_header = context['request_headers']['Authorization'] ||
+                           context['cookies'][auth_cookie_name] ||
+                           auth_param || ''
+    logger.debug "PreAuth: #{context['identifier']} Auth: #{authorization_header}"
+
+    if authorization_header != ''
+      auth_token = authorization_header.split(' ').last
+    else
+      token_uri = URI("#{token_endpoint}#{file_id}")
+      token_req = Net::HTTP::Head.new(token_uri)
+      token_resp = conn.start { |http|
+        http.request(token_req)
+      }
+      logger.debug "Token Response: #{token_resp.code} #{token_resp.uri}"
+      auth_token = token_resp.fetch('Authorization', '').split(' ').last
+    end
+
+    probe_uri = URI("#{probe_endpoint}#{Base64.urlsafe_encode64(context['identifier'])}")
+    probe_req = Net::HTTP::Head.new(probe_uri)
+    probe_req['Authorization'] = auth_token
+
+    probe_resp = conn.start { |http|
+      http.request(probe_req)
+    }
+    logger.debug "Probe Response: #{probe_resp.code} #{context['identifier']} | #{authorization_header}"
+    status_code = probe_resp.code.to_i
+    return_hash = { 'status_code' => status_code }
+    return_hash['challenge'] = 'Bearer realm="iiif" charset="UTF-8"' if status_code == 401
+    return_hash
+  end
+
+  def auth_external_host
+    ENV.fetch('CANTALOUPE_AUTH_EXTERNAL_HOST') { 'https://localhost:3000' }
+  end
+
+  def auth_internal_host
+    ENV.fetch('CANTALOUPE_AUTH_INTERNAL_HOST') { 'https://web:3000' }
+  end
+
+  def auth_cookie_name
+    ENV.fetch('CANTALOUPE_AUTH_COOKIE_NAME') { 'iiif-auth' }
   end
 
   ##
@@ -175,7 +229,33 @@ class CustomDelegate
   #                Return an empty hash to add nothing.
   #
   def extra_iiif2_information_response_keys(options = {})
-    {}
+    {
+      "service": {
+        "@context": "http://iiif.io/api/auth/1/context.json",
+        "@id": "#{auth_external_host}/users/auth/cas?iiif_auth_login=true",
+        "@type": "AuthCookieService1",
+        "confirmLabel": "Login",
+        "description": "You must login to view this content.",
+        "failureDescription": "<a href=\"https://digitalcollections.iu.edu/about\">More Information</a>",
+        "failureHeader": "Authentication Failed",
+        "header": "Please Log In",
+        "label": "Login Required",
+        "profile": "http://iiif.io/api/auth/1/login",
+        "service": [
+          {
+            "@id": "#{auth_external_host}/auth/token/#{Base64.urlsafe_encode64(context['identifier'])}",
+            "@type": "AuthTokenService1",
+            "profile": "http://iiif.io/api/auth/1/token"
+          },
+          {
+            "@id": "#{auth_external_host}/sign_out",
+            "@type": "AuthLogoutService1",
+            "label": "Log out",
+            "profile": "http://iiif.io/api/auth/1/logout"
+          }
+        ]
+      }
+    }
   end
 
   ##
@@ -188,7 +268,7 @@ class CustomDelegate
   #                Return an empty hash to add nothing.
   #
   def extra_iiif3_information_response_keys(options = {})
-    {}
+    extra_iiif2_information_response_keys(options)
   end
 
   ##

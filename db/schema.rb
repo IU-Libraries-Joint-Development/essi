@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_08_153601) do
+ActiveRecord::Schema.define(version: 2025_10_24_025827) do
 
   create_table "allinson_flex_contexts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name"
@@ -110,6 +110,13 @@ ActiveRecord::Schema.define(version: 2023_06_08_153601) do
     t.integer "locked_by_id"
   end
 
+  create_table "auth_tokens", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "resource", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resource"], name: "index_auth_tokens_on_resource"
+  end
+
   create_table "bookmarks", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "user_type"
@@ -137,7 +144,6 @@ ActiveRecord::Schema.define(version: 2023_06_08_153601) do
     t.integer "import_attempts", default: 0
     t.index ["identifier"], name: "index_bulkrax_entries_on_identifier"
     t.index ["importerexporter_id", "importerexporter_type"], name: "bulkrax_entries_importerexporter_idx"
-    t.index ["importerexporter_id"], name: "index_bulkrax_entries_on_importerexporter_id"
     t.index ["type"], name: "index_bulkrax_entries_on_type"
   end
 
@@ -215,7 +221,7 @@ ActiveRecord::Schema.define(version: 2023_06_08_153601) do
     t.index ["user_id"], name: "index_bulkrax_importers_on_user_id"
   end
 
-  create_table "bulkrax_pending_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+  create_table "bulkrax_pending_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "importer_run_id", null: false
     t.string "parent_id", null: false
     t.string "child_id", null: false

@@ -71,7 +71,7 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'hyrax', '~> 2.9.6'
+gem 'hyrax', github: 'samvera/hyrax', branch: '2.x-stable'
 gem 'browse-everything', '1.1.0' # held to 1.1.0 pending resolution of webpacker issues
 gem 'rsolr'
 gem 'jquery-rails'
@@ -89,7 +89,7 @@ gem 'sidekiq', '~> 6.0'
 gem 'switch_user'
 gem 'iso-639'
 gem 'blacklight_iiif_search'
-gem 'iiif_manifest'
+gem 'iiif_manifest', '~> 1.6'
 gem 'iiif_print', "~> 1.0", git: 'https://github.com/scientist-softserv/iiif_print.git', ref: 'b804f16'
 gem 'i18n-js', '~> 3.9.2' # jasmine specs fail on newer
 gem 'bagit'

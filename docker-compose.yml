@@ -157,7 +157,7 @@ services:
     command: redis-server --maxmemory-policy allkeys-lru --maxmemory 256mb
 
   solr:
-    image: solr:9
+    image: solr:9.10
     ports:
       - "8983:8983"
     volumes:

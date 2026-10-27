@@ -1,0 +1,2 @@
+# Mapping of admin set ids to scoped dropbox paths inside container. E.g.
+# admin_set_id: '/app/staged_files/dropbox/admin_set_title'

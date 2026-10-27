@@ -12,6 +12,7 @@ module Extensions
           solr_response['highlighting'].each do |id, hl_hash|
             hit = { '@type': 'search:Hit', 'annotations': [] }
             document = solr_response.documents.select { |v| v[:id] == id }.first
+            next if document.fetch('generic_type_sim', []).include? 'Work'
             hl_hash = substitute_hash(hl_hash, document)
             if hl_hash.empty?
               @total += 1
@@ -46,10 +47,12 @@ module Extensions
                                                                         @parent_document)
 
           coords_json = annotation.send(:fetch_and_parse_coords) || {}
+          return hash unless coords_json['coords'].present?
+
           query = annotation.query.gsub(annotation.additional_query_terms, '')
           query_terms = query.split(' ').map(&:downcase)
           matches = coords_json['coords'].select { |k, _v| k.downcase =~ /(#{query_terms.join('|')})/ }
-          if matches.size > 1
+          if matches.any?
             coords_array = matches.values.flatten(1)
             { _key: Array.new(coords_array.size, nil) }
           else

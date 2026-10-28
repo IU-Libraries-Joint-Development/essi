@@ -2,7 +2,15 @@
 #
 # Copyright:: Copyright 2016 Indiana University
 
+# This class eventually descends from ApplicationController
 class Users::SessionsController < Devise::SessionsController
+
+  def destroy
+    super do
+      unset_iiif_auth_cookie
+    end
+  end
+
   # Quiet, RuboCop!
 
   # GET /resource/global_sign_out
@@ -22,4 +30,9 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def log_in_as; end
+
+  def sign_in_autoclose
+    set_iiif_auth_cookie
+    render inline: "<html><head><script>window.close();</script></head><body></body></html>".html_safe
+  end
 end

@@ -154,7 +154,7 @@ Hyrax.config do |config|
   # Returns a URL that resolves to an image provided by a IIIF image server
   config.iiif_image_url_builder = lambda do |file_id, _base_url, size|
     if ESSI.config[:cantaloupe].present? && ESSI.config[:cantaloupe][:iiif_server_url]
-      iiif_url = ESSI.config[:cantaloupe][:iiif_server_url] + file_id.gsub('/', '%2F') + '/full/' + size + '/0/default.jpg'
+      iiif_url = ESSI.config[:cantaloupe][:iiif_server_url] + Base64.urlsafe_encode64(file_id) + '/full/' + size + '/0/default.jpg'
       Rails.logger.debug { "event: iiif_image_request: #{iiif_url}" }
       iiif_url
     else
@@ -168,7 +168,7 @@ Hyrax.config do |config|
   # Returns a URL that resolves to an info.json file provided by a IIIF image server
   config.iiif_info_url_builder = lambda do |file_id, base_url|
     if ESSI.config[:cantaloupe].present? && ESSI.config[:cantaloupe][:iiif_server_url]
-      ESSI.config[:cantaloupe][:iiif_server_url] + file_id.gsub('/', '%2F')
+      ESSI.config[:cantaloupe][:iiif_server_url] + Base64.urlsafe_encode64(file_id)
     else
       uri = Riiif::Engine.routes.url_helpers.info_url(file_id, host: base_url)
       uri.sub(%r{/info\.json\Z}, '')

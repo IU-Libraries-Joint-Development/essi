@@ -52,7 +52,7 @@ default: &default
     active_job:
       queue_adapter: async
   cantaloupe:
-    iiif_server_url: http://localhost:3000/iiif/2/
+    iiif_server_url: http://localhost:3000/iiif/3/
 #    iiif_server_url: http://localhost:8182/iiif/2/
   derivatives:
     path: <%= Rails.root.join("tmp/derivatives") %>

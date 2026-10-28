@@ -40,6 +40,7 @@ module Hyrax
     end
 
     def auth_service
+      return {} if content_location.blank?
       {
         "@context": "http://iiif.io/api/auth/1/context.json",
         "@id": Rails.application.routes.url_helpers.new_user_session_url(host: request.base_url, iiif_auth_login: true),

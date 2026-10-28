@@ -104,7 +104,7 @@ Rails.application.configure do
   # (Started/Processing/Parameters/Completed), the ACCESS audit line, and all
   # errors and backtraces are unaffected.
   if ActiveModel::Type::Boolean.new.cast(ENV["RAILS_SILENCE_RENDER_LOGGING"].to_s.downcase)
-    config.action_view.logger = nil
+    config.action_view.logger = ActiveSupport::Logger.new(nil)
   end
 
   # Do not dump schema after migrations.

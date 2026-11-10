@@ -32,7 +32,6 @@ class Users::SessionsController < Devise::SessionsController
   def log_in_as; end
 
   def sign_in_autoclose
-    set_iiif_auth_cookie
     render inline: "<html><head><script>window.close();</script></head><body></body></html>".html_safe
   end
 end

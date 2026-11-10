@@ -28,7 +28,9 @@
         var urlAdapter = new UV.IIIFURLAdapter(true);
 
         const data = urlAdapter.getInitialData({
+            config: window.frameElement.getAttribute("data-config"),
             manifest: window.frameElement.getAttribute("data-manifest"),
+            highlight: window.frameElement.getAttribute("data-highlight"),
             embedded: true,
         });
 
@@ -39,11 +41,11 @@
         if (configUrl) {
             uv.on("configure", function({ config, cb }) {
                 cb(
-                    // new Promise(function (resolve) {
-                    //   fetch(configUrl).then(function (response) {
-                    //     resolve(response.json());
-                    //   });
-                    // })
+                    new Promise(function (resolve) {
+                      fetch(configUrl).then(function (response) {
+                        resolve(response.json());
+                      });
+                    })
                 );
             })
         }

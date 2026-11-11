@@ -146,39 +146,25 @@ class CustomDelegate
   #
   def pre_authorize(options = {})
     logger = Java::edu.illinois.library.cantaloupe.delegate.Logger
-    token_endpoint = URI(auth_internal_host + '/auth/token/')
-    probe_endpoint = URI(auth_internal_host + '/auth/probe/')
-    file_id = CGI.escape(context['identifier'])
 
-    conn = Net::HTTP.new(token_endpoint.host, token_endpoint.port)
-    conn.use_ssl = true
-    conn.verify_mode = OpenSSL::SSL::VERIFY_NONE if ENV.fetch('CANTALOUPE_AUTH_SSL_VERIFY_NONE', 'false') == 'true'
-
-    auth_param = /auth=(\w{24})/.match(URI(context['local_uri']).query)&.[](1)
     authorization_header = context['request_headers']['Authorization'] ||
-                           context['cookies'][auth_cookie_name] ||
-                           auth_param || ''
+                           context['cookies'][auth_cookie_name] || ''
+
     logger.debug "PreAuth: #{context['identifier']} Auth: #{authorization_header}"
+    auth_token = authorization_header.split(' ').last
 
-    if authorization_header != ''
-      auth_token = authorization_header.split(' ').last
-    else
-      token_uri = URI("#{token_endpoint}#{file_id}")
-      token_req = Net::HTTP::Head.new(token_uri)
-      token_resp = conn.start { |http|
-        http.request(token_req)
-      }
-      logger.debug "Token Response: #{token_resp.code} #{token_resp.uri}"
-      auth_token = token_resp.fetch('Authorization', '').split(' ').last
-    end
-
+    probe_endpoint = URI(auth_internal_host + '/auth/probe/')
     probe_uri = URI("#{probe_endpoint}#{Base64.urlsafe_encode64(context['identifier'])}")
+    conn = Net::HTTP.new(probe_endpoint.host, probe_endpoint.port)
+    conn.use_ssl = true
+    conn.verify_mode = OpenSSL::SSL::VERIFY_NONE if auth_verify_none
     probe_req = Net::HTTP::Head.new(probe_uri)
     probe_req['Authorization'] = auth_token
 
     probe_resp = conn.start { |http|
       http.request(probe_req)
     }
+
     logger.debug "Probe Response: #{probe_resp.code} #{context['identifier']} | #{authorization_header}"
     status_code = probe_resp.code.to_i
     return_hash = { 'status_code' => status_code }
@@ -196,6 +182,10 @@ class CustomDelegate
 
   def auth_cookie_name
     ENV.fetch('CANTALOUPE_AUTH_COOKIE_NAME') { 'iiif-auth' }
+  end
+
+  def auth_verify_none
+    ENV.fetch('CANTALOUPE_AUTH_SSL_VERIFY_NONE', 'false') == 'true'
   end
 
   ##
@@ -347,7 +337,7 @@ class CustomDelegate
     paths = file_id.split(/(.{0,2})/).reject!(&:empty?)[0, 4]
 
     url = CGI::unescape(fedora_base + fedora_path + '/' + paths.join('/') + '/' + file_id)
-    logger.info "Fedora ID: #{file_id} | Delegated URL: #{url}"
+    logger.debug "Fedora ID: #{file_id} | Delegated URL: #{url}"
     return { 'uri' => url, 'username' => fedora_username, 'secret' => fedora_password }
   end
 

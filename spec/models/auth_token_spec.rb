@@ -14,8 +14,8 @@ RSpec.describe AuthToken, type: :model do
       expect(token.persisted?).to eq(true)
     end
 
-    it 'its resource references the user email' do
-      expect(token.resource).to eq(user.email)
+    it 'its user_id references the user email' do
+      expect(token.user_id).to eq(user.email)
     end
 
     it 'has a secure id' do
@@ -42,7 +42,7 @@ RSpec.describe AuthToken, type: :model do
   end
 
   describe '.cleanup_expired_tokens' do
-    let(:token) { described_class.create(resource: '1234') }
+    let(:token) { described_class.create(user_id: user.email) }
     before do
       described_class.delete_all
       token.updated_at = 1.month.ago

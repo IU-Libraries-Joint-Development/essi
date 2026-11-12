@@ -1,13 +1,13 @@
 class AuthToken < ApplicationRecord
   has_secure_token :id
-  validates_presence_of :resource
+  validates_presence_of :user_id
   after_create { AuthToken.cleanup_expired_tokens }
   scope :valid, -> { where('auth_tokens.updated_at > ?', Time.now - ttl) }
   scope :expired, -> { where('auth_tokens.updated_at <= ?', Time.now - ttl) }
 
   # Returns an unexpired AuthToken for the given user email
   def self.fetch_token_for(email)
-    token = valid.find_or_initialize_by(resource: email)
+    token = valid.find_or_initialize_by(user_id: email)
     token.persisted? ? token.touch : token.save
     token
   end
@@ -34,5 +34,9 @@ class AuthToken < ApplicationRecord
 
   def expires_at
     updated_at + AuthToken.ttl
+  end
+
+  def user
+    User.find_by(email: user_id)
   end
 end

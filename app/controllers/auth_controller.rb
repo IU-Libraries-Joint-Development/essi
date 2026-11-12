@@ -5,7 +5,9 @@ class AuthController < ApplicationController
   # params[:messageId]
   # params[:origin]
   def token
-    return head :unauthorized unless can?(:read, @resource)
+    readable = can?(:read, @resource)
+    return head :unauthorized unless readable
+    return head :ok if readable && current_user&.email.blank? # Anonymous public access
     response.set_header('Content-Security-Policy', 'frame-ancestors *')
     auth_token = AuthToken.fetch_token_for(current_user.email)
     render html: auth_token_html_response(auth_token)
@@ -13,7 +15,7 @@ class AuthController < ApplicationController
 
   def probe
     return head :ok if @resource.public?
-    return head :ok if valid_token? || can?(:read, @resource)
+    return head :ok if valid_token? && @auth_token.user.ability.can?(:read, @resource)
     request_http_token_authentication
   end
 
@@ -22,6 +24,7 @@ class AuthController < ApplicationController
   def load_resource
     @identifier = Base64.urlsafe_decode64(params[:id])
     @resource = SolrDocument.new(find_by_content_location(@identifier))
+    @auth_token = load_token
   end
 
   def find_by_content_location(loc)
@@ -36,13 +39,14 @@ class AuthController < ApplicationController
   end
 
   def valid_token?
-    token_string = request.headers['Authorization']&.sub('Bearer ', '')&.strip
-    return false if token_string.blank?
-    auth_token = find_token(token_string)
-    auth_token.present?
+    @auth_token.present?
   end
 
-  def find_token(id)
-    AuthToken.valid.find_by(id: id)
+  def token_string
+    request.headers['Authorization']&.sub('Bearer ', '')&.strip
+  end
+
+  def load_token
+    AuthToken.valid.find_by(id: token_string)
   end
 end

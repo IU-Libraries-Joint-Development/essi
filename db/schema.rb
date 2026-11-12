@@ -111,10 +111,10 @@ ActiveRecord::Schema.define(version: 2025_10_24_025827) do
   end
 
   create_table "auth_tokens", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.string "resource", null: false
+    t.string "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["resource"], name: "index_auth_tokens_on_resource"
+    t.index ["user_id"], name: "index_auth_tokens_on_user_id"
   end
 
   create_table "bookmarks", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|

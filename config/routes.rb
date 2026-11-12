@@ -20,7 +20,10 @@ Rails.application.routes.draw do
   concern :iiif_search, BlacklightIiifSearch::Routes.new
         mount BrowseEverything::Engine => '/browse'
 
-  mount Riiif::Engine => 'iiif/2', as: :riiif if Hyrax.config.iiif_image_server?
+  mount Riiif::Engine => 'iiif/3', as: :riiif if Hyrax.config.iiif_image_server?
+
+  get 'auth/token/:id', to: 'auth#token', as: :auth_token
+  get 'auth/probe/:id', to: 'auth#probe', as: :auth_probe
 
   # block Blacklight bookmark routes
   get '/bookmarks', to: 'application#rescue_404'
@@ -42,10 +45,11 @@ Rails.application.routes.draw do
     get('global_sign_out',
         to: 'users/sessions#global_logout',
         as: :destroy_global_session)
-    get 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
+    get 'sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
     get 'users/auth/cas', to: 'users/omniauth_authorize#passthru', defaults: { provider: :cas }, as: "new_user_session"
     get 'sign_in_as', to: 'users/sessions#become', as: :sign_in_as
     get 'users/sessions/log_in_as', to: 'users/sessions#log_in_as', as: :log_in_as
+    get 'sign_in_autoclose', to:'users/sessions#sign_in_autoclose', as: :sign_in_autoclose
   end
   mount Qa::Engine => '/authorities'
   mount Hyrax::Engine, at: '/'

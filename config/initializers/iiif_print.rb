@@ -15,6 +15,8 @@ IiifPrint.config do |config|
   # @example
   #   config.excluded_model_name_solr_field_key = 'some_solr_field_key'
 
+  config.default_iiif_manifest_version = 3
+
   config.uv_config_path = "/uv/uv_config.json"
 
   config.child_work_attributes_function = lambda do |parent_work:, admin_set_id:|

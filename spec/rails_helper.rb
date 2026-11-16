@@ -8,6 +8,7 @@ require 'spec_helper'
 
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'factory_bot_rails'
 require 'webmock/rspec'
 require 'vcr'
 require 'capybara/rails'

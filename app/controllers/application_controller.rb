@@ -24,8 +24,34 @@ class ApplicationController < ActionController::Base
   end
 
   before_action :set_locale
+  before_action :set_iiif_auth_cookie
 
   rescue_from ActionController::UnknownFormat, with: :rescue_404
+
+  def rescue_404
+    render file: Rails.public_path.join('404.html'), status: :not_found, layout: false
+  end
+
+  protected
+
+  def set_iiif_auth_cookie
+    return unless current_user&.email.present?
+    token = AuthToken.fetch_token_for(current_user.email)
+    cookies[iiif_auth_cookie_name] = { value: token.id,
+                                       expires: token.expires_at,
+                                       secure: true,
+                                       httponly: true }
+  end
+
+  def unset_iiif_auth_cookie
+    cookies.delete iiif_auth_cookie_name
+  end
+
+  def iiif_auth_cookie_name
+    ESSI.config.dig(:iiif_auth, :cookie_name) || 'iiif-auth'
+  end
+
+  private
 
   def global_request_logging
     logger.info "ACCESS: #{request.remote_ip}, #{request.method} #{request.url}, #{request.headers['HTTP_USER_AGENT']}"
@@ -34,10 +60,6 @@ class ApplicationController < ActionController::Base
     ensure
       logger.info "response_status: #{response.status}"
     end
-  end
-
-  def rescue_404
-    render file: Rails.public_path.join('404.html'), status: :not_found, layout: false
   end
 
   def set_locale

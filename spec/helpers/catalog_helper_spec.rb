@@ -23,12 +23,12 @@ describe CatalogHelper do
 
         context 'with an original_file_id' do
           let(:original_file_id) { 'abcd1234/files/zyxw0987' }
-          it { is_expected.to match '/iiif/2/abcd1234%2Ffiles%2Fzyxw0987/full/250,/0/default.jpg' }
+          it { is_expected.to match "/iiif/3/#{Base64.urlsafe_encode64(original_file_id)}/full/250,/0/default.jpg" }
         end
 
         context 'with an s3 content_location' do
           let(:content_location) { 's3://essi-test/ext-store/ab/cd/12/34/abcd1234-original_file.jp2' }
-          it { is_expected.to match '/iiif/2/s3:%2F%2Fessi-test%2Fext-store%2Fab%2Fcd%2F12%2F34%2Fabcd1234-original_file.jp2/full/250,/0/default.jpg' }
+          it { is_expected.to match "/iiif/3/#{Base64.urlsafe_encode64(content_location)}/full/250,/0/default.jpg" }
         end
 
         context 'without an original_file_id' do

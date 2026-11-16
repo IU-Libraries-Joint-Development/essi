@@ -47,3 +47,12 @@ en:
           facing-pages: 'Facing pages'
   rights:
     pdf_boilerplate: Indiana University claims no copyright governing this digital resource. It is provided for free, on a non-commercial, open-access basis, for fair-use academic and research purposes only. Anyone who claimscopyright over any part of these resources and feels that they should not be presented in this manner isinvited to contact Indiana University, who will in turn consider such concerns and make every effort to respond appropriately.
+  iiif_av:
+    auth:
+      confirmLabel: "Login"
+      description: "You must log in to view this content."
+      failureDescription: "<a href=\"https://digitalcollections.iu.edu/about\">More Information</a>"
+      failureHeader: "Authentication Failed"
+      header: "Please Log In"
+      label: "Login Required"
+      logoutLabel: "Log out"

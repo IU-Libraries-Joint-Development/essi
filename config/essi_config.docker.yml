@@ -53,8 +53,9 @@ default: &default
     active_job:
       queue_adapter: sidekiq
   cantaloupe:
-    iiif_server_url: https://localhost:3000/iiif/2/
-#    iiif_server_url: http://localhost:8182/iiif/2/
+    iiif_server_url: https://localhost:3000/iiif/3/
+  iiif_auth:
+    ttl: 60  # Token time-to-live in minutes
   derivatives:
     path: <%= Rails.root.join("tmp/derivatives") %>
   iucat_libraries:
@@ -67,13 +68,13 @@ default: &default
   google_analytics:
     id:
   aws:
-    endpoint: http://minio
+    endpoint: http://s3proxy:80
     bucket: essi-dev
-    access_key_id: essi-minio
+    access_key_id: essi-s3proxy
     secret_access_key: Essi12345
   external_storage:
-    url: http://minio:9000
-    access_key: essi-minio
+    url: http://s3proxy:80
+    access_key: essi-s3proxy
     secret_key: Essi12345
     region: us-east-1
     bucket: essi-dev
@@ -272,8 +273,8 @@ test:
     file_system:
       :home: <%= Rails.root.join("spec/fixtures") %>
   external_storage:
-    url: http://minio:9000
-    access_key: essi-minio
+    url: http://s3proxy:80
+    access_key: essi-s3proxy
     secret_key: Essi12345
     region: us-east-1
     bucket: essi-test

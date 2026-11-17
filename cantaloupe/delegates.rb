@@ -92,6 +92,8 @@ class CustomDelegate
   #
   def deserialize_meta_identifier(meta_identifier)
     { 'identifier' => Base64.urlsafe_decode64(meta_identifier) }
+  rescue ArgumentError
+    { 'identifier' => meta_identifier }
   end
 
   ##
@@ -156,10 +158,10 @@ class CustomDelegate
     probe_endpoint = URI(auth_internal_host + '/auth/probe/')
     probe_uri = URI("#{probe_endpoint}#{Base64.urlsafe_encode64(context['identifier'])}")
     conn = Net::HTTP.new(probe_endpoint.host, probe_endpoint.port)
-    conn.use_ssl = true
     conn.verify_mode = OpenSSL::SSL::VERIFY_NONE if auth_verify_none
     probe_req = Net::HTTP::Head.new(probe_uri)
     probe_req['Authorization'] = auth_token
+    probe_req['User-Agent'] = auth_user_agent
 
     probe_resp = conn.start { |http|
       http.request(probe_req)
@@ -182,6 +184,10 @@ class CustomDelegate
 
   def auth_cookie_name
     ENV.fetch('CANTALOUPE_AUTH_COOKIE_NAME') { 'iiif-auth' }
+  end
+
+  def auth_user_agent
+    ENV.fetch('CANTALOUPE_AUTH_USER_AGENT') { 'Cantaloupe' }
   end
 
   def auth_verify_none

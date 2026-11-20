@@ -123,6 +123,13 @@ duckduck_data = json.loads(duckduck_jsonfile.read_text())
 for x in duckduck_data['prefixes']:
     duckduck_networks.append(IPv4Network(x['ipv4Prefix'], strict=False))
 
+siteimprove_networks = []
+siteimprove_jsonfile = Path(__file__).parent / "siteimprovebot.json"
+if siteimprove_jsonfile.exists():
+    siteimprove_data = json.loads(siteimprove_jsonfile.read_text())
+    for x in siteimprove_data['addresses']:
+        siteimprove_networks.append(IPv4Network(x, strict=False))
+
 
 def is_search(mode: Trit, request: Request) -> Trit:
     """Check to see if this is a search engine.  If mode is 'dontcare' then return
@@ -165,6 +172,10 @@ def is_search(mode: Trit, request: Request) -> Trit:
             # we get the above prefix and it should come from one of the 341 IPs
             # listed at https://duckduckgo.com/duckduckbot.json            
             return test_trit(mode, any([addr in x for x in duckduck_networks]))
+        elif 'siteimprove' in ua:
+            # Per https://help.siteimprove.com/support/solutions/articles/80000448553-what-ip-addresses-and-user-agents-are-used-by-siteimprove-
+            # we get the above prefix and it should come from one of the IPs listed
+            return test_trit(mode, any([addr in x for x in siteimprove_networks]))
         else:
             return Trit.NO
     else:

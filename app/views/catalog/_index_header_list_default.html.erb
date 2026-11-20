@@ -1,4 +1,4 @@
-<%# unmodified from iif_print 1.0.0 b804f16 %> 
+<%# modified from iif_print 1.0.0 b804f16 %> 
 <%# OVERRIDE Hyrax 2.9.6 to show parent_query params if metadata is found in parent record %>
 
 <div class="search-results-title-row">
@@ -6,7 +6,8 @@
   <% if params['q'].present? && document.any_highlighting? %>
     <%= link_to document.title_or_label, [document, { parent_query: params['q'] }] %></h3>
   <% elsif params['q'].present? %>
-    <%= link_to document.title_or_label, [document, { query: params['q'] }] %></h3>
+    <%# strip quotes that break iiif_search in uv %> 
+    <%= link_to document.title_or_label, [document, { query: params['q'].gsub(/(^['"])(.*)\1$/, '\2') }] %></h3>
   <% else %>
     <%= link_to document.title_or_label, document %></h3>
   <% end %>
